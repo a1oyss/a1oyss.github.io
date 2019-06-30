@@ -87,12 +87,12 @@
 <meta property="og:site_name" content="a1oyss&#39;s blog">
 <meta property="og:description" content="Canary原理以及绕过Canary是一种程序的保护机制，防护缓冲区溢出攻击。其原理是在栈上放一个标志Canary，在函数结束时判断次标志是否被改变，以此来判断是否发生缓冲区溢出。 Canary实现原理1234567891011121314  High  Address |                 |          +-----------------+          | args">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://a1oyss.github.io/2019/05/31/canary/canary%5C1561905867614.png">
-<meta property="og:updated_time" content="2019-06-30T15:07:27.484Z">
+<meta property="og:image" content="http://a1oyss.github.io/2019/05/31/canary/1561905867614.png">
+<meta property="og:updated_time" content="2019-06-30T15:57:04.054Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Canary原理以及绕过">
 <meta name="twitter:description" content="Canary原理以及绕过Canary是一种程序的保护机制，防护缓冲区溢出攻击。其原理是在栈上放一个标志Canary，在函数结束时判断次标志是否被改变，以此来判断是否发生缓冲区溢出。 Canary实现原理1234567891011121314  High  Address |                 |          +-----------------+          | args">
-<meta name="twitter:image" content="http://a1oyss.github.io/2019/05/31/canary/canary%5C1561905867614.png">
+<meta name="twitter:image" content="http://a1oyss.github.io/2019/05/31/canary/1561905867614.png">
 
 
 
@@ -431,7 +431,7 @@
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// debug/fortify_fail.c</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">extern</span> <span class="keyword">char</span> **__libc_argv attribute_hidden;</span><br><span class="line"></span><br><span class="line"><span class="keyword">void</span></span><br><span class="line">__attribute__ ((noreturn)) internal_function</span><br><span class="line">__fortify_fail (<span class="keyword">const</span> <span class="keyword">char</span> *msg)</span><br><span class="line">&#123;</span><br><span class="line">  <span class="comment">/* The loop is added only to keep gcc happy.  */</span></span><br><span class="line">  <span class="keyword">while</span> (<span class="number">1</span>)</span><br><span class="line">    __libc_message (<span class="number">2</span>, <span class="string">"*** %s ***: %s terminated\n"</span>,</span><br><span class="line">                    msg, __libc_argv[<span class="number">0</span>] ?: <span class="string">"&lt;unknown&gt;"</span>);</span><br><span class="line">&#125;</span><br><span class="line">libc_hidden_def (__fortify_fail)</span><br></pre></td></tr></table></figure>
 
 <p><code>__fortify_fail</code> 调用<code>__libc_message</code> 打印错误信息和 <code>argv[0]</code> ,当输入的字符串长度足够长时，就可以覆盖到argv[0]，就可以通过报错泄露出信息。</p>
-<h5 id="pwn-32C3CTF2015-readme"><a href="#pwn-32C3CTF2015-readme" class="headerlink" title="pwn 32C3CTF2015 readme"></a>pwn 32C3CTF2015 readme</h5><p><img src="//a1oyss.github.io/2019/05/31/canary/canary%5C1561905867614.png" alt="1561905867614"></p>
+<h5 id="pwn-32C3CTF2015-readme"><a href="#pwn-32C3CTF2015-readme" class="headerlink" title="pwn 32C3CTF2015 readme"></a>pwn 32C3CTF2015 readme</h5><p><img src="//a1oyss.github.io/2019/05/31/canary/1561905867614.png" alt="1561905867614"></p>
 <p>第一次的输入也就是<code>IO_gets()</code>存在缓冲区溢出漏洞，而第二次的输入将覆盖flag</p>
 <p>虽然flag被覆盖掉了，但是程序中还存在一个flag，这个就涉及到了linux系统中elf文件的映射</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">gdb-peda$ b *0x0040080e</span><br><span class="line">Breakpoint 1 at 0x40080e</span><br><span class="line">gdb-peda$ r</span><br><span class="line">gdb-peda$ vmmap readme.bin</span><br><span class="line">Start              End                Perm    Name</span><br><span class="line">0x00400000         0x00401000         r-xp    /home/firmyy/readme.bin</span><br><span class="line">0x00600000         0x00601000         rw-p    /home/firmyy/readme.bin</span><br></pre></td></tr></table></figure>
