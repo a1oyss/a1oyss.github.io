@@ -87,17 +87,17 @@
 <meta property="og:site_name" content="a1oyss&#39;s blog">
 <meta property="og:description" content="其实是ISCC 2018">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://a1oyss.github.io/.io//1561907160841.png">
-<meta property="og:image" content="http://a1oyss.github.io/.io//ISCC%5C1561905928260.png">
-<meta property="og:image" content="http://a1oyss.github.io/.io//ISCC%5C1561905959175.png">
-<meta property="og:image" content="http://a1oyss.github.io/.io//ISCC%5C1561905982596.png">
-<meta property="og:image" content="http://a1oyss.github.io/.io//ISCC%5C1561906005352.png">
-<meta property="og:image" content="http://a1oyss.github.io/.io//ISCC%5C1561801642780.png">
+<meta property="og:image" content="http://a1oyss.github.io/2019/06/22/ISCC/1561907160841.png">
+<meta property="og:image" content="http://a1oyss.github.io/2019/06/22/ISCC/ISCC%5C1561905928260.png">
+<meta property="og:image" content="http://a1oyss.github.io/2019/06/22/ISCC/ISCC%5C1561905959175.png">
+<meta property="og:image" content="http://a1oyss.github.io/2019/06/22/ISCC/ISCC%5C1561905982596.png">
+<meta property="og:image" content="http://a1oyss.github.io/2019/06/22/ISCC/ISCC%5C1561906005352.png">
+<meta property="og:image" content="http://a1oyss.github.io/2019/06/22/ISCC/ISCC%5C1561801642780.png">
 <meta property="og:updated_time" content="2019-06-30T15:15:53.036Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ISCC 2019 Writeup">
 <meta name="twitter:description" content="其实是ISCC 2018">
-<meta name="twitter:image" content="http://a1oyss.github.io/.io//1561907160841.png">
+<meta name="twitter:image" content="http://a1oyss.github.io/2019/06/22/ISCC/1561907160841.png">
 
 
 
@@ -388,7 +388,7 @@
 
 <h1 id="REVERSE"><a href="#REVERSE" class="headerlink" title="REVERSE"></a>REVERSE</h1><p>去网上搜flag时发现是2018原题</p>
 <p>首先IDA打开发现UPX壳，使用<code>UPX -d</code>脱壳，然后放进IDA里面看源码</p>
-<p><img src="/.io//1561907160841.png" alt="1561907160841"></p>
+<p><img src="//a1oyss.github.io/2019/06/22/ISCC/1561907160841.png" alt="1561907160841"></p>
 <p>有点不忍直视，放弃，直接放进OD里面跑。</p>
 <p>调试了几次，摸清了大致流程：</p>
 <ol>
@@ -396,7 +396,7 @@
 <li>根据接收到的字符串打印出来东西</li>
 </ol>
 <p>然后打印出来的东西本身是在程序里存着，像这样：</p>
-<p><img src="/.io//ISCC%5C1561905928260.png" alt></p>
+<p><img src="//a1oyss.github.io/2019/06/22/ISCC/ISCC%5C1561905928260.png" alt></p>
 <p>把这些数据拿出来转成字符串就是这种：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">666f72 495343 5f6172 696375 746869 6e6773 617379 696666 437b41 6c747d 5f6265 6c6c5f 655f64 68657965</span><br><span class="line">for ISC _ar icu thi ngs asy iff C&#123;A lt&#125; _be ll_ e_d heye</span><br></pre></td></tr></table></figure>
 
@@ -408,9 +408,9 @@
 <p>抄下网上的wp</p>
 <blockquote>
 <p>二维码要求在两个大黑框之间必须有连续的黑白点，这样才行<br>逐帧分析gif，发现只有第62帧存在一个校正图形</p>
-<p><img src="/.io//ISCC%5C1561905959175.png" alt></p>
+<p><img src="//a1oyss.github.io/2019/06/22/ISCC/ISCC%5C1561905959175.png" alt></p>
 <p>，保存补上位置探测图形和定位图形</p>
-<p><img src="/.io//ISCC%5C1561905982596.png" alt></p>
+<p><img src="//a1oyss.github.io/2019/06/22/ISCC/ISCC%5C1561905982596.png" alt></p>
 <p>，扫描得到ISRDQzgxMDI=，base64解码得到!$CC8102</p>
 <p><del>嗦不粗话，连flag都没换</del></p>
 </blockquote>
@@ -467,7 +467,7 @@
 <p>接着在<code>decryptAndParse</code>中，对补丁表每字节+10，进行解密，解密后的补丁表：</p>
 <p><code>1Lcom/example/originapplication/ProtectedClass;getEncrypttext(Ljava/lang/String;)Ljava/lang/String;1416140</code></p>
 <p>后面这串数字就是新函数的位置。</p>
-<p><img src="/.io//ISCC%5C1561906005352.png" alt></p>
+<p><img src="//a1oyss.github.io/2019/06/22/ISCC/ISCC%5C1561906005352.png" alt></p>
 <p>这部分就是函数的字节码，但是IDA没有显示出来汇编，需要手动转换  </p>
 <p><del>不会</del></p>
 <p>剩下的参考<a href="https://mypre.cn/2018/10/27/bfs-iscc-mobile" target="_blank" rel="noopener">https://mypre.cn/2018/10/27/bfs-iscc-mobile</a></p>
@@ -480,7 +480,7 @@
 <h3 id="phase-1"><a href="#phase-1" class="headerlink" title="phase_1"></a>phase_1</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">phase_1</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">char</span> *v0; <span class="comment">// eax</span></span><br><span class="line">  <span class="keyword">int</span> result; <span class="comment">// eax</span></span><br><span class="line"></span><br><span class="line">  <span class="built_in">puts</span>(<span class="string">"Give me a number!"</span>);</span><br><span class="line">  v0 = get_line();</span><br><span class="line">  result = <span class="number">3</span> * (<span class="number">2</span> * atoi(v0) / <span class="number">37</span> - <span class="number">18</span>) - <span class="number">1</span>;</span><br><span class="line">  <span class="keyword">if</span> ( result != <span class="number">1337</span> )</span><br><span class="line">    explode_bomb();</span><br><span class="line">  phase1_solved = <span class="number">1</span>;</span><br><span class="line">  <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>关卡1接收一个数字，经过一系列计算，使得最终结果要等于1337，使用<code>z3-solver</code>很容易得出解。</p>
-<p><img src="/.io//ISCC%5C1561801642780.png" alt="1561801642780"></p>
+<p><img src="//a1oyss.github.io/2019/06/22/ISCC/ISCC%5C1561801642780.png" alt="1561801642780"></p>
 <h3 id="phase-2"><a href="#phase-2" class="headerlink" title="phase_2"></a>phase_2</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">phase_2</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="built_in">puts</span>(<span class="string">"Give me an array of numbers!"</span>);</span><br><span class="line">  s = get_line();</span><br><span class="line">  <span class="built_in">sscanf</span>(s, <span class="string">"[%d, %d, %d, %d, %d, %d]"</span>, v4, _2C, _30, _34, _38, _3C);</span><br><span class="line">  result = v4[<span class="number">0</span>];</span><br><span class="line">  <span class="keyword">if</span> ( v4[<span class="number">0</span>] != <span class="number">1</span> )</span><br><span class="line">    explode_bomb();</span><br><span class="line">  <span class="keyword">for</span> ( i = <span class="number">1</span>; i &lt;= <span class="number">5</span>; ++i )</span><br><span class="line">  &#123;</span><br><span class="line">    v2 = v4[i - <span class="number">1</span>] + v4[i];</span><br><span class="line">    result = func2(i);</span><br><span class="line">    <span class="keyword">if</span> ( v2 != result )</span><br><span class="line">      explode_bomb();</span><br><span class="line">  &#125;</span><br><span class="line">  phase2_solved = <span class="number">1</span>;</span><br><span class="line">  <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>接收一个数组，要求满足<code>a[0]=1，a[i-1]+a[i]=2^i</code>，那么结果就是<code>[1, 1, 3, 5, 11, 21]</code></p>
