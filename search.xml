@@ -23,7 +23,7 @@
   </entry>
   <entry>
     <title><![CDATA[关于vim的复制粘贴]]></title>
-    <url>%2F2019%2F06%2F01%2F%E5%85%B3%E4%BA%8Evim%E7%9A%84%E5%A4%8D%E5%88%B6%2F</url>
+    <url>%2F2019%2F06%2F01%2Fvim%2F</url>
     <content type="text"><![CDATA[学习Canary相关的东西时，因为要从网上复制粘贴各种代码，因为缩进问题，复制完之后的效果惨不忍睹，比如这样： 过于惨不忍睹，markdown的代码框展现不出来效果 解决方法的话就是在粘贴前先输入:set paste，接着进入insert模式的时候后面就会多个(paste)，这样复制进去的就和你原本看到的一样了]]></content>
       <tags>
         <tag>tips</tag>
