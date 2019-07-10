@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="笔记,hexo,">
+  <meta name="keywords" content="hexo,笔记,">
 
 
 
@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="Part 1今天提交文章的时候，上去博客看了一眼，发现图片全都显示不出来， 看了下图片url，全都是 1file://image/123.jpg  这种形式的。 因为我使用的typora来写markdown，自动插入图片默认的是本地路径，去设置里更改为使用相对路径即可 part 2原本以为大功告成，结果发现还是显示错误，去网上查了下，有些插件没有装，_config.yml里的选项也没有开。。。 安">
-<meta name="keywords" content="笔记,hexo">
+<meta name="description" content="Part 1 今天提交文章的时候，上去博客看了一眼，发现图片全都显示不出来， 看了下图片url，全都是 1file://image/123.jpg 这种形式的。 因为我使用的typora来写markdown，自动插入图片默认的是本地路径，去设置里更改为使用相对路径即可 part 2 原本以为大功告成，结果发现还是显示错误，去网上查了下，有些插件没有装，_config.yml里的选项也">
+<meta name="keywords" content="hexo,笔记">
 <meta property="og:type" content="article">
 <meta property="og:title" content="使用hexo-asset-image图片路径错误">
 <meta property="og:url" content="http://a1oyss.github.io/2019/07/01/hexo-image/index.html">
 <meta property="og:site_name" content="a1oyss&#39;s blog">
-<meta property="og:description" content="Part 1今天提交文章的时候，上去博客看了一眼，发现图片全都显示不出来， 看了下图片url，全都是 1file://image/123.jpg  这种形式的。 因为我使用的typora来写markdown，自动插入图片默认的是本地路径，去设置里更改为使用相对路径即可 part 2原本以为大功告成，结果发现还是显示错误，去网上查了下，有些插件没有装，_config.yml里的选项也没有开。。。 安">
+<meta property="og:description" content="Part 1 今天提交文章的时候，上去博客看了一眼，发现图片全都显示不出来， 看了下图片url，全都是 1file://image/123.jpg 这种形式的。 因为我使用的typora来写markdown，自动插入图片默认的是本地路径，去设置里更改为使用相对路径即可 part 2 原本以为大功告成，结果发现还是显示错误，去网上查了下，有些插件没有装，_config.yml里的选项也">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:updated_time" content="2019-07-10T01:50:22.337Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="使用hexo-asset-image图片路径错误">
-<meta name="twitter:description" content="Part 1今天提交文章的时候，上去博客看了一眼，发现图片全都显示不出来， 看了下图片url，全都是 1file://image/123.jpg  这种形式的。 因为我使用的typora来写markdown，自动插入图片默认的是本地路径，去设置里更改为使用相对路径即可 part 2原本以为大功告成，结果发现还是显示错误，去网上查了下，有些插件没有装，_config.yml里的选项也没有开。。。 安">
+<meta name="twitter:description" content="Part 1 今天提交文章的时候，上去博客看了一眼，发现图片全都显示不出来， 看了下图片url，全都是 1file://image/123.jpg 这种形式的。 因为我使用的typora来写markdown，自动插入图片默认的是本地路径，去设置里更改为使用相对路径即可 part 2 原本以为大功告成，结果发现还是显示错误，去网上查了下，有些插件没有装，_config.yml里的选项也">
 
 
 
@@ -376,33 +376,33 @@
       
 
       
-        <h1 id="Part-1"><a href="#Part-1" class="headerlink" title="Part 1"></a>Part 1</h1><p>今天提交文章的时候，上去博客看了一眼，发现图片全都显示不出来，</p>
+        <h1 id="part-1">Part 1</h1>
+<p>今天提交文章的时候，上去博客看了一眼，发现图片全都显示不出来，</p>
 <p>看了下图片url，全都是</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">file://image/123.jpg</span><br></pre></td></tr></table></figure>
-
 <p>这种形式的。</p>
 <p>因为我使用的typora来写markdown，自动插入图片默认的是本地路径，去设置里更改为使用相对路径即可</p>
-<h1 id="part-2"><a href="#part-2" class="headerlink" title="part 2"></a>part 2</h1><p>原本以为大功告成，结果发现还是显示错误，去网上查了下，有些插件没有装，_config.yml里的选项也没有开。。。</p>
+<h1 id="part-2">part 2</h1>
+<p>原本以为大功告成，结果发现还是显示错误，去网上查了下，有些插件没有装，_config.yml里的选项也没有开。。。</p>
 <p>安装<code>hexo-asset-image</code></p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install https://github.com/CodeFalling/hexo-asset-image --save</span><br></pre></td></tr></table></figure>
-
 <p>_config.yml配置</p>
 <p><code>post_asset_folder: false</code>改为<code>post_asset_folder: true</code></p>
-<h1 id="part-3"><a href="#part-3" class="headerlink" title="part 3"></a>part 3</h1><p>再次以为大功告成，结果发现还是错误，之前<code>hexo g -d</code> 的时候没有注意，这次执行的时候突然发现有几条记录有点奇怪</p>
+<h1 id="part-3">part 3</h1>
+<p>再次以为大功告成，结果发现还是错误，之前<code>hexo g -d</code> 的时候没有注意，这次执行的时候突然发现有几条记录有点奇怪</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">update link as:--&gt;/.io//06/01/vim/1561905818946.png</span><br><span class="line">update link as:--&gt;/.io//06/01/vim/1561905818946.png</span><br></pre></td></tr></table></figure>
-
 <p>这个<code>.io</code>不知道是怎么来的，不管怎么修改图片的路径，这个<code>.io</code>总是有</p>
 <p>最终查来查去发现是<code>hexo-asset-image</code>这个插件的问题，hexo 3.0以上与hexo 3.0以下获取url的方式不同，结果就导致获取到了<code>.io</code>这种奇怪的域名。</p>
-<h1 id="解决问题"><a href="#解决问题" class="headerlink" title="解决问题"></a>解决问题</h1><p>参考<a href="https://blog.csdn.net/xjm850552586/article/details/84101345" target="_blank" rel="noopener">hexo引用本地图片无法显示</a></p>
+<h1 id="解决问题">解决问题</h1>
+<p>参考<a href="https://blog.csdn.net/xjm850552586/article/details/84101345" target="_blank" rel="noopener">hexo引用本地图片无法显示</a></p>
 <p>将<code>/node_modules/hexo-asset-image/index.js</code>里面的内容修改为</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">'use strict'</span>;</span><br><span class="line"><span class="keyword">var</span> cheerio = <span class="built_in">require</span>(<span class="string">'cheerio'</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// http://stackoverflow.com/questions/14480345/how-to-get-the-nth-occurrence-in-a-string</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getPosition</span>(<span class="params">str, m, i</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> str.split(m, i).join(m).length;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> version = <span class="built_in">String</span>(hexo.version).split(<span class="string">'.'</span>);</span><br><span class="line">hexo.extend.filter.register(<span class="string">'after_post_render'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">data</span>)</span>&#123;</span><br><span class="line">  <span class="keyword">var</span> config = hexo.config;</span><br><span class="line">  <span class="keyword">if</span>(config.post_asset_folder)&#123;</span><br><span class="line">    <span class="keyword">var</span> link = data.permalink;</span><br><span class="line">	<span class="keyword">if</span>(version.length &gt; <span class="number">0</span> &amp;&amp; <span class="built_in">Number</span>(version[<span class="number">0</span>]) == <span class="number">3</span>)</span><br><span class="line">	   <span class="keyword">var</span> beginPos = getPosition(link, <span class="string">'/'</span>, <span class="number">1</span>) + <span class="number">1</span>;</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">	   <span class="keyword">var</span> beginPos = getPosition(link, <span class="string">'/'</span>, <span class="number">3</span>) + <span class="number">1</span>;</span><br><span class="line">	<span class="comment">// In hexo 3.1.1, the permalink of "about" page is like ".../about/index.html".</span></span><br><span class="line">	<span class="keyword">var</span> endPos = link.lastIndexOf(<span class="string">'/'</span>) + <span class="number">1</span>;</span><br><span class="line">    link = link.substring(beginPos, endPos);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> toprocess = [<span class="string">'excerpt'</span>, <span class="string">'more'</span>, <span class="string">'content'</span>];</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; toprocess.length; i++)&#123;</span><br><span class="line">      <span class="keyword">var</span> key = toprocess[i];</span><br><span class="line"> </span><br><span class="line">      <span class="keyword">var</span> $ = cheerio.load(data[key], &#123;</span><br><span class="line">        ignoreWhitespace: <span class="literal">false</span>,</span><br><span class="line">        xmlMode: <span class="literal">false</span>,</span><br><span class="line">        lowerCaseTags: <span class="literal">false</span>,</span><br><span class="line">        decodeEntities: <span class="literal">false</span></span><br><span class="line">      &#125;);</span><br><span class="line"></span><br><span class="line">      $(<span class="string">'img'</span>).each(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">		<span class="keyword">if</span> ($(<span class="keyword">this</span>).attr(<span class="string">'src'</span>))&#123;</span><br><span class="line">			<span class="comment">// For windows style path, we replace '\' to '/'.</span></span><br><span class="line">			<span class="keyword">var</span> src = $(<span class="keyword">this</span>).attr(<span class="string">'src'</span>).replace(<span class="string">'\\'</span>, <span class="string">'/'</span>);</span><br><span class="line">			<span class="keyword">if</span>(!<span class="regexp">/http[s]*.*|\/\/.*/</span>.test(src) &amp;&amp;</span><br><span class="line">			   !<span class="regexp">/^\s*\//</span>.test(src)) &#123;</span><br><span class="line">			  <span class="comment">// For "about" page, the first part of "src" can't be removed.</span></span><br><span class="line">			  <span class="comment">// In addition, to support multi-level local directory.</span></span><br><span class="line">			  <span class="keyword">var</span> linkArray = link.split(<span class="string">'/'</span>).filter(<span class="function"><span class="keyword">function</span>(<span class="params">elem</span>)</span>&#123;</span><br><span class="line">				<span class="keyword">return</span> elem != <span class="string">''</span>;</span><br><span class="line">			  &#125;);</span><br><span class="line">			  <span class="keyword">var</span> srcArray = src.split(<span class="string">'/'</span>).filter(<span class="function"><span class="keyword">function</span>(<span class="params">elem</span>)</span>&#123;</span><br><span class="line">				<span class="keyword">return</span> elem != <span class="string">''</span> &amp;&amp; elem != <span class="string">'.'</span>;</span><br><span class="line">			  &#125;);</span><br><span class="line">			  <span class="keyword">if</span>(srcArray.length &gt; <span class="number">1</span>)</span><br><span class="line">				srcArray.shift();</span><br><span class="line">			  src = srcArray.join(<span class="string">'/'</span>);</span><br><span class="line">			  $(<span class="keyword">this</span>).attr(<span class="string">'src'</span>, config.root + link + src);</span><br><span class="line">			  <span class="built_in">console</span>.info&amp;&amp;<span class="built_in">console</span>.info(<span class="string">"update link as:--&gt;"</span>+config.root + link + src);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">			<span class="built_in">console</span>.info&amp;&amp;<span class="built_in">console</span>.info(<span class="string">"no src attr, skipped..."</span>);</span><br><span class="line">			<span class="built_in">console</span>.info&amp;&amp;<span class="built_in">console</span>.info($(<span class="keyword">this</span>));</span><br><span class="line">		&#125;</span><br><span class="line">      &#125;);</span><br><span class="line">      data[key] = $.html();</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-
 <p>接着再去<code>hexo g -d</code>一下就能显示成功了。</p>
 <p>hexo 3.0以上用户应该也可以选择直接卸载<code>hexo-asset-image</code>插件，直接使用官方的<code>相对路径引用的标签插件</code></p>
 <blockquote>
 <p><a href="https://hexo.io/zh-cn/docs/asset-folders.html" target="_blank" rel="noopener">资源文件夹</a></p>
 <p>通过常规的 markdown 语法和相对路径来引用图片和其它资源可能会导致它们在存档页或者主页上显示不正确。在Hexo 2时代，社区创建了很多插件来解决这个问题。但是，随着Hexo 3 的发布，许多新的标签插件被加入到了核心代码中。这使得你可以更简单地在文章中引用你的资源。</p>
-<p><code></code><br><code></code><br><code></code></p>
+<p><code></code> <code></code> <code></code></p>
 <p>比如说：当你打开文章资源文件夹功能后，你把一个 <code>example.jpg</code> 图片放在了你的资源文件夹中，如果通过使用相对路径的常规 markdown 语法 <code>![](/example.jpg)</code> ，它将 <em>不会</em> 出现在首页上。（但是它会在文章中按你期待的方式工作）</p>
 <p>正确的引用图片方式是使用下列的标签插件而不是 markdown ：</p>
 <p><code></code></p>
@@ -435,9 +435,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/笔记/" rel="tag"># 笔记</a>
-          
             <a href="/tags/hexo/" rel="tag"># hexo</a>
+          
+            <a href="/tags/笔记/" rel="tag"># 笔记</a>
           
         </div>
       
@@ -546,7 +546,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-count">11</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -620,7 +620,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Part-1"><span class="nav-number">1.</span> <span class="nav-text">Part 1</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#part-2"><span class="nav-number">2.</span> <span class="nav-text">part 2</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#part-3"><span class="nav-number">3.</span> <span class="nav-text">part 3</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#解决问题"><span class="nav-number">4.</span> <span class="nav-text">解决问题</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#part-1"><span class="nav-number">1.</span> <span class="nav-text">Part 1</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#part-2"><span class="nav-number">2.</span> <span class="nav-text">part 2</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#part-3"><span class="nav-number">3.</span> <span class="nav-text">part 3</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#解决问题"><span class="nav-number">4.</span> <span class="nav-text">解决问题</span></a></li></ol></div>
             
 
           </div>
@@ -1171,6 +1171,28 @@
   
 
   
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
 
   
 
