@@ -344,7 +344,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  442
+                  509
                 </span>
               
 
@@ -493,7 +493,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  282
+                  1.7k
                 </span>
               
 
@@ -646,7 +646,7 @@ BROP 即 Blind ROP，需要我们在无法获得二进制文件的情况下，�
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  0
+                  310
                 </span>
               
 
@@ -673,9 +673,28 @@ BROP 即 Blind ROP，需要我们在无法获得二进制文件的情况下，�
       
         
           
-          
+          frame faking
+原理
+通过覆盖栈上的数据来控制EBP的值，进而控制ESP的值。
+构造payload：
 
-          
+
+
+buffer padding
+
+
+
+
+fake EBP
+
+
+leave_retn
+
+
+
+其中leave retn就相当于
+123leave		
+          ...
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2019/07/28/frame-faking/#more" rel="contents">

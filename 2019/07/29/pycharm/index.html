@@ -94,7 +94,7 @@
 <meta property="og:image" content="http://a1oyss.github.io/2019/07/29/pycharm/1564414108066.png">
 <meta property="og:image" content="http://a1oyss.github.io/2019/07/29/pycharm/1564414405852.png">
 <meta property="og:image" content="http://a1oyss.github.io/2019/07/29/pycharm/1564414758329.png">
-<meta property="og:updated_time" content="2019-07-29T15:45:23.733Z">
+<meta property="og:updated_time" content="2019-07-30T06:19:29.230Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="使用PyCharm打造舒适的pwn环境">
 <meta name="twitter:description" content="前言 弄了一天的vim+xshell，结果还是不尽人意，spacevim要求终端支持真彩色，但是xshell显然⑧行，将enable_guicolors设置为false后才勉强能看。 于是突发奇想，将pycharm通过ssh连接到虚拟机当中的python环境，能不能直接在主机上面写脚本调试，查了下还真有这个功能，不过需要pro版本。 准备工作  PyCharm Pro VMware W">
@@ -359,7 +359,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  442
+                  509
                 </span>
               
 
@@ -436,6 +436,14 @@
 </figure>
 <p>Deloyment server中选择root@xxx.xxx.xxx.xxx:22</p>
 <p>这样每次打开就不需要再选一次了。</p>
+<h1 id="faq">FAQ</h1>
+<h2 id="pycharm中进行调试后console中输出">PyCharm中进行调试后，console中输出□=</h2>
+<p>应该是PyCharm的问题，有两种解决办法：</p>
+<ol type="1">
+<li><p>Run-&gt;Edit Configurations..-&gt;Templates-&gt;Python-&gt;Enviroment variables中添加环境变量</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">PWNLIB_NOTERM=True</span><br></pre></td></tr></table></figure></li>
+<li><p><del>修改<code>/usr/local/lib/python2.7/dist-packages/pwnlib/args.py</code>最后一行，注释掉<code>term.init()</code></del></p></li>
+</ol>
 <h1 id="总结">总结</h1>
 <p>pro版本还是好用，配置好之后，直接在一个窗口中进行所有操作，不需要几个窗口之间来回切了，方便了不少。</p>
 
@@ -644,7 +652,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#准备工作"><span class="nav-number">2.</span> <span class="nav-text">准备工作</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#配置"><span class="nav-number">3.</span> <span class="nav-text">配置</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#主题"><span class="nav-number">3.1.</span> <span class="nav-text">主题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置ssh-interpreter"><span class="nav-number">3.2.</span> <span class="nav-text">配置SSH Interpreter</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置hexo"><span class="nav-number">3.3.</span> <span class="nav-text">配置hexo</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置ssh-terminal"><span class="nav-number">3.4.</span> <span class="nav-text">配置SSH Terminal</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-number">4.</span> <span class="nav-text">总结</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#准备工作"><span class="nav-number">2.</span> <span class="nav-text">准备工作</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#配置"><span class="nav-number">3.</span> <span class="nav-text">配置</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#主题"><span class="nav-number">3.1.</span> <span class="nav-text">主题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置ssh-interpreter"><span class="nav-number">3.2.</span> <span class="nav-text">配置SSH Interpreter</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置hexo"><span class="nav-number">3.3.</span> <span class="nav-text">配置hexo</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置ssh-terminal"><span class="nav-number">3.4.</span> <span class="nav-text">配置SSH Terminal</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#faq"><span class="nav-number">4.</span> <span class="nav-text">FAQ</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#pycharm中进行调试后console中输出"><span class="nav-number">4.1.</span> <span class="nav-text">PyCharm中进行调试后，console中输出□=</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-number">5.</span> <span class="nav-text">总结</span></a></li></ol></div>
             
 
           </div>

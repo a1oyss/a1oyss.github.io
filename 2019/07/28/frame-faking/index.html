@@ -79,15 +79,18 @@
 
 
 
+<meta name="description" content="frame faking 原理 通过覆盖栈上的数据来控制EBP的值，进而控制ESP的值。 构造payload：    buffer padding     fake EBP   leave_retn    其中leave retn就相当于 123leave		;mov esp, ebp # 将ebp的值赋给esp		    ;pop ebp # 弹出ebpr">
 <meta name="keywords" content="pwn">
 <meta property="og:type" content="article">
 <meta property="og:title" content="栈迁移的相关操作">
 <meta property="og:url" content="http://a1oyss.github.io/2019/07/28/frame-faking/index.html">
 <meta property="og:site_name" content="a1oyss&#39;s blog">
+<meta property="og:description" content="frame faking 原理 通过覆盖栈上的数据来控制EBP的值，进而控制ESP的值。 构造payload：    buffer padding     fake EBP   leave_retn    其中leave retn就相当于 123leave		;mov esp, ebp # 将ebp的值赋给esp		    ;pop ebp # 弹出ebpr">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-07-28T10:21:28.092Z">
+<meta property="og:updated_time" content="2019-08-01T03:42:12.545Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="栈迁移的相关操作">
+<meta name="twitter:description" content="frame faking 原理 通过覆盖栈上的数据来控制EBP的值，进而控制ESP的值。 构造payload：    buffer padding     fake EBP   leave_retn    其中leave retn就相当于 123leave		;mov esp, ebp # 将ebp的值赋给esp		    ;pop ebp # 弹出ebpr">
 
 
 
@@ -348,7 +351,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  0
+                  310
                 </span>
               
 
@@ -373,7 +376,47 @@
       
 
       
-        
+        <h1 id="frame-faking">frame faking</h1>
+<h2 id="原理">原理</h2>
+<p>通过覆盖栈上的数据来控制EBP的值，进而控制ESP的值。</p>
+<p>构造payload：</p>
+<table>
+<thead>
+<tr class="header">
+<th>buffer padding</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>fake EBP</td>
+</tr>
+<tr class="even">
+<td>leave_retn</td>
+</tr>
+</tbody>
+</table>
+<p>其中leave retn就相当于</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">leave		;mov esp, ebp # 将ebp的值赋给esp</span><br><span class="line">		    ;pop ebp # 弹出ebp</span><br><span class="line">retn		;pop eip #弹出eip</span><br></pre></td></tr></table></figure>
+<p>函数的返回地址被覆盖为leave retn，也就是说程序执行完自己的leave retn之后，还会再执行一次leave retn。其中fake EBP是新栈帧的地址。</p>
+<p>流程如下：</p>
+<ol type="1">
+<li>在有栈溢出的程序执行 leave 时，其分为两个步骤
+<ul>
+<li>mov esp, ebp ，这会将 esp 也指向当前栈溢出漏洞的 ebp 基地址处。</li>
+<li>pop ebp， 这会将栈中存放的 fake ebp 的值赋给 ebp。即执行完指令之后，ebp 便指向了 ebp2，也就是保存了 ebp2 所在的地址。</li>
+</ul></li>
+<li>执行 ret 指令，会再次执行 leave ret 指令。</li>
+<li>执行 leave 指令，其分为两个步骤
+<ul>
+<li>mov esp, ebp ，这会将 esp 指向 ebp2。</li>
+<li>pop ebp，此时，会将 ebp 的内容设置为 ebp2 的值，同时 esp 会指向 target function。</li>
+</ul></li>
+<li>执行 ret 指令，这时候程序就会执行 target function，当其进行程序的时候会执行
+<ul>
+<li>push ebp，会将 ebp2 值压入栈中，</li>
+<li>mov ebp, esp，将 ebp 指向当前基地址。</li>
+</ul></li>
+</ol>
 
       
     </div>
@@ -483,8 +526,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -565,6 +617,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#frame-faking"><span class="nav-number">1.</span> <span class="nav-text">frame faking</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#原理"><span class="nav-number">1.1.</span> <span class="nav-text">原理</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
