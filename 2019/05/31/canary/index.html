@@ -87,12 +87,12 @@
 <meta property="og:site_name" content="a1oyss&#39;s blog">
 <meta property="og:description" content="Canary原理以及绕过 Canary是一种程序的保护机制，防护缓冲区溢出攻击。其原理是在栈上放一个标志Canary，在函数结束时判断次标志是否被改变，以此来判断是否发生缓冲区溢出。 Canary实现原理 1234567891011121314  High  Address |                 |          +-----------------+          |">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://a1oyss.github.io/2019/05/31/canary/1561905867614.png">
-<meta property="og:updated_time" content="2019-08-01T13:35:28.973Z">
+<meta property="og:image" content="https://i.loli.net/2020/08/30/NfPR1YwvueUgyzx.png">
+<meta property="og:updated_time" content="2020-08-30T03:22:23.806Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Canary原理以及绕过">
 <meta name="twitter:description" content="Canary原理以及绕过 Canary是一种程序的保护机制，防护缓冲区溢出攻击。其原理是在栈上放一个标志Canary，在函数结束时判断次标志是否被改变，以此来判断是否发生缓冲区溢出。 Canary实现原理 1234567891011121314  High  Address |                 |          +-----------------+          |">
-<meta name="twitter:image" content="http://a1oyss.github.io/2019/05/31/canary/1561905867614.png">
+<meta name="twitter:image" content="https://i.loli.net/2020/08/30/NfPR1YwvueUgyzx.png">
 
 
 
@@ -427,7 +427,7 @@
 <p><code>__fortify_fail</code> 调用<code>__libc_message</code> 打印错误信息和 <code>argv[0]</code> ,当输入的字符串长度足够长时，就可以覆盖到argv[0]，就可以通过报错泄露出信息。</p>
 <h5 id="pwn-32c3ctf2015-readme">pwn 32C3CTF2015 readme</h5>
 <figure>
-<img src="//a1oyss.github.io/2019/05/31/canary/1561905867614.png" alt="1561905867614"><figcaption aria-hidden="true">1561905867614</figcaption>
+<img src="https://i.loli.net/2020/08/30/NfPR1YwvueUgyzx.png" alt="1561905867614"><figcaption aria-hidden="true">1561905867614</figcaption>
 </figure>
 <p>第一次的输入也就是<code>IO_gets()</code>存在缓冲区溢出漏洞，而第二次的输入将覆盖flag</p>
 <p>虽然flag被覆盖掉了，但是程序中还存在一个flag，这个就涉及到了linux系统中elf文件的映射</p>
@@ -658,7 +658,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-count">10</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
