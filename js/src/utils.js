@@ -23,8 +23,6 @@ NexT.utils = NexT.$u = {
 
         if (imageTitle) {
 
-          //make sure img title tag will show correctly in fancybox
-          $imageWrapLink.attr('title', imageTitle);
         }
       });
 
