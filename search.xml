@@ -1323,24 +1323,6 @@ c_1^{s_1}c_2^{s_2} \equiv m\ mod\ n
       </tags>
   </entry>
   <entry>
-    <title>关于vim的复制粘贴</title>
-    <url>/2019/06/01/vim/</url>
-    <content><![CDATA[<p>学习Canary相关的东西时，因为要从网上复制粘贴各种代码，因为缩进问题，复制完之后的效果惨不忍睹，比如这样：</p>
-<figure>
-<img src="https://i.loli.net/2020/09/10/fsJqkMKjcIDGrVu.png" alt="vim-2020-09-10-17-23-17" /><figcaption aria-hidden="true">vim-2020-09-10-17-23-17</figcaption>
-</figure>
-<p>过于惨不忍睹，markdown的代码框展现不出来效果</p>
-<p>解决方法的话就是在粘贴前先输入<code>:set paste</code>，接着进入insert模式的时候后面就会多个(paste)，这样复制进去的就和你原本看到的一样了</p>
-<h1 id="eqweqw">eqweqw</h1>
-<h2 id="ewqewqeqw">ewqewqeqw</h2>
-<h3 id="eqweqwe">eqweqwe</h3>
-<p><code>eweqeqweq</code> <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">this</span>._self=self</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-]]></content>
-      <tags>
-        <tag>笔记</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>tool</title>
     <url>/2020/10/04/tool/</url>
     <content><![CDATA[<h1 id="实用工具">实用工具</h1>
@@ -1396,6 +1378,24 @@ c_1^{s_1}c_2^{s_2} \equiv m\ mod\ n
 ]]></content>
       <tags>
         <tag>python</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>关于vim的复制粘贴</title>
+    <url>/2019/06/01/vim/</url>
+    <content><![CDATA[<p>学习Canary相关的东西时，因为要从网上复制粘贴各种代码，因为缩进问题，复制完之后的效果惨不忍睹，比如这样：</p>
+<figure>
+<img src="https://i.loli.net/2020/09/10/fsJqkMKjcIDGrVu.png" alt="vim-2020-09-10-17-23-17" /><figcaption aria-hidden="true">vim-2020-09-10-17-23-17</figcaption>
+</figure>
+<p>过于惨不忍睹，markdown的代码框展现不出来效果</p>
+<p>解决方法的话就是在粘贴前先输入<code>:set paste</code>，接着进入insert模式的时候后面就会多个(paste)，这样复制进去的就和你原本看到的一样了</p>
+<h1 id="eqweqw">eqweqw</h1>
+<h2 id="ewqewqeqw">ewqewqeqw</h2>
+<h3 id="eqweqwe">eqweqwe</h3>
+<p><code>eweqeqweq</code> <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">this</span>._self=self</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+]]></content>
+      <tags>
+        <tag>笔记</tag>
       </tags>
   </entry>
   <entry>
