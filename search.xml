@@ -1323,20 +1323,6 @@ c_1^{s_1}c_2^{s_2} \equiv m\ mod\ n
       </tags>
   </entry>
   <entry>
-    <title>tool</title>
-    <url>/2020/10/04/tool/</url>
-    <content><![CDATA[<h1 id="实用工具">实用工具</h1>
-<h2 id="windows-terminal">Windows Terminal</h2>
-<p>不知道比系统自带的Powershell和cmd高了多少B格</p>
-<figure>
-<img src="https://i.loli.net/2020/10/04/LpGeHZxwJBjAXQm.png" alt="image-20201004183225768" /><figcaption aria-hidden="true">image-20201004183225768</figcaption>
-</figure>
-]]></content>
-      <tags>
-        <tag>工具</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>关于vim的复制粘贴</title>
     <url>/2019/06/01/vim/</url>
     <content><![CDATA[<p>学习Canary相关的东西时，因为要从网上复制粘贴各种代码，因为缩进问题，复制完之后的效果惨不忍睹，比如这样：</p>
@@ -1352,6 +1338,20 @@ c_1^{s_1}c_2^{s_2} \equiv m\ mod\ n
 ]]></content>
       <tags>
         <tag>笔记</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>tool</title>
+    <url>/2020/10/04/tool/</url>
+    <content><![CDATA[<h1 id="实用工具">实用工具</h1>
+<h2 id="windows-terminal">Windows Terminal</h2>
+<p>不知道比系统自带的Powershell和cmd高了多少B格</p>
+<figure>
+<img src="https://i.loli.net/2020/10/04/LpGeHZxwJBjAXQm.png" alt="image-20201004183225768" /><figcaption aria-hidden="true">image-20201004183225768</figcaption>
+</figure>
+]]></content>
+      <tags>
+        <tag>工具</tag>
       </tags>
   </entry>
   <entry>
