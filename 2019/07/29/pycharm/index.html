@@ -53,6 +53,9 @@
     isPost : true,
     lang   : 'zh-CN'
   };
+  CONFIG.fancybox.caption={
+  	fancybox: {"enable":true,"caption":false}
+  }
 </script>
 
   <title>使用PyCharm打造舒适的pwn环境 | a1oyss's blog</title>
@@ -231,42 +234,28 @@
 <p>File-&gt;Settings..-&gt;Plugins，安装Material Theme UI，接着按照自己喜欢的来配就行</p>
 <h2 id="配置ssh-interpreter">配置SSH Interpreter</h2>
 <p>安装好PyCharm Pro之后，创建一个项目，创建好之后找到File-&gt;Settings..-&gt;Project: ctf-&gt;Project Interpreter配置python解释器</p>
-<figure>
-<img src="https://i.loli.net/2020/08/30/ofdcXIjTHvFt7nK.png" alt="1564413576995" /><figcaption aria-hidden="true">1564413576995</figcaption>
-</figure>
+<p><img src="https://i.loli.net/2020/08/30/ofdcXIjTHvFt7nK.png" alt="1564413576995" /></p>
 <p>选择Add..-&gt;SSH Interpreter</p>
-<figure>
-<img src="https://i.loli.net/2020/08/30/NSu85CFskzwqfU6.png" alt="1564413654784" /><figcaption aria-hidden="true">1564413654784</figcaption>
-</figure>
+<p><img src="https://i.loli.net/2020/08/30/NSu85CFskzwqfU6.png" alt="1564413654784" /></p>
 <p>将虚拟机的ip地址和用户名填写到相应的地方，然后NEXT。</p>
 <p>填写密码</p>
-<figure>
-<img src="https://i.loli.net/2020/08/30/ScGJNDETifOmtk8.png" alt="1564413731448" /><figcaption aria-hidden="true">1564413731448</figcaption>
-</figure>
+<p><img src="https://i.loli.net/2020/08/30/ScGJNDETifOmtk8.png" alt="1564413731448" /></p>
 <p>设置解释器路径和文件同步位置，然后FINISH</p>
-<figure>
-<img src="https://i.loli.net/2020/08/30/VjULJRsEcaZ4YSG.png" alt="1564413752526" /><figcaption aria-hidden="true">1564413752526</figcaption>
-</figure>
+<p><img src="https://i.loli.net/2020/08/30/VjULJRsEcaZ4YSG.png" alt="1564413752526" /></p>
 <p>FINISH之后PyCharm会先进行一次同步，同步python库，并且把一些配置文件什么的给传过去，时间略长。</p>
 <p>PyCharm的同步还有版本对比功能</p>
-<figure>
-<img src="https://i.loli.net/2020/08/30/WgpeJOn1UwHv5ys.png" alt="1564414108066" /><figcaption aria-hidden="true">1564414108066</figcaption>
-</figure>
+<p><img src="https://i.loli.net/2020/08/30/WgpeJOn1UwHv5ys.png" alt="1564414108066" /></p>
 <p>不得不说比预想中还要好用。</p>
 <h2 id="配置hexo">配置hexo</h2>
 <p>File-&gt;Settings..-&gt;Tools-&gt;Terminal中可以设置PyCharm的终端</p>
 <p>将Start directory设置为hexo根目录</p>
 <p>shell path可以直接填写终端名称，例如powershell.exe</p>
 <p>Tab name，标签名称，随便修改。</p>
-<figure>
-<img src="https://i.loli.net/2020/08/30/yVahQxYj3LWFB9O.png" alt="1564414405852" /><figcaption aria-hidden="true">1564414405852</figcaption>
-</figure>
+<p><img src="https://i.loli.net/2020/08/30/yVahQxYj3LWFB9O.png" alt="1564414405852" /></p>
 <p>这样就可以随时进行hexo的相关操作了。</p>
 <h2 id="配置ssh-terminal">配置SSH Terminal</h2>
 <p>File-&gt;Settings..-&gt;Tools-&gt;SSH Terminal</p>
-<figure>
-<img src="https://i.loli.net/2020/08/30/Ly4EN3qnPTio2S1.png" alt="1564414758329" /><figcaption aria-hidden="true">1564414758329</figcaption>
-</figure>
+<p><img src="https://i.loli.net/2020/08/30/Ly4EN3qnPTio2S1.png" alt="1564414758329" /></p>
 <p>Deloyment server中选择root@xxx.xxx.xxx.xxx:22</p>
 <p>这样每次打开就不需要再选一次了。</p>
 <h1 id="faq">FAQ</h1>
