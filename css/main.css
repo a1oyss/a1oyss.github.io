@@ -1,16 +1,16 @@
 :root {
   --body-bg-color: #eee;
-  --content-bg-color: $content-bg-color;
-  --card-bg-color: $card-bg-color;
+  --content-bg-color: #fff;
+  --card-bg-color: #f5f5f5;
   --text-color: #555;
-  --blockquote-color: $blockquote-color;
+  --blockquote-color: #666;
   --link-color: #555;
   --link-hover-color: #222;
   --brand-color: #fff;
   --brand-hover-color: #fff;
   --table-row-odd-bg-color: #f9f9f9;
   --table-row-hover-bg-color: #f5f5f5;
-  --menu-item-bg-color: $menu-item-bg-color;
+  --menu-item-bg-color: #f5f5f5;
   --btn-default-bg: #fff;
   --btn-default-color: #555;
   --btn-default-border-color: #555;
@@ -168,7 +168,7 @@ template {
 }
 ::selection {
   background: #262a30;
-  color: #fff;
+  color: #eee;
 }
 html,
 body {
@@ -178,7 +178,7 @@ body {
   background: var(--body-bg-color);
   color: var(--text-color);
   font-family: 'Lato', "PingFang SC", "Microsoft YaHei", sans-serif;
-  font-size: 14px;
+  font-size: 1em;
   line-height: 2;
 }
 @media (max-width: 991px) {
@@ -199,29 +199,29 @@ h6 {
   margin: 20px 0 15px;
 }
 h1 {
-  font-size: 22px;
+  font-size: 1.5em;
 }
 h2 {
-  font-size: 20px;
+  font-size: 1.375em;
 }
 h3 {
-  font-size: 18px;
+  font-size: 1.25em;
 }
 h4 {
-  font-size: 16px;
+  font-size: 1.125em;
 }
 h5 {
-  font-size: 14px;
+  font-size: 1em;
 }
 h6 {
-  font-size: 12px;
+  font-size: 0.875em;
 }
 p {
   margin: 0 0 20px 0;
 }
 a,
 span.exturl {
-  border-bottom: 1px solid #ccc;
+  border-bottom: 1px solid #999;
   color: var(--link-color);
   outline: 0;
   text-decoration: none;
@@ -243,13 +243,13 @@ video {
   max-width: 100%;
 }
 hr {
-  background-image: repeating-linear-gradient(-45deg, $grey-lighter, $grey-lighter 4px, transparent 4px, transparent 8px);
+  background-image: repeating-linear-gradient(-45deg, #ddd, #ddd 4px, transparent 4px, transparent 8px);
   border: 0;
   height: 3px;
   margin: 40px 0;
 }
 blockquote {
-  border-left: 4px solid $grey-lighter;
+  border-left: 4px solid #ddd;
   color: var(--blockquote-color);
   margin: 0;
   padding: 0 15px;
@@ -282,7 +282,7 @@ kbd {
 table {
   border-collapse: collapse;
   border-spacing: 0;
-  font-size: 14px;
+  font-size: 0.875em;
   margin: 0 0 20px 0;
   width: 100%;
 }
@@ -317,7 +317,7 @@ td {
   border-radius: 2px;
   color: var(--btn-default-color);
   display: inline-block;
-  font-size: 12px;
+  font-size: 0.875em;
   line-height: 2;
   padding: 0 20px;
   text-decoration: none;
@@ -391,7 +391,7 @@ pre {
 }
 pre,
 code {
-  font-family: consolas, Menlo, "PingFang SC", "Microsoft YaHei", monospace;
+  font-family: consolas, Menlo, monospace, "PingFang SC", "Microsoft YaHei";
 }
 code {
   background: #eee;
@@ -422,7 +422,7 @@ code {
   background: #eff2f3;
   color: #4d4d4c;
   display: flex;
-  font-size: 14px;
+  font-size: 0.875em;
   justify-content: space-between;
   line-height: 1.2;
   padding: 0.5em;
@@ -464,7 +464,7 @@ pre {
 pre code {
   background: none;
   color: #4d4d4c;
-  font-size: 14px;
+  font-size: 0.875em;
   padding: 0;
   text-shadow: none;
 }
@@ -628,13 +628,13 @@ pre .javascript .function {
 }
 .post-body .tabs ul.nav-tabs li.tab,
 .tabs-comment ul.nav-tabs li.tab {
-  border-bottom: 1px solid $grey-lighter;
+  border-bottom: 1px solid #ddd;
   border-left: 1px solid transparent;
   border-right: 1px solid transparent;
   border-top: 3px solid transparent;
   flex-grow: 1;
   list-style-type: none;
-  border-radius: $tbr $tbr 0 0;
+  border-radius: 0 0 0 0;
 }
 @media (max-width: 413px) {
   .post-body .tabs ul.nav-tabs li.tab,
@@ -648,7 +648,7 @@ pre .javascript .function {
 @media (max-width: 413px) {
   .post-body .tabs ul.nav-tabs li.tab,
   .tabs-comment ul.nav-tabs li.tab {
-    border-radius: $tbr;
+    border-radius: 0;
   }
 }
 .post-body .tabs ul.nav-tabs li.tab a,
@@ -693,7 +693,7 @@ pre .javascript .function {
   border: 1px solid #ddd;
   border-top: 0;
   padding: 20px 20px 0 20px;
-  border-radius: $tbr;
+  border-radius: 0;
 }
 .post-body .tabs .tab-content .tab-pane:not(.active),
 .tabs-comment .tab-content .tab-pane:not(.active) {
@@ -705,16 +705,16 @@ pre .javascript .function {
 }
 .post-body .tabs .tab-content .tab-pane.active:nth-of-type(1),
 .tabs-comment .tab-content .tab-pane.active:nth-of-type(1) {
-  border-radius: 0 $tbr $tbr $tbr;
+  border-radius: 0 0 0 0;
 }
 @media (max-width: 413px) {
   .post-body .tabs .tab-content .tab-pane.active:nth-of-type(1),
   .tabs-comment .tab-content .tab-pane.active:nth-of-type(1) {
-    border-radius: $tbr;
+    border-radius: 0;
   }
 }
 .post-body .note {
-  border-radius: $note-border-radius;
+  border-radius: 3px;
   margin-bottom: 20px;
   padding: 1em;
   position: relative;
@@ -921,16 +921,16 @@ pre .javascript .function {
 }
 .main-inner {
   margin: 0 auto;
-  width: calc(100% - 252px);
+  width: calc(100% - 20px);
 }
 @media (min-width: 1200px) {
   .main-inner {
-    width: 900px;
+    width: 1160px;
   }
 }
 @media (min-width: 1600px) {
   .main-inner {
-    width: $content-desktop-largest;
+    width: 73%;
   }
 }
 @media (max-width: 767px) {
@@ -943,16 +943,16 @@ pre .javascript .function {
 }
 .header-inner {
   margin: 0 auto;
-  width: calc(100% - 252px);
+  width: calc(100% - 20px);
 }
 @media (min-width: 1200px) {
   .header-inner {
-    width: 900px;
+    width: 1160px;
   }
 }
 @media (min-width: 1600px) {
   .header-inner {
-    width: $content-desktop-largest;
+    width: 73%;
   }
 }
 .site-brand-container {
@@ -977,7 +977,7 @@ pre .javascript .function {
   border-bottom: none;
   color: var(--brand-color);
   display: inline-block;
-  line-height: $font-size-title;
+  line-height: 1.375em;
   padding: 0 40px;
   position: relative;
 }
@@ -986,13 +986,13 @@ pre .javascript .function {
 }
 .site-title {
   font-family: 'Lato', "PingFang SC", "Microsoft YaHei", sans-serif;
-  font-size: $font-size-title;
+  font-size: 1.375em;
   font-weight: normal;
   margin: 0;
 }
 .site-subtitle {
   color: #ddd;
-  font-size: $font-size-subtitle;
+  font-size: 0.8125em;
   margin: 10px 0;
 }
 .use-motion .brand {
@@ -1063,7 +1063,7 @@ pre .javascript .function {
 .menu-item span.exturl {
   border-bottom: 0;
   display: block;
-  font-size: 10px;
+  font-size: 0.8125em;
   transition-property: border-color;
   transition-delay: 0s;
   transition-duration: 0.2s;
@@ -1114,7 +1114,7 @@ pre .javascript .function {
   position: absolute;
   right: 0;
   top: 0;
-  z-index: $zindex-0;
+  z-index: 1000;
 }
 @media (max-width: 991px) {
   .github-corner svg {
@@ -1186,7 +1186,7 @@ pre .javascript .function {
 }
 .sidebar-inner {
   color: #999;
-  padding: $sidebar-padding 10px;
+  padding: 18px 10px;
   text-align: center;
 }
 .cc-license {
@@ -1211,14 +1211,14 @@ pre .javascript .function {
   padding: 2px;
 }
 .site-author-name {
-  color: #222;
+  color: var(--text-color);
   font-weight: 600;
   margin: 0;
   text-align: center;
 }
 .site-description {
   color: #999;
-  font-size: 13px;
+  font-size: 0.8125em;
   margin-top: 0;
   text-align: center;
 }
@@ -1229,14 +1229,14 @@ pre .javascript .function {
 .links-of-author span.exturl {
   border-bottom-color: #555;
   display: inline-block;
-  font-size: 10px;
+  font-size: 0.8125em;
   margin-bottom: 10px;
   margin-right: 10px;
   vertical-align: middle;
 }
 .links-of-author a::before,
 .links-of-author span.exturl::before {
-  background: #387785;
+  background: #96f244;
   border-radius: 50%;
   content: ' ';
   display: inline-block;
@@ -1273,11 +1273,11 @@ pre .javascript .function {
   color: #fff;
 }
 .links-of-blogroll {
-  font-size: 10px;
+  font-size: 0.8125em;
   margin-top: 10px;
 }
 .links-of-blogroll-title {
-  font-size: 12px;
+  font-size: 0.875em;
   font-weight: 600;
   margin-top: 0;
 }
@@ -1299,7 +1299,7 @@ pre .javascript .function {
     position: fixed;
     top: 0;
     width: 100%;
-    z-index: 1010;
+    z-index: 1100;
   }
   .sidebar-active + #sidebar-dimmer {
     opacity: 0.7;
@@ -1314,10 +1314,10 @@ pre .javascript .function {
 }
 .sidebar-nav li {
   border-bottom: 1px solid transparent;
-  color: #555;
+  color: var(--text-color);
   cursor: pointer;
   display: inline-block;
-  font-size: 12px;
+  font-size: 0.875em;
 }
 .sidebar-nav li.sidebar-nav-overview {
   margin-left: 10px;
@@ -1349,12 +1349,12 @@ pre .javascript .function {
   padding: 5px;
   position: fixed;
   width: 14px;
-  z-index: 1030;
+  z-index: 1300;
 }
 @media (max-width: 991px) {
   .sidebar-toggle {
-    left: $b2t-position-right-mobile;
-    opacity: $b2t-opacity-hover;
+    left: 20px;
+    opacity: 0.8;
     display: none;
   }
 }
@@ -1362,7 +1362,7 @@ pre .javascript .function {
   background: #fc6423;
 }
 .post-toc {
-  font-size: 12px;
+  font-size: 0.875em;
 }
 .post-toc ol {
   list-style: none;
@@ -1427,17 +1427,17 @@ pre .javascript .function {
 }
 .site-state-item-count {
   display: block;
-  font-size: 16px;
+  font-size: 1em;
   font-weight: 600;
   text-align: center;
 }
 .site-state-item-name {
   color: #999;
-  font-size: 13px;
+  font-size: 0.8125em;
 }
 .footer {
   color: #999;
-  font-size: 12px;
+  font-size: 0.875em;
   padding: 20px 0;
 }
 .footer.footer-fixed {
@@ -1450,21 +1450,21 @@ pre .javascript .function {
   box-sizing: border-box;
   margin: 0 auto;
   text-align: center;
-  width: calc(100% - 252px);
+  width: calc(100% - 20px);
 }
 @media (min-width: 1200px) {
   .footer-inner {
-    width: 900px;
+    width: 1160px;
   }
 }
 @media (min-width: 1600px) {
   .footer-inner {
-    width: $content-desktop-largest;
+    width: 73%;
   }
 }
 .languages {
   display: inline-block;
-  font-size: 16px;
+  font-size: 1.125em;
   position: relative;
 }
 .languages .lang-select-label span {
@@ -1561,7 +1561,7 @@ pre .javascript .function {
   padding: 0 6px;
   position: fixed;
   transition-property: bottom;
-  z-index: 1030;
+  z-index: 1300;
   width: 24px;
 }
 .back-to-top span {
@@ -1575,8 +1575,8 @@ pre .javascript .function {
 }
 @media (max-width: 991px) {
   .back-to-top {
-    left: $b2t-position-right-mobile;
-    opacity: $b2t-opacity-hover;
+    left: 20px;
+    opacity: 0.8;
   }
 }
 .post-body {
@@ -1586,17 +1586,17 @@ pre .javascript .function {
 }
 @media (min-width: 1200px) {
   .post-body {
-    font-size: 16px;
+    font-size: 1.125em;
   }
 }
 .post-body .exturl .fa {
-  font-size: 12px;
+  font-size: 0.875em;
   margin-left: 4px;
 }
 .post-body .image-caption,
 .post-body .figure .caption {
   color: #999;
-  font-size: 12px;
+  font-size: 0.875em;
   font-weight: bold;
   line-height: 1;
   margin: -20px auto 15px;
@@ -1625,17 +1625,17 @@ pre .javascript .function {
   opacity: 0;
 }
 .posts-collapse {
-  margin-left: $posts-collapse-margin;
+  margin-left: 35px;
   position: relative;
 }
 @media (max-width: 767px) {
   .posts-collapse {
-    margin-left: $posts-collapse-margin-mobile;
-    margin-right: $posts-collapse-margin-mobile;
+    margin-left: 0px;
+    margin-right: 0px;
   }
 }
 .posts-collapse .collection-title {
-  font-size: 16px;
+  font-size: 1.125em;
   position: relative;
 }
 .posts-collapse .collection-title::before {
@@ -1652,7 +1652,7 @@ pre .javascript .function {
   width: 10px;
 }
 .posts-collapse .collection-year {
-  font-size: $font-size-largest;
+  font-size: 1.5em;
   font-weight: bold;
   margin: 60px 0;
   position: relative;
@@ -1696,7 +1696,7 @@ pre .javascript .function {
   left: 0;
   margin-left: -4px;
   position: absolute;
-  top: $font-size-smallest;
+  top: 0.75em;
   transition-property: background;
   width: 6px;
   transition-delay: 0s;
@@ -1711,7 +1711,7 @@ pre .javascript .function {
 }
 .posts-collapse .post-meta {
   display: inline;
-  font-size: $font-size-smallest;
+  font-size: 0.75em;
   margin-right: 10px;
 }
 .posts-collapse .post-title {
@@ -1723,7 +1723,7 @@ pre .javascript .function {
   color: var(--link-color);
 }
 .posts-collapse .post-title .fa-external-link-alt {
-  font-size: 12px;
+  font-size: 0.875em;
   margin-left: 5px;
 }
 .posts-collapse::before {
@@ -1837,10 +1837,10 @@ pre .javascript .function {
   margin: 0;
 }
 .posts-expand .post-header {
-  font-size: 16px;
+  font-size: 1.125em;
 }
 .posts-expand .post-title {
-  font-size: $font-size-largest;
+  font-size: 1.5em;
   font-weight: normal;
   margin: initial;
   text-align: center;
@@ -1873,18 +1873,18 @@ pre .javascript .function {
   visibility: visible;
 }
 .posts-expand .post-title-link .fa-external-link-alt {
-  font-size: 12px;
+  font-size: 0.875em;
   margin-left: 5px;
 }
 .posts-expand .post-meta {
   color: #999;
   font-family: 'Lato', "PingFang SC", "Microsoft YaHei", sans-serif;
-  font-size: $font-size-smallest;
+  font-size: 0.75em;
   margin: 3px 0 60px 0;
   text-align: center;
 }
 .posts-expand .post-meta .post-description {
-  font-size: 12px;
+  font-size: 0.875em;
   margin-top: 2px;
 }
 .posts-expand .post-meta time {
@@ -1924,7 +1924,7 @@ pre .javascript .function {
 .post-nav-item a {
   border-bottom: none;
   display: block;
-  font-size: 12px;
+  font-size: 0.875em;
   line-height: 1.6;
   position: relative;
 }
@@ -1932,7 +1932,7 @@ pre .javascript .function {
   top: 2px;
 }
 .post-nav-item .fa {
-  font-size: $font-size-smallest;
+  font-size: 0.75em;
 }
 .post-nav-item:first-child {
   margin-right: 15px;
@@ -1970,7 +1970,7 @@ pre .javascript .function {
 }
 .post-tags a {
   display: inline-block;
-  font-size: 10px;
+  font-size: 0.8125em;
 }
 .post-tags a:not(:last-child) {
   margin-right: 10px;
@@ -1989,7 +1989,7 @@ pre .javascript .function {
 }
 .social-like {
   display: flex;
-  font-size: 12px;
+  font-size: 0.875em;
   justify-content: center;
   text-align: center;
 }
@@ -2182,7 +2182,7 @@ pre .javascript .function {
   }
 }
 ul.breadcrumb {
-  font-size: $font-size-smallest;
+  font-size: 0.75em;
   list-style: none;
   margin: 1em 0;
   padding: 0 2em;
@@ -2219,16 +2219,16 @@ mjx-container + br {
 .header {
   margin: 0 auto;
   position: relative;
-  width: calc(100% - 252px);
+  width: calc(100% - 20px);
 }
 @media (min-width: 1200px) {
   .header {
-    width: 900px;
+    width: 1160px;
   }
 }
 @media (min-width: 1600px) {
   .header {
-    width: $content-desktop-largest;
+    width: 73%;
   }
 }
 @media (max-width: 991px) {
@@ -2275,7 +2275,7 @@ mjx-container + br {
   box-shadow: 0 2px 2px 0 rgba(0,0,0,0.12), 0 3px 1px -2px rgba(0,0,0,0.06), 0 1px 5px 0 rgba(0,0,0,0.12);
   box-sizing: border-box;
   padding: 40px;
-  width: $content-wrap;
+  width: calc(100% - 252px);
 }
 @media (max-width: 991px) {
   .content-wrap {
@@ -2293,7 +2293,7 @@ mjx-container + br {
 }
 @media (max-width: 991px) {
   .back-to-top {
-    right: $b2t-position-right-mobile;
+    right: 20px;
   }
 }
 @media (max-width: 991px) {
