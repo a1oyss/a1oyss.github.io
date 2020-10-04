@@ -193,28 +193,28 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: 'Nunito', "PingFang SC", "Microsoft YaHei", sans-serif;
+  font-family: 'Nunito', 'Nunito', "PingFang SC", "Microsoft YaHei", sans-serif;
   font-weight: bold;
   line-height: 1.5;
   margin: 20px 0 15px;
 }
 h1 {
-  font-size: 1.5em;
+  font-size: 0.875em;
 }
 h2 {
-  font-size: 1.375em;
+  font-size: 0.75em;
 }
 h3 {
-  font-size: 1.25em;
+  font-size: 0.625em;
 }
 h4 {
-  font-size: 1.125em;
+  font-size: 0.5em;
 }
 h5 {
-  font-size: 1em;
+  font-size: 0.375em;
 }
 h6 {
-  font-size: 0.875em;
+  font-size: 0.25em;
 }
 p {
   margin: 0 0 20px 0;
@@ -416,7 +416,7 @@ pre {
 }
 pre,
 code {
-  font-family: consolas, Menlo, monospace, "PingFang SC", "Microsoft YaHei";
+  font-family: 'Nunito', consolas, Menlo, monospace, "PingFang SC", "Microsoft YaHei";
 }
 code {
   background: #eee;
@@ -1002,7 +1002,7 @@ pre .javascript .function {
   border-bottom: none;
   color: var(--brand-color);
   display: inline-block;
-  line-height: 1.375em;
+  line-height: 1em;
   padding: 0 40px;
   position: relative;
 }
@@ -1010,8 +1010,8 @@ pre .javascript .function {
   color: var(--brand-hover-color);
 }
 .site-title {
-  font-family: 'Nunito', "PingFang SC", "Microsoft YaHei", sans-serif;
-  font-size: 1.375em;
+  font-family: 'Nunito', 'Nunito', "PingFang SC", "Microsoft YaHei", sans-serif;
+  font-size: 1em;
   font-weight: normal;
   margin: 0;
 }
@@ -1268,7 +1268,7 @@ pre .javascript .function {
 }
 .links-of-author a::before,
 .links-of-author span.exturl::before {
-  background: #11b9ff;
+  background: #d0e279;
   border-radius: 50%;
   content: ' ';
   display: inline-block;
@@ -1623,7 +1623,7 @@ pre .javascript .function {
   top: 0;
 }
 .post-body {
-  font-family: 'Nunito', "PingFang SC", "Microsoft YaHei", sans-serif;
+  font-family: 'Nunito', 'Nunito', "PingFang SC", "Microsoft YaHei", sans-serif;
   overflow-wrap: break-word;
   word-wrap: break-word;
 }
@@ -1921,7 +1921,7 @@ pre .javascript .function {
 }
 .posts-expand .post-meta {
   color: #999;
-  font-family: 'Nunito', "PingFang SC", "Microsoft YaHei", sans-serif;
+  font-family: 'Nunito', 'Nunito', "PingFang SC", "Microsoft YaHei", sans-serif;
   font-size: 0.75em;
   margin: 3px 0 60px 0;
   text-align: center;
