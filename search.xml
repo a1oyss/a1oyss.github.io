@@ -494,25 +494,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Hello World</title>
-    <url>/2019/05/30/hello-world/</url>
-    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="quick-start">Quick Start</h2>
-<h3 id="create-a-new-post">Create a new post</h3>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="run-server">Run server</h3>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="generate-static-files">Generate static files</h3>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="deploy-to-remote-sites">Deploy to remote sites</h3>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
-]]></content>
-  </entry>
-  <entry>
     <title>栈迁移的相关操作</title>
     <url>/2019/07/28/frame-faking/</url>
     <content><![CDATA[<h1 id="frame-faking">frame faking</h1>
@@ -562,45 +543,23 @@
       </tags>
   </entry>
   <entry>
-    <title>使用hexo-asset-image图片路径错误</title>
-    <url>/2019/07/01/hexo-image/</url>
-    <content><![CDATA[<h1 id="part-1">Part 1</h1>
-<p>今天提交文章的时候，上去博客看了一眼，发现图片全都显示不出来，</p>
-<p>看了下图片url，全都是</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">file:&#x2F;&#x2F;image&#x2F;123.jpg</span><br></pre></td></tr></table></figure>
-<p>这种形式的。</p>
-<p>因为我使用的typora来写markdown，自动插入图片默认的是本地路径，去设置里更改为使用相对路径即可</p>
-<h1 id="part-2">part 2</h1>
-<p>原本以为大功告成，结果发现还是显示错误，去网上查了下，有些插件没有装，_config.yml里的选项也没有开。。。</p>
-<p>安装<code>hexo-asset-image</code></p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">npm install https://github.com/CodeFalling/hexo-asset-image --save</span><br></pre></td></tr></table></figure>
-<p>_config.yml配置</p>
-<p><code>post_asset_folder: false</code>改为<code>post_asset_folder: true</code></p>
-<h1 id="part-3">part 3</h1>
-<p>再次以为大功告成，结果发现还是错误，之前<code>hexo g -d</code> 的时候没有注意，这次执行的时候突然发现有几条记录有点奇怪</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">update link as:--&gt;/.io//06/01/vim/1561905818946.png</span><br><span class="line">update link as:--&gt;/.io//06/01/vim/1561905818946.png</span><br></pre></td></tr></table></figure>
-<p>这个<code>.io</code>不知道是怎么来的，不管怎么修改图片的路径，这个<code>.io</code>总是有</p>
-<p>最终查来查去发现是<code>hexo-asset-image</code>这个插件的问题，hexo 3.0以上与hexo 3.0以下获取url的方式不同，结果就导致获取到了<code>.io</code>这种奇怪的域名。</p>
-<h1 id="解决问题">解决问题</h1>
-<p>参考<a href="https://blog.csdn.net/xjm850552586/article/details/84101345" target="_blank" rel="noopener">hexo引用本地图片无法显示</a></p>
-<p>将<code>/node_modules/hexo-asset-image/index.js</code>里面的内容修改为</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="meta">'use strict'</span>;</span><br><span class="line"><span class="keyword">var</span> cheerio = <span class="built_in">require</span>(<span class="string">'cheerio'</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// http://stackoverflow.com/questions/14480345/how-to-get-the-nth-occurrence-in-a-string</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getPosition</span>(<span class="params">str, m, i</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> str.split(m, i).join(m).length;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> version = <span class="built_in">String</span>(hexo.version).split(<span class="string">'.'</span>);</span><br><span class="line">hexo.extend.filter.register(<span class="string">'after_post_render'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">data</span>)</span>&#123;</span><br><span class="line">  <span class="keyword">var</span> config = hexo.config;</span><br><span class="line">  <span class="keyword">if</span>(config.post_asset_folder)&#123;</span><br><span class="line">    <span class="keyword">var</span> link = data.permalink;</span><br><span class="line">	<span class="keyword">if</span>(version.length &gt; <span class="number">0</span> &amp;&amp; <span class="built_in">Number</span>(version[<span class="number">0</span>]) == <span class="number">3</span>)</span><br><span class="line">	   <span class="keyword">var</span> beginPos = getPosition(link, <span class="string">'/'</span>, <span class="number">1</span>) + <span class="number">1</span>;</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">	   <span class="keyword">var</span> beginPos = getPosition(link, <span class="string">'/'</span>, <span class="number">3</span>) + <span class="number">1</span>;</span><br><span class="line">	<span class="comment">// In hexo 3.1.1, the permalink of "about" page is like ".../about/index.html".</span></span><br><span class="line">	<span class="keyword">var</span> endPos = link.lastIndexOf(<span class="string">'/'</span>) + <span class="number">1</span>;</span><br><span class="line">    link = link.substring(beginPos, endPos);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> toprocess = [<span class="string">'excerpt'</span>, <span class="string">'more'</span>, <span class="string">'content'</span>];</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; toprocess.length; i++)&#123;</span><br><span class="line">      <span class="keyword">var</span> key = toprocess[i];</span><br><span class="line"> </span><br><span class="line">      <span class="keyword">var</span> $ = cheerio.load(data[key], &#123;</span><br><span class="line">        ignoreWhitespace: <span class="literal">false</span>,</span><br><span class="line">        xmlMode: <span class="literal">false</span>,</span><br><span class="line">        lowerCaseTags: <span class="literal">false</span>,</span><br><span class="line">        decodeEntities: <span class="literal">false</span></span><br><span class="line">      &#125;);</span><br><span class="line"></span><br><span class="line">      $(<span class="string">'img'</span>).each(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">		<span class="keyword">if</span> ($(<span class="keyword">this</span>).attr(<span class="string">'src'</span>))&#123;</span><br><span class="line">			<span class="comment">// For windows style path, we replace '\' to '/'.</span></span><br><span class="line">			<span class="keyword">var</span> src = $(<span class="keyword">this</span>).attr(<span class="string">'src'</span>).replace(<span class="string">'\\'</span>, <span class="string">'/'</span>);</span><br><span class="line">			<span class="keyword">if</span>(!<span class="regexp">/http[s]*.*|\/\/.*/</span>.test(src) &amp;&amp;</span><br><span class="line">			   !<span class="regexp">/^\s*\//</span>.test(src)) &#123;</span><br><span class="line">			  <span class="comment">// For "about" page, the first part of "src" can't be removed.</span></span><br><span class="line">			  <span class="comment">// In addition, to support multi-level local directory.</span></span><br><span class="line">			  <span class="keyword">var</span> linkArray = link.split(<span class="string">'/'</span>).filter(<span class="function"><span class="keyword">function</span>(<span class="params">elem</span>)</span>&#123;</span><br><span class="line">				<span class="keyword">return</span> elem != <span class="string">''</span>;</span><br><span class="line">			  &#125;);</span><br><span class="line">			  <span class="keyword">var</span> srcArray = src.split(<span class="string">'/'</span>).filter(<span class="function"><span class="keyword">function</span>(<span class="params">elem</span>)</span>&#123;</span><br><span class="line">				<span class="keyword">return</span> elem != <span class="string">''</span> &amp;&amp; elem != <span class="string">'.'</span>;</span><br><span class="line">			  &#125;);</span><br><span class="line">			  <span class="keyword">if</span>(srcArray.length &gt; <span class="number">1</span>)</span><br><span class="line">				srcArray.shift();</span><br><span class="line">			  src = srcArray.join(<span class="string">'/'</span>);</span><br><span class="line">			  $(<span class="keyword">this</span>).attr(<span class="string">'src'</span>, config.root + link + src);</span><br><span class="line">			  <span class="built_in">console</span>.info&amp;&amp;<span class="built_in">console</span>.info(<span class="string">"update link as:--&gt;"</span>+config.root + link + src);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">			<span class="built_in">console</span>.info&amp;&amp;<span class="built_in">console</span>.info(<span class="string">"no src attr, skipped..."</span>);</span><br><span class="line">			<span class="built_in">console</span>.info&amp;&amp;<span class="built_in">console</span>.info($(<span class="keyword">this</span>));</span><br><span class="line">		&#125;</span><br><span class="line">      &#125;);</span><br><span class="line">      data[key] = $.html();</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-<p>接着再去<code>hexo g -d</code>一下就能显示成功了。</p>
-<p>hexo 3.0以上用户应该也可以选择直接卸载<code>hexo-asset-image</code>插件，直接使用官方的<code>相对路径引用的标签插件</code></p>
-<blockquote>
-<p><a href="https://hexo.io/zh-cn/docs/asset-folders.html" target="_blank" rel="noopener">资源文件夹</a></p>
-<p>通过常规的 markdown 语法和相对路径来引用图片和其它资源可能会导致它们在存档页或者主页上显示不正确。在Hexo 2时代，社区创建了很多插件来解决这个问题。但是，随着Hexo 3 的发布，许多新的标签插件被加入到了核心代码中。这使得你可以更简单地在文章中引用你的资源。</p>
-<p><code></code> <code></code> <code></code></p>
-<p>比如说：当你打开文章资源文件夹功能后，你把一个 <code>example.jpg</code> 图片放在了你的资源文件夹中，如果通过使用相对路径的常规 markdown 语法 <code>![](/example.jpg)</code> ，它将 <em>不会</em> 出现在首页上。（但是它会在文章中按你期待的方式工作）</p>
-<p>正确的引用图片方式是使用下列的标签插件而不是 markdown ：</p>
-<p><code></code></p>
-<p>通过这种方式，图片将会同时出现在文章和主页以及归档页中。</p>
-</blockquote>
+    <title>Hello World</title>
+    <url>/2019/05/30/hello-world/</url>
+    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
+<h2 id="quick-start">Quick Start</h2>
+<h3 id="create-a-new-post">Create a new post</h3>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
+<h3 id="run-server">Run server</h3>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
+<h3 id="generate-static-files">Generate static files</h3>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
+<h3 id="deploy-to-remote-sites">Deploy to remote sites</h3>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
 ]]></content>
-      <tags>
-        <tag>hexo</tag>
-        <tag>笔记</tag>
-      </tags>
   </entry>
   <entry>
     <title>CTF中的php套路</title>
@@ -700,6 +659,117 @@
 ]]></content>
       <tags>
         <tag>CTF</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>使用hexo-asset-image图片路径错误</title>
+    <url>/2019/07/01/hexo-image/</url>
+    <content><![CDATA[<h1 id="part-1">Part 1</h1>
+<p>今天提交文章的时候，上去博客看了一眼，发现图片全都显示不出来，</p>
+<p>看了下图片url，全都是</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">file:&#x2F;&#x2F;image&#x2F;123.jpg</span><br></pre></td></tr></table></figure>
+<p>这种形式的。</p>
+<p>因为我使用的typora来写markdown，自动插入图片默认的是本地路径，去设置里更改为使用相对路径即可</p>
+<h1 id="part-2">part 2</h1>
+<p>原本以为大功告成，结果发现还是显示错误，去网上查了下，有些插件没有装，_config.yml里的选项也没有开。。。</p>
+<p>安装<code>hexo-asset-image</code></p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">npm install https://github.com/CodeFalling/hexo-asset-image --save</span><br></pre></td></tr></table></figure>
+<p>_config.yml配置</p>
+<p><code>post_asset_folder: false</code>改为<code>post_asset_folder: true</code></p>
+<h1 id="part-3">part 3</h1>
+<p>再次以为大功告成，结果发现还是错误，之前<code>hexo g -d</code> 的时候没有注意，这次执行的时候突然发现有几条记录有点奇怪</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">update link as:--&gt;/.io//06/01/vim/1561905818946.png</span><br><span class="line">update link as:--&gt;/.io//06/01/vim/1561905818946.png</span><br></pre></td></tr></table></figure>
+<p>这个<code>.io</code>不知道是怎么来的，不管怎么修改图片的路径，这个<code>.io</code>总是有</p>
+<p>最终查来查去发现是<code>hexo-asset-image</code>这个插件的问题，hexo 3.0以上与hexo 3.0以下获取url的方式不同，结果就导致获取到了<code>.io</code>这种奇怪的域名。</p>
+<h1 id="解决问题">解决问题</h1>
+<p>参考<a href="https://blog.csdn.net/xjm850552586/article/details/84101345" target="_blank" rel="noopener">hexo引用本地图片无法显示</a></p>
+<p>将<code>/node_modules/hexo-asset-image/index.js</code>里面的内容修改为</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="meta">'use strict'</span>;</span><br><span class="line"><span class="keyword">var</span> cheerio = <span class="built_in">require</span>(<span class="string">'cheerio'</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// http://stackoverflow.com/questions/14480345/how-to-get-the-nth-occurrence-in-a-string</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getPosition</span>(<span class="params">str, m, i</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> str.split(m, i).join(m).length;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> version = <span class="built_in">String</span>(hexo.version).split(<span class="string">'.'</span>);</span><br><span class="line">hexo.extend.filter.register(<span class="string">'after_post_render'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">data</span>)</span>&#123;</span><br><span class="line">  <span class="keyword">var</span> config = hexo.config;</span><br><span class="line">  <span class="keyword">if</span>(config.post_asset_folder)&#123;</span><br><span class="line">    <span class="keyword">var</span> link = data.permalink;</span><br><span class="line">	<span class="keyword">if</span>(version.length &gt; <span class="number">0</span> &amp;&amp; <span class="built_in">Number</span>(version[<span class="number">0</span>]) == <span class="number">3</span>)</span><br><span class="line">	   <span class="keyword">var</span> beginPos = getPosition(link, <span class="string">'/'</span>, <span class="number">1</span>) + <span class="number">1</span>;</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">	   <span class="keyword">var</span> beginPos = getPosition(link, <span class="string">'/'</span>, <span class="number">3</span>) + <span class="number">1</span>;</span><br><span class="line">	<span class="comment">// In hexo 3.1.1, the permalink of "about" page is like ".../about/index.html".</span></span><br><span class="line">	<span class="keyword">var</span> endPos = link.lastIndexOf(<span class="string">'/'</span>) + <span class="number">1</span>;</span><br><span class="line">    link = link.substring(beginPos, endPos);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> toprocess = [<span class="string">'excerpt'</span>, <span class="string">'more'</span>, <span class="string">'content'</span>];</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; toprocess.length; i++)&#123;</span><br><span class="line">      <span class="keyword">var</span> key = toprocess[i];</span><br><span class="line"> </span><br><span class="line">      <span class="keyword">var</span> $ = cheerio.load(data[key], &#123;</span><br><span class="line">        ignoreWhitespace: <span class="literal">false</span>,</span><br><span class="line">        xmlMode: <span class="literal">false</span>,</span><br><span class="line">        lowerCaseTags: <span class="literal">false</span>,</span><br><span class="line">        decodeEntities: <span class="literal">false</span></span><br><span class="line">      &#125;);</span><br><span class="line"></span><br><span class="line">      $(<span class="string">'img'</span>).each(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">		<span class="keyword">if</span> ($(<span class="keyword">this</span>).attr(<span class="string">'src'</span>))&#123;</span><br><span class="line">			<span class="comment">// For windows style path, we replace '\' to '/'.</span></span><br><span class="line">			<span class="keyword">var</span> src = $(<span class="keyword">this</span>).attr(<span class="string">'src'</span>).replace(<span class="string">'\\'</span>, <span class="string">'/'</span>);</span><br><span class="line">			<span class="keyword">if</span>(!<span class="regexp">/http[s]*.*|\/\/.*/</span>.test(src) &amp;&amp;</span><br><span class="line">			   !<span class="regexp">/^\s*\//</span>.test(src)) &#123;</span><br><span class="line">			  <span class="comment">// For "about" page, the first part of "src" can't be removed.</span></span><br><span class="line">			  <span class="comment">// In addition, to support multi-level local directory.</span></span><br><span class="line">			  <span class="keyword">var</span> linkArray = link.split(<span class="string">'/'</span>).filter(<span class="function"><span class="keyword">function</span>(<span class="params">elem</span>)</span>&#123;</span><br><span class="line">				<span class="keyword">return</span> elem != <span class="string">''</span>;</span><br><span class="line">			  &#125;);</span><br><span class="line">			  <span class="keyword">var</span> srcArray = src.split(<span class="string">'/'</span>).filter(<span class="function"><span class="keyword">function</span>(<span class="params">elem</span>)</span>&#123;</span><br><span class="line">				<span class="keyword">return</span> elem != <span class="string">''</span> &amp;&amp; elem != <span class="string">'.'</span>;</span><br><span class="line">			  &#125;);</span><br><span class="line">			  <span class="keyword">if</span>(srcArray.length &gt; <span class="number">1</span>)</span><br><span class="line">				srcArray.shift();</span><br><span class="line">			  src = srcArray.join(<span class="string">'/'</span>);</span><br><span class="line">			  $(<span class="keyword">this</span>).attr(<span class="string">'src'</span>, config.root + link + src);</span><br><span class="line">			  <span class="built_in">console</span>.info&amp;&amp;<span class="built_in">console</span>.info(<span class="string">"update link as:--&gt;"</span>+config.root + link + src);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">			<span class="built_in">console</span>.info&amp;&amp;<span class="built_in">console</span>.info(<span class="string">"no src attr, skipped..."</span>);</span><br><span class="line">			<span class="built_in">console</span>.info&amp;&amp;<span class="built_in">console</span>.info($(<span class="keyword">this</span>));</span><br><span class="line">		&#125;</span><br><span class="line">      &#125;);</span><br><span class="line">      data[key] = $.html();</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>接着再去<code>hexo g -d</code>一下就能显示成功了。</p>
+<p>hexo 3.0以上用户应该也可以选择直接卸载<code>hexo-asset-image</code>插件，直接使用官方的<code>相对路径引用的标签插件</code></p>
+<blockquote>
+<p><a href="https://hexo.io/zh-cn/docs/asset-folders.html" target="_blank" rel="noopener">资源文件夹</a></p>
+<p>通过常规的 markdown 语法和相对路径来引用图片和其它资源可能会导致它们在存档页或者主页上显示不正确。在Hexo 2时代，社区创建了很多插件来解决这个问题。但是，随着Hexo 3 的发布，许多新的标签插件被加入到了核心代码中。这使得你可以更简单地在文章中引用你的资源。</p>
+<p><code></code> <code></code> <code></code></p>
+<p>比如说：当你打开文章资源文件夹功能后，你把一个 <code>example.jpg</code> 图片放在了你的资源文件夹中，如果通过使用相对路径的常规 markdown 语法 <code>![](/example.jpg)</code> ，它将 <em>不会</em> 出现在首页上。（但是它会在文章中按你期待的方式工作）</p>
+<p>正确的引用图片方式是使用下列的标签插件而不是 markdown ：</p>
+<p><code></code></p>
+<p>通过这种方式，图片将会同时出现在文章和主页以及归档页中。</p>
+</blockquote>
+]]></content>
+      <tags>
+        <tag>hexo</tag>
+        <tag>笔记</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>使用PyCharm打造舒适的pwn环境</title>
+    <url>/2019/07/29/pycharm/</url>
+    <content><![CDATA[<h1 id="前言">前言</h1>
+<p>弄了一天的vim+xshell，结果还是不尽人意，spacevim要求终端支持真彩色，但是xshell显然⑧行，将<code>enable_guicolors</code>设置为false后才勉强能看。</p>
+<p>于是突发奇想，将pycharm通过ssh连接到虚拟机当中的python环境，能不能直接在主机上面写脚本调试，查了下还真有这个功能，不过需要pro版本。</p>
+<h1 id="准备工作">准备工作</h1>
+<ol type="1">
+<li>PyCharm Pro</li>
+<li>VMware Workstation</li>
+<li>科学上网</li>
+</ol>
+<h1 id="配置">配置</h1>
+<h2 id="主题">主题</h2>
+<p>File-&gt;Settings..-&gt;Plugins，安装Material Theme UI，接着按照自己喜欢的来配就行</p>
+<h2 id="配置ssh-interpreter">配置SSH Interpreter</h2>
+<p>安装好PyCharm Pro之后，创建一个项目，创建好之后找到File-&gt;Settings..-&gt;Project: ctf-&gt;Project Interpreter配置python解释器</p>
+<figure>
+<img src="https://i.loli.net/2020/08/30/ofdcXIjTHvFt7nK.png" alt="1564413576995" /><figcaption aria-hidden="true">1564413576995</figcaption>
+</figure>
+<p>选择Add..-&gt;SSH Interpreter</p>
+<figure>
+<img src="https://i.loli.net/2020/08/30/NSu85CFskzwqfU6.png" alt="1564413654784" /><figcaption aria-hidden="true">1564413654784</figcaption>
+</figure>
+<p>将虚拟机的ip地址和用户名填写到相应的地方，然后NEXT。</p>
+<p>填写密码</p>
+<figure>
+<img src="https://i.loli.net/2020/08/30/ScGJNDETifOmtk8.png" alt="1564413731448" /><figcaption aria-hidden="true">1564413731448</figcaption>
+</figure>
+<p>设置解释器路径和文件同步位置，然后FINISH</p>
+<figure>
+<img src="https://i.loli.net/2020/08/30/VjULJRsEcaZ4YSG.png" alt="1564413752526" /><figcaption aria-hidden="true">1564413752526</figcaption>
+</figure>
+<p>FINISH之后PyCharm会先进行一次同步，同步python库，并且把一些配置文件什么的给传过去，时间略长。</p>
+<p>PyCharm的同步还有版本对比功能</p>
+<figure>
+<img src="https://i.loli.net/2020/08/30/WgpeJOn1UwHv5ys.png" alt="1564414108066" /><figcaption aria-hidden="true">1564414108066</figcaption>
+</figure>
+<p>不得不说比预想中还要好用。</p>
+<h2 id="配置hexo">配置hexo</h2>
+<p>File-&gt;Settings..-&gt;Tools-&gt;Terminal中可以设置PyCharm的终端</p>
+<p>将Start directory设置为hexo根目录</p>
+<p>shell path可以直接填写终端名称，例如powershell.exe</p>
+<p>Tab name，标签名称，随便修改。</p>
+<figure>
+<img src="https://i.loli.net/2020/08/30/yVahQxYj3LWFB9O.png" alt="1564414405852" /><figcaption aria-hidden="true">1564414405852</figcaption>
+</figure>
+<p>这样就可以随时进行hexo的相关操作了。</p>
+<h2 id="配置ssh-terminal">配置SSH Terminal</h2>
+<p>File-&gt;Settings..-&gt;Tools-&gt;SSH Terminal</p>
+<figure>
+<img src="https://i.loli.net/2020/08/30/Ly4EN3qnPTio2S1.png" alt="1564414758329" /><figcaption aria-hidden="true">1564414758329</figcaption>
+</figure>
+<p>Deloyment server中选择root@xxx.xxx.xxx.xxx:22</p>
+<p>这样每次打开就不需要再选一次了。</p>
+<h1 id="faq">FAQ</h1>
+<h2 id="pycharm中进行调试后console中输出">PyCharm中进行调试后，console中输出□=</h2>
+<p>应该是PyCharm的问题，有两种解决办法：</p>
+<ol type="1">
+<li><p>Run-&gt;Edit Configurations..-&gt;Templates-&gt;Python-&gt;Enviroment variables中添加环境变量</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">PWNLIB_NOTERM=True</span><br></pre></td></tr></table></figure></li>
+<li><p><del>修改<code>/usr/local/lib/python2.7/dist-packages/pwnlib/args.py</code>最后一行，注释掉<code>term.init()</code></del></p></li>
+</ol>
+<h1 id="总结">总结</h1>
+<p>pro版本还是好用，配置好之后，直接在一个窗口中进行所有操作，不需要几个窗口之间来回切了，方便了不少。</p>
+]]></content>
+      <tags>
+        <tag>IDE</tag>
       </tags>
   </entry>
   <entry>
@@ -1019,76 +1089,6 @@
       </tags>
   </entry>
   <entry>
-    <title>使用PyCharm打造舒适的pwn环境</title>
-    <url>/2019/07/29/pycharm/</url>
-    <content><![CDATA[<h1 id="前言">前言</h1>
-<p>弄了一天的vim+xshell，结果还是不尽人意，spacevim要求终端支持真彩色，但是xshell显然⑧行，将<code>enable_guicolors</code>设置为false后才勉强能看。</p>
-<p>于是突发奇想，将pycharm通过ssh连接到虚拟机当中的python环境，能不能直接在主机上面写脚本调试，查了下还真有这个功能，不过需要pro版本。</p>
-<h1 id="准备工作">准备工作</h1>
-<ol type="1">
-<li>PyCharm Pro</li>
-<li>VMware Workstation</li>
-<li>科学上网</li>
-</ol>
-<h1 id="配置">配置</h1>
-<h2 id="主题">主题</h2>
-<p>File-&gt;Settings..-&gt;Plugins，安装Material Theme UI，接着按照自己喜欢的来配就行</p>
-<h2 id="配置ssh-interpreter">配置SSH Interpreter</h2>
-<p>安装好PyCharm Pro之后，创建一个项目，创建好之后找到File-&gt;Settings..-&gt;Project: ctf-&gt;Project Interpreter配置python解释器</p>
-<figure>
-<img src="https://i.loli.net/2020/08/30/ofdcXIjTHvFt7nK.png" alt="1564413576995" /><figcaption aria-hidden="true">1564413576995</figcaption>
-</figure>
-<p>选择Add..-&gt;SSH Interpreter</p>
-<figure>
-<img src="https://i.loli.net/2020/08/30/NSu85CFskzwqfU6.png" alt="1564413654784" /><figcaption aria-hidden="true">1564413654784</figcaption>
-</figure>
-<p>将虚拟机的ip地址和用户名填写到相应的地方，然后NEXT。</p>
-<p>填写密码</p>
-<figure>
-<img src="https://i.loli.net/2020/08/30/ScGJNDETifOmtk8.png" alt="1564413731448" /><figcaption aria-hidden="true">1564413731448</figcaption>
-</figure>
-<p>设置解释器路径和文件同步位置，然后FINISH</p>
-<figure>
-<img src="https://i.loli.net/2020/08/30/VjULJRsEcaZ4YSG.png" alt="1564413752526" /><figcaption aria-hidden="true">1564413752526</figcaption>
-</figure>
-<p>FINISH之后PyCharm会先进行一次同步，同步python库，并且把一些配置文件什么的给传过去，时间略长。</p>
-<p>PyCharm的同步还有版本对比功能</p>
-<figure>
-<img src="https://i.loli.net/2020/08/30/WgpeJOn1UwHv5ys.png" alt="1564414108066" /><figcaption aria-hidden="true">1564414108066</figcaption>
-</figure>
-<p>不得不说比预想中还要好用。</p>
-<h2 id="配置hexo">配置hexo</h2>
-<p>File-&gt;Settings..-&gt;Tools-&gt;Terminal中可以设置PyCharm的终端</p>
-<p>将Start directory设置为hexo根目录</p>
-<p>shell path可以直接填写终端名称，例如powershell.exe</p>
-<p>Tab name，标签名称，随便修改。</p>
-<figure>
-<img src="https://i.loli.net/2020/08/30/yVahQxYj3LWFB9O.png" alt="1564414405852" /><figcaption aria-hidden="true">1564414405852</figcaption>
-</figure>
-<p>这样就可以随时进行hexo的相关操作了。</p>
-<h2 id="配置ssh-terminal">配置SSH Terminal</h2>
-<p>File-&gt;Settings..-&gt;Tools-&gt;SSH Terminal</p>
-<figure>
-<img src="https://i.loli.net/2020/08/30/Ly4EN3qnPTio2S1.png" alt="1564414758329" /><figcaption aria-hidden="true">1564414758329</figcaption>
-</figure>
-<p>Deloyment server中选择root@xxx.xxx.xxx.xxx:22</p>
-<p>这样每次打开就不需要再选一次了。</p>
-<h1 id="faq">FAQ</h1>
-<h2 id="pycharm中进行调试后console中输出">PyCharm中进行调试后，console中输出□=</h2>
-<p>应该是PyCharm的问题，有两种解决办法：</p>
-<ol type="1">
-<li><p>Run-&gt;Edit Configurations..-&gt;Templates-&gt;Python-&gt;Enviroment variables中添加环境变量</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">PWNLIB_NOTERM=True</span><br></pre></td></tr></table></figure></li>
-<li><p><del>修改<code>/usr/local/lib/python2.7/dist-packages/pwnlib/args.py</code>最后一行，注释掉<code>term.init()</code></del></p></li>
-</ol>
-<h1 id="总结">总结</h1>
-<p>pro版本还是好用，配置好之后，直接在一个窗口中进行所有操作，不需要几个窗口之间来回切了，方便了不少。</p>
-]]></content>
-      <tags>
-        <tag>IDE</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>RSA总结</title>
     <url>/2019/07/10/rsa/</url>
     <content><![CDATA[<h1 id="rsa介绍">RSA介绍</h1>
@@ -1285,38 +1285,6 @@ c_1^{s_1}c_2^{s_2} \equiv m\ mod\ n
       </tags>
   </entry>
   <entry>
-    <title>tool</title>
-    <url>/2020/10/04/tool/</url>
-    <content><![CDATA[<h1 id="实用工具">实用工具</h1>
-<h2 id="windows-terminal">Windows Terminal</h2>
-<p>不知道比系统自带的Powershell和cmd高了多少B格</p>
-<figure>
-<img src="https://i.loli.net/2020/10/04/LpGeHZxwJBjAXQm.png" alt="image-20201004183225768" /><figcaption aria-hidden="true">image-20201004183225768</figcaption>
-</figure>
-]]></content>
-      <tags>
-        <tag>工具</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>关于vim的复制粘贴</title>
-    <url>/2019/06/01/vim/</url>
-    <content><![CDATA[<p>学习Canary相关的东西时，因为要从网上复制粘贴各种代码，因为缩进问题，复制完之后的效果惨不忍睹，比如这样：</p>
-<figure>
-<img src="https://i.loli.net/2020/09/10/fsJqkMKjcIDGrVu.png" alt="vim-2020-09-10-17-23-17" /><figcaption aria-hidden="true">vim-2020-09-10-17-23-17</figcaption>
-</figure>
-<p>过于惨不忍睹，markdown的代码框展现不出来效果</p>
-<p>解决方法的话就是在粘贴前先输入<code>:set paste</code>，接着进入insert模式的时候后面就会多个(paste)，这样复制进去的就和你原本看到的一样了</p>
-<h1 id="eqweqw">eqweqw</h1>
-<h2 id="ewqewqeqw">ewqewqeqw</h2>
-<h3 id="eqweqwe">eqweqwe</h3>
-<p><code>eweqeqweq</code> <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">this</span>._self=self</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-]]></content>
-      <tags>
-        <tag>笔记</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Windows Terminal</title>
     <url>/2020/08/29/terminal/</url>
     <content><![CDATA[<h1 id="前言">前言</h1>
@@ -1350,8 +1318,57 @@ c_1^{s_1}c_2^{s_2} \equiv m\ mod\ n
 <p>舒服了</p>
 ]]></content>
       <tags>
-        <tag>工具</tag>
         <tag>Windows</tag>
+        <tag>工具</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>关于vim的复制粘贴</title>
+    <url>/2019/06/01/vim/</url>
+    <content><![CDATA[<p>学习Canary相关的东西时，因为要从网上复制粘贴各种代码，因为缩进问题，复制完之后的效果惨不忍睹，比如这样：</p>
+<figure>
+<img src="https://i.loli.net/2020/09/10/fsJqkMKjcIDGrVu.png" alt="vim-2020-09-10-17-23-17" /><figcaption aria-hidden="true">vim-2020-09-10-17-23-17</figcaption>
+</figure>
+<p>过于惨不忍睹，markdown的代码框展现不出来效果</p>
+<p>解决方法的话就是在粘贴前先输入<code>:set paste</code>，接着进入insert模式的时候后面就会多个(paste)，这样复制进去的就和你原本看到的一样了</p>
+<h1 id="eqweqw">eqweqw</h1>
+<h2 id="ewqewqeqw">ewqewqeqw</h2>
+<h3 id="eqweqwe">eqweqwe</h3>
+<p><code>eweqeqweq</code> <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">this</span>._self=self</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+]]></content>
+      <tags>
+        <tag>笔记</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>tool</title>
+    <url>/2020/10/04/tool/</url>
+    <content><![CDATA[<h1 id="实用工具">实用工具</h1>
+<h2 id="windows-terminal">Windows Terminal</h2>
+<p>不知道比系统自带的Powershell和cmd高了多少B格</p>
+<figure>
+<img src="https://i.loli.net/2020/10/04/LpGeHZxwJBjAXQm.png" alt="image-20201004183225768" /><figcaption aria-hidden="true">image-20201004183225768</figcaption>
+</figure>
+]]></content>
+      <tags>
+        <tag>工具</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>搭建环境</title>
+    <url>/2019/05/30/%E6%90%AD%E5%BB%BA%E7%8E%AF%E5%A2%83/</url>
+    <content><![CDATA[<h1 id="kali配置">kali配置</h1>
+<h2 id="安装docker">安装docker</h2>
+<p>正常情况下用docker官方的文档安装就行，但是执行到下面这条命令时会报错 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> sudo add-apt-repository \</span></span><br><span class="line">   "deb [arch=amd64] https://download.docker.com/linux/ubuntu \</span><br><span class="line"><span class="meta">   $</span><span class="bash">(lsb_release -cs) \</span></span><br><span class="line">   stable"</span><br></pre></td></tr></table></figure> 错误： <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">aptsources.distro.NoDistroTemplateException: Error: could not find a distribution template for Kali&#x2F;n&#x2F;a</span><br></pre></td></tr></table></figure> 具体原因是什么至今也没查到，可能是和kali版本有关系吧</p>
+<p>解决方法： 自己添加源就可以了 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">deb https://mirrors.aliyun.com/docker-ce/linux/debian wheezy stable</span><br></pre></td></tr></table></figure> 安装成功后执行<code>systemctl enable docker</code>使docker开机自启。</p>
+<p>再找一个合适的环境pull下，找了半天发现pwnbox不错，有一个run.sh可以快捷启动环境，但是没有ida调试文件和没有端口映射，自己改了改文件之后就好用多了。</p>
+<p>run.sh: <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">!/usr/bin/env bash</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> Run superkojiman/pwnbox container <span class="keyword">in</span> docker.</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Store your .gdbinit, .radare2rc, .vimrc, etc <span class="keyword">in</span> a ./rc directory. The contents will be copied to</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> /root/ <span class="keyword">in</span> the container.</span></span><br><span class="line"></span><br><span class="line">ESC="\x1B["</span><br><span class="line">RESET=$ESC"39m"</span><br><span class="line">RED=$ESC"31m"</span><br><span class="line">GREEN=$ESC"32m"</span><br><span class="line">BLUE=$ESC"34m"</span><br><span class="line"></span><br><span class="line">if [[ -z $&#123;1&#125; ]]; then</span><br><span class="line">    echo -e "$&#123;RED&#125;Missing argument CTF name.$&#123;RESET&#125;"</span><br><span class="line">    exit 0</span><br><span class="line">fi</span><br><span class="line"></span><br><span class="line">ctf_name=$&#123;1&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> Create docker container and run <span class="keyword">in</span> the background</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Add this <span class="keyword">if</span> you need to modify anything <span class="keyword">in</span> /proc:  --privileged </span></span><br><span class="line">docker run -it \</span><br><span class="line">    -h $&#123;ctf_name&#125; \</span><br><span class="line">    -d \</span><br><span class="line">    -p 23946:23946 \</span><br><span class="line">    --security-opt seccomp:unconfined \</span><br><span class="line">    --name $&#123;ctf_name&#125; \</span><br><span class="line">    superkojiman/pwnbox</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> Tar config files <span class="keyword">in</span> rc and extract it into the container</span></span><br><span class="line">if [[ -d rc ]]; then</span><br><span class="line">    cd rc</span><br><span class="line">    if [[ -f rc.tar ]]; then</span><br><span class="line">        rm -f rc.tar</span><br><span class="line">    fi</span><br><span class="line">    for i in .*; do</span><br><span class="line">        if [[ ! $&#123;i&#125; == "." &amp;&amp; ! $&#123;i&#125; == ".." ]]; then</span><br><span class="line">            tar rf rc.tar $&#123;i&#125;</span><br><span class="line">        fi</span><br><span class="line">    done</span><br><span class="line">    cd - &gt; /dev/null 2&gt;&amp;1</span><br><span class="line">    cat rc/rc.tar | docker cp - $&#123;ctf_name&#125;:/root/</span><br><span class="line">    rm -f rc/rc.tar</span><br><span class="line">else</span><br><span class="line">    echo -e "$&#123;RED&#125;No rc directory found. Nothing to copy to container.$&#123;RESET&#125;"</span><br><span class="line">fi</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> Create stop/rm script <span class="keyword">for</span> container</span></span><br><span class="line">cat &lt;&lt; EOF &gt; $&#123;ctf_name&#125;-stop.sh</span><br><span class="line"><span class="meta">#</span><span class="bash">!/bin/bash</span></span><br><span class="line">docker stop $&#123;ctf_name&#125;</span><br><span class="line">docker rm $&#123;ctf_name&#125;</span><br><span class="line">rm -f $&#123;ctf_name&#125;-stop.sh</span><br><span class="line">EOF</span><br><span class="line">chmod 755 $&#123;ctf_name&#125;-stop.sh</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> Create a workdir <span class="keyword">for</span> this CTF</span></span><br><span class="line">docker exec $&#123;ctf_name&#125; mkdir /root/work</span><br><span class="line">docker cp linux_server $&#123;ctf_name&#125;:/root/work</span><br><span class="line">docker cp linux_server64 $&#123;ctf_name&#125;:/root/work</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> Get a shell</span></span><br><span class="line">echo -e "$&#123;GREEN&#125;                         ______               $&#123;RESET&#125;"</span><br><span class="line">echo -e "$&#123;GREEN&#125;___________      ___________  /___________  __$&#123;RESET&#125;"</span><br><span class="line">echo -e "$&#123;GREEN&#125;___  __ \\_ | /| / /_  __ \\_  __ \\  __ \\_  |/_/$&#123;RESET&#125;"</span><br><span class="line">echo -e "$&#123;GREEN&#125;__  /_/ /_ |/ |/ /_  / / /  /_/ / /_/ /_&gt;  &lt;  $&#123;RESET&#125;"</span><br><span class="line">echo -e "$&#123;GREEN&#125;_  .___/____/|__/ /_/ /_//_.___/\\____//_/|_|  $&#123;RESET&#125;"</span><br><span class="line">echo -e "$&#123;GREEN&#125;/_/                           by superkojiman  $&#123;RESET&#125;"</span><br><span class="line">echo ""</span><br><span class="line">docker attach $&#123;ctf_name&#125;</span><br></pre></td></tr></table></figure> 需要同目录下有linux_server和linux_server64文件(在ida安装目录下的dbgsrv里面)。</p>
+<p>接下来对本机vim进行配置，安装YouCompleteMe和一些缩进的配置。</p>
+<p>.vimrc: <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">set nocompatible</span><br><span class="line">set rtp+=~/.vim/plugged/</span><br><span class="line">set number</span><br><span class="line">set t_Co=256</span><br><span class="line">syntax on</span><br><span class="line">set autoindent</span><br><span class="line">set smartindent</span><br><span class="line">set tabstop=4</span><br><span class="line">set shiftwidth=4</span><br><span class="line"></span><br><span class="line">"theme</span><br><span class="line">colorscheme molokai</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">"YouCompleteMe</span><br><span class="line">let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'</span><br><span class="line">let g:ycm_min_num_of_chars_for_completion=1</span><br><span class="line">let g:ycm_warning_symbol='&gt;*'</span><br><span class="line">let g:ycm_error_symbol='&gt;&gt;'</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">call plug#begin('~/.vim/plugged')</span><br><span class="line">Plug 'Valloric/YouCompleteMe'</span><br><span class="line">call plug#end()</span><br></pre></td></tr></table></figure> YouCompleteMe clone到vim里面后，还需要进去编译一下，执行 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo apt install build-essential cmake python3-dev</span><br><span class="line">cd ~/.vim/plugged/YouCompleteMe</span><br><span class="line">python3 install.py --clang-completer</span><br></pre></td></tr></table></figure> 到此为止就差不多够用了</p>
+]]></content>
+      <tags>
+        <tag>笔记</tag>
+        <tag>kali</tag>
       </tags>
   </entry>
   <entry>
@@ -1396,23 +1413,6 @@ c_1^{s_1}c_2^{s_2} \equiv m\ mod\ n
 ]]></content>
       <tags>
         <tag>python</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>搭建环境</title>
-    <url>/2019/05/30/%E6%90%AD%E5%BB%BA%E7%8E%AF%E5%A2%83/</url>
-    <content><![CDATA[<h1 id="kali配置">kali配置</h1>
-<h2 id="安装docker">安装docker</h2>
-<p>正常情况下用docker官方的文档安装就行，但是执行到下面这条命令时会报错 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> sudo add-apt-repository \</span></span><br><span class="line">   "deb [arch=amd64] https://download.docker.com/linux/ubuntu \</span><br><span class="line"><span class="meta">   $</span><span class="bash">(lsb_release -cs) \</span></span><br><span class="line">   stable"</span><br></pre></td></tr></table></figure> 错误： <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">aptsources.distro.NoDistroTemplateException: Error: could not find a distribution template for Kali&#x2F;n&#x2F;a</span><br></pre></td></tr></table></figure> 具体原因是什么至今也没查到，可能是和kali版本有关系吧</p>
-<p>解决方法： 自己添加源就可以了 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">deb https://mirrors.aliyun.com/docker-ce/linux/debian wheezy stable</span><br></pre></td></tr></table></figure> 安装成功后执行<code>systemctl enable docker</code>使docker开机自启。</p>
-<p>再找一个合适的环境pull下，找了半天发现pwnbox不错，有一个run.sh可以快捷启动环境，但是没有ida调试文件和没有端口映射，自己改了改文件之后就好用多了。</p>
-<p>run.sh: <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">!/usr/bin/env bash</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> Run superkojiman/pwnbox container <span class="keyword">in</span> docker.</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Store your .gdbinit, .radare2rc, .vimrc, etc <span class="keyword">in</span> a ./rc directory. The contents will be copied to</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> /root/ <span class="keyword">in</span> the container.</span></span><br><span class="line"></span><br><span class="line">ESC="\x1B["</span><br><span class="line">RESET=$ESC"39m"</span><br><span class="line">RED=$ESC"31m"</span><br><span class="line">GREEN=$ESC"32m"</span><br><span class="line">BLUE=$ESC"34m"</span><br><span class="line"></span><br><span class="line">if [[ -z $&#123;1&#125; ]]; then</span><br><span class="line">    echo -e "$&#123;RED&#125;Missing argument CTF name.$&#123;RESET&#125;"</span><br><span class="line">    exit 0</span><br><span class="line">fi</span><br><span class="line"></span><br><span class="line">ctf_name=$&#123;1&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> Create docker container and run <span class="keyword">in</span> the background</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Add this <span class="keyword">if</span> you need to modify anything <span class="keyword">in</span> /proc:  --privileged </span></span><br><span class="line">docker run -it \</span><br><span class="line">    -h $&#123;ctf_name&#125; \</span><br><span class="line">    -d \</span><br><span class="line">    -p 23946:23946 \</span><br><span class="line">    --security-opt seccomp:unconfined \</span><br><span class="line">    --name $&#123;ctf_name&#125; \</span><br><span class="line">    superkojiman/pwnbox</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> Tar config files <span class="keyword">in</span> rc and extract it into the container</span></span><br><span class="line">if [[ -d rc ]]; then</span><br><span class="line">    cd rc</span><br><span class="line">    if [[ -f rc.tar ]]; then</span><br><span class="line">        rm -f rc.tar</span><br><span class="line">    fi</span><br><span class="line">    for i in .*; do</span><br><span class="line">        if [[ ! $&#123;i&#125; == "." &amp;&amp; ! $&#123;i&#125; == ".." ]]; then</span><br><span class="line">            tar rf rc.tar $&#123;i&#125;</span><br><span class="line">        fi</span><br><span class="line">    done</span><br><span class="line">    cd - &gt; /dev/null 2&gt;&amp;1</span><br><span class="line">    cat rc/rc.tar | docker cp - $&#123;ctf_name&#125;:/root/</span><br><span class="line">    rm -f rc/rc.tar</span><br><span class="line">else</span><br><span class="line">    echo -e "$&#123;RED&#125;No rc directory found. Nothing to copy to container.$&#123;RESET&#125;"</span><br><span class="line">fi</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> Create stop/rm script <span class="keyword">for</span> container</span></span><br><span class="line">cat &lt;&lt; EOF &gt; $&#123;ctf_name&#125;-stop.sh</span><br><span class="line"><span class="meta">#</span><span class="bash">!/bin/bash</span></span><br><span class="line">docker stop $&#123;ctf_name&#125;</span><br><span class="line">docker rm $&#123;ctf_name&#125;</span><br><span class="line">rm -f $&#123;ctf_name&#125;-stop.sh</span><br><span class="line">EOF</span><br><span class="line">chmod 755 $&#123;ctf_name&#125;-stop.sh</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> Create a workdir <span class="keyword">for</span> this CTF</span></span><br><span class="line">docker exec $&#123;ctf_name&#125; mkdir /root/work</span><br><span class="line">docker cp linux_server $&#123;ctf_name&#125;:/root/work</span><br><span class="line">docker cp linux_server64 $&#123;ctf_name&#125;:/root/work</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> Get a shell</span></span><br><span class="line">echo -e "$&#123;GREEN&#125;                         ______               $&#123;RESET&#125;"</span><br><span class="line">echo -e "$&#123;GREEN&#125;___________      ___________  /___________  __$&#123;RESET&#125;"</span><br><span class="line">echo -e "$&#123;GREEN&#125;___  __ \\_ | /| / /_  __ \\_  __ \\  __ \\_  |/_/$&#123;RESET&#125;"</span><br><span class="line">echo -e "$&#123;GREEN&#125;__  /_/ /_ |/ |/ /_  / / /  /_/ / /_/ /_&gt;  &lt;  $&#123;RESET&#125;"</span><br><span class="line">echo -e "$&#123;GREEN&#125;_  .___/____/|__/ /_/ /_//_.___/\\____//_/|_|  $&#123;RESET&#125;"</span><br><span class="line">echo -e "$&#123;GREEN&#125;/_/                           by superkojiman  $&#123;RESET&#125;"</span><br><span class="line">echo ""</span><br><span class="line">docker attach $&#123;ctf_name&#125;</span><br></pre></td></tr></table></figure> 需要同目录下有linux_server和linux_server64文件(在ida安装目录下的dbgsrv里面)。</p>
-<p>接下来对本机vim进行配置，安装YouCompleteMe和一些缩进的配置。</p>
-<p>.vimrc: <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">set nocompatible</span><br><span class="line">set rtp+=~/.vim/plugged/</span><br><span class="line">set number</span><br><span class="line">set t_Co=256</span><br><span class="line">syntax on</span><br><span class="line">set autoindent</span><br><span class="line">set smartindent</span><br><span class="line">set tabstop=4</span><br><span class="line">set shiftwidth=4</span><br><span class="line"></span><br><span class="line">"theme</span><br><span class="line">colorscheme molokai</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">"YouCompleteMe</span><br><span class="line">let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'</span><br><span class="line">let g:ycm_min_num_of_chars_for_completion=1</span><br><span class="line">let g:ycm_warning_symbol='&gt;*'</span><br><span class="line">let g:ycm_error_symbol='&gt;&gt;'</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">call plug#begin('~/.vim/plugged')</span><br><span class="line">Plug 'Valloric/YouCompleteMe'</span><br><span class="line">call plug#end()</span><br></pre></td></tr></table></figure> YouCompleteMe clone到vim里面后，还需要进去编译一下，执行 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo apt install build-essential cmake python3-dev</span><br><span class="line">cd ~/.vim/plugged/YouCompleteMe</span><br><span class="line">python3 install.py --clang-completer</span><br></pre></td></tr></table></figure> 到此为止就差不多够用了</p>
-]]></content>
-      <tags>
-        <tag>笔记</tag>
-        <tag>kali</tag>
       </tags>
   </entry>
 </search>
