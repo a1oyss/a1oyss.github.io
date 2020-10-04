@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT">
+  <meta name="keywords" content="python,">
 
 
 
@@ -79,13 +79,21 @@
 
 
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="a1oyss&#39;s blog">
-<meta property="og:url" content="http://a1oyss.github.io/archives/2019/08/index.html">
+<meta name="description" content="前言 做个开机自动登录WiFi脚本 配置环境  Python 3.7 Pycharm Fiddler Everywhere  抓包分析 登陆界面  image-20200929092828678  请求地址 1http://211.69.15.33:9999/portalAuthAction.do 请求数据  image-20201004170239733">
+<meta name="keywords" content="python">
+<meta property="og:type" content="article">
+<meta property="og:title" content="wifilogin">
+<meta property="og:url" content="http://a1oyss.github.io/2020/09/27/wifilogin/index.html">
 <meta property="og:site_name" content="a1oyss&#39;s blog">
+<meta property="og:description" content="前言 做个开机自动登录WiFi脚本 配置环境  Python 3.7 Pycharm Fiddler Everywhere  抓包分析 登陆界面  image-20200929092828678  请求地址 1http://211.69.15.33:9999/portalAuthAction.do 请求数据  image-20201004170239733">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://gitee.com/a1oyss/image-uploader/raw/master/img/image-20200929092828678.png">
+<meta property="og:image" content="https://gitee.com/a1oyss/image-uploader/raw/master/img/image-20201004170239733.png">
+<meta property="og:updated_time" content="2020-10-04T09:23:29.361Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="a1oyss&#39;s blog">
+<meta name="twitter:title" content="wifilogin">
+<meta name="twitter:description" content="前言 做个开机自动登录WiFi脚本 配置环境  Python 3.7 Pycharm Fiddler Everywhere  抓包分析 登陆界面  image-20200929092828678  请求地址 1http://211.69.15.33:9999/portalAuthAction.do 请求数据  image-20201004170239733">
+<meta name="twitter:image" content="https://gitee.com/a1oyss/image-uploader/raw/master/img/image-20200929092828678.png">
 
 
 
@@ -115,13 +123,13 @@
 
 
 
-  <link rel="canonical" href="http://a1oyss.github.io/archives/2019/08/">
+  <link rel="canonical" href="http://a1oyss.github.io/2020/09/27/wifilogin/">
 
 
 
 
 
-  <title>归档 | a1oyss's blog</title>
+  <title>wifilogin | a1oyss's blog</title>
   
 
 
@@ -140,7 +148,7 @@
     
   
 
-  <div class="container sidebar-position-left page-archive">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -266,72 +274,216 @@
           <div id="content" class="content">
             
 
+  <div id="posts" class="posts-expand">
+    
+
+  
+
   
   
   
-  <div class="post-block archive">
-    <div id="posts" class="posts-collapse">
-      <span class="archive-move-on"></span>
-
-      <span class="archive-page-counter">
-        
-        
-        
-          
-        
-        嗯..! 目前共计 17 篇日志。 继续努力。
-      </span>
-
-      
-
-        
-        
-        
-
-        
-          
-          <div class="collection-title">
-            <h1 class="archive-year" id="archive-year-2019">2019</h1>
-          </div>
-        
-        
-
-        
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://a1oyss.github.io/2020/09/27/wifilogin/">
 
-      <h2 class="post-title">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="a1oyss">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.PNG">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="a1oyss's blog">
+    </span>
+
+    
+      <header class="post-header">
+
         
-            <a class="post-title-link" href="/2019/08/08/pwnable/" itemprop="url">
-              
-                <span itemprop="name">pwnable writeup</span>
-              
-            </a>
         
-      </h2>
+          <h1 class="post-title" itemprop="name headline">wifilogin</h1>
+        
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-08-08T14:20:10+08:00" content="2019-08-08">
-          08-08
-        </time>
-      </div>
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-09-27T16:49:30+08:00">
+                2020-09-27
+              </time>
+            
 
-    </header>
-  </article>
+            
 
+            
+          </span>
 
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i> 浏览
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>次
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  580
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
+      
 
+      
+        <h1 id="前言">前言</h1>
+<p>做个开机自动登录WiFi脚本</p>
+<h1 id="配置环境">配置环境</h1>
+<ul>
+<li>Python 3.7</li>
+<li>Pycharm</li>
+<li>Fiddler Everywhere</li>
+</ul>
+<h1 id="抓包分析">抓包分析</h1>
+<p><strong>登陆界面</strong></p>
+<figure>
+<img src="https://gitee.com/a1oyss/image-uploader/raw/master/img/image-20200929092828678.png" alt="image-20200929092828678"><figcaption aria-hidden="true">image-20200929092828678</figcaption>
+</figure>
+<p><strong>请求地址</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://211.69.15.33:9999/portalAuthAction.do</span><br></pre></td></tr></table></figure>
+<p><strong>请求数据</strong></p>
+<figure>
+<img src="https://gitee.com/a1oyss/image-uploader/raw/master/img/image-20201004170239733.png" alt="image-20201004170239733"><figcaption aria-hidden="true">image-20201004170239733</figcaption>
+</figure>
+<p>其中关键的只有wlanuserip，wlanacIp，userid，useridtemp，passwd。</p>
+<p>wlanuserip，wlanacIp可以通过ipconfig获取，也可以访问校园网界面，获取参数，这里选择后者。</p>
+<h1 id="python代码">Python代码</h1>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">from</span> bs4 <span class="keyword">import</span> BeautifulSoup</span><br><span class="line"><span class="keyword">from</span> win10toast <span class="keyword">import</span> ToastNotifier</span><br><span class="line"><span class="keyword">import</span> webbrowser</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">HAITWIFI</span>:</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></span><br><span class="line">        self.username = <span class="string">'用户名'</span></span><br><span class="line">        self.password = <span class="string">'密码'</span></span><br><span class="line">        <span class="comment"># 移动@gxyyd  联通@gxylt  电信@gxydx</span></span><br><span class="line">        self.operator = &#123;<span class="string">'1'</span>: <span class="string">'@gxyyd'</span>, <span class="string">'2'</span>: <span class="string">'@gxylt'</span>, <span class="string">'3'</span>: <span class="string">'@gxydx'</span>&#125;.get(<span class="string">'1'</span>, <span class="string">'@gxyyd'</span>)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">getIP</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="comment"># 获取动态参数</span></span><br><span class="line">        url = <span class="string">'校园网url'</span></span><br><span class="line">        r = requests.get(url)</span><br><span class="line">        soup = BeautifulSoup(r.content, <span class="string">'html5lib'</span>)</span><br><span class="line">        wlanuserip = soup.find(<span class="string">'input'</span>, attrs=&#123;<span class="string">'name'</span>: <span class="string">'wlanuserip'</span>&#125;).attrs[<span class="string">'value'</span>]</span><br><span class="line">        wlanacip = soup.find(<span class="string">'input'</span>, attrs=&#123;<span class="string">'name'</span>: <span class="string">'wlanacIp'</span>&#125;).attrs[<span class="string">'value'</span>]</span><br><span class="line">        <span class="keyword">return</span> wlanuserip, wlanacip</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">login</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="comment"># 登录模块</span></span><br><span class="line">        ip = self.getIP()</span><br><span class="line">        login_url = <span class="string">"登录url"</span></span><br><span class="line">        headers = &#123;</span><br><span class="line">            <span class="string">'User-Agent'</span>: <span class="string">'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) '</span></span><br><span class="line">                          <span class="string">'Chrome/85.0.4183.121 Safari/537.36'</span>,</span><br><span class="line">            <span class="string">'Referer'</span>: <span class="string">'校园网url'</span>,</span><br><span class="line">        &#125;</span><br><span class="line">        post_data = &#123;<span class="string">'wlanuserip'</span>: ip[<span class="number">0</span>],</span><br><span class="line">                     <span class="string">'wlanacname'</span>: <span class="string">'HAIT-SR8808'</span>,</span><br><span class="line">                     <span class="string">'chal_id'</span>: <span class="string">''</span>,</span><br><span class="line">                     <span class="string">'chal_vector'</span>: <span class="string">''</span>,</span><br><span class="line">                     <span class="string">'auth_type'</span>: <span class="string">'PAP'</span>,</span><br><span class="line">                     <span class="string">'seq_id'</span>: <span class="string">''</span>,</span><br><span class="line">                     <span class="string">'req_id'</span>: <span class="string">''</span>,</span><br><span class="line">                     <span class="string">'wlanacIp'</span>: ip[<span class="number">1</span>],</span><br><span class="line">                     <span class="string">'ssid'</span>: <span class="string">''</span>,</span><br><span class="line">                     <span class="string">'vlan'</span>: <span class="string">''</span>,</span><br><span class="line">                     <span class="string">'mac'</span>: <span class="string">''</span>,</span><br><span class="line">                     <span class="string">'message'</span>: <span class="string">''</span>,</span><br><span class="line">                     <span class="string">'bank_acct'</span>: <span class="string">''</span>,</span><br><span class="line">                     <span class="string">'isCookies'</span>: <span class="string">''</span>,</span><br><span class="line">                     <span class="string">'version'</span>: <span class="string">'0'</span>,</span><br><span class="line">                     <span class="string">'authkey'</span>: <span class="string">'88----89'</span>,</span><br><span class="line">                     <span class="string">'url'</span>: <span class="string">''</span>,</span><br><span class="line">                     <span class="string">'usertime'</span>: <span class="string">'0'</span>,</span><br><span class="line">                     <span class="string">'listpasscode'</span>: <span class="string">'0'</span>,</span><br><span class="line">                     <span class="string">'listgetpass'</span>: <span class="string">'0'</span>,</span><br><span class="line">                     <span class="string">'getpasstype'</span>: <span class="string">'0'</span>,</span><br><span class="line">                     <span class="string">'randstr'</span>: <span class="string">'7150'</span>,</span><br><span class="line">                     <span class="string">'domain'</span>: <span class="string">''</span>,</span><br><span class="line">                     <span class="string">'isRadiusProxy'</span>: <span class="string">'true'</span>,</span><br><span class="line">                     <span class="string">'usertype'</span>: <span class="string">'0'</span>,</span><br><span class="line">                     <span class="string">'isHaveNotice'</span>: <span class="string">'0'</span>,</span><br><span class="line">                     <span class="string">'times'</span>: <span class="number">12</span>,</span><br><span class="line">                     <span class="string">'weizhi'</span>: <span class="number">0</span>,</span><br><span class="line">                     <span class="string">'smsid'</span>: <span class="string">''</span>,</span><br><span class="line">                     <span class="string">'freeuser'</span>: <span class="string">''</span>,</span><br><span class="line">                     <span class="string">'freepasswd'</span>: <span class="string">''</span>,</span><br><span class="line">                     <span class="string">'listwxauth'</span>: <span class="string">'0'</span>,</span><br><span class="line">                     <span class="string">'templatetype'</span>: <span class="string">'1'</span>,</span><br><span class="line">                     <span class="string">'tname'</span>: <span class="string">'gxy_pc_portal'</span>,</span><br><span class="line">                     <span class="string">'logintype'</span>: <span class="string">'0'</span>,</span><br><span class="line">                     <span class="string">'act'</span>: <span class="string">''</span>,</span><br><span class="line">                     <span class="string">'is189'</span>: <span class="string">'false'</span>,</span><br><span class="line">                     <span class="string">'terminalType'</span>: <span class="string">''</span>,</span><br><span class="line">                     <span class="string">'checkterminal'</span>: <span class="string">'true'</span>,</span><br><span class="line">                     <span class="string">'portalpageid'</span>: <span class="string">'23'</span>,</span><br><span class="line">                     <span class="string">'listfreeauth'</span>: <span class="string">'0'</span>,</span><br><span class="line">                     <span class="string">'viewlogin'</span>: <span class="string">'1'</span>,</span><br><span class="line">                     <span class="string">'userid'</span>: self.username + self.operator,</span><br><span class="line">                     <span class="string">'authGroupId'</span>: <span class="string">''</span>,</span><br><span class="line">                     <span class="string">'smsoperatorsflat'</span>: <span class="string">''</span>,</span><br><span class="line">                     <span class="string">'useridtemp'</span>: self.username + self.operator,</span><br><span class="line">                     <span class="string">'passwd'</span>: self.password,</span><br><span class="line">                     <span class="string">'operator'</span>: self.operator&#125;</span><br><span class="line">        r = requests.post(url=login_url, data=post_data, headers=headers)</span><br><span class="line">        bs = BeautifulSoup(r.content, <span class="string">'html5lib'</span>)</span><br><span class="line">        toaster = ToastNotifier()</span><br><span class="line">        <span class="keyword">if</span> bs.find_all(<span class="string">'input'</span>, id=<span class="string">'loginOut'</span>) != []:</span><br><span class="line">            toaster.show_toast(<span class="string">'WIFI登录'</span>, <span class="string">'登录成功'</span>, icon_path=<span class="string">'D:\\Program Files\\Python37\\DLLs\\py.ico'</span>, duration=<span class="number">2</span>, threaded=<span class="literal">True</span>)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            toaster.show_toast(<span class="string">'WIFI登录'</span>, <span class="string">'登录失败'</span>, icon_path=<span class="string">'D:\\Program Files\\Python37\\DLLs\\py.ico'</span>, duration=<span class="number">2</span>, threaded=<span class="literal">True</span>)</span><br><span class="line">            webbrowser.open(</span><br><span class="line">                <span class="string">'http://url/portalReceiveAction.do?wlanuserip='</span> + ip[<span class="number">0</span>] + <span class="string">'&amp;wlanacname=HAIT-SR8808'</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">HAITlogin = HAITWIFI()</span><br><span class="line">HAITlogin.login()</span><br></pre></td></tr></table></figure>
+<h1 id="添加win10弹窗提醒">添加Win10弹窗提醒</h1>
+<p>这里我使用的是win10toast模块，创建对象后，使用<code>show_toast()</code>即可成功弹窗。</p>
+<h1 id="开机自启">开机自启</h1>
+<ul>
+<li><p>方案一 加入Windows 服务</p>
+<p>首先使用Pyinstaller将程序编译为exe，然后使用<a href="https://github.com/winsw/winsw/releases" target="_blank" rel="noopener">WinSW</a>，将程序添加为Windows 服务。</p>
+<p>优点：B格很高</p>
+<p>缺点：有BUG，可能是win10toast的问题，也可能是python打包文件的问题，虽然能完成登录，但无法弹窗。</p></li>
+<li><p>方案二 添加到<code>启动</code>文件夹</p>
+<p>这种很简单，写一个bat，运行脚本，最后把bat放到<code>AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup</code>文件夹中即可。</p>
+<p>优点：简单，实用</p>
+<p>缺点：B格不够，运行太慢，会弹黑框框</p></li>
+</ul>
+
+      
     </div>
+    
+    
+    
+
+    
+
+    
+
+    
+	
+	
+	  <div>
+	    <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+	  </div>
+	
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/python/" rel="tag"># python</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/09/10/test/" rel="next" title="test">
+                <i class="fa fa-chevron-left"></i> test
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
 
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -339,6 +491,15 @@
 
 
           
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC80NDQ3OC8yMTAxMA=="></div>
+    </div>
+
+  
+
+
 
         </div>
         
@@ -359,8 +520,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -441,6 +611,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#配置环境"><span class="nav-number">2.</span> <span class="nav-text">配置环境</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#抓包分析"><span class="nav-number">3.</span> <span class="nav-text">抓包分析</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#python代码"><span class="nav-number">4.</span> <span class="nav-text">Python代码</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#添加win10弹窗提醒"><span class="nav-number">5.</span> <span class="nav-text">添加Win10弹窗提醒</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#开机自启"><span class="nav-number">6.</span> <span class="nav-text">开机自启</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -597,6 +783,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
@@ -625,6 +815,17 @@
 
 
 
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
   
 
 
