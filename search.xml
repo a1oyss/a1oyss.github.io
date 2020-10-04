@@ -703,6 +703,76 @@
       </tags>
   </entry>
   <entry>
+    <title>使用PyCharm打造舒适的pwn环境</title>
+    <url>/2019/07/29/pycharm/</url>
+    <content><![CDATA[<h1 id="前言">前言</h1>
+<p>弄了一天的vim+xshell，结果还是不尽人意，spacevim要求终端支持真彩色，但是xshell显然⑧行，将<code>enable_guicolors</code>设置为false后才勉强能看。</p>
+<p>于是突发奇想，将pycharm通过ssh连接到虚拟机当中的python环境，能不能直接在主机上面写脚本调试，查了下还真有这个功能，不过需要pro版本。</p>
+<h1 id="准备工作">准备工作</h1>
+<ol type="1">
+<li>PyCharm Pro</li>
+<li>VMware Workstation</li>
+<li>科学上网</li>
+</ol>
+<h1 id="配置">配置</h1>
+<h2 id="主题">主题</h2>
+<p>File-&gt;Settings..-&gt;Plugins，安装Material Theme UI，接着按照自己喜欢的来配就行</p>
+<h2 id="配置ssh-interpreter">配置SSH Interpreter</h2>
+<p>安装好PyCharm Pro之后，创建一个项目，创建好之后找到File-&gt;Settings..-&gt;Project: ctf-&gt;Project Interpreter配置python解释器</p>
+<figure>
+<img src="https://i.loli.net/2020/08/30/ofdcXIjTHvFt7nK.png" alt="1564413576995" /><figcaption aria-hidden="true">1564413576995</figcaption>
+</figure>
+<p>选择Add..-&gt;SSH Interpreter</p>
+<figure>
+<img src="https://i.loli.net/2020/08/30/NSu85CFskzwqfU6.png" alt="1564413654784" /><figcaption aria-hidden="true">1564413654784</figcaption>
+</figure>
+<p>将虚拟机的ip地址和用户名填写到相应的地方，然后NEXT。</p>
+<p>填写密码</p>
+<figure>
+<img src="https://i.loli.net/2020/08/30/ScGJNDETifOmtk8.png" alt="1564413731448" /><figcaption aria-hidden="true">1564413731448</figcaption>
+</figure>
+<p>设置解释器路径和文件同步位置，然后FINISH</p>
+<figure>
+<img src="https://i.loli.net/2020/08/30/VjULJRsEcaZ4YSG.png" alt="1564413752526" /><figcaption aria-hidden="true">1564413752526</figcaption>
+</figure>
+<p>FINISH之后PyCharm会先进行一次同步，同步python库，并且把一些配置文件什么的给传过去，时间略长。</p>
+<p>PyCharm的同步还有版本对比功能</p>
+<figure>
+<img src="https://i.loli.net/2020/08/30/WgpeJOn1UwHv5ys.png" alt="1564414108066" /><figcaption aria-hidden="true">1564414108066</figcaption>
+</figure>
+<p>不得不说比预想中还要好用。</p>
+<h2 id="配置hexo">配置hexo</h2>
+<p>File-&gt;Settings..-&gt;Tools-&gt;Terminal中可以设置PyCharm的终端</p>
+<p>将Start directory设置为hexo根目录</p>
+<p>shell path可以直接填写终端名称，例如powershell.exe</p>
+<p>Tab name，标签名称，随便修改。</p>
+<figure>
+<img src="https://i.loli.net/2020/08/30/yVahQxYj3LWFB9O.png" alt="1564414405852" /><figcaption aria-hidden="true">1564414405852</figcaption>
+</figure>
+<p>这样就可以随时进行hexo的相关操作了。</p>
+<h2 id="配置ssh-terminal">配置SSH Terminal</h2>
+<p>File-&gt;Settings..-&gt;Tools-&gt;SSH Terminal</p>
+<figure>
+<img src="https://i.loli.net/2020/08/30/Ly4EN3qnPTio2S1.png" alt="1564414758329" /><figcaption aria-hidden="true">1564414758329</figcaption>
+</figure>
+<p>Deloyment server中选择root@xxx.xxx.xxx.xxx:22</p>
+<p>这样每次打开就不需要再选一次了。</p>
+<h1 id="faq">FAQ</h1>
+<h2 id="pycharm中进行调试后console中输出">PyCharm中进行调试后，console中输出□=</h2>
+<p>应该是PyCharm的问题，有两种解决办法：</p>
+<ol type="1">
+<li><p>Run-&gt;Edit Configurations..-&gt;Templates-&gt;Python-&gt;Enviroment variables中添加环境变量</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">PWNLIB_NOTERM=True</span><br></pre></td></tr></table></figure></li>
+<li><p><del>修改<code>/usr/local/lib/python2.7/dist-packages/pwnlib/args.py</code>最后一行，注释掉<code>term.init()</code></del></p></li>
+</ol>
+<h1 id="总结">总结</h1>
+<p>pro版本还是好用，配置好之后，直接在一个窗口中进行所有操作，不需要几个窗口之间来回切了，方便了不少。</p>
+]]></content>
+      <tags>
+        <tag>IDE</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>pwnable writeup</title>
     <url>/2019/08/08/pwnable/</url>
     <content><![CDATA[<h1 id="toddlers-bottle">Toddler's Bottle</h1>
@@ -1019,76 +1089,6 @@
       </tags>
   </entry>
   <entry>
-    <title>使用PyCharm打造舒适的pwn环境</title>
-    <url>/2019/07/29/pycharm/</url>
-    <content><![CDATA[<h1 id="前言">前言</h1>
-<p>弄了一天的vim+xshell，结果还是不尽人意，spacevim要求终端支持真彩色，但是xshell显然⑧行，将<code>enable_guicolors</code>设置为false后才勉强能看。</p>
-<p>于是突发奇想，将pycharm通过ssh连接到虚拟机当中的python环境，能不能直接在主机上面写脚本调试，查了下还真有这个功能，不过需要pro版本。</p>
-<h1 id="准备工作">准备工作</h1>
-<ol type="1">
-<li>PyCharm Pro</li>
-<li>VMware Workstation</li>
-<li>科学上网</li>
-</ol>
-<h1 id="配置">配置</h1>
-<h2 id="主题">主题</h2>
-<p>File-&gt;Settings..-&gt;Plugins，安装Material Theme UI，接着按照自己喜欢的来配就行</p>
-<h2 id="配置ssh-interpreter">配置SSH Interpreter</h2>
-<p>安装好PyCharm Pro之后，创建一个项目，创建好之后找到File-&gt;Settings..-&gt;Project: ctf-&gt;Project Interpreter配置python解释器</p>
-<figure>
-<img src="https://i.loli.net/2020/08/30/ofdcXIjTHvFt7nK.png" alt="1564413576995" /><figcaption aria-hidden="true">1564413576995</figcaption>
-</figure>
-<p>选择Add..-&gt;SSH Interpreter</p>
-<figure>
-<img src="https://i.loli.net/2020/08/30/NSu85CFskzwqfU6.png" alt="1564413654784" /><figcaption aria-hidden="true">1564413654784</figcaption>
-</figure>
-<p>将虚拟机的ip地址和用户名填写到相应的地方，然后NEXT。</p>
-<p>填写密码</p>
-<figure>
-<img src="https://i.loli.net/2020/08/30/ScGJNDETifOmtk8.png" alt="1564413731448" /><figcaption aria-hidden="true">1564413731448</figcaption>
-</figure>
-<p>设置解释器路径和文件同步位置，然后FINISH</p>
-<figure>
-<img src="https://i.loli.net/2020/08/30/VjULJRsEcaZ4YSG.png" alt="1564413752526" /><figcaption aria-hidden="true">1564413752526</figcaption>
-</figure>
-<p>FINISH之后PyCharm会先进行一次同步，同步python库，并且把一些配置文件什么的给传过去，时间略长。</p>
-<p>PyCharm的同步还有版本对比功能</p>
-<figure>
-<img src="https://i.loli.net/2020/08/30/WgpeJOn1UwHv5ys.png" alt="1564414108066" /><figcaption aria-hidden="true">1564414108066</figcaption>
-</figure>
-<p>不得不说比预想中还要好用。</p>
-<h2 id="配置hexo">配置hexo</h2>
-<p>File-&gt;Settings..-&gt;Tools-&gt;Terminal中可以设置PyCharm的终端</p>
-<p>将Start directory设置为hexo根目录</p>
-<p>shell path可以直接填写终端名称，例如powershell.exe</p>
-<p>Tab name，标签名称，随便修改。</p>
-<figure>
-<img src="https://i.loli.net/2020/08/30/yVahQxYj3LWFB9O.png" alt="1564414405852" /><figcaption aria-hidden="true">1564414405852</figcaption>
-</figure>
-<p>这样就可以随时进行hexo的相关操作了。</p>
-<h2 id="配置ssh-terminal">配置SSH Terminal</h2>
-<p>File-&gt;Settings..-&gt;Tools-&gt;SSH Terminal</p>
-<figure>
-<img src="https://i.loli.net/2020/08/30/Ly4EN3qnPTio2S1.png" alt="1564414758329" /><figcaption aria-hidden="true">1564414758329</figcaption>
-</figure>
-<p>Deloyment server中选择root@xxx.xxx.xxx.xxx:22</p>
-<p>这样每次打开就不需要再选一次了。</p>
-<h1 id="faq">FAQ</h1>
-<h2 id="pycharm中进行调试后console中输出">PyCharm中进行调试后，console中输出□=</h2>
-<p>应该是PyCharm的问题，有两种解决办法：</p>
-<ol type="1">
-<li><p>Run-&gt;Edit Configurations..-&gt;Templates-&gt;Python-&gt;Enviroment variables中添加环境变量</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">PWNLIB_NOTERM=True</span><br></pre></td></tr></table></figure></li>
-<li><p><del>修改<code>/usr/local/lib/python2.7/dist-packages/pwnlib/args.py</code>最后一行，注释掉<code>term.init()</code></del></p></li>
-</ol>
-<h1 id="总结">总结</h1>
-<p>pro版本还是好用，配置好之后，直接在一个窗口中进行所有操作，不需要几个窗口之间来回切了，方便了不少。</p>
-]]></content>
-      <tags>
-        <tag>IDE</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>RSA总结</title>
     <url>/2019/07/10/rsa/</url>
     <content><![CDATA[<h1 id="rsa介绍">RSA介绍</h1>
@@ -1337,6 +1337,24 @@ c_1^{s_1}c_2^{s_2} \equiv m\ mod\ n
       </tags>
   </entry>
   <entry>
+    <title>关于vim的复制粘贴</title>
+    <url>/2019/06/01/vim/</url>
+    <content><![CDATA[<p>学习Canary相关的东西时，因为要从网上复制粘贴各种代码，因为缩进问题，复制完之后的效果惨不忍睹，比如这样：</p>
+<figure>
+<img src="https://i.loli.net/2020/09/10/fsJqkMKjcIDGrVu.png" alt="vim-2020-09-10-17-23-17" /><figcaption aria-hidden="true">vim-2020-09-10-17-23-17</figcaption>
+</figure>
+<p>过于惨不忍睹，markdown的代码框展现不出来效果</p>
+<p>解决方法的话就是在粘贴前先输入<code>:set paste</code>，接着进入insert模式的时候后面就会多个(paste)，这样复制进去的就和你原本看到的一样了</p>
+<h1 id="eqweqw">eqweqw</h1>
+<h2 id="ewqewqeqw">ewqewqeqw</h2>
+<h3 id="eqweqwe">eqweqwe</h3>
+<p><code>eweqeqweq</code> <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">this</span>._self=self</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+]]></content>
+      <tags>
+        <tag>笔记</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>wifilogin</title>
     <url>/2020/09/27/wifilogin/</url>
     <content><![CDATA[<h1 id="前言">前言</h1>
@@ -1378,24 +1396,6 @@ c_1^{s_1}c_2^{s_2} \equiv m\ mod\ n
 ]]></content>
       <tags>
         <tag>python</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>关于vim的复制粘贴</title>
-    <url>/2019/06/01/vim/</url>
-    <content><![CDATA[<p>学习Canary相关的东西时，因为要从网上复制粘贴各种代码，因为缩进问题，复制完之后的效果惨不忍睹，比如这样：</p>
-<figure>
-<img src="https://i.loli.net/2020/09/10/fsJqkMKjcIDGrVu.png" alt="vim-2020-09-10-17-23-17" /><figcaption aria-hidden="true">vim-2020-09-10-17-23-17</figcaption>
-</figure>
-<p>过于惨不忍睹，markdown的代码框展现不出来效果</p>
-<p>解决方法的话就是在粘贴前先输入<code>:set paste</code>，接着进入insert模式的时候后面就会多个(paste)，这样复制进去的就和你原本看到的一样了</p>
-<h1 id="eqweqw">eqweqw</h1>
-<h2 id="ewqewqeqw">ewqewqeqw</h2>
-<h3 id="eqweqwe">eqweqwe</h3>
-<p><code>eweqeqweq</code> <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">this</span>._self=self</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-]]></content>
-      <tags>
-        <tag>笔记</tag>
       </tags>
   </entry>
   <entry>
