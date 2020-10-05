@@ -342,6 +342,55 @@
       </tags>
   </entry>
   <entry>
+    <title>栈迁移的相关操作</title>
+    <url>/2019/07/28/frame-faking/</url>
+    <content><![CDATA[<h1 id="frame-faking">frame faking</h1>
+<h2 id="原理">原理</h2>
+<p>通过覆盖栈上的数据来控制EBP的值，进而控制ESP的值。</p>
+<p>构造payload：</p>
+<table>
+<thead>
+<tr class="header">
+<th>buffer padding</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>fake EBP</td>
+</tr>
+<tr class="even">
+<td>leave_retn</td>
+</tr>
+</tbody>
+</table>
+<p>其中leave retn就相当于</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">leave		;mov esp, ebp # 将ebp的值赋给esp</span><br><span class="line">		    ;pop ebp # 弹出ebp</span><br><span class="line">retn		;pop eip #弹出eip</span><br></pre></td></tr></table></figure>
+<p>函数的返回地址被覆盖为leave retn，也就是说程序执行完自己的leave retn之后，还会再执行一次leave retn。其中fake EBP是新栈帧的地址。</p>
+<p>流程如下：</p>
+<ol type="1">
+<li>在有栈溢出的程序执行 leave 时，其分为两个步骤
+<ul>
+<li>mov esp, ebp ，这会将 esp 也指向当前栈溢出漏洞的 ebp 基地址处。</li>
+<li>pop ebp， 这会将栈中存放的 fake ebp 的值赋给 ebp。即执行完指令之后，ebp 便指向了 ebp2，也就是保存了 ebp2 所在的地址。</li>
+</ul></li>
+<li>执行 ret 指令，会再次执行 leave ret 指令。</li>
+<li>执行 leave 指令，其分为两个步骤
+<ul>
+<li>mov esp, ebp ，这会将 esp 指向 ebp2。</li>
+<li>pop ebp，此时，会将 ebp 的内容设置为 ebp2 的值，同时 esp 会指向 target function。</li>
+</ul></li>
+<li>执行 ret 指令，这时候程序就会执行 target function，当其进行程序的时候会执行
+<ul>
+<li>push ebp，会将 ebp2 值压入栈中，</li>
+<li>mov ebp, esp，将 ebp 指向当前基地址。</li>
+</ul></li>
+</ol>
+]]></content>
+      <tags>
+        <tag>pwn</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>CTF中遇到过的编码和加密</title>
     <url>/2019/07/10/encrypt/</url>
     <content><![CDATA[<h2 id="栅栏密码">栅栏密码</h2>
@@ -482,74 +531,6 @@
       </tags>
   </entry>
   <entry>
-    <title>栈迁移的相关操作</title>
-    <url>/2019/07/28/frame-faking/</url>
-    <content><![CDATA[<h1 id="frame-faking">frame faking</h1>
-<h2 id="原理">原理</h2>
-<p>通过覆盖栈上的数据来控制EBP的值，进而控制ESP的值。</p>
-<p>构造payload：</p>
-<table>
-<thead>
-<tr class="header">
-<th>buffer padding</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>fake EBP</td>
-</tr>
-<tr class="even">
-<td>leave_retn</td>
-</tr>
-</tbody>
-</table>
-<p>其中leave retn就相当于</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">leave		;mov esp, ebp # 将ebp的值赋给esp</span><br><span class="line">		    ;pop ebp # 弹出ebp</span><br><span class="line">retn		;pop eip #弹出eip</span><br></pre></td></tr></table></figure>
-<p>函数的返回地址被覆盖为leave retn，也就是说程序执行完自己的leave retn之后，还会再执行一次leave retn。其中fake EBP是新栈帧的地址。</p>
-<p>流程如下：</p>
-<ol type="1">
-<li>在有栈溢出的程序执行 leave 时，其分为两个步骤
-<ul>
-<li>mov esp, ebp ，这会将 esp 也指向当前栈溢出漏洞的 ebp 基地址处。</li>
-<li>pop ebp， 这会将栈中存放的 fake ebp 的值赋给 ebp。即执行完指令之后，ebp 便指向了 ebp2，也就是保存了 ebp2 所在的地址。</li>
-</ul></li>
-<li>执行 ret 指令，会再次执行 leave ret 指令。</li>
-<li>执行 leave 指令，其分为两个步骤
-<ul>
-<li>mov esp, ebp ，这会将 esp 指向 ebp2。</li>
-<li>pop ebp，此时，会将 ebp 的内容设置为 ebp2 的值，同时 esp 会指向 target function。</li>
-</ul></li>
-<li>执行 ret 指令，这时候程序就会执行 target function，当其进行程序的时候会执行
-<ul>
-<li>push ebp，会将 ebp2 值压入栈中，</li>
-<li>mov ebp, esp，将 ebp 指向当前基地址。</li>
-</ul></li>
-</ol>
-]]></content>
-      <tags>
-        <tag>pwn</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Hello World</title>
-    <url>/2019/05/30/hello-world/</url>
-    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="quick-start">Quick Start</h2>
-<h3 id="create-a-new-post">Create a new post</h3>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="run-server">Run server</h3>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="generate-static-files">Generate static files</h3>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="deploy-to-remote-sites">Deploy to remote sites</h3>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
-]]></content>
-  </entry>
-  <entry>
     <title>使用hexo-asset-image图片路径错误</title>
     <url>/2019/07/01/hexo-image/</url>
     <content><![CDATA[<h1 id="part-1">Part 1</h1>
@@ -588,6 +569,81 @@
       <tags>
         <tag>hexo</tag>
         <tag>笔记</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Hello World</title>
+    <url>/2019/05/30/hello-world/</url>
+    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
+<h2 id="quick-start">Quick Start</h2>
+<h3 id="create-a-new-post">Create a new post</h3>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
+<h3 id="run-server">Run server</h3>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
+<h3 id="generate-static-files">Generate static files</h3>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
+<h3 id="deploy-to-remote-sites">Deploy to remote sites</h3>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+]]></content>
+  </entry>
+  <entry>
+    <title>使用PyCharm打造舒适的pwn环境</title>
+    <url>/2019/07/29/pycharm/</url>
+    <content><![CDATA[<h1 id="前言">前言</h1>
+<p>弄了一天的vim+xshell，结果还是不尽人意，spacevim要求终端支持真彩色，但是xshell显然⑧行，将<code>enable_guicolors</code>设置为false后才勉强能看。</p>
+<p>于是突发奇想，将pycharm通过ssh连接到虚拟机当中的python环境，能不能直接在主机上面写脚本调试，查了下还真有这个功能，不过需要pro版本。</p>
+<h1 id="准备工作">准备工作</h1>
+<ol type="1">
+<li>PyCharm Pro</li>
+<li>VMware Workstation</li>
+<li>科学上网</li>
+</ol>
+<h1 id="配置">配置</h1>
+<h2 id="主题">主题</h2>
+<p>File-&gt;Settings..-&gt;Plugins，安装Material Theme UI，接着按照自己喜欢的来配就行</p>
+<h2 id="配置ssh-interpreter">配置SSH Interpreter</h2>
+<p>安装好PyCharm Pro之后，创建一个项目，创建好之后找到File-&gt;Settings..-&gt;Project: ctf-&gt;Project Interpreter配置python解释器</p>
+<p><img src="https://i.loli.net/2020/08/30/ofdcXIjTHvFt7nK.png" alt="1564413576995" /></p>
+<p>选择Add..-&gt;SSH Interpreter</p>
+<p><img src="https://i.loli.net/2020/08/30/NSu85CFskzwqfU6.png" alt="1564413654784" /></p>
+<p>将虚拟机的ip地址和用户名填写到相应的地方，然后NEXT。</p>
+<p>填写密码</p>
+<p><img src="https://i.loli.net/2020/08/30/ScGJNDETifOmtk8.png" alt="1564413731448" /></p>
+<p>设置解释器路径和文件同步位置，然后FINISH</p>
+<p><img src="https://i.loli.net/2020/08/30/VjULJRsEcaZ4YSG.png" alt="1564413752526" /></p>
+<p>FINISH之后PyCharm会先进行一次同步，同步python库，并且把一些配置文件什么的给传过去，时间略长。</p>
+<p>PyCharm的同步还有版本对比功能</p>
+<p><img src="https://i.loli.net/2020/08/30/WgpeJOn1UwHv5ys.png" alt="1564414108066" /></p>
+<p>不得不说比预想中还要好用。</p>
+<h2 id="配置hexo">配置hexo</h2>
+<p>File-&gt;Settings..-&gt;Tools-&gt;Terminal中可以设置PyCharm的终端</p>
+<p>将Start directory设置为hexo根目录</p>
+<p>shell path可以直接填写终端名称，例如powershell.exe</p>
+<p>Tab name，标签名称，随便修改。</p>
+<p><img src="https://i.loli.net/2020/08/30/yVahQxYj3LWFB9O.png" alt="1564414405852" /></p>
+<p>这样就可以随时进行hexo的相关操作了。</p>
+<h2 id="配置ssh-terminal">配置SSH Terminal</h2>
+<p>File-&gt;Settings..-&gt;Tools-&gt;SSH Terminal</p>
+<p><img src="https://i.loli.net/2020/08/30/Ly4EN3qnPTio2S1.png" alt="1564414758329" /></p>
+<p>Deloyment server中选择root@xxx.xxx.xxx.xxx:22</p>
+<p>这样每次打开就不需要再选一次了。</p>
+<h1 id="faq">FAQ</h1>
+<h2 id="pycharm中进行调试后console中输出">PyCharm中进行调试后，console中输出□=</h2>
+<p>应该是PyCharm的问题，有两种解决办法：</p>
+<ol type="1">
+<li><p>Run-&gt;Edit Configurations..-&gt;Templates-&gt;Python-&gt;Enviroment variables中添加环境变量</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">PWNLIB_NOTERM=True</span><br></pre></td></tr></table></figure></li>
+<li><p><del>修改<code>/usr/local/lib/python2.7/dist-packages/pwnlib/args.py</code>最后一行，注释掉<code>term.init()</code></del></p></li>
+</ol>
+<h1 id="总结">总结</h1>
+<p>pro版本还是好用，配置好之后，直接在一个窗口中进行所有操作，不需要几个窗口之间来回切了，方便了不少。</p>
+]]></content>
+      <tags>
+        <tag>IDE</tag>
       </tags>
   </entry>
   <entry>
@@ -688,62 +744,6 @@
 ]]></content>
       <tags>
         <tag>CTF</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>使用PyCharm打造舒适的pwn环境</title>
-    <url>/2019/07/29/pycharm/</url>
-    <content><![CDATA[<h1 id="前言">前言</h1>
-<p>弄了一天的vim+xshell，结果还是不尽人意，spacevim要求终端支持真彩色，但是xshell显然⑧行，将<code>enable_guicolors</code>设置为false后才勉强能看。</p>
-<p>于是突发奇想，将pycharm通过ssh连接到虚拟机当中的python环境，能不能直接在主机上面写脚本调试，查了下还真有这个功能，不过需要pro版本。</p>
-<h1 id="准备工作">准备工作</h1>
-<ol type="1">
-<li>PyCharm Pro</li>
-<li>VMware Workstation</li>
-<li>科学上网</li>
-</ol>
-<h1 id="配置">配置</h1>
-<h2 id="主题">主题</h2>
-<p>File-&gt;Settings..-&gt;Plugins，安装Material Theme UI，接着按照自己喜欢的来配就行</p>
-<h2 id="配置ssh-interpreter">配置SSH Interpreter</h2>
-<p>安装好PyCharm Pro之后，创建一个项目，创建好之后找到File-&gt;Settings..-&gt;Project: ctf-&gt;Project Interpreter配置python解释器</p>
-<p><img src="https://i.loli.net/2020/08/30/ofdcXIjTHvFt7nK.png" alt="1564413576995" /></p>
-<p>选择Add..-&gt;SSH Interpreter</p>
-<p><img src="https://i.loli.net/2020/08/30/NSu85CFskzwqfU6.png" alt="1564413654784" /></p>
-<p>将虚拟机的ip地址和用户名填写到相应的地方，然后NEXT。</p>
-<p>填写密码</p>
-<p><img src="https://i.loli.net/2020/08/30/ScGJNDETifOmtk8.png" alt="1564413731448" /></p>
-<p>设置解释器路径和文件同步位置，然后FINISH</p>
-<p><img src="https://i.loli.net/2020/08/30/VjULJRsEcaZ4YSG.png" alt="1564413752526" /></p>
-<p>FINISH之后PyCharm会先进行一次同步，同步python库，并且把一些配置文件什么的给传过去，时间略长。</p>
-<p>PyCharm的同步还有版本对比功能</p>
-<p><img src="https://i.loli.net/2020/08/30/WgpeJOn1UwHv5ys.png" alt="1564414108066" /></p>
-<p>不得不说比预想中还要好用。</p>
-<h2 id="配置hexo">配置hexo</h2>
-<p>File-&gt;Settings..-&gt;Tools-&gt;Terminal中可以设置PyCharm的终端</p>
-<p>将Start directory设置为hexo根目录</p>
-<p>shell path可以直接填写终端名称，例如powershell.exe</p>
-<p>Tab name，标签名称，随便修改。</p>
-<p><img src="https://i.loli.net/2020/08/30/yVahQxYj3LWFB9O.png" alt="1564414405852" /></p>
-<p>这样就可以随时进行hexo的相关操作了。</p>
-<h2 id="配置ssh-terminal">配置SSH Terminal</h2>
-<p>File-&gt;Settings..-&gt;Tools-&gt;SSH Terminal</p>
-<p><img src="https://i.loli.net/2020/08/30/Ly4EN3qnPTio2S1.png" alt="1564414758329" /></p>
-<p>Deloyment server中选择root@xxx.xxx.xxx.xxx:22</p>
-<p>这样每次打开就不需要再选一次了。</p>
-<h1 id="faq">FAQ</h1>
-<h2 id="pycharm中进行调试后console中输出">PyCharm中进行调试后，console中输出□=</h2>
-<p>应该是PyCharm的问题，有两种解决办法：</p>
-<ol type="1">
-<li><p>Run-&gt;Edit Configurations..-&gt;Templates-&gt;Python-&gt;Enviroment variables中添加环境变量</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">PWNLIB_NOTERM=True</span><br></pre></td></tr></table></figure></li>
-<li><p><del>修改<code>/usr/local/lib/python2.7/dist-packages/pwnlib/args.py</code>最后一行，注释掉<code>term.init()</code></del></p></li>
-</ol>
-<h1 id="总结">总结</h1>
-<p>pro版本还是好用，配置好之后，直接在一个窗口中进行所有操作，不需要几个窗口之间来回切了，方便了不少。</p>
-]]></content>
-      <tags>
-        <tag>IDE</tag>
       </tags>
   </entry>
   <entry>
@@ -1259,6 +1259,19 @@ c_1^{s_1}c_2^{s_2} \equiv m\ mod\ n
       </tags>
   </entry>
   <entry>
+    <title>tool</title>
+    <url>/2020/10/04/tool/</url>
+    <content><![CDATA[<h1 id="实用工具">实用工具</h1>
+<h2 id="windows-terminal">Windows Terminal</h2>
+<p>Windows 终端是一个面向命令行工具和 shell（如命令提示符、PowerShell 和适用于 Linux 的 Windows 子系统 (WSL)）用户的新式终端应用程序。 它的主要功能包括多个选项卡、窗格、Unicode 和 UTF-8 字符支持、GPU 加速文本呈现引擎，你还可用它来创建你自己的主题并自定义文本、颜色、背景和快捷方式。</p>
+<p>不知道比系统自带的Powershell和cmd高了多少B格</p>
+<p><img src="https://i.loli.net/2020/10/04/LpGeHZxwJBjAXQm.png" alt="image-20201004183225768" /></p>
+]]></content>
+      <tags>
+        <tag>工具</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Windows Terminal</title>
     <url>/2020/08/29/terminal/</url>
     <content><![CDATA[<h1 id="前言">前言</h1>
@@ -1290,37 +1303,8 @@ c_1^{s_1}c_2^{s_2} \equiv m\ mod\ n
 <p>舒服了</p>
 ]]></content>
       <tags>
+        <tag>工具</tag>
         <tag>Windows</tag>
-        <tag>工具</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>tool</title>
-    <url>/2020/10/04/tool/</url>
-    <content><![CDATA[<h1 id="实用工具">实用工具</h1>
-<h2 id="windows-terminal">Windows Terminal</h2>
-<p>Windows 终端是一个面向命令行工具和 shell（如命令提示符、PowerShell 和适用于 Linux 的 Windows 子系统 (WSL)）用户的新式终端应用程序。 它的主要功能包括多个选项卡、窗格、Unicode 和 UTF-8 字符支持、GPU 加速文本呈现引擎，你还可用它来创建你自己的主题并自定义文本、颜色、背景和快捷方式。</p>
-<p>不知道比系统自带的Powershell和cmd高了多少B格</p>
-<p><img src="https://i.loli.net/2020/10/04/LpGeHZxwJBjAXQm.png" alt="image-20201004183225768" /></p>
-]]></content>
-      <tags>
-        <tag>工具</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>关于vim的复制粘贴</title>
-    <url>/2019/06/01/vim/</url>
-    <content><![CDATA[<p>学习Canary相关的东西时，因为要从网上复制粘贴各种代码，因为缩进问题，复制完之后的效果惨不忍睹，比如这样：</p>
-<p><img src="https://i.loli.net/2020/09/10/fsJqkMKjcIDGrVu.png" alt="vim-2020-09-10-17-23-17" /></p>
-<p>过于惨不忍睹，markdown的代码框展现不出来效果</p>
-<p>解决方法的话就是在粘贴前先输入<code>:set paste</code>，接着进入insert模式的时候后面就会多个(paste)，这样复制进去的就和你原本看到的一样了</p>
-<h1 id="eqweqw">eqweqw</h1>
-<h2 id="ewqewqeqw">ewqewqeqw</h2>
-<h3 id="eqweqwe">eqweqwe</h3>
-<p><code>eweqeqweq</code> <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">this</span>._self=self</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-]]></content>
-      <tags>
-        <tag>笔记</tag>
       </tags>
   </entry>
   <entry>
@@ -1361,6 +1345,22 @@ c_1^{s_1}c_2^{s_2} \equiv m\ mod\ n
 ]]></content>
       <tags>
         <tag>python</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>关于vim的复制粘贴</title>
+    <url>/2019/06/01/vim/</url>
+    <content><![CDATA[<p>学习Canary相关的东西时，因为要从网上复制粘贴各种代码，因为缩进问题，复制完之后的效果惨不忍睹，比如这样：</p>
+<p><img src="https://i.loli.net/2020/09/10/fsJqkMKjcIDGrVu.png" alt="vim-2020-09-10-17-23-17" /></p>
+<p>过于惨不忍睹，markdown的代码框展现不出来效果</p>
+<p>解决方法的话就是在粘贴前先输入<code>:set paste</code>，接着进入insert模式的时候后面就会多个(paste)，这样复制进去的就和你原本看到的一样了</p>
+<h1 id="eqweqw">eqweqw</h1>
+<h2 id="ewqewqeqw">ewqewqeqw</h2>
+<h3 id="eqweqwe">eqweqwe</h3>
+<p><code>eweqeqweq</code> <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">this</span>._self=self</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+]]></content>
+      <tags>
+        <tag>笔记</tag>
       </tags>
   </entry>
   <entry>
