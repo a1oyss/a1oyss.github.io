@@ -38,7 +38,8 @@ NexT.utils = {
       loop   : true,
       helpers: {
         overlay: {
-          locked: false
+          locked: false,
+          title: null
         }
       }
     });
