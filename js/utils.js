@@ -37,9 +37,9 @@ NexT.utils = {
     $('.fancybox').fancybox({
       loop   : true,
       helpers: {
+      	title : null,
         overlay: {
-          locked: false,
-          title: null
+          locked: false
         }
       }
     });
