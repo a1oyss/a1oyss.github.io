@@ -1349,6 +1349,19 @@ c_1^{s_1}c_2^{s_2} \equiv m\ mod\ n
 <p>界面比原版要漂亮不少</p>
 <p><img src="https://i.loli.net/2020/10/05/GUWxqz2pRQTJfo4.png" alt="image-20201005154516730" /></p>
 <p>不过目前还有bug，以及一些功能还不到位</p>
+<h2 id="bitwarden">Bitwarden</h2>
+<p><a href="https://bitwarden.com/" target="_blank" rel="noopener">Bitwarden</a> 是一款开源的密码管理器，支持 Web、Chrome，很快将要发布 Firefox、Opera 以及 Edge 浏览器插件，拥有 iOS、Android 客户端，采用本地加密，云同步的方式。</p>
+<p>最初我使用的是Keepass+Onedrive的模式来进行密码管理以及云同步，不过Keepass的界面实在是难看，挑来挑去，最终选择这款密码管理软件。</p>
+<p>这款工具相比较Keepass，UI更好看，并且自带云同步</p>
+<p><img src="https://i.loli.net/2020/10/07/c7l5BGUWVZRbDMj.png" alt="Desktop Vault" /></p>
+<p>缺点就是无法在本地存储密码，密码全部放在服务器上，万一没网就尴尬了。</p>
+<h2 id="语雀">语雀</h2>
+<blockquote>
+<p><strong>「语雀」</strong>是一个<strong>「专业的云端知识库」</strong>，孵化自 <a href="https://www.antfin.com/?deer_tracert_token=cc478126-c93a-459b-a448-dd41de67f2d4" target="_blank" rel="noopener">蚂蚁金服</a> ，是 <a href="https://www.yuque.com/yubo/explore/tcaywl?deer_tracert_token=cc478126-c93a-459b-a448-dd41de67f2d4" target="_blank" rel="noopener">体验科技</a> 理念下的一款创新产品，已是 10 万阿里员工进行文档编写、知识沉淀的标配。</p>
+<p>语雀诞生伊始，只是希望能给工程师提供一个好用的工具用来写技术文档，达成「用 Markdown 写文档」这个小目标。但在产品研发的过程中，我们发现其实身边的每个人、每个团队、每个组织都有很多知识，但一直以来缺少一个好用的工具让这些知识不只是留在每个人的大脑或电脑里，还可以被记录、分享和交流。</p>
+</blockquote>
+<p>语雀，个人感觉比较像Gitbook，目前用户量还比较小，未来可期</p>
+<p><img src="https://i.loli.net/2020/10/07/8rwmQvR6qNDXAlT.png" alt="image-20201007214739383" /></p>
 ]]></content>
       <tags>
         <tag>工具</tag>
@@ -1461,6 +1474,153 @@ c_1^{s_1}c_2^{s_2} \equiv m\ mod\ n
       <tags>
         <tag>笔记</tag>
         <tag>kali</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>常用CTF工具收集</title>
+    <url>/2019/06/29/ctftools/</url>
+    <content><![CDATA[<h1 id="binary">Binary</h1>
+<table>
+<thead>
+<tr class="header">
+<th>Tool</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><a href="https://www.radare.org/r/" target="_blank" rel="noopener">radare2</a></td>
+<td>开源逆向框架</td>
+</tr>
+<tr class="even">
+<td><a href="https://github.com/Gallopsled/pwntools" target="_blank" rel="noopener">pwntools</a></td>
+<td>CTF框架和漏洞利用(exploit)编写工具</td>
+</tr>
+<tr class="odd">
+<td><a href="http://java-decompiler.github.io/" target="_blank" rel="noopener">jd-gui</a></td>
+<td>java反编译</td>
+</tr>
+<tr class="even">
+<td><a href="https://github.com/niklasb/libc-database" target="_blank" rel="noopener">libc-database</a></td>
+<td>根据偏移查找libc版本并下载</td>
+</tr>
+<tr class="odd">
+<td><a href="https://github.com/lieanu/LibcSearcher" target="_blank" rel="noopener">LibcSearcher</a></td>
+<td>根据泄露出来的libc中的函数的地址来查找libc版本</td>
+</tr>
+<tr class="even">
+<td><a href="http://www.qemu.org/" target="_blank" rel="noopener">qemu</a></td>
+<td>开源模拟器，用来做一些mips平台或者arm平台的题目</td>
+</tr>
+</tbody>
+</table>
+<h1 id="misc">Misc</h1>
+<table>
+<thead>
+<tr class="header">
+<th>Tool</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><a href="https://pypi.org/project/z3-solver/4.5.1.0/" target="_blank" rel="noopener">z3-solver</a></td>
+<td>z3是由微软公司开发的一个优秀的SMT求解器，它能够检查逻辑表达式的可满足性。</td>
+</tr>
+</tbody>
+</table>
+<h1 id="web">Web</h1>
+<table>
+<thead>
+<tr class="header">
+<th>Tool</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><a href="https://portswigger.net/burp" target="_blank" rel="noopener">Burpsuit</a></td>
+<td>抓包工具</td>
+</tr>
+<tr class="even">
+<td><a href="https://github.com/maurosoria/dirsearch" target="_blank" rel="noopener">dirsearch</a></td>
+<td>目录爆破</td>
+</tr>
+<tr class="odd">
+<td><a href="https://github.com/Chora10/Cknife" target="_blank" rel="noopener">CKnife</a></td>
+<td>菜刀</td>
+</tr>
+</tbody>
+</table>
+<h1 id="crypto">Crypto</h1>
+<table>
+<thead>
+<tr class="header">
+<th>Tool</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><a href="https://github.com/ius/rsatool.git" target="_blank" rel="noopener">RSAtool</a></td>
+<td>RSA加解密工具</td>
+</tr>
+<tr class="even">
+<td><a href="https://sourceforge.net/projects/yafu/" target="_blank" rel="noopener">yafu</a></td>
+<td>分解大整数</td>
+</tr>
+<tr class="odd">
+<td><a href="https://pypi.org/project/gmpy2/" target="_blank" rel="noopener">gmpy2</a></td>
+<td>高精度算术运算库</td>
+</tr>
+<tr class="even">
+<td><a href="https://pypi.org/project/pycryptodome/" target="_blank" rel="noopener">pycryptodome</a></td>
+<td>Cryptographic library for Python</td>
+</tr>
+</tbody>
+</table>
+<h1 id="mobile">Mobile</h1>
+<table>
+<thead>
+<tr class="header">
+<th>Tool</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><a href="https://www.52pojie.cn/thread-399571-1-1.html" target="_blank" rel="noopener">APK改之理</a></td>
+<td>Android反编译工具</td>
+</tr>
+<tr class="even">
+<td><a href="https://www.52pojie.cn/thread-319641-1-1.html" target="_blank" rel="noopener">AndroidKiller</a></td>
+<td>安卓应用逆向工具</td>
+</tr>
+<tr class="odd">
+<td><a href="https://sourceforge.net/projects/dex2jar/" target="_blank" rel="noopener">dex2jar</a></td>
+<td>dex2jar 是一个能操作Android的dalvik(.dex)文件格式和Java的(.class)的工具集合</td>
+</tr>
+</tbody>
+</table>
+<h1 id="others">Others</h1>
+<table>
+<thead>
+<tr class="header">
+<th>Tool</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><a href="https://aka.ms/terminal" target="_blank" rel="noopener">Windows Terminal</a></td>
+<td>高逼格终端</td>
+</tr>
+</tbody>
+</table>
+]]></content>
+      <tags>
+        <tag>CTF</tag>
+        <tag>工具</tag>
       </tags>
   </entry>
 </search>
