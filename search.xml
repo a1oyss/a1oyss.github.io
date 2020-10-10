@@ -1360,8 +1360,61 @@ c_1^{s_1}c_2^{s_2} \equiv m\ mod\ n
 <p><strong>「语雀」</strong>是一个<strong>「专业的云端知识库」</strong>，孵化自 <a href="https://www.antfin.com/?deer_tracert_token=cc478126-c93a-459b-a448-dd41de67f2d4" target="_blank" rel="noopener">蚂蚁金服</a> ，是 <a href="https://www.yuque.com/yubo/explore/tcaywl?deer_tracert_token=cc478126-c93a-459b-a448-dd41de67f2d4" target="_blank" rel="noopener">体验科技</a> 理念下的一款创新产品，已是 10 万阿里员工进行文档编写、知识沉淀的标配。</p>
 <p>语雀诞生伊始，只是希望能给工程师提供一个好用的工具用来写技术文档，达成「用 Markdown 写文档」这个小目标。但在产品研发的过程中，我们发现其实身边的每个人、每个团队、每个组织都有很多知识，但一直以来缺少一个好用的工具让这些知识不只是留在每个人的大脑或电脑里，还可以被记录、分享和交流。</p>
 </blockquote>
-<p>语雀，个人感觉比较像Gitbook，目前用户量还比较小，未来可期</p>
+<p>语雀，个人感觉比较像Gitbook，Markdown编辑体验也很不错，目前用户量还比较小，未来可期</p>
 <p><img src="https://i.loli.net/2020/10/07/8rwmQvR6qNDXAlT.png" alt="image-20201007214739383" /></p>
+<p>不过作为博客来说，语雀在百度上的权重占的还是比较低的</p>
+<p>百度：</p>
+<p><img src="https://i.loli.net/2020/10/08/NqiRld3S19r7ZEK.png" alt="image-20201008174205890" /></p>
+<p>Google：</p>
+<p><img src="https://i.loli.net/2020/10/08/M7wpVvK3tAHLBRF.png" alt="image-20201008174231912" /></p>
+<h2 id="digikam">Digikam</h2>
+<p>试了很多图像管理工具，Eagle、Billfish、Tropy，最终还是选择Digikam，先说说其他软件的优缺点。</p>
+<ol type="1">
+<li><p>首先要说的就是Eagle：</p>
+<p>优点：</p>
+<ul>
+<li>UI很漂亮，真的很漂亮</li>
+<li>强大的标签功能</li>
+<li>非常方便的浏览器插件功能</li>
+</ul>
+<p>缺点：</p>
+<ul>
+<li>没有云同步</li>
+<li>因为数据存储的方式，文件量大的情况下，读取速度会很慢，并且更严重的是有可能会丢失文件，很要命</li>
+</ul>
+<p>软件确实是很好用，但是这种文件丢失，甚至导致硬盘损坏的问题还是太致命了，并且官方也没给出实质上的回答，有股避实就虚的味道。以下是官网原文：</p>
+<blockquote>
+<p><strong>问题一：使用 Eagle 是否会伤硬盘？</strong></p>
+<p>用过电脑的人都知道，任何硬件无论使用与否，都有最终寿命。 <strong>所以，这个问题更应被探讨的地方是「Eagle 是否有不当、不正常的读写硬盘，间接造成硬盘损害」。</strong></p>
+</blockquote></li>
+<li><p>Billfish</p>
+<p>感觉基本上就是模仿Eagle做出来的东西，使用方法和整体ui非常相似，但是存储是采用的sqlite。</p>
+<p>优点：</p>
+<ul>
+<li>UI还可以，但有些小细节没有做好，比如图标和文字的对齐之类的</li>
+<li>浏览器插件功能</li>
+<li>占用内存小</li>
+</ul>
+<p>缺点：</p>
+<ul>
+<li>Beta阶段，bug还是不少</li>
+<li>虽然是有浏览器插件，但是不够强大</li>
+</ul></li>
+<li><p>Tropy</p>
+<p>优点：</p>
+<ul>
+<li>界面简洁，直观</li>
+<li>可以安装插件</li>
+</ul>
+<p>缺点：</p>
+<ul>
+<li>功能不够强大，当作单纯的图像分类工具来说很合适</li>
+</ul></li>
+</ol>
+<p>综上，最后还是选择了Digikam，功能很强大，上面工具有的，他都有，最新版本还增加了神经网络人脸识别功能。</p>
+<p>但是这UI实在是次了一点，如果能大改一下，基本上就是第一选择了。</p>
+<p><img src="https://i.imgur.com/HSpXCDU.png" alt="img" /></p>
+<p><del>上面是MAC的图，Windows的怎么可能这么好看</del></p>
 ]]></content>
       <tags>
         <tag>工具</tag>
