@@ -5,8 +5,8 @@ categories:
 tags:
   - BUG
 abbrlink: 10e60d97
-date: 2022-11-28 20:14:24
-updated: 2022-11-28 20:14:24
+date: 2021-05-27 10:25:33
+updated: 2021-05-27 10:25:33
 ---
 
 今天准备使用npm时遇到了这个问题，npm install没有反应，npm也没反应，但是nvm确确实实是有安装好nodejs的。

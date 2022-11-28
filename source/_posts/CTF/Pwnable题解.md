@@ -6,8 +6,8 @@ tags:
   - CTF
   - PWN
 abbrlink: cc4a2ff
-date: 2022-11-28 19:37:14
-updated: 2022-11-28 19:37:14
+date: 2020-12-23 11:11:41
+updated: 2020-12-23 11:11:41
 ---
 #CTF #PWN
 # Toddler's Bottle
@@ -129,7 +129,7 @@ unsigned long check_password(const char* p){
 
 int main(int argc, char* argv[]){
         if(argc<2){
-                printf("usage : %s [passcode]\n", argv[0]);
+                printf("usage:%s [passcode]\n", argv[0]);
                 return 0;
         }
         if(strlen(argv[1]) != 20){
@@ -177,7 +177,7 @@ int main(int argc, char* argv[]){
 #include <stdlib.h>
 void func(int key){
 	char overflowme[32];
-	printf("overflow me : ");
+	printf("overflow me:");
 	gets(overflowme);	// smash me!
 	if(key == 0xcafebabe){
 		system("/bin/sh");
@@ -234,7 +234,7 @@ Papa brought me a packed present! let's open it.
 
   
 
-Download : [http://pwnable.kr/bin/flag](http://pwnable.kr/bin/flag)
+Download:[http://pwnable.kr/bin/flag](http://pwnable.kr/bin/flag)
 
   
 
@@ -285,12 +285,12 @@ void login(){
         int passcode1;
         int passcode2;
 
-        printf("enter passcode1 : ");
+        printf("enter passcode1:");
         scanf("%d", passcode1);
         fflush(stdin);
 
         // ha! mommy told me that 32bit is vulnerable to bruteforcing :)
-        printf("enter passcode2 : ");
+        printf("enter passcode2:");
         scanf("%d", passcode2);
 
         printf("checking...\n");
@@ -306,7 +306,7 @@ void login(){
 
 void welcome(){
         char name[100];
-        printf("enter you name : ");
+        printf("enter you name:");
         scanf("%100s", name);
         printf("Welcome %s!\n", name);
 }
@@ -744,7 +744,7 @@ int key3(){
 }
 int main(){
 	int key=0;
-	printf("Daddy has very strong arm! : ");
+	printf("Daddy has very strong arm!:");
 	scanf("%d", &key);
 	if( (key1()+key2()+key3()) == key ){
 		printf("Congratz!\n");
@@ -874,7 +874,7 @@ key3=8d80
 
   
 
-hint : operator priority
+hint:operator priority
 
   
 
@@ -911,7 +911,7 @@ int main(int argc, char* argv[]){
 	}
 
 	char pw_buf2[PW_LEN+1];
-	printf("input password : ");
+	printf("input password:");
 	scanf("%10s", pw_buf2);
 
 	// xor your input
@@ -1106,9 +1106,9 @@ env x='() { :;}; bash -c cat flag' ./shellshock
 	- Example -
 	[Server] N=4 C=2 	# find counterfeit among 4 coins with 2 trial
 	[Client] 0 1 		# weigh first and second coin
-	[Server] 20			# scale result : 20
+	[Server] 20			# scale result:20
 	[Client] 3			# weigh fourth coin
-	[Server] 10			# scale result : 10
+	[Server] 10			# scale result:10
 	[Client] 2 			# counterfeit coin is third!
 	[Server] Correct!
 
@@ -1184,7 +1184,7 @@ http://cboard.cprogramming.com/c-programming/114023-simple-blackjack-program.htm
 I like to give my flags to millionares.
 how much money you got?
 
-Running at : nc pwnable.kr 9009
+Running at:nc pwnable.kr 9009
 
   
 
@@ -1245,7 +1245,7 @@ unsigned char submit[6];
 void play(){
 	
 	int i;
-	printf("Submit your 6 lotto bytes : ");
+	printf("Submit your 6 lotto bytes:");
 	fflush(stdout);
 
 	int r;
@@ -1688,7 +1688,7 @@ yay_f1ag_aft3r_pwning
 
   
 
-// compiled with : gcc -o memcpy memcpy.c -m32 -lm
+// compiled with:gcc -o memcpy memcpy.c -m32 -lm
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
@@ -1772,7 +1772,7 @@ int main(void){
 	for(e=4; e<14; e++){	// 2^13 = 8K
 		low = pow(2,e-1);
 		high = pow(2,e);
-		printf("specify the memcpy amount between %d ~ %d : ", low, high);
+		printf("specify the memcpy amount between %d ~ %d:", low, high);
 		scanf("%d", &size);
 		if( size < low || size > high ){
 			printf("don't mess with the experiment.\n");
@@ -1788,25 +1788,25 @@ int main(void){
 	// run experiment
 	for(i=0; i<10; i++){
 		size = sizes[i];
-		printf("experiment %d : memcpy with buffer size %d\n", i+1, size);
+		printf("experiment %d:memcpy with buffer size %d\n", i+1, size);
 		dest = malloc( size );
 
 		memcpy(cache1, cache2, 0x4000);		// to eliminate cache effect
 		t1 = rdtsc();
 		slow_memcpy(dest, src, size);		// byte-to-byte memcpy
 		t2 = rdtsc();
-		printf("ellapsed CPU cycles for slow_memcpy : %llu\n", t2-t1);
+		printf("ellapsed CPU cycles for slow_memcpy:%llu\n", t2-t1);
 
 		memcpy(cache1, cache2, 0x4000);		// to eliminate cache effect
 		t1 = rdtsc();
 		fast_memcpy(dest, src, size);		// block-to-block memcpy
 		t2 = rdtsc();
-		printf("ellapsed CPU cycles for fast_memcpy : %llu\n", t2-t1);
+		printf("ellapsed CPU cycles for fast_memcpy:%llu\n", t2-t1);
 		printf("\n");
 	}
 
 	printf("thanks for helping my experiment!\n");
-	printf("flag : ----- erased in this source code -----\n");
+	printf("flag:----- erased in this source code -----\n");
 	return 0;
 }
 
@@ -1824,35 +1824,35 @@ int main(void){
 
   
 
-specify the memcpy amount between 8 ~ 16 : 8
-specify the memcpy amount between 16 ~ 32 : 16
-specify the memcpy amount between 32 ~ 64 : 32
-specify the memcpy amount between 64 ~ 128 : 64
-specify the memcpy amount between 128 ~ 256 : 128
-specify the memcpy amount between 256 ~ 512 : 256
-specify the memcpy amount between 512 ~ 1024 : 512
-specify the memcpy amount between 1024 ~ 2048 : 1024
-specify the memcpy amount between 2048 ~ 4096 : 2048
-specify the memcpy amount between 4096 ~ 8192 : 4096
+specify the memcpy amount between 8 ~ 16:8
+specify the memcpy amount between 16 ~ 32:16
+specify the memcpy amount between 32 ~ 64:32
+specify the memcpy amount between 64 ~ 128:64
+specify the memcpy amount between 128 ~ 256:128
+specify the memcpy amount between 256 ~ 512:256
+specify the memcpy amount between 512 ~ 1024:512
+specify the memcpy amount between 1024 ~ 2048:1024
+specify the memcpy amount between 2048 ~ 4096:2048
+specify the memcpy amount between 4096 ~ 8192:4096
 ok, lets run the experiment with your configuration
-experiment 1 : memcpy with buffer size 8
-ellapsed CPU cycles for slow_memcpy : 2162
-ellapsed CPU cycles for fast_memcpy : 244
+experiment 1:memcpy with buffer size 8
+ellapsed CPU cycles for slow_memcpy:2162
+ellapsed CPU cycles for fast_memcpy:244
 
-experiment 2 : memcpy with buffer size 16
-ellapsed CPU cycles for slow_memcpy : 358
-ellapsed CPU cycles for fast_memcpy : 254
+experiment 2:memcpy with buffer size 16
+ellapsed CPU cycles for slow_memcpy:358
+ellapsed CPU cycles for fast_memcpy:254
 
-experiment 3 : memcpy with buffer size 32
-ellapsed CPU cycles for slow_memcpy : 382
-ellapsed CPU cycles for fast_memcpy : 484
+experiment 3:memcpy with buffer size 32
+ellapsed CPU cycles for slow_memcpy:382
+ellapsed CPU cycles for fast_memcpy:484
 
-experiment 4 : memcpy with buffer size 64
-ellapsed CPU cycles for slow_memcpy : 618
-ellapsed CPU cycles for fast_memcpy : 168
+experiment 4:memcpy with buffer size 64
+ellapsed CPU cycles for slow_memcpy:618
+ellapsed CPU cycles for fast_memcpy:168
 
-experiment 5 : memcpy with buffer size 128
-ellapsed CPU cycles for slow_memcpy : 1250
+experiment 5:memcpy with buffer size 128
+ellapsed CPU cycles for slow_memcpy:1250
 
   
 
@@ -1897,59 +1897,59 @@ The assignment is simple.
 -----------------------------------------------------
 This time, just help me out with my experiment and get flag
 No fancy hacking, I promise :D
-specify the memcpy amount between 8 ~ 16 : 8
-specify the memcpy amount between 16 ~ 32 : 16
-specify the memcpy amount between 32 ~ 64 : 32
-specify the memcpy amount between 64 ~ 128 : 72
-specify the memcpy amount between 128 ~ 256 : 136
-specify the memcpy amount between 256 ~ 512 : 264
-specify the memcpy amount between 512 ~ 1024 : 520
-specify the memcpy amount between 1024 ~ 2048 : 1032
-specify the memcpy amount between 2048 ~ 4096 : 2056
-specify the memcpy amount between 4096 ~ 8192 : 4104
+specify the memcpy amount between 8 ~ 16:8
+specify the memcpy amount between 16 ~ 32:16
+specify the memcpy amount between 32 ~ 64:32
+specify the memcpy amount between 64 ~ 128:72
+specify the memcpy amount between 128 ~ 256:136
+specify the memcpy amount between 256 ~ 512:264
+specify the memcpy amount between 512 ~ 1024:520
+specify the memcpy amount between 1024 ~ 2048:1032
+specify the memcpy amount between 2048 ~ 4096:2056
+specify the memcpy amount between 4096 ~ 8192:4104
 ok, lets run the experiment with your configuration
-experiment 1 : memcpy with buffer size 8
-ellapsed CPU cycles for slow_memcpy : 2120
-ellapsed CPU cycles for fast_memcpy : 170
+experiment 1:memcpy with buffer size 8
+ellapsed CPU cycles for slow_memcpy:2120
+ellapsed CPU cycles for fast_memcpy:170
 
-experiment 2 : memcpy with buffer size 16
-ellapsed CPU cycles for slow_memcpy : 234
-ellapsed CPU cycles for fast_memcpy : 208
+experiment 2:memcpy with buffer size 16
+ellapsed CPU cycles for slow_memcpy:234
+ellapsed CPU cycles for fast_memcpy:208
 
-experiment 3 : memcpy with buffer size 32
-ellapsed CPU cycles for slow_memcpy : 438
-ellapsed CPU cycles for fast_memcpy : 340
+experiment 3:memcpy with buffer size 32
+ellapsed CPU cycles for slow_memcpy:438
+ellapsed CPU cycles for fast_memcpy:340
 
-experiment 4 : memcpy with buffer size 72
-ellapsed CPU cycles for slow_memcpy : 600
-ellapsed CPU cycles for fast_memcpy : 212
+experiment 4:memcpy with buffer size 72
+ellapsed CPU cycles for slow_memcpy:600
+ellapsed CPU cycles for fast_memcpy:212
 
-experiment 5 : memcpy with buffer size 136
-ellapsed CPU cycles for slow_memcpy : 1208
-ellapsed CPU cycles for fast_memcpy : 136
+experiment 5:memcpy with buffer size 136
+ellapsed CPU cycles for slow_memcpy:1208
+ellapsed CPU cycles for fast_memcpy:136
 
-experiment 6 : memcpy with buffer size 264
-ellapsed CPU cycles for slow_memcpy : 1684
-ellapsed CPU cycles for fast_memcpy : 166
+experiment 6:memcpy with buffer size 264
+ellapsed CPU cycles for slow_memcpy:1684
+ellapsed CPU cycles for fast_memcpy:166
 
-experiment 7 : memcpy with buffer size 520
-ellapsed CPU cycles for slow_memcpy : 3700
-ellapsed CPU cycles for fast_memcpy : 232
+experiment 7:memcpy with buffer size 520
+ellapsed CPU cycles for slow_memcpy:3700
+ellapsed CPU cycles for fast_memcpy:232
 
-experiment 8 : memcpy with buffer size 1032
-ellapsed CPU cycles for slow_memcpy : 7130
-ellapsed CPU cycles for fast_memcpy : 400
+experiment 8:memcpy with buffer size 1032
+ellapsed CPU cycles for slow_memcpy:7130
+ellapsed CPU cycles for fast_memcpy:400
 
-experiment 9 : memcpy with buffer size 2056
-ellapsed CPU cycles for slow_memcpy : 13596
-ellapsed CPU cycles for fast_memcpy : 774
+experiment 9:memcpy with buffer size 2056
+ellapsed CPU cycles for slow_memcpy:13596
+ellapsed CPU cycles for fast_memcpy:774
 
-experiment 10 : memcpy with buffer size 4104
-ellapsed CPU cycles for slow_memcpy : 29864
-ellapsed CPU cycles for fast_memcpy : 1486
+experiment 10:memcpy with buffer size 4104
+ellapsed CPU cycles for slow_memcpy:29864
+ellapsed CPU cycles for fast_memcpy:1486
 
 thanks for helping my experiment!
-flag : 1_w4nn4_br34K_th3_m3m0ry_4lignm3nt
+flag:1_w4nn4_br34K_th3_m3m0ry_4lignm3nt
 
   
 

@@ -4,8 +4,9 @@ categories:
   - 杂记
 tags:
   - Terminal
-date: 2022-11-28 19:40:14
-updated: 2022-11-28 19:40:14
+abbrlink: 2ff2acab
+date: 2022-05-25 15:48:26
+updated: 2022-05-25 15:48:26
 ---
 #Terminal
 # 前言
