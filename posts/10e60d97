@@ -40,7 +40,7 @@
 
   
   
-  <link href="/a1oyss/a1oyss.github.io/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
 
 
 
@@ -48,21 +48,21 @@
 
 
 
-<link href="/a1oyss/a1oyss.github.io/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
 
-<link href="/a1oyss/a1oyss.github.io/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
-
-
-  <link rel="apple-touch-icon" sizes="180x180" href="/a1oyss/a1oyss.github.io/images/apple-touch-icon-next.png?v=5.1.4">
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
 
 
-  <link rel="icon" type="image/png" sizes="32x32" href="/a1oyss/a1oyss.github.io/images/favicon-32x32-next.png?v=5.1.4">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
 
 
-  <link rel="icon" type="image/png" sizes="16x16" href="/a1oyss/a1oyss.github.io/images/favicon-16x16-next.png?v=5.1.4">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
 
 
-  <link rel="mask-icon" href="/a1oyss/a1oyss.github.io/images/logo.svg?v=5.1.4" color="#222">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
 
 
 
@@ -82,7 +82,7 @@
 <meta name="description" content="今天准备使用npm时遇到了这个问题，npm install没有反应，npm也没反应，但是nvm确确实实是有安装好nodejs的。 然后一步步找，突然看到windows下的npm命令是调用npm.cmd  接着就试着直接运行，发现一个黑框一闪而过。 然后再尝试打开cmd，也是一个黑框一闪而过，感觉问题应该就是出在这。 使用windows terminal打开cmd，结果就出现了  网上搜索到的注册表">
 <meta property="og:type" content="article">
 <meta property="og:title" content="运行CMD提示[已退出进程，代码为 1]解决方案">
-<meta property="og:url" content="https://github.com/a1oyss/a1oyss.github.io/posts/10e60d97">
+<meta property="og:url" content="https://a1oyss.github.io/posts/10e60d97">
 <meta property="og:site_name" content="a1oyss的博客">
 <meta property="og:description" content="今天准备使用npm时遇到了这个问题，npm install没有反应，npm也没反应，但是nvm确确实实是有安装好nodejs的。 然后一步步找，突然看到windows下的npm命令是调用npm.cmd  接着就试着直接运行，发现一个黑框一闪而过。 然后再尝试打开cmd，也是一个黑框一闪而过，感觉问题应该就是出在这。 使用windows terminal打开cmd，结果就出现了  网上搜索到的注册表">
 <meta property="og:locale" content="zh_CN">
@@ -123,7 +123,7 @@
 
 
 
-  <link rel="canonical" href="https://github.com/a1oyss/a1oyss.github.io/posts/10e60d97"/>
+  <link rel="canonical" href="https://a1oyss.github.io/posts/10e60d97"/>
 
 
 
@@ -157,7 +157,7 @@
     
 
     <div class="custom-logo-site-title">
-      <a href="/a1oyss/a1oyss.github.io/"  class="brand" rel="start">
+      <a href="/"  class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
         <span class="site-title">a1oyss的博客</span>
         <span class="logo-line-after"><i></i></span>
@@ -185,7 +185,7 @@
       
         
         <li class="menu-item menu-item-home">
-          <a href="/a1oyss/a1oyss.github.io/%20" rel="section">
+          <a href="/%20" rel="section">
             
               <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
             
@@ -195,7 +195,7 @@
       
         
         <li class="menu-item menu-item-archives">
-          <a href="/a1oyss/a1oyss.github.io/archives/%20" rel="section">
+          <a href="/archives/%20" rel="section">
             
               <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
             
@@ -236,12 +236,12 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://github.com/a1oyss/a1oyss.github.io/a1oyss/a1oyss.github.io/posts/10e60d97">
+    <link itemprop="mainEntityOfPage" href="https://a1oyss.github.io/posts/10e60d97">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/a1oyss/a1oyss.github.io/images/avatar.gif">
+      <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -288,7 +288,7 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/a1oyss/a1oyss.github.io/categories/BUG/" itemprop="url" rel="index">
+                  <a href="/categories/BUG/" itemprop="url" rel="index">
                     <span itemprop="name">BUG</span>
                   </a>
                 </span>
@@ -356,7 +356,7 @@
       
         <div class="post-tags">
           
-            <a href="/a1oyss/a1oyss.github.io/tags/BUG/" rel="tag"># BUG</a>
+            <a href="/tags/BUG/" rel="tag"># BUG</a>
           
         </div>
       
@@ -369,7 +369,7 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/a1oyss/a1oyss.github.io/posts/69e7b86f" rel="next" title="设计模式-单例模式">
+              <a href="/posts/69e7b86f" rel="next" title="设计模式-单例模式">
                 <i class="fa fa-chevron-left"></i> 设计模式-单例模式
               </a>
             
@@ -443,7 +443,7 @@
             
               <div class="site-state-item site-state-posts">
               
-                <a href="/a1oyss/a1oyss.github.io/archives/%20%7C%7C%20archive">
+                <a href="/archives/%20%7C%7C%20archive">
               
                   <span class="site-state-item-count">13</span>
                   <span class="site-state-item-name">posts</span>
@@ -581,57 +581,57 @@
 
   
   
-    <script type="text/javascript" src="/a1oyss/a1oyss.github.io/lib/jquery/index.js?v=2.1.3"></script>
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
   
 
   
   
-    <script type="text/javascript" src="/a1oyss/a1oyss.github.io/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
   
 
   
   
-    <script type="text/javascript" src="/a1oyss/a1oyss.github.io/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
   
 
   
   
-    <script type="text/javascript" src="/a1oyss/a1oyss.github.io/lib/velocity/velocity.min.js?v=1.2.1"></script>
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
   
 
   
   
-    <script type="text/javascript" src="/a1oyss/a1oyss.github.io/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
   
 
   
   
-    <script type="text/javascript" src="/a1oyss/a1oyss.github.io/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
   
-
-
-  
-
-
-  <script type="text/javascript" src="/a1oyss/a1oyss.github.io/js/src/utils.js?v=5.1.4"></script>
-
-  <script type="text/javascript" src="/a1oyss/a1oyss.github.io/js/src/motion.js?v=5.1.4"></script>
-
-
-
-  
-  
-
-  
-  <script type="text/javascript" src="/a1oyss/a1oyss.github.io/js/src/scrollspy.js?v=5.1.4"></script>
-<script type="text/javascript" src="/a1oyss/a1oyss.github.io/js/src/post-details.js?v=5.1.4"></script>
-
 
 
   
 
 
-  <script type="text/javascript" src="/a1oyss/a1oyss.github.io/js/src/bootstrap.js?v=5.1.4"></script>
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
 
 
 

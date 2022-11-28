@@ -40,7 +40,7 @@
 
   
   
-  <link href="/a1oyss/a1oyss.github.io/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
 
 
 
@@ -48,21 +48,21 @@
 
 
 
-<link href="/a1oyss/a1oyss.github.io/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
 
-<link href="/a1oyss/a1oyss.github.io/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
-
-
-  <link rel="apple-touch-icon" sizes="180x180" href="/a1oyss/a1oyss.github.io/images/apple-touch-icon-next.png?v=5.1.4">
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
 
 
-  <link rel="icon" type="image/png" sizes="32x32" href="/a1oyss/a1oyss.github.io/images/favicon-32x32-next.png?v=5.1.4">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
 
 
-  <link rel="icon" type="image/png" sizes="16x16" href="/a1oyss/a1oyss.github.io/images/favicon-16x16-next.png?v=5.1.4">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
 
 
-  <link rel="mask-icon" href="/a1oyss/a1oyss.github.io/images/logo.svg?v=5.1.4" color="#222">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
 
 
 
@@ -82,7 +82,7 @@
 <meta name="description" content="#IDE  前言弄了一天的vim+xshell，结果还是不尽人意，spacevim要求终端支持真彩色，但是xshell显然⑧行，将enable_guicolors设置为false后才勉强能看。 于是突发奇想，将pycharm通过ssh连接到虚拟机当中的python环境，能不能直接在主机上面写脚本调试，查了下还真有这个功能，不过需要pro版本。 准备工作 PyCharm Pro VMware Wor">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Pycharm+VMware搭建Linux下开发环境">
-<meta property="og:url" content="https://github.com/a1oyss/a1oyss.github.io/posts/bd9c592a">
+<meta property="og:url" content="https://a1oyss.github.io/posts/bd9c592a">
 <meta property="og:site_name" content="a1oyss的博客">
 <meta property="og:description" content="#IDE  前言弄了一天的vim+xshell，结果还是不尽人意，spacevim要求终端支持真彩色，但是xshell显然⑧行，将enable_guicolors设置为false后才勉强能看。 于是突发奇想，将pycharm通过ssh连接到虚拟机当中的python环境，能不能直接在主机上面写脚本调试，查了下还真有这个功能，不过需要pro版本。 准备工作 PyCharm Pro VMware Wor">
 <meta property="og:locale" content="zh_CN">
@@ -129,7 +129,7 @@
 
 
 
-  <link rel="canonical" href="https://github.com/a1oyss/a1oyss.github.io/posts/bd9c592a"/>
+  <link rel="canonical" href="https://a1oyss.github.io/posts/bd9c592a"/>
 
 
 
@@ -163,7 +163,7 @@
     
 
     <div class="custom-logo-site-title">
-      <a href="/a1oyss/a1oyss.github.io/"  class="brand" rel="start">
+      <a href="/"  class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
         <span class="site-title">a1oyss的博客</span>
         <span class="logo-line-after"><i></i></span>
@@ -191,7 +191,7 @@
       
         
         <li class="menu-item menu-item-home">
-          <a href="/a1oyss/a1oyss.github.io/%20" rel="section">
+          <a href="/%20" rel="section">
             
               <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
             
@@ -201,7 +201,7 @@
       
         
         <li class="menu-item menu-item-archives">
-          <a href="/a1oyss/a1oyss.github.io/archives/%20" rel="section">
+          <a href="/archives/%20" rel="section">
             
               <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
             
@@ -242,12 +242,12 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://github.com/a1oyss/a1oyss.github.io/a1oyss/a1oyss.github.io/posts/bd9c592a">
+    <link itemprop="mainEntityOfPage" href="https://a1oyss.github.io/posts/bd9c592a">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/a1oyss/a1oyss.github.io/images/avatar.gif">
+      <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -294,7 +294,7 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/a1oyss/a1oyss.github.io/categories/%E6%9D%82%E8%AE%B0/" itemprop="url" rel="index">
+                  <a href="/categories/%E6%9D%82%E8%AE%B0/" itemprop="url" rel="index">
                     <span itemprop="name">杂记</span>
                   </a>
                 </span>
@@ -361,7 +361,7 @@
 <p>这样就可以随时进行hexo的相关操作了。</p>
 <h2 id="配置SSH-Terminal"><a href="#配置SSH-Terminal" class="headerlink" title="配置SSH Terminal"></a>配置SSH Terminal</h2><p>File-&gt;Settings..-&gt;Tools-&gt;SSH Terminal</p>
 <p><img src="https://cdn.nlark.com/yuque/0/2020/png/2658344/1602153037542-9d00c3ac-9446-4e4a-87fe-aabca5182ef0.png"></p>
-<p>Deloyment server中选择<a href="mailto:&#114;&#x6f;&#x6f;&#x74;&#x40;&#120;&#120;&#x78;&#x2e;&#120;&#x78;&#x78;&#46;&#x78;&#x78;&#120;&#x2e;&#120;&#x78;&#x78;">&#114;&#x6f;&#x6f;&#x74;&#x40;&#120;&#120;&#x78;&#x2e;&#120;&#x78;&#x78;&#46;&#x78;&#x78;&#120;&#x2e;&#120;&#x78;&#x78;</a>:22</p>
+<p>Deloyment server中选择<a href="mailto:&#x72;&#111;&#x6f;&#x74;&#x40;&#x78;&#x78;&#x78;&#x2e;&#120;&#120;&#120;&#x2e;&#120;&#x78;&#x78;&#46;&#x78;&#x78;&#120;">&#x72;&#111;&#x6f;&#x74;&#x40;&#x78;&#x78;&#x78;&#x2e;&#120;&#120;&#120;&#x2e;&#120;&#x78;&#x78;&#46;&#x78;&#x78;&#120;</a>:22</p>
 <p>这样每次打开就不需要再选一次了。</p>
 <h1 id="FAQ"><a href="#FAQ" class="headerlink" title="FAQ"></a>FAQ</h1><h2 id="PyCharm中进行调试后，console中输出□-x3D"><a href="#PyCharm中进行调试后，console中输出□-x3D" class="headerlink" title="PyCharm中进行调试后，console中输出□&#x3D;"></a>PyCharm中进行调试后，console中输出□&#x3D;</h2><p>应该是PyCharm的问题，有两种解决办法：</p>
 <ol>
@@ -389,9 +389,9 @@
       
         <div class="post-tags">
           
-            <a href="/a1oyss/a1oyss.github.io/tags/IDE/" rel="tag"># IDE</a>
+            <a href="/tags/IDE/" rel="tag"># IDE</a>
           
-            <a href="/a1oyss/a1oyss.github.io/tags/Pycharm/" rel="tag"># Pycharm</a>
+            <a href="/tags/Pycharm/" rel="tag"># Pycharm</a>
           
         </div>
       
@@ -404,7 +404,7 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/a1oyss/a1oyss.github.io/posts/cc4a2ff" rel="next" title="Pwnable题解">
+              <a href="/posts/cc4a2ff" rel="next" title="Pwnable题解">
                 <i class="fa fa-chevron-left"></i> Pwnable题解
               </a>
             
@@ -414,7 +414,7 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/a1oyss/a1oyss.github.io/posts/57d83b8b" rel="prev" title="Hexo图片显示失败">
+              <a href="/posts/57d83b8b" rel="prev" title="Hexo图片显示失败">
                 Hexo图片显示失败 <i class="fa fa-chevron-right"></i>
               </a>
             
@@ -491,7 +491,7 @@
             
               <div class="site-state-item site-state-posts">
               
-                <a href="/a1oyss/a1oyss.github.io/archives/%20%7C%7C%20archive">
+                <a href="/archives/%20%7C%7C%20archive">
               
                   <span class="site-state-item-count">13</span>
                   <span class="site-state-item-name">posts</span>
@@ -645,57 +645,57 @@
 
   
   
-    <script type="text/javascript" src="/a1oyss/a1oyss.github.io/lib/jquery/index.js?v=2.1.3"></script>
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
   
 
   
   
-    <script type="text/javascript" src="/a1oyss/a1oyss.github.io/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
   
 
   
   
-    <script type="text/javascript" src="/a1oyss/a1oyss.github.io/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
   
 
   
   
-    <script type="text/javascript" src="/a1oyss/a1oyss.github.io/lib/velocity/velocity.min.js?v=1.2.1"></script>
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
   
 
   
   
-    <script type="text/javascript" src="/a1oyss/a1oyss.github.io/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
   
 
   
   
-    <script type="text/javascript" src="/a1oyss/a1oyss.github.io/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
   
-
-
-  
-
-
-  <script type="text/javascript" src="/a1oyss/a1oyss.github.io/js/src/utils.js?v=5.1.4"></script>
-
-  <script type="text/javascript" src="/a1oyss/a1oyss.github.io/js/src/motion.js?v=5.1.4"></script>
-
-
-
-  
-  
-
-  
-  <script type="text/javascript" src="/a1oyss/a1oyss.github.io/js/src/scrollspy.js?v=5.1.4"></script>
-<script type="text/javascript" src="/a1oyss/a1oyss.github.io/js/src/post-details.js?v=5.1.4"></script>
-
 
 
   
 
 
-  <script type="text/javascript" src="/a1oyss/a1oyss.github.io/js/src/bootstrap.js?v=5.1.4"></script>
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
 
 
 

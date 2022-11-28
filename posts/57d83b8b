@@ -40,7 +40,7 @@
 
   
   
-  <link href="/a1oyss/a1oyss.github.io/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
 
 
 
@@ -48,21 +48,21 @@
 
 
 
-<link href="/a1oyss/a1oyss.github.io/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
 
-<link href="/a1oyss/a1oyss.github.io/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
-
-
-  <link rel="apple-touch-icon" sizes="180x180" href="/a1oyss/a1oyss.github.io/images/apple-touch-icon-next.png?v=5.1.4">
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
 
 
-  <link rel="icon" type="image/png" sizes="32x32" href="/a1oyss/a1oyss.github.io/images/favicon-32x32-next.png?v=5.1.4">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
 
 
-  <link rel="icon" type="image/png" sizes="16x16" href="/a1oyss/a1oyss.github.io/images/favicon-16x16-next.png?v=5.1.4">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
 
 
-  <link rel="mask-icon" href="/a1oyss/a1oyss.github.io/images/logo.svg?v=5.1.4" color="#222">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
 
 
 
@@ -82,7 +82,7 @@
 <meta name="description" content="#Hexo Part 1今天提交文章的时候，上去博客看了一眼，发现图片全都显示不出来， 看了下图片url，全都是 file:&#x2F;&#x2F;image&#x2F;123.jpg 这种形式的。 因为我使用的typora来写markdown，自动插入图片默认的是本地路径，去设置里更改为使用相对路径即可 part 2原本以为大功告成，结果发现还是显示错误，去网上查了下，有些插件没有装，_conf">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Hexo图片显示失败">
-<meta property="og:url" content="https://github.com/a1oyss/a1oyss.github.io/posts/57d83b8b">
+<meta property="og:url" content="https://a1oyss.github.io/posts/57d83b8b">
 <meta property="og:site_name" content="a1oyss的博客">
 <meta property="og:description" content="#Hexo Part 1今天提交文章的时候，上去博客看了一眼，发现图片全都显示不出来， 看了下图片url，全都是 file:&#x2F;&#x2F;image&#x2F;123.jpg 这种形式的。 因为我使用的typora来写markdown，自动插入图片默认的是本地路径，去设置里更改为使用相对路径即可 part 2原本以为大功告成，结果发现还是显示错误，去网上查了下，有些插件没有装，_conf">
 <meta property="og:locale" content="zh_CN">
@@ -120,7 +120,7 @@
 
 
 
-  <link rel="canonical" href="https://github.com/a1oyss/a1oyss.github.io/posts/57d83b8b"/>
+  <link rel="canonical" href="https://a1oyss.github.io/posts/57d83b8b"/>
 
 
 
@@ -154,7 +154,7 @@
     
 
     <div class="custom-logo-site-title">
-      <a href="/a1oyss/a1oyss.github.io/"  class="brand" rel="start">
+      <a href="/"  class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
         <span class="site-title">a1oyss的博客</span>
         <span class="logo-line-after"><i></i></span>
@@ -182,7 +182,7 @@
       
         
         <li class="menu-item menu-item-home">
-          <a href="/a1oyss/a1oyss.github.io/%20" rel="section">
+          <a href="/%20" rel="section">
             
               <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
             
@@ -192,7 +192,7 @@
       
         
         <li class="menu-item menu-item-archives">
-          <a href="/a1oyss/a1oyss.github.io/archives/%20" rel="section">
+          <a href="/archives/%20" rel="section">
             
               <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
             
@@ -233,12 +233,12 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://github.com/a1oyss/a1oyss.github.io/a1oyss/a1oyss.github.io/posts/57d83b8b">
+    <link itemprop="mainEntityOfPage" href="https://a1oyss.github.io/posts/57d83b8b">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/a1oyss/a1oyss.github.io/images/avatar.gif">
+      <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -285,7 +285,7 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/a1oyss/a1oyss.github.io/categories/BUG/" itemprop="url" rel="index">
+                  <a href="/categories/BUG/" itemprop="url" rel="index">
                     <span itemprop="name">BUG</span>
                   </a>
                 </span>
@@ -330,7 +330,7 @@
 <p>因为我使用的typora来写markdown，自动插入图片默认的是本地路径，去设置里更改为使用相对路径即可</p>
 <h1 id="part-2"><a href="#part-2" class="headerlink" title="part 2"></a>part 2</h1><p>原本以为大功告成，结果发现还是显示错误，去网上查了下，有些插件没有装，_config.yml里的选项也没有开。。。</p>
 <p>安装<code>hexo-asset-image</code></p>
-<p>npm install <a href="https://github.com/CodeFalling/hexo-asset-image">https://github.com/CodeFalling/hexo-asset-image</a> –save</p>
+<p>npm install <a target="_blank" rel="noopener" href="https://github.com/CodeFalling/hexo-asset-image">https://github.com/CodeFalling/hexo-asset-image</a> –save</p>
 <p>_config.yml配置</p>
 <p><code>post_asset_folder: false</code>改为<code>post_asset_folder: true</code></p>
 <h1 id="part-3"><a href="#part-3" class="headerlink" title="part 3"></a>part 3</h1><p>再次以为大功告成，结果发现还是错误，之前<code>hexo g -d</code> 的时候没有注意，这次执行的时候突然发现有几条记录有点奇怪</p>
@@ -410,7 +410,7 @@ for(var i = 0; i &lt; toprocess.length; i++)&#123;
       
         <div class="post-tags">
           
-            <a href="/a1oyss/a1oyss.github.io/tags/Hexo/" rel="tag"># Hexo</a>
+            <a href="/tags/Hexo/" rel="tag"># Hexo</a>
           
         </div>
       
@@ -423,7 +423,7 @@ for(var i = 0; i &lt; toprocess.length; i++)&#123;
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/a1oyss/a1oyss.github.io/posts/bd9c592a" rel="next" title="Pycharm+VMware搭建Linux下开发环境">
+              <a href="/posts/bd9c592a" rel="next" title="Pycharm+VMware搭建Linux下开发环境">
                 <i class="fa fa-chevron-left"></i> Pycharm+VMware搭建Linux下开发环境
               </a>
             
@@ -433,7 +433,7 @@ for(var i = 0; i &lt; toprocess.length; i++)&#123;
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/a1oyss/a1oyss.github.io/posts/2ff2acab" rel="prev" title="Terminal安装+美化">
+              <a href="/posts/2ff2acab" rel="prev" title="Terminal安装+美化">
                 Terminal安装+美化 <i class="fa fa-chevron-right"></i>
               </a>
             
@@ -510,7 +510,7 @@ for(var i = 0; i &lt; toprocess.length; i++)&#123;
             
               <div class="site-state-item site-state-posts">
               
-                <a href="/a1oyss/a1oyss.github.io/archives/%20%7C%7C%20archive">
+                <a href="/archives/%20%7C%7C%20archive">
               
                   <span class="site-state-item-count">13</span>
                   <span class="site-state-item-name">posts</span>
@@ -664,57 +664,57 @@ for(var i = 0; i &lt; toprocess.length; i++)&#123;
 
   
   
-    <script type="text/javascript" src="/a1oyss/a1oyss.github.io/lib/jquery/index.js?v=2.1.3"></script>
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
   
 
   
   
-    <script type="text/javascript" src="/a1oyss/a1oyss.github.io/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
   
 
   
   
-    <script type="text/javascript" src="/a1oyss/a1oyss.github.io/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
   
 
   
   
-    <script type="text/javascript" src="/a1oyss/a1oyss.github.io/lib/velocity/velocity.min.js?v=1.2.1"></script>
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
   
 
   
   
-    <script type="text/javascript" src="/a1oyss/a1oyss.github.io/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
   
 
   
   
-    <script type="text/javascript" src="/a1oyss/a1oyss.github.io/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
   
-
-
-  
-
-
-  <script type="text/javascript" src="/a1oyss/a1oyss.github.io/js/src/utils.js?v=5.1.4"></script>
-
-  <script type="text/javascript" src="/a1oyss/a1oyss.github.io/js/src/motion.js?v=5.1.4"></script>
-
-
-
-  
-  
-
-  
-  <script type="text/javascript" src="/a1oyss/a1oyss.github.io/js/src/scrollspy.js?v=5.1.4"></script>
-<script type="text/javascript" src="/a1oyss/a1oyss.github.io/js/src/post-details.js?v=5.1.4"></script>
-
 
 
   
 
 
-  <script type="text/javascript" src="/a1oyss/a1oyss.github.io/js/src/bootstrap.js?v=5.1.4"></script>
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
 
 
 
