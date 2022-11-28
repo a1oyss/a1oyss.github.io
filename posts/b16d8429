@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/a1oyss/a1oyss.github.io/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/a1oyss/a1oyss.github.io/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/a1oyss/a1oyss.github.io/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/a1oyss/a1oyss.github.io/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/a1oyss/a1oyss.github.io/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/a1oyss/a1oyss.github.io/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/a1oyss/a1oyss.github.io/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="CTF," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="#CTF  引言放暑假了，想着搭建一个ctf靶场训练下新生，但遇到的问题比我想象中的多得多。。。写个blog记录一下。 参考文章 ctfd使用ctfd-whale动态靶机插件搭建靶场指南  手把手教你如何建立一个支持ctf动态独立靶机的靶场（ctfd+ctfd-whale）  CTFd-Whale 推荐部署实践   三篇文章所使用的方法基本上差不多，但是部署的ctfd版本和插件版本不尽相同，第一篇">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CTFd+CTFd-Whale部署实践">
+<meta property="og:url" content="https://github.com/a1oyss/a1oyss.github.io/posts/b16d8429">
+<meta property="og:site_name" content="a1oyss的博客">
+<meta property="og:description" content="#CTF  引言放暑假了，想着搭建一个ctf靶场训练下新生，但遇到的问题比我想象中的多得多。。。写个blog记录一下。 参考文章 ctfd使用ctfd-whale动态靶机插件搭建靶场指南  手把手教你如何建立一个支持ctf动态独立靶机的靶场（ctfd+ctfd-whale）  CTFd-Whale 推荐部署实践   三篇文章所使用的方法基本上差不多，但是部署的ctfd版本和插件版本不尽相同，第一篇">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-11-28T12:06:27.000Z">
+<meta property="article:modified_time" content="2022-11-28T12:06:27.000Z">
+<meta property="article:author" content="a1oyss">
+<meta property="article:tag" content="CTF">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://github.com/a1oyss/a1oyss.github.io/posts/b16d8429"/>
+
+
+
+
+
+  <title>CTFd+CTFd-Whale部署实践 | a1oyss的博客</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/a1oyss/a1oyss.github.io/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">a1oyss的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/a1oyss/a1oyss.github.io/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/a1oyss/a1oyss.github.io/archives/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://github.com/a1oyss/a1oyss.github.io/a1oyss/a1oyss.github.io/posts/b16d8429">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/a1oyss/a1oyss.github.io/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="a1oyss的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">CTFd+CTFd-Whale部署实践</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2022-11-28T20:06:27+08:00">
+                2022-11-28
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/a1oyss/a1oyss.github.io/categories/%E6%9D%82%E8%AE%B0/" itemprop="url" rel="index">
+                    <span itemprop="name">杂记</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>#CTF </p>
+<h1 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h1><p>放暑假了，想着搭建一个ctf靶场训练下新生，但遇到的问题比我想象中的多得多。。。写个blog记录一下。</p>
+<h1 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h1><ul>
+<li><p><a target="_blank" rel="noopener" href="https://vaala.cat/2020/09/21/ctfd%E4%BD%BF%E7%94%A8ctfd-whale%E5%8A%A8%E6%80%81%E9%9D%B6%E6%9C%BA%E6%8F%92%E4%BB%B6%E6%90%AD%E5%BB%BA%E9%9D%B6%E5%9C%BA%E6%8C%87%E5%8D%97/">ctfd使用ctfd-whale动态靶机插件搭建靶场指南</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/fjh1997/article/details/100850756">手把手教你如何建立一个支持ctf动态独立靶机的靶场（ctfd+ctfd-whale）</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://www.zhaoj.in/read-6333.html/comment-page-1#_Direct_Frp">CTFd-Whale 推荐部署实践</a></p>
+</li>
+</ul>
+<p><del>三篇文章所使用的方法基本上差不多，但是部署的ctfd版本和插件版本不尽相同，第一篇文章中使用的是</del><a href="https://github.com/frankli0324/ctfd-whale"><del>frankli0324</del></a><del>师傅修改后的ctfd-whale，但是部署上之后测试发现，renew功能无法使用，不知道是不是我部署错误的问题，而第二篇则是无法正确的映射题目的端口，所以最后还是选择了官方的部署教程。</del></p>
+<p>经过更新后，<a href="https://github.com/frankli0324/ctfd-whale">frankli0324</a>师傅修改后的ctfd-whale已经可以正常使用。</p>
+<h1 id="部署"><a href="#部署" class="headerlink" title="部署"></a>部署</h1><h2 id="环境准备"><a href="#环境准备" class="headerlink" title="环境准备"></a>环境准备</h2><ul>
+<li><p>安装docker</p>
+</li>
+<li><p>安装docker-compose</p>
+</li>
+</ul>
+<h2 id="配置swarm"><a href="#配置swarm" class="headerlink" title="配置swarm"></a>配置swarm</h2><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">docker swarm init</span><br><span class="line"></span><br><span class="line">docker node update --label-add=<span class="string">&#x27;name=linux-1&#x27;</span> $(docker node ls -q)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><ol>
+<li>下载ctfd</li>
+</ol>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">git <span class="keyword">clone</span> https:<span class="comment">//github.com/CTFd/CTFd --depth=1</span></span><br><span class="line"></span><br><span class="line">cd CTFd</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>修改docker-compose.yml</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">version <span class="string">&#x27;2&#x27;</span> -&gt; version <span class="string">&#x27;3&#x27;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>接着<code>docker-compose up -d</code>，对CTFd进行初始配置。</p>
+<ol start="3">
+<li>配置frps，在docker-compose-yml中配置如下：</li>
+</ol>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">services:</span><br><span class="line"></span><br><span class="line">    ...</span><br><span class="line"></span><br><span class="line">    frps:</span><br><span class="line"></span><br><span class="line">        image: glzjin/frp</span><br><span class="line"></span><br><span class="line">        restart: always</span><br><span class="line"></span><br><span class="line">        volumes:</span><br><span class="line"></span><br><span class="line">            - ./conf/frp:/conf</span><br><span class="line"></span><br><span class="line">        entrypoint:</span><br><span class="line"></span><br><span class="line">            - /usr/local/bin/frps</span><br><span class="line"></span><br><span class="line">            - -c</span><br><span class="line"></span><br><span class="line">            - /conf/frps.ini</span><br><span class="line"></span><br><span class="line">        ports:</span><br><span class="line"></span><br><span class="line">            - <span class="number">10000</span>-<span class="number">10100</span>:<span class="number">10000</span>-<span class="number">10100</span>  <span class="comment"># 映射direct类型题目的端口</span></span><br><span class="line"></span><br><span class="line">            - <span class="number">8001</span>:<span class="number">8001</span>  <span class="comment"># 映射http类型题目的端口</span></span><br><span class="line"></span><br><span class="line">        networks:</span><br><span class="line"></span><br><span class="line">            <span class="keyword">default</span>:  <span class="comment"># 需要将frps暴露到公网以正常访问题目容器</span></span><br><span class="line"></span><br><span class="line">            frp_connect:</span><br><span class="line"></span><br><span class="line">              ipv4_address: <span class="number">172.1</span>.<span class="number">0.3</span></span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">networks:</span><br><span class="line"></span><br><span class="line">    ...</span><br><span class="line"></span><br><span class="line">    frp_connect:</span><br><span class="line"></span><br><span class="line">        driver: overlay</span><br><span class="line"></span><br><span class="line">        internal: <span class="literal">true</span></span><br><span class="line"></span><br><span class="line">        ipam:</span><br><span class="line"></span><br><span class="line">            config:</span><br><span class="line"></span><br><span class="line">                - subnet: <span class="number">172.1</span>.<span class="number">0.0</span>/<span class="number">16</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>创建目录 .&#x2F;conf&#x2F;frp，并创建<code>frps.ini</code>文件，填写：</li>
+</ol>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">[common]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 下面两个端口注意不要与direct类型题目端口范围重合</span></span><br><span class="line"></span><br><span class="line">bind_port = <span class="number">7987</span>  <span class="comment"># frpc 连接到 frps 的端口</span></span><br><span class="line"></span><br><span class="line">vhost_http_port = <span class="number">8001</span>  <span class="comment"># frps 映射http类型题目的端口</span></span><br><span class="line"></span><br><span class="line">token = your_token</span><br><span class="line"></span><br><span class="line">subdomain_host = node3.buuoj.cn  <span class="comment"># 访问http题目容器的主机名，需要配置泛解析域名</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><strong>之后部署时需要把注释内容全部删除，否则会报错。</strong></p>
+<ol start="4">
+<li>配置frpc，同样修改docker-compose.yml</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">services:</span><br><span class="line"></span><br><span class="line">    ...</span><br><span class="line"></span><br><span class="line">    frpc:</span><br><span class="line"></span><br><span class="line">        image: glzjin/frp:latest</span><br><span class="line"></span><br><span class="line">        restart: always</span><br><span class="line"></span><br><span class="line">        volumes:</span><br><span class="line"></span><br><span class="line">          - ./conf/frp:/conf/</span><br><span class="line"></span><br><span class="line">        entrypoint:</span><br><span class="line"></span><br><span class="line">          - /usr/local/bin/frpc</span><br><span class="line"></span><br><span class="line">          - -c</span><br><span class="line"></span><br><span class="line">          - /conf/frpc.ini</span><br><span class="line"></span><br><span class="line">        depends_on:</span><br><span class="line"></span><br><span class="line">          - frps <span class="comment">#frps需要先成功运行</span></span><br><span class="line"></span><br><span class="line">        networks:</span><br><span class="line"></span><br><span class="line">            frp_containers:  <span class="comment"># 供frpc访问题目容器</span></span><br><span class="line"></span><br><span class="line">            frp_connect:  <span class="comment"># 供frpc访问frps, CTFd访问frpc</span></span><br><span class="line"></span><br><span class="line">                ipv4_address: 172.1.0.4</span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">networks:</span><br><span class="line"></span><br><span class="line">    ...</span><br><span class="line"></span><br><span class="line">    frp_containers:</span><br><span class="line"></span><br><span class="line">        driver: overlay</span><br><span class="line"></span><br><span class="line">        internal: <span class="literal">true</span>  <span class="comment"># 如果允许题目容器访问外网，则可以去掉</span></span><br><span class="line"></span><br><span class="line">        attachable: <span class="literal">true</span></span><br><span class="line"></span><br><span class="line">        ipam:</span><br><span class="line"></span><br><span class="line">            config:</span><br><span class="line"></span><br><span class="line">                - subnet: 172.2.0.0/16</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<ol start="5">
+<li>创建.&#x2F;conf&#x2F;frp&#x2F;frpc.ini，填写：</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">[common]</span><br><span class="line"></span><br><span class="line">token = your_token</span><br><span class="line"></span><br><span class="line">server_addr = <span class="number">172.1</span><span class="number">.0</span><span class="number">.3</span></span><br><span class="line"></span><br><span class="line">server_port = <span class="number">7987</span>  <span class="comment"># 对应 frps 的 bind_port</span></span><br><span class="line"></span><br><span class="line">admin_addr = <span class="number">172.1</span><span class="number">.0</span><span class="number">.4</span>  <span class="comment"># 请参考“安全事项”</span></span><br><span class="line"></span><br><span class="line">admin_port = <span class="number">7400</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<ol start="6">
+<li>检查frp配置是否正确</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">docker-compose up -d</span><br><span class="line"></span><br><span class="line">docker-compose logs frpc</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>查看日志是否正确，正确情况如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">[service.go:<span class="number">224</span>] login to server success, get run <span class="built_in">id</span> [******], server udp port [******]</span><br><span class="line"></span><br><span class="line">[service.go:<span class="number">109</span>] admin server listen on ******</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<ol start="6">
+<li>配置CTFd</li>
+</ol>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">services:</span><br><span class="line"></span><br><span class="line">    ctfd:</span><br><span class="line"></span><br><span class="line">        ...</span><br><span class="line"></span><br><span class="line">        volumes:</span><br><span class="line"></span><br><span class="line">            - /var/<span class="keyword">run</span><span class="language-bash">/docker.sock:/var/run/docker.sock</span></span><br><span class="line"></span><br><span class="line">        depends_on:</span><br><span class="line"></span><br><span class="line">            - frpc <span class="comment">#frpc需要先运行</span></span><br><span class="line"></span><br><span class="line">        networks:</span><br><span class="line"></span><br><span class="line">            ...</span><br><span class="line"></span><br><span class="line">            frp_connect:</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>照着修改docker-compose.yml即可。</p>
+<ol start="7">
+<li>下载CTFd-Whale</li>
+</ol>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">git clone https://github.com/frankli0324/CTFd-Whale CTFd/plugins/ctfd-whale --depth=<span class="number">1</span></span><br><span class="line"></span><br><span class="line">docker-compose build <span class="comment"># 需要安装依赖</span></span><br><span class="line"></span><br><span class="line">docker-compose up -d</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<ol start="8">
+<li>配置ctfd-whale</li>
+</ol>
+<p>   1. Auto Connect Network：ctfd_frp_containers</p>
+<p>   2. Http Domain Suffix：设置好的泛解析域名</p>
+<p>   3. Http Port：同frps.ini的vhost_http_port</p>
+<p>   4. Direct IP Address：公网ip</p>
+<p>设置完成后理论上应该就成功了。</p>
+<p>完整的docker-compose.tml:</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">version: <span class="string">&#x27;3&#x27;</span></span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">services:</span><br><span class="line"></span><br><span class="line">  ctfd:</span><br><span class="line"></span><br><span class="line">    build: .</span><br><span class="line"></span><br><span class="line">    <span class="keyword">user</span>: root</span><br><span class="line"></span><br><span class="line">    restart: always</span><br><span class="line"></span><br><span class="line">    ports:</span><br><span class="line"></span><br><span class="line">      - <span class="string">&quot;8000:8000&quot;</span></span><br><span class="line"></span><br><span class="line">    environment:</span><br><span class="line"></span><br><span class="line">      - UPLOAD_FOLDER=/var/uploads</span><br><span class="line"></span><br><span class="line">      - DATABASE_URL=mysql+pymysql://ctfd:ctfd@db/ctfd</span><br><span class="line"></span><br><span class="line">      - REDIS_URL=redis://cache:<span class="number">6379</span></span><br><span class="line"></span><br><span class="line">      - WORKERS=<span class="number">1</span></span><br><span class="line"></span><br><span class="line">      - LOG_FOLDER=/var/log/CTFd</span><br><span class="line"></span><br><span class="line">      - ACCESS_LOG=-</span><br><span class="line"></span><br><span class="line">      - ERROR_LOG=-</span><br><span class="line"></span><br><span class="line">      - REVERSE_PROXY=true</span><br><span class="line"></span><br><span class="line">    volumes:</span><br><span class="line"></span><br><span class="line">      - .data/CTFd/logs:/var/log/CTFd</span><br><span class="line"></span><br><span class="line">      - .data/CTFd/uploads:/var/uploads</span><br><span class="line"></span><br><span class="line">      - .:/opt/CTFd:ro</span><br><span class="line"></span><br><span class="line">      - /var/<span class="keyword">run</span><span class="language-bash">/docker.sock:/var/run/docker.sock</span></span><br><span class="line"></span><br><span class="line">    depends_on:</span><br><span class="line"></span><br><span class="line">      - db</span><br><span class="line"></span><br><span class="line">      - frpc</span><br><span class="line"></span><br><span class="line">    networks:</span><br><span class="line"></span><br><span class="line">        default:</span><br><span class="line"></span><br><span class="line">        internal:</span><br><span class="line"></span><br><span class="line">        frp_connect:</span><br><span class="line"></span><br><span class="line">          ipv4_address: <span class="number">172.1</span>.<span class="number">0.5</span></span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">  nginx:</span><br><span class="line"></span><br><span class="line">    image: nginx:<span class="number">1.17</span></span><br><span class="line"></span><br><span class="line">    restart: always</span><br><span class="line"></span><br><span class="line">    volumes:</span><br><span class="line"></span><br><span class="line">      - ./conf/nginx/http.conf:/etc/nginx/nginx.conf</span><br><span class="line"></span><br><span class="line">    ports:</span><br><span class="line"></span><br><span class="line">      - <span class="number">80</span>:<span class="number">80</span></span><br><span class="line"></span><br><span class="line">    depends_on:</span><br><span class="line"></span><br><span class="line">      - ctfd</span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">  db:</span><br><span class="line"></span><br><span class="line">    image: mariadb:<span class="number">10.4</span>.<span class="number">12</span></span><br><span class="line"></span><br><span class="line">    restart: always</span><br><span class="line"></span><br><span class="line">    environment:</span><br><span class="line"></span><br><span class="line">      - MYSQL_ROOT_PASSWORD=ctfd</span><br><span class="line"></span><br><span class="line">      - MYSQL_USER=ctfd</span><br><span class="line"></span><br><span class="line">      - MYSQL_PASSWORD=ctfd</span><br><span class="line"></span><br><span class="line">      - MYSQL_DATABASE=ctfd</span><br><span class="line"></span><br><span class="line">    volumes:</span><br><span class="line"></span><br><span class="line">      - .data/mysql:/var/lib/mysql</span><br><span class="line"></span><br><span class="line">    networks:</span><br><span class="line"></span><br><span class="line">        internal:</span><br><span class="line"></span><br><span class="line">    <span class="comment"># This command is required to set important mariadb defaults</span></span><br><span class="line"></span><br><span class="line">    command: [mysqld, --character-set-server=utf8mb4, --collation-server=utf8mb4_unicode_ci, --wait_timeout=<span class="number">28800</span>, --log-warnings=<span class="number">0</span>]</span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">  cache:</span><br><span class="line"></span><br><span class="line">    image: redis:<span class="number">4</span></span><br><span class="line"></span><br><span class="line">    restart: always</span><br><span class="line"></span><br><span class="line">    volumes:</span><br><span class="line"></span><br><span class="line">    - .data/redis:/data</span><br><span class="line"></span><br><span class="line">    networks:</span><br><span class="line"></span><br><span class="line">        internal:</span><br><span class="line"></span><br><span class="line">  frps:</span><br><span class="line"></span><br><span class="line">        image: glzjin/frp</span><br><span class="line"></span><br><span class="line">        restart: always</span><br><span class="line"></span><br><span class="line">        volumes:</span><br><span class="line"></span><br><span class="line">            - ./conf/frp:/conf</span><br><span class="line"></span><br><span class="line">        <span class="keyword">entrypoint</span><span class="language-bash">:</span></span><br><span class="line"></span><br><span class="line">            - /usr/local/bin/frps</span><br><span class="line"></span><br><span class="line">            - -c</span><br><span class="line"></span><br><span class="line">            - /conf/frps.ini</span><br><span class="line"></span><br><span class="line">        ports:</span><br><span class="line"></span><br><span class="line">            - <span class="number">10000</span>-<span class="number">10100</span>:<span class="number">10000</span>-<span class="number">10100</span>  <span class="comment"># 映射direct类型题目的端口</span></span><br><span class="line"></span><br><span class="line">            - <span class="number">8001</span>:<span class="number">8001</span>  <span class="comment"># 映射http类型题目的端口</span></span><br><span class="line"></span><br><span class="line">        networks:</span><br><span class="line"></span><br><span class="line">            default:  <span class="comment"># 需要将frps暴露到公网以正常访问题目容器</span></span><br><span class="line"></span><br><span class="line">            frp_connect:</span><br><span class="line"></span><br><span class="line">              ipv4_address: <span class="number">172.1</span>.<span class="number">0.3</span></span><br><span class="line"></span><br><span class="line">  frpc:</span><br><span class="line"></span><br><span class="line">        image: glzjin/frp:latest</span><br><span class="line"></span><br><span class="line">        restart: always</span><br><span class="line"></span><br><span class="line">        volumes:</span><br><span class="line"></span><br><span class="line">          - ./conf/frp:/conf/</span><br><span class="line"></span><br><span class="line">        <span class="keyword">entrypoint</span><span class="language-bash">:</span></span><br><span class="line"></span><br><span class="line">          - /usr/local/bin/frpc</span><br><span class="line"></span><br><span class="line">          - -c</span><br><span class="line"></span><br><span class="line">          - /conf/frpc.ini</span><br><span class="line"></span><br><span class="line">        depends_on:</span><br><span class="line"></span><br><span class="line">          - frps <span class="comment">#frps需要先成功运行</span></span><br><span class="line"></span><br><span class="line">        networks:</span><br><span class="line"></span><br><span class="line">            frp_containers:  <span class="comment"># 供frpc访问题目容器</span></span><br><span class="line"></span><br><span class="line">            frp_connect:  <span class="comment"># 供frpc访问frps, CTFd访问frpc</span></span><br><span class="line"></span><br><span class="line">                ipv4_address: <span class="number">172.1</span>.<span class="number">0.4</span></span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">networks:</span><br><span class="line"></span><br><span class="line">    default:</span><br><span class="line"></span><br><span class="line">    internal:</span><br><span class="line"></span><br><span class="line">        internal: true</span><br><span class="line"></span><br><span class="line">    frp_connect:</span><br><span class="line"></span><br><span class="line">        driver: overlay</span><br><span class="line"></span><br><span class="line">        internal: true</span><br><span class="line"></span><br><span class="line">        ipam:</span><br><span class="line"></span><br><span class="line">            config:</span><br><span class="line"></span><br><span class="line">                - subnet: <span class="number">172.1</span>.<span class="number">0.0</span>/<span class="number">16</span></span><br><span class="line"></span><br><span class="line">    frp_containers:</span><br><span class="line"></span><br><span class="line">        driver: overlay</span><br><span class="line"></span><br><span class="line">        internal: true  <span class="comment"># 如果允许题目容器访问外网，则可以去掉</span></span><br><span class="line"></span><br><span class="line">        attachable: true</span><br><span class="line"></span><br><span class="line">        ipam:</span><br><span class="line"></span><br><span class="line">            config:</span><br><span class="line"></span><br><span class="line">                - subnet: <span class="number">172.2</span>.<span class="number">0.0</span>/<span class="number">16</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h1 id="遇到的问题"><a href="#遇到的问题" class="headerlink" title="遇到的问题"></a>遇到的问题</h1><h2 id="部署时提示找不到python和python-dev"><a href="#部署时提示找不到python和python-dev" class="headerlink" title="部署时提示找不到python和python-dev"></a>部署时提示找不到python和python-dev</h2><figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">ERROR: unable to select packages:</span><br><span class="line"></span><br><span class="line">    required by: world[python]</span><br><span class="line"></span><br><span class="line">  python-dev (no such package):</span><br><span class="line"></span><br><span class="line">    required by: world[python-dev]</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>修改python和python-dev为python3和python3-dev</p>
+<h2 id="编译时提示cannot-execute-‘cc1plus’"><a href="#编译时提示cannot-execute-‘cc1plus’" class="headerlink" title="编译时提示cannot execute ‘cc1plus’"></a>编译时提示cannot execute ‘cc1plus’</h2><p>Dockerfile中添加安装g++</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">RUN</span><span class="language-bash"> sed -i <span class="string">&#x27;s/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g&#x27;</span> /etc/apk/repositories &amp;&amp; \</span></span><br><span class="line"><span class="language-bash"></span></span><br><span class="line">    apk update &amp;&amp; \</span><br><span class="line"></span><br><span class="line">    apk <span class="keyword">add</span><span class="language-bash"> \</span></span><br><span class="line"><span class="language-bash"></span></span><br><span class="line">        ...</span><br><span class="line"></span><br><span class="line">        g++ \</span><br><span class="line"></span><br><span class="line">        ...</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="docker-ps正常但无法进入网站"><a href="#docker-ps正常但无法进入网站" class="headerlink" title="docker ps正常但无法进入网站"></a>docker ps正常但无法进入网站</h2><p>docker logs 容器id显示</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">/usr/local/lib/python3.7/site-packages/tzlocal/unix.py:158: UserWarning: Can not find any timezone configuration, defaulting to UTC.</span><br><span class="line"></span><br><span class="line">  warnings.warn(<span class="string">&#x27;Can not find any timezone configuration, defaulting to UTC.&#x27;</span>)</span><br><span class="line"></span><br><span class="line">Starting CTFd</span><br><span class="line"></span><br><span class="line">/usr/local/lib/python3.7/importlib/_bootstrap.py:219: RuntimeWarning: greenlet.greenlet size changed, may indicate binary incompatibility. Expected 144 from C header, got 152 from PyObject</span><br><span class="line"></span><br><span class="line">  <span class="built_in">return</span> f(*args, **kwds)</span><br><span class="line"></span><br><span class="line">/usr/local/lib/python3.7/importlib/_bootstrap.py:219: RuntimeWarning: greenlet.greenlet size changed, may indicate binary incompatibility. Expected 144 from C header, got 152 from PyObject</span><br><span class="line"></span><br><span class="line">  <span class="built_in">return</span> f(*args, **kwds)</span><br><span class="line"></span><br><span class="line">/usr/local/lib/python3.7/importlib/_bootstrap.py:219: RuntimeWarning: greenlet.greenlet size changed, may indicate binary incompatibility. Expected 144 from C header, got 152 from PyObject</span><br><span class="line"></span><br><span class="line">  <span class="built_in">return</span> f(*args, **kwds)</span><br><span class="line"></span><br><span class="line">[2020-10-11 12:31:30 +0000] [1] [INFO] Starting gunicorn 19.9.0</span><br><span class="line"></span><br><span class="line">[2020-10-11 12:31:30 +0000] [1] [INFO] Listening at: http://0.0.0.0:8000 (1)</span><br><span class="line"></span><br><span class="line">[2020-10-11 12:31:30 +0000] [1] [INFO] Using worker: gevent</span><br><span class="line"></span><br><span class="line">[2020-10-11 12:31:30 +0000] [21] [INFO] Booting worker with pid: 21</span><br><span class="line"></span><br><span class="line">[2020-10-11 12:31:31 +0000] [23] [INFO] Booting worker with pid: 23</span><br><span class="line"></span><br><span class="line">[2020-10-11 12:31:32 +0000] [25] [INFO] Booting worker with pid: 25</span><br><span class="line"></span><br><span class="line">[2020-10-11 12:31:34 +0000] [27] [INFO] Booting worker with pid: 27</span><br><span class="line"></span><br><span class="line">[2020-10-11 12:31:35 +0000] [29] [INFO] Booting worker with pid: 29</span><br><span class="line"></span><br><span class="line">[2020-10-11 12:31:36 +0000] [31] [INFO] Booting worker with pid: 31</span><br><span class="line"></span><br><span class="line">[2020-10-11 12:31:37 +0000] [33] [INFO] Booting worker with pid: 33</span><br><span class="line"></span><br><span class="line">[2020-10-11 12:31:39 +0000] [35] [INFO] Booting worker with pid: 35</span><br><span class="line"></span><br><span class="line">[2020-10-11 12:31:40 +0000] [37] [INFO] Booting worker with pid: 37(一直在加)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>删除requirements.txt中gevent的版本号。</p>
+<h2 id="无法更新ctfd-whale配置"><a href="#无法更新ctfd-whale配置" class="headerlink" title="无法更新ctfd-whale配置"></a>无法更新ctfd-whale配置</h2><p>这个问题很奇怪，我只遇到过一次，然后放了一晚上之后他就好了</p>
+<p>所以，解决方法是，建议重启docker</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/a1oyss/a1oyss.github.io/tags/CTF/" rel="tag"># CTF</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/a1oyss/a1oyss.github.io/posts/f71d322b" rel="next" title="SSM框架整合过程以及加载原理的思考">
+                <i class="fa fa-chevron-left"></i> SSM框架整合过程以及加载原理的思考
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/a1oyss/a1oyss.github.io/posts/9186afe8" rel="prev" title="如何从全局获取HttpServletRequest">
+                如何从全局获取HttpServletRequest <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/a1oyss/a1oyss.github.io/archives/%20%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">categories</span>
+                
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-name">tags</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%BC%95%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">引言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E7%AB%A0"><span class="nav-number">2.</span> <span class="nav-text">参考文章</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%83%A8%E7%BD%B2"><span class="nav-number">3.</span> <span class="nav-text">部署</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87"><span class="nav-number">3.1.</span> <span class="nav-text">环境准备</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%85%8D%E7%BD%AEswarm"><span class="nav-number">3.2.</span> <span class="nav-text">配置swarm</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85"><span class="nav-number">3.3.</span> <span class="nav-text">安装</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98"><span class="nav-number">4.</span> <span class="nav-text">遇到的问题</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%83%A8%E7%BD%B2%E6%97%B6%E6%8F%90%E7%A4%BA%E6%89%BE%E4%B8%8D%E5%88%B0python%E5%92%8Cpython-dev"><span class="nav-number">4.1.</span> <span class="nav-text">部署时提示找不到python和python-dev</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BC%96%E8%AF%91%E6%97%B6%E6%8F%90%E7%A4%BAcannot-execute-%E2%80%98cc1plus%E2%80%99"><span class="nav-number">4.2.</span> <span class="nav-text">编译时提示cannot execute ‘cc1plus’</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#docker-ps%E6%AD%A3%E5%B8%B8%E4%BD%86%E6%97%A0%E6%B3%95%E8%BF%9B%E5%85%A5%E7%BD%91%E7%AB%99"><span class="nav-number">4.3.</span> <span class="nav-text">docker ps正常但无法进入网站</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%97%A0%E6%B3%95%E6%9B%B4%E6%96%B0ctfd-whale%E9%85%8D%E7%BD%AE"><span class="nav-number">4.4.</span> <span class="nav-text">无法更新ctfd-whale配置</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">a1oyss</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/a1oyss/a1oyss.github.io/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/a1oyss/a1oyss.github.io/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/a1oyss/a1oyss.github.io/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/a1oyss/a1oyss.github.io/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/a1oyss/a1oyss.github.io/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/a1oyss/a1oyss.github.io/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/a1oyss/a1oyss.github.io/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/a1oyss/a1oyss.github.io/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/a1oyss/a1oyss.github.io/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/a1oyss/a1oyss.github.io/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/a1oyss/a1oyss.github.io/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
