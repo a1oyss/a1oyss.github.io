@@ -5,7 +5,7 @@ categories:
 tags: [SpringBoot,Vue,CAS,单点登录,前后端分离]
 date: 2022-11-29 00:40:49
 updated: 2022-11-29 00:40:50
-cover: https://sm.ms/delete/NjEArfsZqUMKXQcb8nw7LhVSk5
+cover: https://sm.ms/image/GhfBESqvIHC9gAk
 ---
 #SpringBoot #Vue #CAS  #单点登录 #前后端分离 
 # 前言
