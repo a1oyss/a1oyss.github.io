@@ -24,15 +24,15 @@
 <link rel="stylesheet" href="/css/app.css?v=0.2.5">
 
   
-  <meta name="keywords" content="CTF,IDE,PHP" />
+  <meta name="keywords" content="BUG,Java,异常" />
 
 
-<link rel="canonical" href="https://a1oyss.github.io/%E6%9D%82%E8%AE%B0/VScode+XDebug%E8%BF%9C%E7%A8%8B%E8%B0%83%E8%AF%95ThinkPHP%20RCE/">
+<link rel="canonical" href="https://a1oyss.github.io/%E6%9D%82%E8%AE%B0/%E4%B8%80%E6%AC%A1%E6%93%8D%E8%9B%8B%E7%9A%84%E7%BA%BF%E4%B8%8A%E6%9C%8D%E5%8A%A1%E6%8E%92%E9%94%99%E7%BB%8F%E5%8E%86/">
 
 
 
   <title>
-VScode+XDebug远程调试ThinkPHP RCE - 杂记 |
+一次操蛋的线上服务排错经历 - 杂记 |
 a1oyss's blog = a1oyss</title>
 <meta name="generator" content="Hexo 6.3.0"></head>
 <body itemscope itemtype="http://schema.org/WebPage">
@@ -60,16 +60,16 @@ a1oyss's blog = a1oyss</title>
         <div id="brand">
           <div class="pjax">
           
-  <h1 itemprop="name headline">VScode+XDebug远程调试ThinkPHP RCE
+  <h1 itemprop="name headline">一次操蛋的线上服务排错经历
   </h1>
   
 <div class="meta">
-  <span class="item" title="创建时间：2020-12-02 08:29:14">
+  <span class="item" title="创建时间：2022-12-19 21:45:26">
     <span class="icon">
       <i class="ic i-calendar"></i>
     </span>
     <span class="text">发表于</span>
-    <time itemprop="dateCreated datePublished" datetime="2020-12-02T08:29:14+08:00">2020-12-02</time>
+    <time itemprop="dateCreated datePublished" datetime="2022-12-19T21:45:26+08:00">2022-12-19</time>
   </span>
 </div>
 
@@ -102,12 +102,12 @@ a1oyss's blog = a1oyss</title>
       </div>
       <div id="imgs" class="pjax">
         <ul>
-          <li class="item" data-background-image="https://s2.loli.net/2022/11/29/wVzJrU9Hjn2mbgo.jpg"></li>
-          <li class="item" data-background-image="https://s2.loli.net/2022/11/29/ErUOCh15JbRKt96.jpg"></li>
-          <li class="item" data-background-image="https://s2.loli.net/2022/11/29/jW46LVxflByFqhX.jpg"></li>
           <li class="item" data-background-image="https://s2.loli.net/2022/11/29/mOGLsCI7qPDTVfx.jpg"></li>
-          <li class="item" data-background-image="https://s2.loli.net/2022/11/29/FpBugrl5cIRPQAn.jpg"></li>
+          <li class="item" data-background-image="https://s2.loli.net/2022/11/29/Wzuq2vaAw4fN9cD.jpg"></li>
+          <li class="item" data-background-image="https://s2.loli.net/2022/11/29/wVzJrU9Hjn2mbgo.jpg"></li>
           <li class="item" data-background-image="https://s2.loli.net/2022/11/29/mwUOr981IDl5hTF.jpg"></li>
+          <li class="item" data-background-image="https://s2.loli.net/2022/11/29/Upk9JAeHw1fGzC3.jpg"></li>
+          <li class="item" data-background-image="https://s2.loli.net/2022/11/29/jW46LVxflByFqhX.jpg"></li>
         </ul>
       </div>
     </header>
@@ -138,7 +138,7 @@ a1oyss's blog = a1oyss</title>
 </div>
 
     <article itemscope itemtype="http://schema.org/Article" class="post block" lang="zh-CN">
-  <link itemprop="mainEntityOfPage" href="https://a1oyss.github.io/%E6%9D%82%E8%AE%B0/VScode+XDebug%E8%BF%9C%E7%A8%8B%E8%B0%83%E8%AF%95ThinkPHP%20RCE/">
+  <link itemprop="mainEntityOfPage" href="https://a1oyss.github.io/%E6%9D%82%E8%AE%B0/%E4%B8%80%E6%AC%A1%E6%93%8D%E8%9B%8B%E7%9A%84%E7%BA%BF%E4%B8%8A%E6%9C%8D%E5%8A%A1%E6%8E%92%E9%94%99%E7%BB%8F%E5%8E%86/">
 
   <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="image" content="/images/avatar.jpg">
@@ -153,68 +153,28 @@ a1oyss's blog = a1oyss</title>
   <div class="body md" itemprop="articleBody">
     
 
-    <p>#CTF #PHP #VSCode</p>
-<h1 id="环境准备"><a class="markdownIt-Anchor" href="#环境准备">#</a> 环境准备</h1>
-<ul>
-<li>VScode</li>
-<li>VMware</li>
-</ul>
-<h1 id="宿主机配置"><a class="markdownIt-Anchor" href="#宿主机配置">#</a> 宿主机配置</h1>
-<ol>
-<li>将 ThinkPHP 5.0.5（或者其他源码）下载到宿主机当中，使用 VScode 打开项目</li>
-<li>安装 PHP Debug</li>
-<li>点击左侧栏中的运行，选择创建 launch.json 文件，写入配置</li>
-</ol>
-<p>{<br>
-“name”: “Listen for XDebug”,<br>
-“type”: “php”,<br>
-“request”: “launch”,<br>
-“pathMappings”: {<br>
-“虚拟机当中的源码位置”: “${workspaceRoot}”<br>
-},<br>
-“port”: 9000 // 默认 XDebug 端口<br>
-}</p>
-<h1 id="虚拟机配置"><a class="markdownIt-Anchor" href="#虚拟机配置">#</a> 虚拟机配置</h1>
-<ol>
-<li>首先安装 XDebug，<span class="exturl" data-url="aHR0cHM6Ly94ZGVidWcub3JnL2RvY3MvaW5zdGFsbA==">官网</span>有非常详细的安装教程。</li>
-<li>修改 XDebug.ini 配置，这里建议去写一个 phpinfo () 文件，在这里面查看</li>
-</ol>
-<p>Additional .ini files parsed</p>
-<p>/etc/php/7.4/apache2/conf.d/20-xdebug.ini</p>
-<p>编辑此配置文件，一般第一行 <code>zend_extension</code>  是已经写好的，如果没有的话加上 xdebug 的路径就行</p>
-<p>接着在下面写入其他配置</p>
-<p>[XDebug]<br>
-xdebug.remote_enable = 1<br>
-xdebug.remote_autostart = 1<br>
-xdebug.remote_port = 9000 // 端口可以自定义，与 vscode 的保持一致就行<br>
- xdebug.remote_connect_back = 1<br>
-xdebug.auto_trace = 1<br>
-xdebug.collect_includes = 1<br>
-xdebug.collect_params = 1<br>
-; xdebug.remote_log = /var/log/xdebug.log// 可选</p>
-<p>关于配置以及 xdebug 原理之后会详细说。</p>
-<ol start="3">
-<li>重启服务，我的是 apache，使用 <code>service apache2 restart</code>  重启服务。</li>
-</ol>
-<h1 id="开始调试"><a class="markdownIt-Anchor" href="#开始调试">#</a> 开始调试</h1>
-<p>VScode 中，在需要调试的地方下好断点，然后在点击运行中的开始调试</p>
-<p><img data-src="https://cdn.nlark.com/yuque/0/2020/png/2658344/1606658034288-172a33e3-3c50-4f7b-a9f6-e53fa05e6fbf.png" alt=""></p>
-<p>vscode 就会开始监听 9000 端口，等待 xdebug 的连接，然后去访问会触发断点的网页即可。</p>
-<p><img data-src="https://cdn.nlark.com/yuque/0/2020/png/2658344/1606658143202-4c2ad032-9691-4188-9ccb-0f5908b2034d.png" alt="">可以看到成功触发断点。</p>
-<h1 id="xdebug原理"><a class="markdownIt-Anchor" href="#xdebug原理">#</a> XDebug 原理</h1>
-<p>首先 XDebug 需要客户端以及服务端。</p>
-<p>服务端就是我们在 VMware 中安装的 XDebug，而客户端一般来说像 PHPStorm 这样的 IDE 自带，或者 VScode 自己去安装 PHP Debug。</p>
-<p>当进行 XDebug 调试时，首先客户端会开始监听端口，等待 XDebug 的连接，连接成功则开始调试。如图所示：</p>
-<p><img data-src="https://cdn.nlark.com/yuque/0/2020/gif/2658344/1606658438431-fb756647-266f-43e9-b346-9ada6c464e83.gif" alt=""></p>
-<p>图片来自<span class="exturl" data-url="aHR0cDovL2d1b2ppYW54aWFuZy5jb20vcG9zdHMvMjAxNS0wOS0wNi1QSFBfRGVidWdfVG9vbC1YZGVidWcuaHRtbA=="> http://guojianxiang.com/posts/2015-09-06-PHP_Debug_Tool-Xdebug.html</span></p>
-<p>这里面是将 <code>xdebug.remote_host</code>  设为一个固定值，也就是说只会朝 <code>remote_host</code>  指向的 IP 发送调试请求。</p>
-<p>但是如果将 <code>xdebug.remote_connect_back</code>  的值设为 1，即可取消此限制。</p>
-<p>设置这个值之后，xdebug 会从 http 请求的头部获取客户端的 ip 当作 remote_host，而原本的 remote_host 即使设置了，也会忽略。</p>
+    <p>#Java #BUG #异常</p>
+<h1 id="起因"><a class="markdownIt-Anchor" href="#起因">#</a> 起因</h1>
+<p>大概是组里人手不够吧，反正就是把我拉去排查一个 N 多年前的项目的 bug，听描述就是微信公众号推送消息的代码有问题，不过之前没对接过，说实话还不知道具体流程，死马当活马医了。</p>
+<h1 id="bug1"><a class="markdownIt-Anchor" href="#bug1">#</a> BUG1</h1>
+<p>先进服务器看下日志，直接就看到一个形如栈溢出的异常，不过最后抛出的不是 StackOverflow，好像是空指针之类的异常，于是把代码拉下来看了眼，果不其然<br>
+<img data-src="https://s2.loli.net/2022/12/19/ReJY56ZLK4EPnd1.png" alt=""><br>
+<img data-src="https://s2.loli.net/2022/12/19/gXIBU1zlPJ8Y9fW.png" alt=""></p>
+<p>只能说这写的是真的神秘，咱也不知道当时到底是什么需求，会导致这样的代码，听说这 jsticket 反正也不用了，干脆就给注释了。<br>
+然后跑了一下发现还是不通，于是就去试了下 api，结果发现限额用光了，换了个 key，bug1 解决。</p>
+<h1 id="bug2"><a class="markdownIt-Anchor" href="#bug2">#</a> BUG2</h1>
+<p>刚解决完一个 bug，又告诉我登录跳转有问题，这次查日志，就发现一个 Authentication Failed! 还是别家公司的 sdk 里提示的，根据 exception 信息里的代码行数去找了下源码，结果发现异常没做日志，而是使用 pringStackTrace () 直接打印了，结果不管是日志还是错误页面都没有</p>
+<figure class="highlight java"><figcaption data-lang="java"></figcaption><table><tr><td data-num="1"></td><td><pre><span class="token keyword">try</span> <span class="token punctuation">&#123;</span>  </pre></td></tr><tr><td data-num="2"></td><td><pre>   <span class="token comment">// OAuth2 认证  </span></pre></td></tr><tr><td data-num="3"></td><td><pre><span class="token punctuation">&#125;</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">Exception</span> e<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>  </pre></td></tr><tr><td data-num="4"></td><td><pre>   e<span class="token punctuation">.</span><span class="token function">printStackTrace</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  </pre></td></tr><tr><td data-num="5"></td><td><pre>   <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">Exception</span><span class="token punctuation">(</span><span class="token string">"Authentication Failed"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  </pre></td></tr><tr><td data-num="6"></td><td><pre><span class="token punctuation">&#125;</span></pre></td></tr></table></figure><p>同时我也很好奇为什么 e.pringStackTrace 为什么打印不到日志中，于是看了下源码</p>
+<figure class="highlight java"><figcaption data-lang="java"></figcaption><table><tr><td data-num="1"></td><td><pre><span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">printStackTrace</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>  </pre></td></tr><tr><td data-num="2"></td><td><pre>    <span class="token function">printStackTrace</span><span class="token punctuation">(</span><span class="token class-name">System</span><span class="token punctuation">.</span>err<span class="token punctuation">)</span><span class="token punctuation">;</span>  </pre></td></tr><tr><td data-num="3"></td><td><pre><span class="token punctuation">&#125;</span>  </pre></td></tr><tr><td data-num="4"></td><td><pre>  </pre></td></tr><tr><td data-num="5"></td><td><pre> </pre></td></tr><tr><td data-num="6"></td><td><pre> <span class="token operator">*</span><span class="token operator">/</span><span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">printStackTrace</span><span class="token punctuation">(</span><span class="token class-name">PrintStream</span> s<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>  </pre></td></tr><tr><td data-num="7"></td><td><pre>    <span class="token function">printStackTrace</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">WrappedPrintStream</span><span class="token punctuation">(</span>s<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  </pre></td></tr><tr><td data-num="8"></td><td><pre><span class="token punctuation">&#125;</span></pre></td></tr></table></figure><p>看到上面的 System.err 就知道了， <code>Typically this stream corresponds to display output or another output destination specified by the host environment or user.</code>  一般这个流会输出到屏幕上，也就是控制台，或者用户定义的其他输出流。而刚才查看的 log 又是使用日志框架记录的，自然不会记录到 stderr 的内容。<br>
+于是又上去找其他日志，发现同目录下面还有个 tomcat-stderr.logs 的文件，打开来后果然发现有真正的报错信息</p>
+<pre><code>InvalidClaimException: The Token can't be used before xxx
+</code></pre>
+<p>大致意思是 token 不能在某个时间点之前使用，然后看了下时间，发现服务器上的时间居然和真实时间错了 3 个小时。。。同步回正常时间后，成功运行。</p>
 
       <div class="tags">
-          <a href="/tags/CTF/" rel="tag"><i class="ic i-tag"></i> CTF</a>
-          <a href="/tags/IDE/" rel="tag"><i class="ic i-tag"></i> IDE</a>
-          <a href="/tags/PHP/" rel="tag"><i class="ic i-tag"></i> PHP</a>
+          <a href="/tags/BUG/" rel="tag"><i class="ic i-tag"></i> BUG</a>
+          <a href="/tags/Java/" rel="tag"><i class="ic i-tag"></i> Java</a>
+          <a href="/tags/%E5%BC%82%E5%B8%B8/" rel="tag"><i class="ic i-tag"></i> 异常</a>
       </div>
   </div>
 
@@ -245,7 +205,7 @@ xdebug.collect_params = 1<br>
   </li>
   <li class="link">
     <strong>本文链接：</strong>
-    <a href="https://a1oyss.github.io/%E6%9D%82%E8%AE%B0/VScode+XDebug%E8%BF%9C%E7%A8%8B%E8%B0%83%E8%AF%95ThinkPHP%20RCE/" title="VScode+XDebug远程调试ThinkPHP RCE">https://a1oyss.github.io/杂记/VScode+XDebug远程调试ThinkPHP RCE/</a>
+    <a href="https://a1oyss.github.io/%E6%9D%82%E8%AE%B0/%E4%B8%80%E6%AC%A1%E6%93%8D%E8%9B%8B%E7%9A%84%E7%BA%BF%E4%B8%8A%E6%9C%8D%E5%8A%A1%E6%8E%92%E9%94%99%E7%BB%8F%E5%8E%86/" title="一次操蛋的线上服务排错经历">https://a1oyss.github.io/杂记/一次操蛋的线上服务排错经历/</a>
   </li>
   <li class="license">
     <strong>版权声明： </strong>本站所有文章除特别声明外，均采用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC9kZWVkLnpo"><i class="ic i-creative-commons"><em>(CC)</em></i>BY-NC-SA</span> 许可协议。转载请注明出处！
@@ -264,22 +224,14 @@ xdebug.collect_params = 1<br>
     <div class="item left">
       
 
-  <a href="/CTF/%E9%A6%96%E5%B1%8ABilibili%E5%AE%89%E5%85%A8%E6%8C%91%E6%88%98%E8%B5%9B/" itemprop="url" rel="prev" data-background-image="https:&#x2F;&#x2F;s2.loli.net&#x2F;2022&#x2F;11&#x2F;29&#x2F;Wzuq2vaAw4fN9cD.jpg" title="首届Bilibili安全挑战赛">
+  <a href="/%E7%AC%94%E8%AE%B0/Vue+SpringBoot+Cas%20%E5%89%8D%E5%90%8E%E7%AB%AF%E5%88%86%E7%A6%BB%E6%96%B9%E5%BC%8F%E5%AF%B9%E6%8E%A5Cas/" itemprop="url" rel="prev" data-background-image="https:&#x2F;&#x2F;s2.loli.net&#x2F;2022&#x2F;12&#x2F;04&#x2F;GhfBESqvIHC9gAk.png" title="Vue+SpringBoot+Cas 前后端分离方式对接Cas">
   <span class="type">上一篇</span>
-  <span class="category"><i class="ic i-flag"></i> CTF</span>
-  <h3>首届Bilibili安全挑战赛</h3>
+  <span class="category"><i class="ic i-flag"></i> 笔记</span>
+  <h3>Vue+SpringBoot+Cas 前后端分离方式对接Cas</h3>
   </a>
 
     </div>
     <div class="item right">
-      
-
-  <a href="/CTF/Pwnable%E9%A2%98%E8%A7%A3/" itemprop="url" rel="next" data-background-image="https:&#x2F;&#x2F;s2.loli.net&#x2F;2022&#x2F;11&#x2F;29&#x2F;8bHmPhcReXNdrLC.jpg" title="Pwnable题解">
-  <span class="type">下一篇</span>
-  <span class="category"><i class="ic i-flag"></i> CTF</span>
-  <h3>Pwnable题解</h3>
-  </a>
-
     </div>
 </div>
 
@@ -296,11 +248,11 @@ xdebug.collect_params = 1<br>
   <div class="panels">
     <div class="inner">
       <div class="contents panel pjax" data-title="文章目录">
-          <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87"><span class="toc-number">1.</span> <span class="toc-text"> 环境准备</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%AE%BF%E4%B8%BB%E6%9C%BA%E9%85%8D%E7%BD%AE"><span class="toc-number">2.</span> <span class="toc-text"> 宿主机配置</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%99%9A%E6%8B%9F%E6%9C%BA%E9%85%8D%E7%BD%AE"><span class="toc-number">3.</span> <span class="toc-text"> 虚拟机配置</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%BC%80%E5%A7%8B%E8%B0%83%E8%AF%95"><span class="toc-number">4.</span> <span class="toc-text"> 开始调试</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#xdebug%E5%8E%9F%E7%90%86"><span class="toc-number">5.</span> <span class="toc-text"> XDebug 原理</span></a></li></ol>
+          <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%B5%B7%E5%9B%A0"><span class="toc-number">1.</span> <span class="toc-text"> 起因</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#bug1"><span class="toc-number">2.</span> <span class="toc-text"> BUG1</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#bug2"><span class="toc-number">3.</span> <span class="toc-text"> BUG2</span></a></li></ol>
       </div>
       <div class="related panel pjax" data-title="系列文章">
         <ul>
-          <li><a href="/%E6%9D%82%E8%AE%B0/Pycharm+VMware%E6%90%AD%E5%BB%BALinux%E4%B8%8B%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/" rel="bookmark" title="Pycharm+VMware搭建Linux下开发环境">Pycharm+VMware搭建Linux下开发环境</a></li><li class="active"><a href="/%E6%9D%82%E8%AE%B0/VScode+XDebug%E8%BF%9C%E7%A8%8B%E8%B0%83%E8%AF%95ThinkPHP%20RCE/" rel="bookmark" title="VScode+XDebug远程调试ThinkPHP RCE">VScode+XDebug远程调试ThinkPHP RCE</a></li><li><a href="/%E6%9D%82%E8%AE%B0/Terminal%E5%AE%89%E8%A3%85+%E7%BE%8E%E5%8C%96/" rel="bookmark" title="Terminal安装+美化">Terminal安装+美化</a></li><li><a href="/%E6%9D%82%E8%AE%B0/CTFd+CTFd-Whale%E9%83%A8%E7%BD%B2%E5%AE%9E%E8%B7%B5/" rel="bookmark" title="CTFd+CTFd-Whale部署实践">CTFd+CTFd-Whale部署实践</a></li><li><a href="/%E6%9D%82%E8%AE%B0/%E6%9C%AA%E5%91%BD%E5%90%8D/" rel="bookmark" title=""></a></li><li><a href="/%E6%9D%82%E8%AE%B0/%E4%B8%80%E6%AC%A1%E6%93%8D%E8%9B%8B%E7%9A%84%E7%BA%BF%E4%B8%8A%E6%9C%8D%E5%8A%A1%E6%8E%92%E9%94%99%E7%BB%8F%E5%8E%86/" rel="bookmark" title="一次操蛋的线上服务排错经历">一次操蛋的线上服务排错经历</a></li>
+          <li><a href="/%E6%9D%82%E8%AE%B0/Pycharm+VMware%E6%90%AD%E5%BB%BALinux%E4%B8%8B%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/" rel="bookmark" title="Pycharm+VMware搭建Linux下开发环境">Pycharm+VMware搭建Linux下开发环境</a></li><li><a href="/%E6%9D%82%E8%AE%B0/VScode+XDebug%E8%BF%9C%E7%A8%8B%E8%B0%83%E8%AF%95ThinkPHP%20RCE/" rel="bookmark" title="VScode+XDebug远程调试ThinkPHP RCE">VScode+XDebug远程调试ThinkPHP RCE</a></li><li><a href="/%E6%9D%82%E8%AE%B0/Terminal%E5%AE%89%E8%A3%85+%E7%BE%8E%E5%8C%96/" rel="bookmark" title="Terminal安装+美化">Terminal安装+美化</a></li><li><a href="/%E6%9D%82%E8%AE%B0/CTFd+CTFd-Whale%E9%83%A8%E7%BD%B2%E5%AE%9E%E8%B7%B5/" rel="bookmark" title="CTFd+CTFd-Whale部署实践">CTFd+CTFd-Whale部署实践</a></li><li><a href="/%E6%9D%82%E8%AE%B0/%E6%9C%AA%E5%91%BD%E5%90%8D/" rel="bookmark" title=""></a></li><li class="active"><a href="/%E6%9D%82%E8%AE%B0/%E4%B8%80%E6%AC%A1%E6%93%8D%E8%9B%8B%E7%9A%84%E7%BA%BF%E4%B8%8A%E6%9C%8D%E5%8A%A1%E6%8E%92%E9%94%99%E7%BB%8F%E5%8E%86/" rel="bookmark" title="一次操蛋的线上服务排错经历">一次操蛋的线上服务排错经历</a></li>
         </ul>
       </div>
       <div class="overview panel" data-title="站点概览">
@@ -378,12 +330,10 @@ xdebug.collect_params = 1<br>
 
   <ul id="quick">
     <li class="prev pjax">
-        <a href="/CTF/%E9%A6%96%E5%B1%8ABilibili%E5%AE%89%E5%85%A8%E6%8C%91%E6%88%98%E8%B5%9B/" rel="prev" title="上一篇"><i class="ic i-chevron-left"></i></a>
     </li>
     <li class="up"><i class="ic i-arrow-up"></i></li>
     <li class="down"><i class="ic i-arrow-down"></i></li>
     <li class="next pjax">
-        <a href="/CTF/Pwnable%E9%A2%98%E8%A7%A3/" rel="next" title="下一篇"><i class="ic i-chevron-right"></i></a>
     </li>
     <li class="percent"></li>
   </ul>
@@ -408,7 +358,17 @@ xdebug.collect_params = 1<br>
 <a href="/categories/%E6%9D%82%E8%AE%B0/" title="分类于 杂记">杂记</a>
 </div>
 
-    <span><a href="/%E6%9D%82%E8%AE%B0/Terminal%E5%AE%89%E8%A3%85+%E7%BE%8E%E5%8C%96/" title="Terminal安装+美化">Terminal安装+美化</a></span>
+    <span><a href="/%E6%9D%82%E8%AE%B0/Pycharm+VMware%E6%90%AD%E5%BB%BALinux%E4%B8%8B%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/" title="Pycharm+VMware搭建Linux下开发环境">Pycharm+VMware搭建Linux下开发环境</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/CTF/" title="分类于 CTF">CTF</a>
+</div>
+
+    <span><a href="/CTF/ISCC%E4%B8%80%E6%97%A5%E6%B8%B8/" title="ISCC一日游">ISCC一日游</a></span>
   </li>
 
       
@@ -428,7 +388,7 @@ xdebug.collect_params = 1<br>
 <a href="/categories/%E7%AC%94%E8%AE%B0/" title="分类于 笔记">笔记</a>
 </div>
 
-    <span><a href="/%E7%AC%94%E8%AE%B0/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/" title="设计模式-单例模式">设计模式-单例模式</a></span>
+    <span><a href="/%E7%AC%94%E8%AE%B0/SSM%E6%A1%86%E6%9E%B6%E6%95%B4%E5%90%88%E8%BF%87%E7%A8%8B%E4%BB%A5%E5%8F%8A%E5%8A%A0%E8%BD%BD%E5%8E%9F%E7%90%86%E7%9A%84%E6%80%9D%E8%80%83/" title="SSM框架整合过程以及加载原理的思考">SSM框架整合过程以及加载原理的思考</a></span>
   </li>
 
       
@@ -438,7 +398,7 @@ xdebug.collect_params = 1<br>
 <a href="/categories/%E7%AC%94%E8%AE%B0/" title="分类于 笔记">笔记</a>
 </div>
 
-    <span><a href="/%E7%AC%94%E8%AE%B0/SSM%E6%A1%86%E6%9E%B6%E6%95%B4%E5%90%88%E8%BF%87%E7%A8%8B%E4%BB%A5%E5%8F%8A%E5%8A%A0%E8%BD%BD%E5%8E%9F%E7%90%86%E7%9A%84%E6%80%9D%E8%80%83/" title="SSM框架整合过程以及加载原理的思考">SSM框架整合过程以及加载原理的思考</a></span>
+    <span><a href="/%E7%AC%94%E8%AE%B0/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/" title="设计模式-单例模式">设计模式-单例模式</a></span>
   </li>
 
       
@@ -448,17 +408,7 @@ xdebug.collect_params = 1<br>
 <a href="/categories/%E6%9D%82%E8%AE%B0/" title="分类于 杂记">杂记</a>
 </div>
 
-    <span><a href="/%E6%9D%82%E8%AE%B0/Pycharm+VMware%E6%90%AD%E5%BB%BALinux%E4%B8%8B%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/" title="Pycharm+VMware搭建Linux下开发环境">Pycharm+VMware搭建Linux下开发环境</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/CTF/" title="分类于 CTF">CTF</a>
-</div>
-
-    <span><a href="/CTF/%E9%A6%96%E5%B1%8ABilibili%E5%AE%89%E5%85%A8%E6%8C%91%E6%88%98%E8%B5%9B/" title="首届Bilibili安全挑战赛">首届Bilibili安全挑战赛</a></span>
+    <span><a href="/%E6%9D%82%E8%AE%B0/CTFd+CTFd-Whale%E9%83%A8%E7%BD%B2%E5%AE%9E%E8%B7%B5/" title="CTFd+CTFd-Whale部署实践">CTFd+CTFd-Whale部署实践</a></span>
   </li>
 
       
@@ -485,20 +435,20 @@ xdebug.collect_params = 1<br>
   <li class="item">
     
 <div class="breadcrumb">
-<a href="/categories/%E6%9D%82%E8%AE%B0/" title="分类于 杂记">杂记</a>
+<a href="/categories/CTF/" title="分类于 CTF">CTF</a>
 </div>
 
-    <span><a href="/%E6%9D%82%E8%AE%B0/VScode+XDebug%E8%BF%9C%E7%A8%8B%E8%B0%83%E8%AF%95ThinkPHP%20RCE/" title="VScode+XDebug远程调试ThinkPHP RCE">VScode+XDebug远程调试ThinkPHP RCE</a></span>
+    <span><a href="/CTF/%E9%A6%96%E5%B1%8ABilibili%E5%AE%89%E5%85%A8%E6%8C%91%E6%88%98%E8%B5%9B/" title="首届Bilibili安全挑战赛">首届Bilibili安全挑战赛</a></span>
   </li>
 
       
   <li class="item">
     
 <div class="breadcrumb">
-<a href="/categories/CTF/" title="分类于 CTF">CTF</a>
+<a href="/categories/%E6%9D%82%E8%AE%B0/" title="分类于 杂记">杂记</a>
 </div>
 
-    <span><a href="/CTF/ISCC%E4%B8%80%E6%97%A5%E6%B8%B8/" title="ISCC一日游">ISCC一日游</a></span>
+    <span><a href="/%E6%9D%82%E8%AE%B0/%E4%B8%80%E6%AC%A1%E6%93%8D%E8%9B%8B%E7%9A%84%E7%BA%BF%E4%B8%8A%E6%9C%8D%E5%8A%A1%E6%8E%92%E9%94%99%E7%BB%8F%E5%8E%86/" title="一次操蛋的线上服务排错经历">一次操蛋的线上服务排错经历</a></span>
   </li>
 
   </ul>
@@ -525,7 +475,7 @@ xdebug.collect_params = 1<br>
   </div>
 <script data-config type="text/javascript">
   var LOCAL = {
-    path: '杂记/VScode+XDebug远程调试ThinkPHP RCE/',
+    path: '杂记/一次操蛋的线上服务排错经历/',
     favicon: {
       show: "（●´3｀●）やれやれだぜ",
       hide: "(´Д｀)大変だ！"
