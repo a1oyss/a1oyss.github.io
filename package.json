@@ -30,6 +30,6 @@
     "hexo-server": "^3.0.0",
     "hexo-symbols-count-time": "^0.7.1",
     "hexo-theme-landscape": "^0.0.3",
-    "puppeteer": "^19.3.0"
+    "puppeteer": "^23.5.3"
   }
 }
