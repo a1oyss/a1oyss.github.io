@@ -1,10 +1,11 @@
 ---
 title: Hexo图片显示失败
-categories:
-  - BUG
 tags:
+  - 随笔记录
   - Hexo
-abbrlink: 57d83b8b
+categories:
+  - 杂记
+abbrlink: 8759
 date: 2021-03-28 00:09:09
 updated: 2021-03-28 00:09:09
 ---

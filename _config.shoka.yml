@@ -1,5 +1,5 @@
 # 你的名字
-alternate: a1oyss
+alternate: a1oyss's blog
 
 # 这里一般不改，如果想将 css，js，图片这些静态资源放在自己的 git 上通过 cdn 加速访问的话可以将后面的注释打开
 statics: / #//cdn.jsdelivr.net/gh/username/RepositoryName@latest/
@@ -16,8 +16,7 @@ loader:
 # 文档地址：https://shoka.lostyu.me/computer-science/note/theme-shoka-doc/config/#% E8%8F%9C% E5%8D%95% E4% B8%8E% E7% A4% BE% E4% BA% A4% E6%8C%89% E9%92% AE
 menu:
   home: / || home
-  posts: /archives/ || list-alt
-  categories: /categories/ || th
+  archives: /archives/ || list-alt
   tags: /tags/ || tags
   # friends: /friends/ || heart
 

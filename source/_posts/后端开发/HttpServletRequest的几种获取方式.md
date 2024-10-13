@@ -1,14 +1,14 @@
 ---
-title: 如何从全局获取HttpServletRequest
-categories:
-  - 笔记
+title: HttpServletRequest的几种获取方式
 tags:
-  - 源码
-abbrlink: 9186afe8
+  - 源码分析
+  - Java
+categories:
+  - 后端开发
+abbrlink: 5457
 date: 2022-11-28 20:07:22
 updated: 2022-11-28 20:07:22
 ---
-#源码 
 这几天写项目，有分页需求，每个接口上定义一次参数有点麻烦，就想到RuoYi写了个`getPageDomain`的静态方法，其原理是直接通过`HttpServletRequest`对象获取url中的参数。
 
 ```java

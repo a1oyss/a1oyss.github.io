@@ -1,13 +1,13 @@
 ---
 title: SSM框架整合过程以及加载原理的思考
-categories:
-  - 笔记
 tags:
   - SpringMVC
   - Spring
   - MyBatis
-  - 源码
-abbrlink: f71d322b
+  - 源码分析
+categories:
+  - 后端开发
+abbrlink: 13493
 date: 2022-11-28 20:02:18
 updated: 2022-11-28 20:02:18
 ---

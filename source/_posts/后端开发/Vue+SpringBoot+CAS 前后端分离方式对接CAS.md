@@ -1,11 +1,14 @@
 ---
-title: Vue+SpringBoot+Cas 前后端分离方式对接Cas
-categories: 
-- 笔记
-tags: [SpringBoot,Vue,CAS,单点登录,前后端分离]
+title: Vue+SpringBoot+Cas 前后端分离方式对接CAS
+tags:
+  - SpringBoot
+  - CAS
+cover: 'https://s2.loli.net/2022/12/04/GhfBESqvIHC9gAk.png'
+categories:
+  - 后端开发
+abbrlink: 10656
 date: 2022-11-29 00:40:49
 updated: 2022-11-29 00:40:50
-cover: https://s2.loli.net/2022/12/04/GhfBESqvIHC9gAk.png
 ---
 #SpringBoot #Vue #CAS  #单点登录 #前后端分离 
 # 前言

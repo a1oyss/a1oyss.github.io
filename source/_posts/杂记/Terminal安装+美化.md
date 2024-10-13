@@ -1,10 +1,10 @@
 ---
 title: Terminal安装+美化
+tags:
+  - 随笔记录
 categories:
   - 杂记
-tags:
-  - Terminal
-abbrlink: 2ff2acab
+abbrlink: 11560
 date: 2022-05-25 15:48:26
 updated: 2022-05-25 15:48:26
 ---

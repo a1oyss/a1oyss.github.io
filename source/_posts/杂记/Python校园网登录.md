@@ -1,11 +1,12 @@
 ---
 title: Python校园网登录
-categories:
-  - Python
 tags:
   - Python
   - 爬虫
-abbrlink: e58f6b32
+  - 随笔记录
+categories:
+  - 杂记
+abbrlink: 33250
 date: 2020-10-09 21:48:46
 updated: 2020-10-09 21:48:46
 ---

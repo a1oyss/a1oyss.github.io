@@ -1,10 +1,11 @@
 ---
 title: CTFd+CTFd-Whale部署实践
-categories:
-  - 杂记
 tags:
   - CTF
-abbrlink: b16d8429
+  - 网络安全
+categories:
+  - 网络安全
+abbrlink: 13394
 date: 2022-09-04 21:42:19
 updated: 2022-09-04 21:42:19
 ---

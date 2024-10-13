@@ -1,12 +1,10 @@
 ---
 title: VScode+XDebug远程调试ThinkPHP RCE
-categories:
-  - 杂记
 tags:
   - CTF
-  - PHP
-  - IDE
-abbrlink: 5cdca07e
+categories:
+  - 网络安全
+abbrlink: 5062
 date: 2020-12-02 08:29:14
 updated: 2020-12-02 08:29:14
 ---

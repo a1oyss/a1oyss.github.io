@@ -1,10 +1,11 @@
 ---
 title: 首届Bilibili安全挑战赛
-categories:
-  - CTF
 tags:
   - CTF
-abbrlink: 7ce15f2f
+  - 网络安全
+categories:
+  - 网络安全
+abbrlink: 38798
 date: 2020-11-16 18:43:10
 updated: 2020-11-16 18:43:10
 ---

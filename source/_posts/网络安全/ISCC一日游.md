@@ -1,10 +1,11 @@
 ---
 title: ISCC一日游
-categories:
-  - CTF
 tags:
   - CTF
-abbrlink: 333638c3
+  - 网络安全
+categories:
+  - 网络安全
+abbrlink: 7981
 date: 2020-10-08 18:53:44
 updated: 2020-10-08 18:53:44
 ---

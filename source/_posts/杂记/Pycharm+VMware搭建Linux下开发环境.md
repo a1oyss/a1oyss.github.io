@@ -1,11 +1,10 @@
 ---
 title: Pycharm+VMware搭建Linux下开发环境
+tags:
+  - 随笔记录
 categories:
   - 杂记
-tags:
-  - IDE
-  - Pycharm
-abbrlink: bd9c592a
+abbrlink: 58699
 date: 2020-10-08 18:44:09
 updated: 2020-10-08 18:44:09
 ---

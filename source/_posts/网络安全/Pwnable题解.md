@@ -1,11 +1,12 @@
 ---
 title: Pwnable题解
-categories:
-  - CTF
 tags:
   - CTF
   - PWN
-abbrlink: cc4a2ff
+  - 网络安全
+categories:
+  - 网络安全
+abbrlink: 21012
 date: 2020-12-23 11:11:41
 updated: 2020-12-23 11:11:41
 ---

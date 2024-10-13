@@ -1,10 +1,10 @@
 ---
 title: '运行CMD提示[已退出进程，代码为 1]解决方案'
-categories:
-  - BUG
 tags:
-  - BUG
-abbrlink: 10e60d97
+  - 随笔记录
+categories:
+  - 杂记
+abbrlink: 36347
 date: 2021-05-27 10:25:33
 updated: 2021-05-27 10:25:33
 ---
