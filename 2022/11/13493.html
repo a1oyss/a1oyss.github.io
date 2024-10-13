@@ -24,10 +24,10 @@
 <link rel="stylesheet" href="/css/app.css?v=0.2.5">
 
   
-  <meta name="keywords" content="SpringMVC,Spring,MyBatis,源码分析" />
+  <meta name="keywords" content="源码分析,SpringMVC,Spring,MyBatis" />
 
 
-<link rel="canonical" href="https://a1oyss.github.io/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/SSM%E6%A1%86%E6%9E%B6%E6%95%B4%E5%90%88%E8%BF%87%E7%A8%8B%E4%BB%A5%E5%8F%8A%E5%8A%A0%E8%BD%BD%E5%8E%9F%E7%90%86%E7%9A%84%E6%80%9D%E8%80%83/">
+<link rel="canonical" href="https://a1oyss.github.io/2022/11/13493.html">
 
 
 
@@ -117,12 +117,12 @@ a1oyss's blog = a1oyss</title>
       </div>
       <div id="imgs" class="pjax">
         <ul>
-          <li class="item" data-background-image="https://s2.loli.net/2024/10/13/PyzRCs6iEVNBw1S.png"></li>
-          <li class="item" data-background-image="https://s2.loli.net/2024/10/13/LKZwqYM7JzN24he.jpg"></li>
-          <li class="item" data-background-image="https://s2.loli.net/2024/10/13/5HIfmpctuZF3iGQ.png"></li>
-          <li class="item" data-background-image="https://s2.loli.net/2024/10/13/J5qtFM1iUxWlS9u.png"></li>
+          <li class="item" data-background-image="https://s2.loli.net/2024/10/13/sVn5mvFbj1T3HO2.png"></li>
           <li class="item" data-background-image="https://s2.loli.net/2024/10/13/uyhMVC8iFk7L3oq.png"></li>
-          <li class="item" data-background-image="https://s2.loli.net/2024/10/13/2pFyjbAMUauws6i.png"></li>
+          <li class="item" data-background-image="https://s2.loli.net/2024/10/13/yDZ2p3LT5hzEVkS.png"></li>
+          <li class="item" data-background-image="https://s2.loli.net/2024/10/13/J5qtFM1iUxWlS9u.png"></li>
+          <li class="item" data-background-image="https://s2.loli.net/2024/10/13/PyzRCs6iEVNBw1S.png"></li>
+          <li class="item" data-background-image="https://s2.loli.net/2024/10/13/5HIfmpctuZF3iGQ.png"></li>
         </ul>
       </div>
     </header>
@@ -153,7 +153,7 @@ a1oyss's blog = a1oyss</title>
 </div>
 
     <article itemscope itemtype="http://schema.org/Article" class="post block" lang="zh-CN">
-  <link itemprop="mainEntityOfPage" href="https://a1oyss.github.io/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/SSM%E6%A1%86%E6%9E%B6%E6%95%B4%E5%90%88%E8%BF%87%E7%A8%8B%E4%BB%A5%E5%8F%8A%E5%8A%A0%E8%BD%BD%E5%8E%9F%E7%90%86%E7%9A%84%E6%80%9D%E8%80%83/">
+  <link itemprop="mainEntityOfPage" href="https://a1oyss.github.io/2022/11/13493.html">
 
   <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="image" content="/images/avatar.jpg">
@@ -239,10 +239,10 @@ a1oyss's blog = a1oyss</title>
 <figure class="highlight java"><figcaption data-lang="java"></figcaption><table><tr><td data-num="1"></td><td><pre><span class="token annotation punctuation">@Configuration</span></pre></td></tr><tr><td data-num="2"></td><td><pre></pre></td></tr><tr><td data-num="3"></td><td><pre><span class="token annotation punctuation">@PropertySource</span><span class="token punctuation">(</span><span class="token string">"classpath:druid.properties"</span><span class="token punctuation">)</span></pre></td></tr><tr><td data-num="4"></td><td><pre></pre></td></tr><tr><td data-num="5"></td><td><pre><span class="token annotation punctuation">@MapperScan</span><span class="token punctuation">(</span>basePackages <span class="token operator">=</span> <span class="token string">"com.sk.day31.mapper"</span><span class="token punctuation">)</span></pre></td></tr><tr><td data-num="6"></td><td><pre></pre></td></tr><tr><td data-num="7"></td><td><pre><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">MybatisConfig</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="8"></td><td><pre></pre></td></tr><tr><td data-num="9"></td><td><pre>    <span class="token annotation punctuation">@Value</span><span class="token punctuation">(</span><span class="token string">"$&#123;jdbc.driver&#125;"</span><span class="token punctuation">)</span></pre></td></tr><tr><td data-num="10"></td><td><pre></pre></td></tr><tr><td data-num="11"></td><td><pre>    <span class="token keyword">private</span> <span class="token class-name">String</span> driver<span class="token punctuation">;</span></pre></td></tr><tr><td data-num="12"></td><td><pre></pre></td></tr><tr><td data-num="13"></td><td><pre>    <span class="token annotation punctuation">@Value</span><span class="token punctuation">(</span><span class="token string">"$&#123;jdbc.url&#125;"</span><span class="token punctuation">)</span></pre></td></tr><tr><td data-num="14"></td><td><pre></pre></td></tr><tr><td data-num="15"></td><td><pre>    <span class="token keyword">private</span> <span class="token class-name">String</span> url<span class="token punctuation">;</span></pre></td></tr><tr><td data-num="16"></td><td><pre></pre></td></tr><tr><td data-num="17"></td><td><pre>    <span class="token annotation punctuation">@Value</span><span class="token punctuation">(</span><span class="token string">"$&#123;jdbc.username&#125;"</span><span class="token punctuation">)</span></pre></td></tr><tr><td data-num="18"></td><td><pre></pre></td></tr><tr><td data-num="19"></td><td><pre>    <span class="token keyword">private</span> <span class="token class-name">String</span> username<span class="token punctuation">;</span></pre></td></tr><tr><td data-num="20"></td><td><pre></pre></td></tr><tr><td data-num="21"></td><td><pre>    <span class="token annotation punctuation">@Value</span><span class="token punctuation">(</span><span class="token string">"$&#123;jdbc.password&#125;"</span><span class="token punctuation">)</span></pre></td></tr><tr><td data-num="22"></td><td><pre></pre></td></tr><tr><td data-num="23"></td><td><pre>    <span class="token keyword">private</span> <span class="token class-name">String</span> password<span class="token punctuation">;</span></pre></td></tr><tr><td data-num="24"></td><td><pre></pre></td></tr><tr><td data-num="25"></td><td><pre>  </pre></td></tr><tr><td data-num="26"></td><td><pre></pre></td></tr><tr><td data-num="27"></td><td><pre>    <span class="token annotation punctuation">@Bean</span></pre></td></tr><tr><td data-num="28"></td><td><pre></pre></td></tr><tr><td data-num="29"></td><td><pre>    <span class="token keyword">public</span> <span class="token class-name">DruidDataSource</span> <span class="token function">dataSource</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="30"></td><td><pre></pre></td></tr><tr><td data-num="31"></td><td><pre>        <span class="token class-name">DruidDataSource</span> dataSource<span class="token operator">=</span><span class="token keyword">new</span> <span class="token class-name">DruidDataSource</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="32"></td><td><pre></pre></td></tr><tr><td data-num="33"></td><td><pre>        dataSource<span class="token punctuation">.</span><span class="token function">setDriverClassName</span><span class="token punctuation">(</span>driver<span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="34"></td><td><pre></pre></td></tr><tr><td data-num="35"></td><td><pre>        dataSource<span class="token punctuation">.</span><span class="token function">setUrl</span><span class="token punctuation">(</span>url<span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="36"></td><td><pre></pre></td></tr><tr><td data-num="37"></td><td><pre>        dataSource<span class="token punctuation">.</span><span class="token function">setUsername</span><span class="token punctuation">(</span>username<span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="38"></td><td><pre></pre></td></tr><tr><td data-num="39"></td><td><pre>        dataSource<span class="token punctuation">.</span><span class="token function">setPassword</span><span class="token punctuation">(</span>password<span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="40"></td><td><pre></pre></td></tr><tr><td data-num="41"></td><td><pre>        <span class="token keyword">return</span> dataSource<span class="token punctuation">;</span></pre></td></tr><tr><td data-num="42"></td><td><pre></pre></td></tr><tr><td data-num="43"></td><td><pre>    <span class="token punctuation">&#125;</span></pre></td></tr><tr><td data-num="44"></td><td><pre></pre></td></tr><tr><td data-num="45"></td><td><pre>  </pre></td></tr><tr><td data-num="46"></td><td><pre></pre></td></tr><tr><td data-num="47"></td><td><pre>    <span class="token annotation punctuation">@Bean</span></pre></td></tr><tr><td data-num="48"></td><td><pre></pre></td></tr><tr><td data-num="49"></td><td><pre>    <span class="token keyword">public</span> <span class="token class-name">SqlSessionFactory</span> <span class="token function">sqlSessionFactory</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">throws</span> <span class="token class-name">Exception</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="50"></td><td><pre></pre></td></tr><tr><td data-num="51"></td><td><pre>        <span class="token class-name">SqlSessionFactoryBean</span> factoryBean <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">SqlSessionFactoryBean</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="52"></td><td><pre></pre></td></tr><tr><td data-num="53"></td><td><pre>        factoryBean<span class="token punctuation">.</span><span class="token function">setTypeAliasesPackage</span><span class="token punctuation">(</span><span class="token string">"com.sk.day31.entity"</span><span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="54"></td><td><pre></pre></td></tr><tr><td data-num="55"></td><td><pre>        factoryBean<span class="token punctuation">.</span><span class="token function">setMapperLocations</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">PathMatchingResourcePatternResolver</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getResources</span><span class="token punctuation">(</span><span class="token string">"classpath:mapper/*.xml"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="56"></td><td><pre></pre></td></tr><tr><td data-num="57"></td><td><pre>        factoryBean<span class="token punctuation">.</span><span class="token function">setDataSource</span><span class="token punctuation">(</span><span class="token function">dataSource</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="58"></td><td><pre></pre></td></tr><tr><td data-num="59"></td><td><pre>        <span class="token keyword">return</span> factoryBean<span class="token punctuation">.</span><span class="token function">getObject</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="60"></td><td><pre></pre></td></tr><tr><td data-num="61"></td><td><pre>    <span class="token punctuation">&#125;</span></pre></td></tr><tr><td data-num="62"></td><td><pre></pre></td></tr><tr><td data-num="63"></td><td><pre><span class="token punctuation">&#125;</span></pre></td></tr></table></figure><p>到此就算是整合完毕了</p>
 
       <div class="tags">
+          <a href="/tags/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/" rel="tag"><i class="ic i-tag"></i> 源码分析</a>
           <a href="/tags/SpringMVC/" rel="tag"><i class="ic i-tag"></i> SpringMVC</a>
           <a href="/tags/Spring/" rel="tag"><i class="ic i-tag"></i> Spring</a>
           <a href="/tags/MyBatis/" rel="tag"><i class="ic i-tag"></i> MyBatis</a>
-          <a href="/tags/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/" rel="tag"><i class="ic i-tag"></i> 源码分析</a>
       </div>
   </div>
 
@@ -260,7 +260,7 @@ a1oyss's blog = a1oyss</title>
   </li>
   <li class="link">
     <strong>本文链接：</strong>
-    <a href="https://a1oyss.github.io/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/SSM%E6%A1%86%E6%9E%B6%E6%95%B4%E5%90%88%E8%BF%87%E7%A8%8B%E4%BB%A5%E5%8F%8A%E5%8A%A0%E8%BD%BD%E5%8E%9F%E7%90%86%E7%9A%84%E6%80%9D%E8%80%83/" title="SSM框架整合过程以及加载原理的思考">https://a1oyss.github.io/后端开发/SSM框架整合过程以及加载原理的思考/</a>
+    <a href="https://a1oyss.github.io/2022/11/13493.html" title="SSM框架整合过程以及加载原理的思考">https://a1oyss.github.io/2022/11/13493.html</a>
   </li>
   <li class="license">
     <strong>版权声明： </strong>本站所有文章除特别声明外，均采用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC9kZWVkLnpo"><i class="ic i-creative-commons"><em>(CC)</em></i>BY-NC-SA</span> 许可协议。转载请注明出处！
@@ -279,7 +279,7 @@ a1oyss's blog = a1oyss</title>
     <div class="item left">
       
 
-  <a href="/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/%E8%AF%A6%E8%A7%A3%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E7%B3%BB%E5%88%97-%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/" itemprop="url" rel="prev" data-background-image="https:&#x2F;&#x2F;s2.loli.net&#x2F;2024&#x2F;10&#x2F;13&#x2F;fIwNTFPirngUYQ1.png" title="详解设计模式系列-单例模式">
+  <a href="/2022/11/61375.html" itemprop="url" rel="prev" data-background-image="https:&#x2F;&#x2F;s2.loli.net&#x2F;2024&#x2F;10&#x2F;13&#x2F;fIwNTFPirngUYQ1.png" title="详解设计模式系列-单例模式">
   <span class="type">上一篇</span>
   <span class="category"><i class="ic i-flag"></i> 后端开发</span>
   <h3>详解设计模式系列-单例模式</h3>
@@ -289,7 +289,7 @@ a1oyss's blog = a1oyss</title>
     <div class="item right">
       
 
-  <a href="/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/HttpServletRequest%E7%9A%84%E5%87%A0%E7%A7%8D%E8%8E%B7%E5%8F%96%E6%96%B9%E5%BC%8F/" itemprop="url" rel="next" data-background-image="https:&#x2F;&#x2F;s2.loli.net&#x2F;2024&#x2F;10&#x2F;13&#x2F;afoWh3p7szBujPK.png" title="HttpServletRequest的几种获取方式">
+  <a href="/2022/11/5457.html" itemprop="url" rel="next" data-background-image="https:&#x2F;&#x2F;s2.loli.net&#x2F;2024&#x2F;10&#x2F;13&#x2F;Z5XKkwlpEWrNihC.png" title="HttpServletRequest的几种获取方式">
   <span class="type">下一篇</span>
   <span class="category"><i class="ic i-flag"></i> 后端开发</span>
   <h3>HttpServletRequest的几种获取方式</h3>
@@ -315,7 +315,7 @@ a1oyss's blog = a1oyss</title>
       </div>
       <div class="related panel pjax" data-title="系列文章">
         <ul>
-          <li><a href="/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/%E8%AF%A6%E8%A7%A3%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E7%B3%BB%E5%88%97-%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/" rel="bookmark" title="详解设计模式系列-单例模式">详解设计模式系列-单例模式</a></li><li class="active"><a href="/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/SSM%E6%A1%86%E6%9E%B6%E6%95%B4%E5%90%88%E8%BF%87%E7%A8%8B%E4%BB%A5%E5%8F%8A%E5%8A%A0%E8%BD%BD%E5%8E%9F%E7%90%86%E7%9A%84%E6%80%9D%E8%80%83/" rel="bookmark" title="SSM框架整合过程以及加载原理的思考">SSM框架整合过程以及加载原理的思考</a></li><li><a href="/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/HttpServletRequest%E7%9A%84%E5%87%A0%E7%A7%8D%E8%8E%B7%E5%8F%96%E6%96%B9%E5%BC%8F/" rel="bookmark" title="HttpServletRequest的几种获取方式">HttpServletRequest的几种获取方式</a></li><li><a href="/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/Vue+SpringBoot+CAS%20%E5%89%8D%E5%90%8E%E7%AB%AF%E5%88%86%E7%A6%BB%E6%96%B9%E5%BC%8F%E5%AF%B9%E6%8E%A5CAS/" rel="bookmark" title="Vue+SpringBoot+Cas 前后端分离方式对接CAS">Vue+SpringBoot+Cas 前后端分离方式对接CAS</a></li><li><a href="/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/%E4%B8%80%E6%AC%A1%E7%94%B1%E4%BA%8E%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%97%B6%E9%97%B4%E5%BC%82%E5%B8%B8%E5%BC%95%E8%B5%B7%E7%9A%84%E6%9C%8D%E5%8A%A1%E6%8A%A5%E9%94%99%E9%97%AE%E9%A2%98%E6%8E%92%E6%9F%A5/" rel="bookmark" title="一次由于服务器时间异常引起的服务报错问题排查">一次由于服务器时间异常引起的服务报错问题排查</a></li>
+          <li><a href="/2022/11/61375.html" rel="bookmark" title="详解设计模式系列-单例模式">详解设计模式系列-单例模式</a></li><li class="active"><a href="/2022/11/13493.html" rel="bookmark" title="SSM框架整合过程以及加载原理的思考">SSM框架整合过程以及加载原理的思考</a></li><li><a href="/2022/11/5457.html" rel="bookmark" title="HttpServletRequest的几种获取方式">HttpServletRequest的几种获取方式</a></li><li><a href="/2022/11/10656.html" rel="bookmark" title="Vue+SpringBoot+Cas 前后端分离方式对接CAS">Vue+SpringBoot+Cas 前后端分离方式对接CAS</a></li><li><a href="/2022/12/20899.html" rel="bookmark" title="一次由于服务器时间异常引起的服务报错问题排查">一次由于服务器时间异常引起的服务报错问题排查</a></li>
         </ul>
       </div>
       <div class="overview panel" data-title="站点概览">
@@ -377,12 +377,12 @@ a1oyss's blog = a1oyss</title>
 
   <ul id="quick">
     <li class="prev pjax">
-        <a href="/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/%E8%AF%A6%E8%A7%A3%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E7%B3%BB%E5%88%97-%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/" rel="prev" title="上一篇"><i class="ic i-chevron-left"></i></a>
+        <a href="/2022/11/61375.html" rel="prev" title="上一篇"><i class="ic i-chevron-left"></i></a>
     </li>
     <li class="up"><i class="ic i-arrow-up"></i></li>
     <li class="down"><i class="ic i-arrow-down"></i></li>
     <li class="next pjax">
-        <a href="/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/HttpServletRequest%E7%9A%84%E5%87%A0%E7%A7%8D%E8%8E%B7%E5%8F%96%E6%96%B9%E5%BC%8F/" rel="next" title="下一篇"><i class="ic i-chevron-right"></i></a>
+        <a href="/2022/11/5457.html" rel="next" title="下一篇"><i class="ic i-chevron-right"></i></a>
     </li>
     <li class="percent"></li>
   </ul>
@@ -407,47 +407,7 @@ a1oyss's blog = a1oyss</title>
 <a href="/categories/%E6%9D%82%E8%AE%B0/" title="分类于 杂记">杂记</a>
 </div>
 
-    <span><a href="/%E6%9D%82%E8%AE%B0/%E8%BF%90%E8%A1%8CCMD%E6%8F%90%E7%A4%BA%5B%E5%B7%B2%E9%80%80%E5%87%BA%E8%BF%9B%E7%A8%8B%EF%BC%8C%E4%BB%A3%E7%A0%81%E4%B8%BA%201%5D%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/" title="运行CMD提示[已退出进程，代码为 1]解决方案">运行CMD提示[已退出进程，代码为 1]解决方案</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/" title="分类于 网络安全">网络安全</a>
-</div>
-
-    <span><a href="/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/VScode+XDebug%E8%BF%9C%E7%A8%8B%E8%B0%83%E8%AF%95ThinkPHP%20RCE/" title="VScode+XDebug远程调试ThinkPHP RCE">VScode+XDebug远程调试ThinkPHP RCE</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/" title="分类于 网络安全">网络安全</a>
-</div>
-
-    <span><a href="/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/CTFd+CTFd-Whale%E9%83%A8%E7%BD%B2%E5%AE%9E%E8%B7%B5/" title="CTFd+CTFd-Whale部署实践">CTFd+CTFd-Whale部署实践</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/" title="分类于 网络安全">网络安全</a>
-</div>
-
-    <span><a href="/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/ISCC%E4%B8%80%E6%97%A5%E6%B8%B8/" title="ISCC一日游">ISCC一日游</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/" title="分类于 后端开发">后端开发</a>
-</div>
-
-    <span><a href="/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/Vue+SpringBoot+CAS%20%E5%89%8D%E5%90%8E%E7%AB%AF%E5%88%86%E7%A6%BB%E6%96%B9%E5%BC%8F%E5%AF%B9%E6%8E%A5CAS/" title="Vue+SpringBoot+Cas 前后端分离方式对接CAS">Vue+SpringBoot+Cas 前后端分离方式对接CAS</a></span>
+    <span><a href="/2021/03/8759.html" title="Hexo图片显示失败">Hexo图片显示失败</a></span>
   </li>
 
       
@@ -457,27 +417,7 @@ a1oyss's blog = a1oyss</title>
 <a href="/categories/%E6%9D%82%E8%AE%B0/" title="分类于 杂记">杂记</a>
 </div>
 
-    <span><a href="/%E6%9D%82%E8%AE%B0/Terminal%E5%AE%89%E8%A3%85+%E7%BE%8E%E5%8C%96/" title="Terminal安装+美化">Terminal安装+美化</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/" title="分类于 后端开发">后端开发</a>
-</div>
-
-    <span><a href="/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/%E4%B8%80%E6%AC%A1%E7%94%B1%E4%BA%8E%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%97%B6%E9%97%B4%E5%BC%82%E5%B8%B8%E5%BC%95%E8%B5%B7%E7%9A%84%E6%9C%8D%E5%8A%A1%E6%8A%A5%E9%94%99%E9%97%AE%E9%A2%98%E6%8E%92%E6%9F%A5/" title="一次由于服务器时间异常引起的服务报错问题排查">一次由于服务器时间异常引起的服务报错问题排查</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/%E6%9D%82%E8%AE%B0/" title="分类于 杂记">杂记</a>
-</div>
-
-    <span><a href="/%E6%9D%82%E8%AE%B0/Pycharm+VMware%E6%90%AD%E5%BB%BALinux%E4%B8%8B%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/" title="Pycharm+VMware搭建Linux下开发环境">Pycharm+VMware搭建Linux下开发环境</a></span>
+    <span><a href="/2021/05/36347.html" title="运行CMD提示[已退出进程，代码为 1]解决方案">运行CMD提示[已退出进程，代码为 1]解决方案</a></span>
   </li>
 
       
@@ -487,7 +427,17 @@ a1oyss's blog = a1oyss</title>
 <a href="/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/" title="分类于 网络安全">网络安全</a>
 </div>
 
-    <span><a href="/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/%E9%A6%96%E5%B1%8ABilibili%E5%AE%89%E5%85%A8%E6%8C%91%E6%88%98%E8%B5%9B/" title="首届Bilibili安全挑战赛">首届Bilibili安全挑战赛</a></span>
+    <span><a href="/2020/10/7981.html" title="ISCC一日游">ISCC一日游</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/" title="分类于 网络安全">网络安全</a>
+</div>
+
+    <span><a href="/2022/09/13394.html" title="CTFd+CTFd-Whale部署实践">CTFd+CTFd-Whale部署实践</a></span>
   </li>
 
       
@@ -497,7 +447,57 @@ a1oyss's blog = a1oyss</title>
 <a href="/categories/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/" title="分类于 后端开发">后端开发</a>
 </div>
 
-    <span><a href="/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/SSM%E6%A1%86%E6%9E%B6%E6%95%B4%E5%90%88%E8%BF%87%E7%A8%8B%E4%BB%A5%E5%8F%8A%E5%8A%A0%E8%BD%BD%E5%8E%9F%E7%90%86%E7%9A%84%E6%80%9D%E8%80%83/" title="SSM框架整合过程以及加载原理的思考">SSM框架整合过程以及加载原理的思考</a></span>
+    <span><a href="/2022/11/10656.html" title="Vue+SpringBoot+Cas 前后端分离方式对接CAS">Vue+SpringBoot+Cas 前后端分离方式对接CAS</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E6%9D%82%E8%AE%B0/" title="分类于 杂记">杂记</a>
+</div>
+
+    <span><a href="/2020/10/33250.html" title="Python校园网登录">Python校园网登录</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E6%9D%82%E8%AE%B0/" title="分类于 杂记">杂记</a>
+</div>
+
+    <span><a href="/2020/10/58699.html" title="Pycharm+VMware搭建Linux下开发环境">Pycharm+VMware搭建Linux下开发环境</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/" title="分类于 后端开发">后端开发</a>
+</div>
+
+    <span><a href="/2022/11/13493.html" title="SSM框架整合过程以及加载原理的思考">SSM框架整合过程以及加载原理的思考</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/" title="分类于 后端开发">后端开发</a>
+</div>
+
+    <span><a href="/2022/12/20899.html" title="一次由于服务器时间异常引起的服务报错问题排查">一次由于服务器时间异常引起的服务报错问题排查</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/" title="分类于 网络安全">网络安全</a>
+</div>
+
+    <span><a href="/2020/11/38798.html" title="首届Bilibili安全挑战赛">首届Bilibili安全挑战赛</a></span>
   </li>
 
   </ul>
@@ -540,7 +540,7 @@ a1oyss's blog = a1oyss</title>
   </div>
 <script data-config type="text/javascript">
   var LOCAL = {
-    path: '后端开发/SSM框架整合过程以及加载原理的思考/',
+    path: '2022/11/13493.html',
     favicon: {
       show: "a1oyss's blog",
       hide: "a1oyss's blog"
