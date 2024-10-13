@@ -24,7 +24,7 @@
 <link rel="stylesheet" href="/css/app.css?v=0.2.5">
 
   
-  <meta name="keywords" content="Java,源码分析" />
+  <meta name="keywords" content="源码分析,Java" />
 
 
 <link rel="canonical" href="https://a1oyss.github.io/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/HttpServletRequest%E7%9A%84%E5%87%A0%E7%A7%8D%E8%8E%B7%E5%8F%96%E6%96%B9%E5%BC%8F/">
@@ -32,7 +32,7 @@
 
 
   <title>
-HttpServletRequest的几种获取方式 |
+HttpServletRequest的几种获取方式 - 后端开发 |
 a1oyss's blog = a1oyss</title>
 <meta name="generator" content="Hexo 6.3.0"></head>
 <body itemscope itemtype="http://schema.org/WebPage">
@@ -117,12 +117,12 @@ a1oyss's blog = a1oyss</title>
       </div>
       <div id="imgs" class="pjax">
         <ul>
-          <li class="item" data-background-image="https://s2.loli.net/2024/10/13/KCm8QTiHwvGo3aI.png"></li>
-          <li class="item" data-background-image="https://s2.loli.net/2024/10/13/hsH7BXrkDLlfjyW.png"></li>
-          <li class="item" data-background-image="https://s2.loli.net/2024/10/13/5HIfmpctuZF3iGQ.png"></li>
+          <li class="item" data-background-image="https://s2.loli.net/2024/10/13/afoWh3p7szBujPK.png"></li>
+          <li class="item" data-background-image="https://s2.loli.net/2024/10/13/3X85QsPvfcOj2hM.png"></li>
           <li class="item" data-background-image="https://s2.loli.net/2024/10/13/aY56HT3qxpjlwsZ.png"></li>
-          <li class="item" data-background-image="https://s2.loli.net/2024/10/13/yDZ2p3LT5hzEVkS.png"></li>
+          <li class="item" data-background-image="https://s2.loli.net/2024/10/13/hsH7BXrkDLlfjyW.png"></li>
           <li class="item" data-background-image="https://s2.loli.net/2024/10/13/LKZwqYM7JzN24he.jpg"></li>
+          <li class="item" data-background-image="https://s2.loli.net/2024/10/13/DLBIpjvV6EhecJb.png"></li>
         </ul>
       </div>
     </header>
@@ -147,7 +147,9 @@ a1oyss's blog = a1oyss</title>
     
 <div class="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList">
 <i class="ic i-home"></i>
-<span><a href="/">首页</a></span>
+<span><a href="/">首页</a></span><i class="ic i-angle-right"></i>
+<span  class="current" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/categories/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/" itemprop="item" rel="index" title="分类于 后端开发"><span itemprop="name">后端开发</span></a>
+<meta itemprop="position" content="1" /></span>
 </div>
 
     <article itemscope itemtype="http://schema.org/Article" class="post block" lang="zh-CN">
@@ -188,8 +190,8 @@ a1oyss's blog = a1oyss</title>
 <figure class="highlight java"><figcaption data-lang="java"></figcaption><table><tr><td data-num="1"></td><td><pre><span class="token keyword">public</span> <span class="token keyword">interface</span> <span class="token class-name">ServletRequestListener</span> <span class="token keyword">extends</span> <span class="token class-name">EventListener</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="2"></td><td><pre></pre></td></tr><tr><td data-num="3"></td><td><pre>  </pre></td></tr><tr><td data-num="4"></td><td><pre></pre></td></tr><tr><td data-num="5"></td><td><pre>    <span class="token comment">/**</pre></td></tr><tr><td data-num="6"></td><td><pre></pre></td></tr><tr><td data-num="7"></td><td><pre>     * The request is about to go out of scope of the web application.</pre></td></tr><tr><td data-num="8"></td><td><pre></pre></td></tr><tr><td data-num="9"></td><td><pre>     * The default implementation is a NO-OP.</pre></td></tr><tr><td data-num="10"></td><td><pre></pre></td></tr><tr><td data-num="11"></td><td><pre>     * @param sre Information about the request</pre></td></tr><tr><td data-num="12"></td><td><pre></pre></td></tr><tr><td data-num="13"></td><td><pre>     */</span></pre></td></tr><tr><td data-num="14"></td><td><pre></pre></td></tr><tr><td data-num="15"></td><td><pre>    <span class="token keyword">public</span> <span class="token keyword">default</span> <span class="token keyword">void</span> requestDestroyed <span class="token punctuation">(</span><span class="token class-name">ServletRequestEvent</span> sre<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="16"></td><td><pre></pre></td></tr><tr><td data-num="17"></td><td><pre>    <span class="token punctuation">&#125;</span></pre></td></tr><tr><td data-num="18"></td><td><pre></pre></td></tr><tr><td data-num="19"></td><td><pre>  </pre></td></tr><tr><td data-num="20"></td><td><pre></pre></td></tr><tr><td data-num="21"></td><td><pre>    <span class="token comment">/**</pre></td></tr><tr><td data-num="22"></td><td><pre></pre></td></tr><tr><td data-num="23"></td><td><pre>     * The request is about to come into scope of the web application.</pre></td></tr><tr><td data-num="24"></td><td><pre></pre></td></tr><tr><td data-num="25"></td><td><pre>     * The default implementation is a NO-OP.</pre></td></tr><tr><td data-num="26"></td><td><pre></pre></td></tr><tr><td data-num="27"></td><td><pre>     * @param sre Information about the request</pre></td></tr><tr><td data-num="28"></td><td><pre></pre></td></tr><tr><td data-num="29"></td><td><pre>     */</span></pre></td></tr><tr><td data-num="30"></td><td><pre></pre></td></tr><tr><td data-num="31"></td><td><pre>    <span class="token keyword">public</span> <span class="token keyword">default</span> <span class="token keyword">void</span> requestInitialized <span class="token punctuation">(</span><span class="token class-name">ServletRequestEvent</span> sre<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="32"></td><td><pre></pre></td></tr><tr><td data-num="33"></td><td><pre>    <span class="token punctuation">&#125;</span></pre></td></tr><tr><td data-num="34"></td><td><pre></pre></td></tr><tr><td data-num="35"></td><td><pre><span class="token punctuation">&#125;</span></pre></td></tr></table></figure><p>Web 应用中，当一个请求进入第一个 Servlet 或者 Filter 时，就会触发 <code>requestInitialized</code> ，当退出链中的最后一个 Servlet 或者第一个 Filter 时，会触发 <code>requestDestroyed</code> 。 <code>RequestContextListener</code>  重写了 <code>requestInitialized</code>  方法，通过 <code>ServletRequestEvent</code>  拿到了 <code>HttpServletRequest</code> ，并创建 <code>ServletRequestAttributes</code> ，添加到 <code>ThreadLocal</code>  中。</p>
 
       <div class="tags">
-          <a href="/tags/Java/" rel="tag"><i class="ic i-tag"></i> Java</a>
           <a href="/tags/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/" rel="tag"><i class="ic i-tag"></i> 源码分析</a>
+          <a href="/tags/Java/" rel="tag"><i class="ic i-tag"></i> Java</a>
       </div>
   </div>
 
@@ -226,9 +228,9 @@ a1oyss's blog = a1oyss</title>
     <div class="item left">
       
 
-  <a href="/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/SSM%E6%A1%86%E6%9E%B6%E6%95%B4%E5%90%88%E8%BF%87%E7%A8%8B%E4%BB%A5%E5%8F%8A%E5%8A%A0%E8%BD%BD%E5%8E%9F%E7%90%86%E7%9A%84%E6%80%9D%E8%80%83/" itemprop="url" rel="prev" data-background-image="https:&#x2F;&#x2F;s2.loli.net&#x2F;2024&#x2F;10&#x2F;13&#x2F;afoWh3p7szBujPK.png" title="SSM框架整合过程以及加载原理的思考">
+  <a href="/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/SSM%E6%A1%86%E6%9E%B6%E6%95%B4%E5%90%88%E8%BF%87%E7%A8%8B%E4%BB%A5%E5%8F%8A%E5%8A%A0%E8%BD%BD%E5%8E%9F%E7%90%86%E7%9A%84%E6%80%9D%E8%80%83/" itemprop="url" rel="prev" data-background-image="https:&#x2F;&#x2F;s2.loli.net&#x2F;2024&#x2F;10&#x2F;13&#x2F;uyhMVC8iFk7L3oq.png" title="SSM框架整合过程以及加载原理的思考">
   <span class="type">上一篇</span>
-  <span class="category"><i class="ic i-flag"></i> </span>
+  <span class="category"><i class="ic i-flag"></i> 后端开发</span>
   <h3>SSM框架整合过程以及加载原理的思考</h3>
   </a>
 
@@ -238,7 +240,7 @@ a1oyss's blog = a1oyss</title>
 
   <a href="/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/Vue+SpringBoot+CAS%20%E5%89%8D%E5%90%8E%E7%AB%AF%E5%88%86%E7%A6%BB%E6%96%B9%E5%BC%8F%E5%AF%B9%E6%8E%A5CAS/" itemprop="url" rel="next" data-background-image="https:&#x2F;&#x2F;s2.loli.net&#x2F;2022&#x2F;12&#x2F;04&#x2F;GhfBESqvIHC9gAk.png" title="Vue+SpringBoot+Cas 前后端分离方式对接CAS">
   <span class="type">下一篇</span>
-  <span class="category"><i class="ic i-flag"></i> </span>
+  <span class="category"><i class="ic i-flag"></i> 后端开发</span>
   <h3>Vue+SpringBoot+Cas 前后端分离方式对接CAS</h3>
   </a>
 
@@ -260,6 +262,9 @@ a1oyss's blog = a1oyss</title>
       <div class="contents panel pjax" data-title="文章目录">
       </div>
       <div class="related panel pjax" data-title="系列文章">
+        <ul>
+          <li><a href="/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/%E8%AF%A6%E8%A7%A3%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E7%B3%BB%E5%88%97-%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/" rel="bookmark" title="详解设计模式系列-单例模式">详解设计模式系列-单例模式</a></li><li><a href="/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/SSM%E6%A1%86%E6%9E%B6%E6%95%B4%E5%90%88%E8%BF%87%E7%A8%8B%E4%BB%A5%E5%8F%8A%E5%8A%A0%E8%BD%BD%E5%8E%9F%E7%90%86%E7%9A%84%E6%80%9D%E8%80%83/" rel="bookmark" title="SSM框架整合过程以及加载原理的思考">SSM框架整合过程以及加载原理的思考</a></li><li class="active"><a href="/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/HttpServletRequest%E7%9A%84%E5%87%A0%E7%A7%8D%E8%8E%B7%E5%8F%96%E6%96%B9%E5%BC%8F/" rel="bookmark" title="HttpServletRequest的几种获取方式">HttpServletRequest的几种获取方式</a></li><li><a href="/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/Vue+SpringBoot+CAS%20%E5%89%8D%E5%90%8E%E7%AB%AF%E5%88%86%E7%A6%BB%E6%96%B9%E5%BC%8F%E5%AF%B9%E6%8E%A5CAS/" rel="bookmark" title="Vue+SpringBoot+Cas 前后端分离方式对接CAS">Vue+SpringBoot+Cas 前后端分离方式对接CAS</a></li><li><a href="/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/%E4%B8%80%E6%AC%A1%E7%94%B1%E4%BA%8E%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%97%B6%E9%97%B4%E5%BC%82%E5%B8%B8%E5%BC%95%E8%B5%B7%E7%9A%84%E6%9C%8D%E5%8A%A1%E6%8A%A5%E9%94%99%E9%97%AE%E9%A2%98%E6%8E%92%E6%9F%A5/" rel="bookmark" title="一次由于服务器时间异常引起的服务报错问题排查">一次由于服务器时间异常引起的服务报错问题排查</a></li>
+        </ul>
       </div>
       <div class="overview panel" data-title="站点概览">
         <div class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -274,6 +279,12 @@ a1oyss's blog = a1oyss</title>
       <a href="/archives/">
         <span class="count">15</span>
         <span class="name">文章</span>
+      </a>
+    </div>
+    <div class="item categories">
+      <a href="/categories/">
+        <span class="count">3</span>
+        <span class="name">分类</span>
       </a>
     </div>
     <div class="item tags">
@@ -341,6 +352,7 @@ a1oyss's blog = a1oyss</title>
   <li class="item">
     
 <div class="breadcrumb">
+<a href="/categories/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/" title="分类于 后端开发">后端开发</a>
 </div>
 
     <span><a href="/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/Vue+SpringBoot+CAS%20%E5%89%8D%E5%90%8E%E7%AB%AF%E5%88%86%E7%A6%BB%E6%96%B9%E5%BC%8F%E5%AF%B9%E6%8E%A5CAS/" title="Vue+SpringBoot+Cas 前后端分离方式对接CAS">Vue+SpringBoot+Cas 前后端分离方式对接CAS</a></span>
@@ -350,42 +362,17 @@ a1oyss's blog = a1oyss</title>
   <li class="item">
     
 <div class="breadcrumb">
+<a href="/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/" title="分类于 网络安全">网络安全</a>
 </div>
 
-    <span><a href="/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/%E8%AF%A6%E8%A7%A3%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E7%B3%BB%E5%88%97-%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/" title="详解设计模式系列-单例模式">详解设计模式系列-单例模式</a></span>
+    <span><a href="/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/VScode+XDebug%E8%BF%9C%E7%A8%8B%E8%B0%83%E8%AF%95ThinkPHP%20RCE/" title="VScode+XDebug远程调试ThinkPHP RCE">VScode+XDebug远程调试ThinkPHP RCE</a></span>
   </li>
 
       
   <li class="item">
     
 <div class="breadcrumb">
-</div>
-
-    <span><a href="/%E6%9D%82%E8%AE%B0/Terminal%E5%AE%89%E8%A3%85+%E7%BE%8E%E5%8C%96/" title="Terminal安装+美化">Terminal安装+美化</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-</div>
-
-    <span><a href="/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/%E4%B8%80%E6%AC%A1%E7%94%B1%E4%BA%8E%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%97%B6%E9%97%B4%E5%BC%82%E5%B8%B8%E5%BC%95%E8%B5%B7%E7%9A%84%E6%9C%8D%E5%8A%A1%E6%8A%A5%E9%94%99%E9%97%AE%E9%A2%98%E6%8E%92%E6%9F%A5/" title="一次由于服务器时间异常引起的服务报错问题排查">一次由于服务器时间异常引起的服务报错问题排查</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-</div>
-
-    <span><a href="/%E6%9D%82%E8%AE%B0/Pycharm+VMware%E6%90%AD%E5%BB%BALinux%E4%B8%8B%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/" title="Pycharm+VMware搭建Linux下开发环境">Pycharm+VMware搭建Linux下开发环境</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
+<a href="/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/" title="分类于 网络安全">网络安全</a>
 </div>
 
     <span><a href="/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/CTFd+CTFd-Whale%E9%83%A8%E7%BD%B2%E5%AE%9E%E8%B7%B5/" title="CTFd+CTFd-Whale部署实践">CTFd+CTFd-Whale部署实践</a></span>
@@ -395,24 +382,7 @@ a1oyss's blog = a1oyss</title>
   <li class="item">
     
 <div class="breadcrumb">
-</div>
-
-    <span><a href="/%E6%9D%82%E8%AE%B0/Hexo%E5%9B%BE%E7%89%87%E6%98%BE%E7%A4%BA%E5%A4%B1%E8%B4%A5/" title="Hexo图片显示失败">Hexo图片显示失败</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-</div>
-
-    <span><a href="/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/ISCC%E4%B8%80%E6%97%A5%E6%B8%B8/" title="ISCC一日游">ISCC一日游</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
+<a href="/categories/%E6%9D%82%E8%AE%B0/" title="分类于 杂记">杂记</a>
 </div>
 
     <span><a href="/%E6%9D%82%E8%AE%B0/%E8%BF%90%E8%A1%8CCMD%E6%8F%90%E7%A4%BA%5B%E5%B7%B2%E9%80%80%E5%87%BA%E8%BF%9B%E7%A8%8B%EF%BC%8C%E4%BB%A3%E7%A0%81%E4%B8%BA%201%5D%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/" title="运行CMD提示[已退出进程，代码为 1]解决方案">运行CMD提示[已退出进程，代码为 1]解决方案</a></span>
@@ -422,9 +392,60 @@ a1oyss's blog = a1oyss</title>
   <li class="item">
     
 <div class="breadcrumb">
+<a href="/categories/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/" title="分类于 后端开发">后端开发</a>
+</div>
+
+    <span><a href="/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/SSM%E6%A1%86%E6%9E%B6%E6%95%B4%E5%90%88%E8%BF%87%E7%A8%8B%E4%BB%A5%E5%8F%8A%E5%8A%A0%E8%BD%BD%E5%8E%9F%E7%90%86%E7%9A%84%E6%80%9D%E8%80%83/" title="SSM框架整合过程以及加载原理的思考">SSM框架整合过程以及加载原理的思考</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/" title="分类于 网络安全">网络安全</a>
 </div>
 
     <span><a href="/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/Pwnable%E9%A2%98%E8%A7%A3/" title="Pwnable题解">Pwnable题解</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/" title="分类于 后端开发">后端开发</a>
+</div>
+
+    <span><a href="/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/%E8%AF%A6%E8%A7%A3%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E7%B3%BB%E5%88%97-%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/" title="详解设计模式系列-单例模式">详解设计模式系列-单例模式</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E6%9D%82%E8%AE%B0/" title="分类于 杂记">杂记</a>
+</div>
+
+    <span><a href="/%E6%9D%82%E8%AE%B0/Terminal%E5%AE%89%E8%A3%85+%E7%BE%8E%E5%8C%96/" title="Terminal安装+美化">Terminal安装+美化</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E6%9D%82%E8%AE%B0/" title="分类于 杂记">杂记</a>
+</div>
+
+    <span><a href="/%E6%9D%82%E8%AE%B0/Pycharm+VMware%E6%90%AD%E5%BB%BALinux%E4%B8%8B%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/" title="Pycharm+VMware搭建Linux下开发环境">Pycharm+VMware搭建Linux下开发环境</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/" title="分类于 后端开发">后端开发</a>
+</div>
+
+    <span><a href="/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/%E4%B8%80%E6%AC%A1%E7%94%B1%E4%BA%8E%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%97%B6%E9%97%B4%E5%BC%82%E5%B8%B8%E5%BC%95%E8%B5%B7%E7%9A%84%E6%9C%8D%E5%8A%A1%E6%8A%A5%E9%94%99%E9%97%AE%E9%A2%98%E6%8E%92%E6%9F%A5/" title="一次由于服务器时间异常引起的服务报错问题排查">一次由于服务器时间异常引起的服务报错问题排查</a></span>
   </li>
 
   </ul>
