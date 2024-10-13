@@ -19,16 +19,13 @@
         <category term="MySQL" />
         <category term="Kafka" />
         <item>
-            <guid isPermalink="true">https://a1oyss.github.io/%E6%9D%82%E8%AE%B0/%E4%B8%80%E6%AC%A1%E6%93%8D%E8%9B%8B%E7%9A%84%E7%BA%BF%E4%B8%8A%E6%9C%8D%E5%8A%A1%E6%8E%92%E9%94%99%E7%BB%8F%E5%8E%86/</guid>
-            <title>一次操蛋的线上服务排错经历</title>
-            <link>https://a1oyss.github.io/%E6%9D%82%E8%AE%B0/%E4%B8%80%E6%AC%A1%E6%93%8D%E8%9B%8B%E7%9A%84%E7%BA%BF%E4%B8%8A%E6%9C%8D%E5%8A%A1%E6%8E%92%E9%94%99%E7%BB%8F%E5%8E%86/</link>
-            <category term="杂记" scheme="https://a1oyss.github.io/categories/%E6%9D%82%E8%AE%B0/" />
-            <category term="BUG" scheme="https://a1oyss.github.io/tags/BUG/" />
-            <category term="Java" scheme="https://a1oyss.github.io/tags/Java/" />
-            <category term="异常" scheme="https://a1oyss.github.io/tags/%E5%BC%82%E5%B8%B8/" />
+            <guid isPermalink="true">https://a1oyss.github.io/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/%E4%B8%80%E6%AC%A1%E7%94%B1%E4%BA%8E%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%97%B6%E9%97%B4%E5%BC%82%E5%B8%B8%E5%BC%95%E8%B5%B7%E7%9A%84%E6%9C%8D%E5%8A%A1%E6%8A%A5%E9%94%99%E9%97%AE%E9%A2%98%E6%8E%92%E6%9F%A5/</guid>
+            <title>一次由于服务器时间异常引起的服务报错问题排查</title>
+            <link>https://a1oyss.github.io/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/%E4%B8%80%E6%AC%A1%E7%94%B1%E4%BA%8E%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%97%B6%E9%97%B4%E5%BC%82%E5%B8%B8%E5%BC%95%E8%B5%B7%E7%9A%84%E6%9C%8D%E5%8A%A1%E6%8A%A5%E9%94%99%E9%97%AE%E9%A2%98%E6%8E%92%E6%9F%A5/</link>
+            <category term="后端开发" scheme="https://a1oyss.github.io/tags/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/" />
+            <category term="问题排查" scheme="https://a1oyss.github.io/tags/%E9%97%AE%E9%A2%98%E6%8E%92%E6%9F%A5/" />
             <pubDate>Mon, 19 Dec 2022 21:45:26 +0800</pubDate>
-            <description><![CDATA[ &lt;p&gt;#Java #BUG #异常&lt;/p&gt;
-&lt;h1 id=&#34;起因&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#起因&#34;&gt;#&lt;/a&gt; 起因&lt;/h1&gt;
+            <description><![CDATA[ &lt;h1 id=&#34;起因&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#起因&#34;&gt;#&lt;/a&gt; 起因&lt;/h1&gt;
 &lt;p&gt;大概是组里人手不够吧，反正就是把我拉去排查一个 N 多年前的项目的 bug，听描述就是微信公众号推送消息的代码有问题，不过之前没对接过，说实话还不知道具体流程，死马当活马医了。&lt;/p&gt;
 &lt;h1 id=&#34;bug1&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#bug1&#34;&gt;#&lt;/a&gt; BUG1&lt;/h1&gt;
 &lt;p&gt;先进服务器看下日志，直接就看到一个形如栈溢出的异常，不过最后抛出的不是 StackOverflow，好像是空指针之类的异常，于是把代码拉下来看了眼，果不其然&lt;br /&gt;
@@ -47,15 +44,11 @@
  ]]></description>
         </item>
         <item>
-            <guid isPermalink="true">https://a1oyss.github.io/%E7%AC%94%E8%AE%B0/Vue+SpringBoot+Cas%20%E5%89%8D%E5%90%8E%E7%AB%AF%E5%88%86%E7%A6%BB%E6%96%B9%E5%BC%8F%E5%AF%B9%E6%8E%A5Cas/</guid>
-            <title>Vue+SpringBoot+Cas 前后端分离方式对接Cas</title>
-            <link>https://a1oyss.github.io/%E7%AC%94%E8%AE%B0/Vue+SpringBoot+Cas%20%E5%89%8D%E5%90%8E%E7%AB%AF%E5%88%86%E7%A6%BB%E6%96%B9%E5%BC%8F%E5%AF%B9%E6%8E%A5Cas/</link>
-            <category term="笔记" scheme="https://a1oyss.github.io/categories/%E7%AC%94%E8%AE%B0/" />
+            <guid isPermalink="true">https://a1oyss.github.io/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/Vue+SpringBoot+CAS%20%E5%89%8D%E5%90%8E%E7%AB%AF%E5%88%86%E7%A6%BB%E6%96%B9%E5%BC%8F%E5%AF%B9%E6%8E%A5CAS/</guid>
+            <title>Vue+SpringBoot+Cas 前后端分离方式对接CAS</title>
+            <link>https://a1oyss.github.io/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/Vue+SpringBoot+CAS%20%E5%89%8D%E5%90%8E%E7%AB%AF%E5%88%86%E7%A6%BB%E6%96%B9%E5%BC%8F%E5%AF%B9%E6%8E%A5CAS/</link>
             <category term="SpringBoot" scheme="https://a1oyss.github.io/tags/SpringBoot/" />
-            <category term="Vue" scheme="https://a1oyss.github.io/tags/Vue/" />
             <category term="CAS" scheme="https://a1oyss.github.io/tags/CAS/" />
-            <category term="单点登录" scheme="https://a1oyss.github.io/tags/%E5%8D%95%E7%82%B9%E7%99%BB%E5%BD%95/" />
-            <category term="前后端分离" scheme="https://a1oyss.github.io/tags/%E5%89%8D%E5%90%8E%E7%AB%AF%E5%88%86%E7%A6%BB/" />
             <pubDate>Tue, 29 Nov 2022 00:40:49 +0800</pubDate>
             <description><![CDATA[ &lt;p&gt;#SpringBoot #Vue #CAS  #单点登录 #前后端分离&lt;/p&gt;
 &lt;h1 id=&#34;前言&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#前言&#34;&gt;#&lt;/a&gt; 前言&lt;/h1&gt;
@@ -86,14 +79,13 @@
  ]]></description>
         </item>
         <item>
-            <guid isPermalink="true">https://a1oyss.github.io/%E7%AC%94%E8%AE%B0/%E5%85%A8%E5%B1%80%E8%8E%B7%E5%8F%96HttpServletRequest%E7%9A%84%E5%8E%9F%E7%90%86/</guid>
-            <title>如何从全局获取HttpServletRequest</title>
-            <link>https://a1oyss.github.io/%E7%AC%94%E8%AE%B0/%E5%85%A8%E5%B1%80%E8%8E%B7%E5%8F%96HttpServletRequest%E7%9A%84%E5%8E%9F%E7%90%86/</link>
-            <category term="笔记" scheme="https://a1oyss.github.io/categories/%E7%AC%94%E8%AE%B0/" />
-            <category term="源码" scheme="https://a1oyss.github.io/tags/%E6%BA%90%E7%A0%81/" />
+            <guid isPermalink="true">https://a1oyss.github.io/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/HttpServletRequest%E7%9A%84%E5%87%A0%E7%A7%8D%E8%8E%B7%E5%8F%96%E6%96%B9%E5%BC%8F/</guid>
+            <title>HttpServletRequest的几种获取方式</title>
+            <link>https://a1oyss.github.io/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/HttpServletRequest%E7%9A%84%E5%87%A0%E7%A7%8D%E8%8E%B7%E5%8F%96%E6%96%B9%E5%BC%8F/</link>
+            <category term="Java" scheme="https://a1oyss.github.io/tags/Java/" />
+            <category term="源码分析" scheme="https://a1oyss.github.io/tags/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/" />
             <pubDate>Mon, 28 Nov 2022 20:07:22 +0800</pubDate>
-            <description><![CDATA[ &lt;p&gt;#源码&lt;br /&gt;
-这几天写项目，有分页需求，每个接口上定义一次参数有点麻烦，就想到 RuoYi 写了个 &lt;code&gt;getPageDomain&lt;/code&gt;  的静态方法，其原理是直接通过 &lt;code&gt;HttpServletRequest&lt;/code&gt;  对象获取 url 中的参数。&lt;/p&gt;
+            <description><![CDATA[ &lt;p&gt;这几天写项目，有分页需求，每个接口上定义一次参数有点麻烦，就想到 RuoYi 写了个 &lt;code&gt;getPageDomain&lt;/code&gt;  的静态方法，其原理是直接通过 &lt;code&gt;HttpServletRequest&lt;/code&gt;  对象获取 url 中的参数。&lt;/p&gt;
 &lt;figure class=&#34;highlight java&#34;&gt;&lt;figcaption data-lang=&#34;java&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token keyword&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;token keyword&#34;&gt;static&lt;/span&gt; &lt;span class=&#34;token class-name&#34;&gt;PageDomain&lt;/span&gt; &lt;span class=&#34;token function&#34;&gt;getPageDomain&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;&amp;#123;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;2&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;3&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token class-name&#34;&gt;PageDomain&lt;/span&gt; pageDomain &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;token keyword&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;token class-name&#34;&gt;PageDomain&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;4&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;5&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    pageDomain&lt;span class=&#34;token punctuation&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;token function&#34;&gt;setPageNum&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token class-name&#34;&gt;Convert&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;token function&#34;&gt;toInt&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token class-name&#34;&gt;ServletUtils&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;token function&#34;&gt;getParameter&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token constant&#34;&gt;PAGE_NUM&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;token number&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;6&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;7&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    pageDomain&lt;span class=&#34;token punctuation&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;token function&#34;&gt;setPageSize&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token class-name&#34;&gt;Convert&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;token function&#34;&gt;toInt&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token class-name&#34;&gt;ServletUtils&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;token function&#34;&gt;getParameter&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token constant&#34;&gt;PAGE_SIZE&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;token number&#34;&gt;10&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;8&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;9&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    pageDomain&lt;span class=&#34;token punctuation&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;token function&#34;&gt;setOrderByColumn&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token class-name&#34;&gt;ServletUtils&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;token function&#34;&gt;getParameter&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token constant&#34;&gt;ORDER_BY_COLUMN&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;10&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;11&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    pageDomain&lt;span class=&#34;token punctuation&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;token function&#34;&gt;setIsAsc&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token class-name&#34;&gt;ServletUtils&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;token function&#34;&gt;getParameter&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token constant&#34;&gt;IS_ASC&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;12&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;13&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    pageDomain&lt;span class=&#34;token punctuation&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;token function&#34;&gt;setReasonable&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token class-name&#34;&gt;ServletUtils&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;token function&#34;&gt;getParameterToBool&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token constant&#34;&gt;REASONABLE&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;14&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;15&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token keyword&#34;&gt;return&lt;/span&gt; pageDomain&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;16&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;17&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token punctuation&#34;&gt;&amp;#125;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;p&gt;其中 &lt;code&gt;ServletUtils&lt;/code&gt;  中封装了获取请求参数的方法，那么为了在每次请求都能拿到正确的参数，就必须先获取到 &lt;code&gt;HttpServletRequest&lt;/code&gt; ， &lt;code&gt;ServletUtils&lt;/code&gt;  的做法是通过 &lt;code&gt;RequestContextHolder&lt;/code&gt;  来获取&lt;/p&gt;
 &lt;figure class=&#34;highlight java&#34;&gt;&lt;figcaption data-lang=&#34;java&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token keyword&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;token keyword&#34;&gt;static&lt;/span&gt; &lt;span class=&#34;token class-name&#34;&gt;String&lt;/span&gt; &lt;span class=&#34;token function&#34;&gt;getParameter&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token class-name&#34;&gt;String&lt;/span&gt; name&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;&amp;#123;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;2&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;3&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token keyword&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;token function&#34;&gt;getRequest&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;token function&#34;&gt;getParameter&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;name&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;4&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;5&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token punctuation&#34;&gt;&amp;#125;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;figure class=&#34;highlight java&#34;&gt;&lt;figcaption data-lang=&#34;java&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token keyword&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;token keyword&#34;&gt;static&lt;/span&gt; &lt;span class=&#34;token class-name&#34;&gt;HttpServletRequest&lt;/span&gt; &lt;span class=&#34;token function&#34;&gt;getRequest&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;&amp;#123;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;2&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;3&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token keyword&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;token function&#34;&gt;getRequestAttributes&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;token function&#34;&gt;getRequest&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;4&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;5&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token punctuation&#34;&gt;&amp;#125;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;figure class=&#34;highlight java&#34;&gt;&lt;figcaption data-lang=&#34;java&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token keyword&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;token keyword&#34;&gt;static&lt;/span&gt; &lt;span class=&#34;token class-name&#34;&gt;ServletRequestAttributes&lt;/span&gt; &lt;span class=&#34;token function&#34;&gt;getRequestAttributes&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;&amp;#123;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;2&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;3&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token class-name&#34;&gt;RequestAttributes&lt;/span&gt; attributes &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;token class-name&#34;&gt;RequestContextHolder&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;token function&#34;&gt;getRequestAttributes&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;4&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;5&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token keyword&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token class-name&#34;&gt;ServletRequestAttributes&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt; attributes&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;6&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;7&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token punctuation&#34;&gt;&amp;#125;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;p&gt;可以看到，最后是通过一个 &lt;code&gt;RequestContextHolder&lt;/code&gt; ，将获取到的 &lt;code&gt;RequestAttributes&lt;/code&gt;  强转为 &lt;code&gt;ServletRequestAttributes&lt;/code&gt; ，接着调用 &lt;code&gt;getRequest&lt;/code&gt;  方法。&lt;/p&gt;
 &lt;p&gt;从字面意思来看， &lt;code&gt;ServletRequestAttributes&lt;/code&gt;  是 &lt;code&gt;Servlet&lt;/code&gt;  请求属性，为什么能拿到 &lt;code&gt;HttpServletRequest&lt;/code&gt;  对象呢？源码上对该类的描述是：&lt;/p&gt;
@@ -116,14 +108,13 @@
  ]]></description>
         </item>
         <item>
-            <guid isPermalink="true">https://a1oyss.github.io/%E7%AC%94%E8%AE%B0/SSM%E6%A1%86%E6%9E%B6%E6%95%B4%E5%90%88%E8%BF%87%E7%A8%8B%E4%BB%A5%E5%8F%8A%E5%8A%A0%E8%BD%BD%E5%8E%9F%E7%90%86%E7%9A%84%E6%80%9D%E8%80%83/</guid>
+            <guid isPermalink="true">https://a1oyss.github.io/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/SSM%E6%A1%86%E6%9E%B6%E6%95%B4%E5%90%88%E8%BF%87%E7%A8%8B%E4%BB%A5%E5%8F%8A%E5%8A%A0%E8%BD%BD%E5%8E%9F%E7%90%86%E7%9A%84%E6%80%9D%E8%80%83/</guid>
             <title>SSM框架整合过程以及加载原理的思考</title>
-            <link>https://a1oyss.github.io/%E7%AC%94%E8%AE%B0/SSM%E6%A1%86%E6%9E%B6%E6%95%B4%E5%90%88%E8%BF%87%E7%A8%8B%E4%BB%A5%E5%8F%8A%E5%8A%A0%E8%BD%BD%E5%8E%9F%E7%90%86%E7%9A%84%E6%80%9D%E8%80%83/</link>
-            <category term="笔记" scheme="https://a1oyss.github.io/categories/%E7%AC%94%E8%AE%B0/" />
+            <link>https://a1oyss.github.io/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/SSM%E6%A1%86%E6%9E%B6%E6%95%B4%E5%90%88%E8%BF%87%E7%A8%8B%E4%BB%A5%E5%8F%8A%E5%8A%A0%E8%BD%BD%E5%8E%9F%E7%90%86%E7%9A%84%E6%80%9D%E8%80%83/</link>
             <category term="SpringMVC" scheme="https://a1oyss.github.io/tags/SpringMVC/" />
             <category term="Spring" scheme="https://a1oyss.github.io/tags/Spring/" />
             <category term="MyBatis" scheme="https://a1oyss.github.io/tags/MyBatis/" />
-            <category term="源码" scheme="https://a1oyss.github.io/tags/%E6%BA%90%E7%A0%81/" />
+            <category term="源码分析" scheme="https://a1oyss.github.io/tags/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/" />
             <pubDate>Mon, 28 Nov 2022 20:02:18 +0800</pubDate>
             <description><![CDATA[ &lt;p&gt;#Spring #SpringMVC #Mybatis #源码&lt;/p&gt;
 &lt;h1 id=&#34;添加sringspringmvc相关依赖&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#添加sringspringmvc相关依赖&#34;&gt;#&lt;/a&gt; 添加 Sring+SpringMVC 相关依赖&lt;/h1&gt;
@@ -197,10 +188,9 @@
  ]]></description>
         </item>
         <item>
-            <guid isPermalink="true">https://a1oyss.github.io/%E7%AC%94%E8%AE%B0/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/</guid>
-            <title>设计模式-单例模式</title>
-            <link>https://a1oyss.github.io/%E7%AC%94%E8%AE%B0/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/</link>
-            <category term="笔记" scheme="https://a1oyss.github.io/categories/%E7%AC%94%E8%AE%B0/" />
+            <guid isPermalink="true">https://a1oyss.github.io/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/%E8%AF%A6%E8%A7%A3%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E7%B3%BB%E5%88%97-%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/</guid>
+            <title>详解设计模式系列-单例模式</title>
+            <link>https://a1oyss.github.io/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/%E8%AF%A6%E8%A7%A3%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E7%B3%BB%E5%88%97-%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/</link>
             <category term="设计模式" scheme="https://a1oyss.github.io/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" />
             <pubDate>Fri, 25 Nov 2022 11:34:36 +0800</pubDate>
             <description><![CDATA[ &lt;h1 id=&#34;懒汉式&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#懒汉式&#34;&gt;#&lt;/a&gt; 懒汉式&lt;/h1&gt;
@@ -215,11 +205,11 @@
 &lt;figure class=&#34;highlight java&#34;&gt;&lt;figcaption data-lang=&#34;java&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token keyword&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;token keyword&#34;&gt;enum&lt;/span&gt; &lt;span class=&#34;token class-name&#34;&gt;EnumSingleton&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;&amp;#123;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;2&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;3&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token constant&#34;&gt;INSTANCE&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;4&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;5&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token keyword&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;token class-name&#34;&gt;String&lt;/span&gt; &lt;span class=&#34;token function&#34;&gt;doSomething&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;&amp;#123;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;6&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;7&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;        &lt;span class=&#34;token keyword&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;token string&#34;&gt;&#34;something...&#34;&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;8&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;9&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token punctuation&#34;&gt;&amp;#125;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;10&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;11&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token punctuation&#34;&gt;&amp;#125;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt; ]]></description>
         </item>
         <item>
-            <guid isPermalink="true">https://a1oyss.github.io/%E6%9D%82%E8%AE%B0/CTFd+CTFd-Whale%E9%83%A8%E7%BD%B2%E5%AE%9E%E8%B7%B5/</guid>
+            <guid isPermalink="true">https://a1oyss.github.io/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/CTFd+CTFd-Whale%E9%83%A8%E7%BD%B2%E5%AE%9E%E8%B7%B5/</guid>
             <title>CTFd+CTFd-Whale部署实践</title>
-            <link>https://a1oyss.github.io/%E6%9D%82%E8%AE%B0/CTFd+CTFd-Whale%E9%83%A8%E7%BD%B2%E5%AE%9E%E8%B7%B5/</link>
-            <category term="杂记" scheme="https://a1oyss.github.io/categories/%E6%9D%82%E8%AE%B0/" />
+            <link>https://a1oyss.github.io/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/CTFd+CTFd-Whale%E9%83%A8%E7%BD%B2%E5%AE%9E%E8%B7%B5/</link>
             <category term="CTF" scheme="https://a1oyss.github.io/tags/CTF/" />
+            <category term="网络安全" scheme="https://a1oyss.github.io/tags/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/" />
             <pubDate>Sun, 04 Sep 2022 21:42:19 +0800</pubDate>
             <description><![CDATA[ &lt;p&gt;#CTF&lt;/p&gt;
 &lt;h1 id=&#34;引言&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#引言&#34;&gt;#&lt;/a&gt; 引言&lt;/h1&gt;
@@ -307,8 +297,7 @@
             <guid isPermalink="true">https://a1oyss.github.io/%E6%9D%82%E8%AE%B0/Terminal%E5%AE%89%E8%A3%85+%E7%BE%8E%E5%8C%96/</guid>
             <title>Terminal安装+美化</title>
             <link>https://a1oyss.github.io/%E6%9D%82%E8%AE%B0/Terminal%E5%AE%89%E8%A3%85+%E7%BE%8E%E5%8C%96/</link>
-            <category term="杂记" scheme="https://a1oyss.github.io/categories/%E6%9D%82%E8%AE%B0/" />
-            <category term="Terminal" scheme="https://a1oyss.github.io/tags/Terminal/" />
+            <category term="随笔记录" scheme="https://a1oyss.github.io/tags/%E9%9A%8F%E7%AC%94%E8%AE%B0%E5%BD%95/" />
             <pubDate>Wed, 25 May 2022 15:48:26 +0800</pubDate>
             <description><![CDATA[ &lt;p&gt;#Terminal&lt;/p&gt;
 &lt;h1 id=&#34;前言&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#前言&#34;&gt;#&lt;/a&gt; 前言&lt;/h1&gt;
@@ -446,11 +435,10 @@ Set-Theme Paradox&lt;/p&gt;
  ]]></description>
         </item>
         <item>
-            <guid isPermalink="true">https://a1oyss.github.io/BUG/%E8%BF%90%E8%A1%8CCMD%E6%8F%90%E7%A4%BA[%E5%B7%B2%E9%80%80%E5%87%BA%E8%BF%9B%E7%A8%8B%EF%BC%8C%E4%BB%A3%E7%A0%81%E4%B8%BA%201]%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/</guid>
+            <guid isPermalink="true">https://a1oyss.github.io/%E6%9D%82%E8%AE%B0/%E8%BF%90%E8%A1%8CCMD%E6%8F%90%E7%A4%BA[%E5%B7%B2%E9%80%80%E5%87%BA%E8%BF%9B%E7%A8%8B%EF%BC%8C%E4%BB%A3%E7%A0%81%E4%B8%BA%201]%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/</guid>
             <title>运行CMD提示[已退出进程，代码为 1]解决方案</title>
-            <link>https://a1oyss.github.io/BUG/%E8%BF%90%E8%A1%8CCMD%E6%8F%90%E7%A4%BA[%E5%B7%B2%E9%80%80%E5%87%BA%E8%BF%9B%E7%A8%8B%EF%BC%8C%E4%BB%A3%E7%A0%81%E4%B8%BA%201]%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/</link>
-            <category term="BUG" scheme="https://a1oyss.github.io/categories/BUG/" />
-            <category term="BUG" scheme="https://a1oyss.github.io/tags/BUG/" />
+            <link>https://a1oyss.github.io/%E6%9D%82%E8%AE%B0/%E8%BF%90%E8%A1%8CCMD%E6%8F%90%E7%A4%BA[%E5%B7%B2%E9%80%80%E5%87%BA%E8%BF%9B%E7%A8%8B%EF%BC%8C%E4%BB%A3%E7%A0%81%E4%B8%BA%201]%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/</link>
+            <category term="随笔记录" scheme="https://a1oyss.github.io/tags/%E9%9A%8F%E7%AC%94%E8%AE%B0%E5%BD%95/" />
             <pubDate>Thu, 27 May 2021 10:25:33 +0800</pubDate>
             <description><![CDATA[ &lt;p&gt;今天准备使用 npm 时遇到了这个问题，npm install 没有反应，npm 也没反应，但是 nvm 确确实实是有安装好 nodejs 的。&lt;/p&gt;
 &lt;p&gt;然后一步步找，突然看到 windows 下的 npm 命令是调用 npm.cmd&lt;/p&gt;
@@ -471,11 +459,11 @@ C:\Windows\System32\reg.exe DELETE &amp;quot;HKCU\Software\Microsoft\Command Pro
  ]]></description>
         </item>
         <item>
-            <guid isPermalink="true">https://a1oyss.github.io/BUG/Hexo%E5%9B%BE%E7%89%87%E6%98%BE%E7%A4%BA%E5%A4%B1%E8%B4%A5/</guid>
+            <guid isPermalink="true">https://a1oyss.github.io/%E6%9D%82%E8%AE%B0/Hexo%E5%9B%BE%E7%89%87%E6%98%BE%E7%A4%BA%E5%A4%B1%E8%B4%A5/</guid>
             <title>Hexo图片显示失败</title>
-            <link>https://a1oyss.github.io/BUG/Hexo%E5%9B%BE%E7%89%87%E6%98%BE%E7%A4%BA%E5%A4%B1%E8%B4%A5/</link>
-            <category term="BUG" scheme="https://a1oyss.github.io/categories/BUG/" />
+            <link>https://a1oyss.github.io/%E6%9D%82%E8%AE%B0/Hexo%E5%9B%BE%E7%89%87%E6%98%BE%E7%A4%BA%E5%A4%B1%E8%B4%A5/</link>
             <category term="Hexo" scheme="https://a1oyss.github.io/tags/Hexo/" />
+            <category term="随笔记录" scheme="https://a1oyss.github.io/tags/%E9%9A%8F%E7%AC%94%E8%AE%B0%E5%BD%95/" />
             <pubDate>Sun, 28 Mar 2021 00:09:09 +0800</pubDate>
             <description><![CDATA[ &lt;p&gt;#Hexo&lt;/p&gt;
 &lt;h1 id=&#34;part-1&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#part-1&#34;&gt;#&lt;/a&gt; Part 1&lt;/h1&gt;
@@ -572,12 +560,12 @@ for(var i = 0; i &amp;lt; toprocess.length; i++)&amp;#123;
  ]]></description>
         </item>
         <item>
-            <guid isPermalink="true">https://a1oyss.github.io/CTF/Pwnable%E9%A2%98%E8%A7%A3/</guid>
+            <guid isPermalink="true">https://a1oyss.github.io/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/Pwnable%E9%A2%98%E8%A7%A3/</guid>
             <title>Pwnable题解</title>
-            <link>https://a1oyss.github.io/CTF/Pwnable%E9%A2%98%E8%A7%A3/</link>
-            <category term="CTF" scheme="https://a1oyss.github.io/categories/CTF/" />
+            <link>https://a1oyss.github.io/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/Pwnable%E9%A2%98%E8%A7%A3/</link>
             <category term="CTF" scheme="https://a1oyss.github.io/tags/CTF/" />
             <category term="PWN" scheme="https://a1oyss.github.io/tags/PWN/" />
+            <category term="网络安全" scheme="https://a1oyss.github.io/tags/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/" />
             <pubDate>Wed, 23 Dec 2020 11:11:41 +0800</pubDate>
             <description><![CDATA[ &lt;p&gt;#CTF #PWN&lt;/p&gt;
 &lt;h1 id=&#34;toddlers-bottle&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#toddlers-bottle&#34;&gt;#&lt;/a&gt; Toddler&#39;s Bottle&lt;/h1&gt;
@@ -1928,13 +1916,10 @@ payload+=shellcraft.write(1,&#39;rsp&#39;,100)&lt;/p&gt;
  ]]></description>
         </item>
         <item>
-            <guid isPermalink="true">https://a1oyss.github.io/%E6%9D%82%E8%AE%B0/VScode+XDebug%E8%BF%9C%E7%A8%8B%E8%B0%83%E8%AF%95ThinkPHP%20RCE/</guid>
+            <guid isPermalink="true">https://a1oyss.github.io/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/VScode+XDebug%E8%BF%9C%E7%A8%8B%E8%B0%83%E8%AF%95ThinkPHP%20RCE/</guid>
             <title>VScode+XDebug远程调试ThinkPHP RCE</title>
-            <link>https://a1oyss.github.io/%E6%9D%82%E8%AE%B0/VScode+XDebug%E8%BF%9C%E7%A8%8B%E8%B0%83%E8%AF%95ThinkPHP%20RCE/</link>
-            <category term="杂记" scheme="https://a1oyss.github.io/categories/%E6%9D%82%E8%AE%B0/" />
+            <link>https://a1oyss.github.io/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/VScode+XDebug%E8%BF%9C%E7%A8%8B%E8%B0%83%E8%AF%95ThinkPHP%20RCE/</link>
             <category term="CTF" scheme="https://a1oyss.github.io/tags/CTF/" />
-            <category term="IDE" scheme="https://a1oyss.github.io/tags/IDE/" />
-            <category term="PHP" scheme="https://a1oyss.github.io/tags/PHP/" />
             <pubDate>Wed, 02 Dec 2020 08:29:14 +0800</pubDate>
             <description><![CDATA[ &lt;p&gt;#CTF #PHP #VSCode&lt;/p&gt;
 &lt;h1 id=&#34;环境准备&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#环境准备&#34;&gt;#&lt;/a&gt; 环境准备&lt;/h1&gt;
@@ -1996,11 +1981,11 @@ xdebug.collect_params = 1&lt;br /&gt;
  ]]></description>
         </item>
         <item>
-            <guid isPermalink="true">https://a1oyss.github.io/CTF/%E9%A6%96%E5%B1%8ABilibili%E5%AE%89%E5%85%A8%E6%8C%91%E6%88%98%E8%B5%9B/</guid>
+            <guid isPermalink="true">https://a1oyss.github.io/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/%E9%A6%96%E5%B1%8ABilibili%E5%AE%89%E5%85%A8%E6%8C%91%E6%88%98%E8%B5%9B/</guid>
             <title>首届Bilibili安全挑战赛</title>
-            <link>https://a1oyss.github.io/CTF/%E9%A6%96%E5%B1%8ABilibili%E5%AE%89%E5%85%A8%E6%8C%91%E6%88%98%E8%B5%9B/</link>
-            <category term="CTF" scheme="https://a1oyss.github.io/categories/CTF/" />
+            <link>https://a1oyss.github.io/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/%E9%A6%96%E5%B1%8ABilibili%E5%AE%89%E5%85%A8%E6%8C%91%E6%88%98%E8%B5%9B/</link>
             <category term="CTF" scheme="https://a1oyss.github.io/tags/CTF/" />
+            <category term="网络安全" scheme="https://a1oyss.github.io/tags/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/" />
             <pubDate>Mon, 16 Nov 2020 18:43:10 +0800</pubDate>
             <description><![CDATA[ &lt;p&gt;#CTF&lt;br /&gt;
  这波啊，这波是全国上下共享一个靶机&lt;/p&gt;
@@ -2085,12 +2070,12 @@ echo &amp;quot;你想要的不在这儿～&amp;quot;;&lt;br /&gt;
  ]]></description>
         </item>
         <item>
-            <guid isPermalink="true">https://a1oyss.github.io/Python/Python%E6%A0%A1%E5%9B%AD%E7%BD%91%E7%99%BB%E5%BD%95/</guid>
+            <guid isPermalink="true">https://a1oyss.github.io/%E6%9D%82%E8%AE%B0/Python%E6%A0%A1%E5%9B%AD%E7%BD%91%E7%99%BB%E5%BD%95/</guid>
             <title>Python校园网登录</title>
-            <link>https://a1oyss.github.io/Python/Python%E6%A0%A1%E5%9B%AD%E7%BD%91%E7%99%BB%E5%BD%95/</link>
-            <category term="Python" scheme="https://a1oyss.github.io/categories/Python/" />
+            <link>https://a1oyss.github.io/%E6%9D%82%E8%AE%B0/Python%E6%A0%A1%E5%9B%AD%E7%BD%91%E7%99%BB%E5%BD%95/</link>
             <category term="Python" scheme="https://a1oyss.github.io/tags/Python/" />
             <category term="爬虫" scheme="https://a1oyss.github.io/tags/%E7%88%AC%E8%99%AB/" />
+            <category term="随笔记录" scheme="https://a1oyss.github.io/tags/%E9%9A%8F%E7%AC%94%E8%AE%B0%E5%BD%95/" />
             <pubDate>Fri, 09 Oct 2020 21:48:46 +0800</pubDate>
             <description><![CDATA[ &lt;p&gt;#Python #爬虫&lt;/p&gt;
 &lt;h1 id=&#34;前言&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#前言&#34;&gt;#&lt;/a&gt; 前言&lt;/h1&gt;
@@ -2217,11 +2202,11 @@ HAITlogin.login()&lt;/p&gt;
  ]]></description>
         </item>
         <item>
-            <guid isPermalink="true">https://a1oyss.github.io/CTF/ISCC%E4%B8%80%E6%97%A5%E6%B8%B8/</guid>
+            <guid isPermalink="true">https://a1oyss.github.io/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/ISCC%E4%B8%80%E6%97%A5%E6%B8%B8/</guid>
             <title>ISCC一日游</title>
-            <link>https://a1oyss.github.io/CTF/ISCC%E4%B8%80%E6%97%A5%E6%B8%B8/</link>
-            <category term="CTF" scheme="https://a1oyss.github.io/categories/CTF/" />
+            <link>https://a1oyss.github.io/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/ISCC%E4%B8%80%E6%97%A5%E6%B8%B8/</link>
             <category term="CTF" scheme="https://a1oyss.github.io/tags/CTF/" />
+            <category term="网络安全" scheme="https://a1oyss.github.io/tags/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/" />
             <pubDate>Thu, 08 Oct 2020 18:53:44 +0800</pubDate>
             <description><![CDATA[ &lt;p&gt;#CTF&lt;/p&gt;
 &lt;h1 id=&#34;reverse&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#reverse&#34;&gt;#&lt;/a&gt; REVERSE&lt;/h1&gt;
@@ -2416,9 +2401,7 @@ for ISC _ar icu thi ngs asy iff C&amp;#123;A lt&amp;#125; _be ll_ e_d heye
             <guid isPermalink="true">https://a1oyss.github.io/%E6%9D%82%E8%AE%B0/Pycharm+VMware%E6%90%AD%E5%BB%BALinux%E4%B8%8B%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/</guid>
             <title>Pycharm+VMware搭建Linux下开发环境</title>
             <link>https://a1oyss.github.io/%E6%9D%82%E8%AE%B0/Pycharm+VMware%E6%90%AD%E5%BB%BALinux%E4%B8%8B%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/</link>
-            <category term="杂记" scheme="https://a1oyss.github.io/categories/%E6%9D%82%E8%AE%B0/" />
-            <category term="IDE" scheme="https://a1oyss.github.io/tags/IDE/" />
-            <category term="Pycharm" scheme="https://a1oyss.github.io/tags/Pycharm/" />
+            <category term="随笔记录" scheme="https://a1oyss.github.io/tags/%E9%9A%8F%E7%AC%94%E8%AE%B0%E5%BD%95/" />
             <pubDate>Thu, 08 Oct 2020 18:44:09 +0800</pubDate>
             <description><![CDATA[ &lt;p&gt;#IDE&lt;/p&gt;
 &lt;h1 id=&#34;前言&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#前言&#34;&gt;#&lt;/a&gt; 前言&lt;/h1&gt;
