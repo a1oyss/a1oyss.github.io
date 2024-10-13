@@ -24,15 +24,15 @@
 <link rel="stylesheet" href="/css/app.css?v=0.2.5">
 
   
-  <meta name="keywords" content="随笔记录" />
+  <meta name="keywords" content="源码分析,Redis" />
 
 
-<link rel="canonical" href="https://a1oyss.github.io/2020/10/58699.html">
+<link rel="canonical" href="https://a1oyss.github.io/2024/10/2040406187.html">
 
 
 
   <title>
-Pycharm+VMware搭建Linux下开发环境 - 杂记 |
+Redis源码学习-Skiplist |
 a1oyss's blog = a1oyss</title>
 <meta name="generator" content="Hexo 6.3.0"></head>
 <body itemscope itemtype="http://schema.org/WebPage">
@@ -60,23 +60,23 @@ a1oyss's blog = a1oyss</title>
         <div id="brand">
           <div class="pjax">
           
-  <h1 itemprop="name headline">Pycharm+VMware搭建Linux下开发环境
+  <h1 itemprop="name headline">Redis源码学习-Skiplist
   </h1>
   
 <div class="meta">
-  <span class="item" title="创建时间：2020-10-08 18:44:09">
+  <span class="item" title="创建时间：2024-10-13 20:26:00">
     <span class="icon">
       <i class="ic i-calendar"></i>
     </span>
     <span class="text">发表于</span>
-    <time itemprop="dateCreated datePublished" datetime="2020-10-08T18:44:09+08:00">2020-10-08</time>
+    <time itemprop="dateCreated datePublished" datetime="2024-10-13T20:26:00+08:00">2024-10-13</time>
   </span>
   <span class="item" title="本文字数">
     <span class="icon">
       <i class="ic i-pen"></i>
     </span>
     <span class="text">本文字数</span>
-    <span>1.1k</span>
+    <span>3.8k</span>
     <span class="text">字</span>
   </span>
   <span class="item" title="阅读时长">
@@ -84,7 +84,7 @@ a1oyss's blog = a1oyss</title>
       <i class="ic i-clock"></i>
     </span>
     <span class="text">阅读时长</span>
-    <span>1 分钟</span>
+    <span>3 分钟</span>
   </span>
 </div>
 
@@ -117,12 +117,12 @@ a1oyss's blog = a1oyss</title>
       </div>
       <div id="imgs" class="pjax">
         <ul>
-          <li class="item" data-background-image="https://s2.loli.net/2024/10/13/J5qtFM1iUxWlS9u.png"></li>
-          <li class="item" data-background-image="https://s2.loli.net/2024/10/13/5HIfmpctuZF3iGQ.png"></li>
-          <li class="item" data-background-image="https://s2.loli.net/2024/10/13/aY56HT3qxpjlwsZ.png"></li>
-          <li class="item" data-background-image="https://s2.loli.net/2024/10/13/hsH7BXrkDLlfjyW.png"></li>
+          <li class="item" data-background-image="https://s2.loli.net/2024/10/13/sVn5mvFbj1T3HO2.png"></li>
           <li class="item" data-background-image="https://s2.loli.net/2024/10/13/afoWh3p7szBujPK.png"></li>
           <li class="item" data-background-image="https://s2.loli.net/2024/10/13/yDZ2p3LT5hzEVkS.png"></li>
+          <li class="item" data-background-image="https://s2.loli.net/2024/10/13/Z5XKkwlpEWrNihC.png"></li>
+          <li class="item" data-background-image="https://s2.loli.net/2024/10/13/3X85QsPvfcOj2hM.png"></li>
+          <li class="item" data-background-image="https://s2.loli.net/2024/10/13/aY56HT3qxpjlwsZ.png"></li>
         </ul>
       </div>
     </header>
@@ -147,13 +147,11 @@ a1oyss's blog = a1oyss</title>
     
 <div class="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList">
 <i class="ic i-home"></i>
-<span><a href="/">首页</a></span><i class="ic i-angle-right"></i>
-<span  class="current" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/categories/%E6%9D%82%E8%AE%B0/" itemprop="item" rel="index" title="分类于 杂记"><span itemprop="name">杂记</span></a>
-<meta itemprop="position" content="1" /></span>
+<span><a href="/">首页</a></span>
 </div>
 
     <article itemscope itemtype="http://schema.org/Article" class="post block" lang="zh-CN">
-  <link itemprop="mainEntityOfPage" href="https://a1oyss.github.io/2020/10/58699.html">
+  <link itemprop="mainEntityOfPage" href="https://a1oyss.github.io/2024/10/2040406187.html">
 
   <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="image" content="/images/avatar.jpg">
@@ -168,60 +166,180 @@ a1oyss's blog = a1oyss</title>
   <div class="body md" itemprop="articleBody">
     
 
-    <p>#IDE</p>
-<h1 id="前言"><a class="anchor" href="#前言">#</a> 前言</h1>
-<p>弄了一天的 vim+xshell，结果还是不尽人意，spacevim 要求终端支持真彩色，但是 xshell 显然⑧行，将 <code>enable_guicolors</code>  设置为 false 后才勉强能看。</p>
-<p>于是突发奇想，将 pycharm 通过 ssh 连接到虚拟机当中的 python 环境，能不能直接在主机上面写脚本调试，查了下还真有这个功能，不过需要 pro 版本。</p>
-<h1 id="准备工作"><a class="anchor" href="#准备工作">#</a> 准备工作</h1>
+    <p>跳跃表（<span class="exturl" data-url="aHR0cDovL2VuLndpa2lwZWRpYS5vcmcvd2lraS9Ta2lwX2xpc3Q=">skiplist</span>）是一种随机化的数据， 由 William Pugh 在论文<span class="exturl" data-url="aHR0cDovL3d3dy5jbC5jYW0uYWMudWsvdGVhY2hpbmcvMDUwNi9BbGdvcml0aG1zL3NraXBsaXN0cy5wZGY=">《Skip lists: a probabilistic alternative to balanced trees》</span>中提出， 跳跃表以有序的方式在层次化的链表中保存元素， 效率和平衡树媲美 —— 查找、删除、添加等操作都可以在对数期望时间下完成， 并且比起平衡树来说， 跳跃表的实现要简单直观得多。</p>
+<p><img data-src="https://cdn.nlark.com/yuque/0/2024/webp/2658344/1725587087082-6d876ae8-eccf-4cee-945c-a535e8c4b545.webp" alt="" /></p>
+<h2 id="redis中的skiplist结构"><a class="anchor" href="#redis中的skiplist结构">#</a> redis 中的 skiplist 结构</h2>
+<pre><code>/* ZSETs use a specialized version of Skiplists */
+typedef struct zskiplistNode &#123;
+    sds ele;
+    double score;
+    struct zskiplistNode *backward;
+    struct zskiplistLevel &#123;
+        struct zskiplistNode *forward;
+        unsigned long span;
+    &#125; level[];
+&#125; zskiplistNode;
+
+typedef struct zskiplist &#123;
+    struct zskiplistNode *header, *tail;
+    unsigned long length;
+    int level;
+&#125; zskiplist;
+
+typedef struct zset &#123;
+    dict *dict;
+    zskiplist *zsl;
+&#125; zset;
+</code></pre>
+<p><strong>NOTE</strong>: 可以看到 zset 不止有 skiplist，还包含了一个 dict 结构，这是为了 ZSCORE 等命令可以以 o (1) 的时间复杂度返回指定的成员。</p>
+<p>zskiplistNode：</p>
+<ul>
+<li>
+<p>ele：保存数据</p>
+</li>
+<li>
+<p>score：权重值</p>
+</li>
+<li>
+<p>backward：指向链表前一个节点的指针，不在 level 数组中，只有第一层会用到。</p>
+</li>
+<li>
+<p>level</p>
+</li>
+<li>
+<p>forward：指向链表后一个节点的指针</p>
+</li>
+<li>
+<p>span：保存当前节点跨越了多少个节点</p>
+</li>
+</ul>
+<p>zskiplist：</p>
+<ul>
+<li>head，tail：头指针和尾指针</li>
+<li>length：链表长度</li>
+<li>level：总层数</li>
+</ul>
+<h2 id="skiplist插入数据"><a class="anchor" href="#skiplist插入数据">#</a> skiplist 插入数据</h2>
+<pre><code>/* Insert a new node in the skiplist. Assumes the element does not already
+ * exist (up to the caller to enforce that). The skiplist takes ownership
+ * of the passed SDS string 'ele'. */
+zskiplistNode *zslInsert(zskiplist *zsl, double score, sds ele) &#123;
+    zskiplistNode *update[ZSKIPLIST_MAXLEVEL], *x;
+    unsigned int rank[ZSKIPLIST_MAXLEVEL];
+    int i, level;
+
+    serverAssert(!isnan(score));
+    x = zsl-&gt;header;
+    for (i = zsl-&gt;level-1; i &gt;= 0; i--) &#123;
+        /* store rank that is crossed to reach the insert position */
+        rank[i] = i == (zsl-&gt;level-1) ? 0 : rank[i+1];
+        while (x-&gt;level[i].forward &amp;&amp;
+                (x-&gt;level[i].forward-&gt;score &lt; score ||
+                    (x-&gt;level[i].forward-&gt;score == score &amp;&amp;
+                    sdscmp(x-&gt;level[i].forward-&gt;ele,ele) &lt; 0)))
+        &#123;
+            rank[i] += x-&gt;level[i].span;
+            x = x-&gt;level[i].forward;
+        &#125;
+        update[i] = x;
+    &#125;
+    /* we assume the element is not already inside, since we allow duplicated
+     * scores, reinserting the same element should never happen since the
+     * caller of zslInsert() should test in the hash table if the element is
+     * already inside or not. */
+    level = zslRandomLevel();
+    if (level &gt; zsl-&gt;level) &#123;
+        for (i = zsl-&gt;level; i &lt; level; i++) &#123;
+            rank[i] = 0;
+            update[i] = zsl-&gt;header;
+            update[i]-&gt;level[i].span = zsl-&gt;length;
+        &#125;
+        zsl-&gt;level = level;
+    &#125;
+    x = zslCreateNode(level,score,ele);
+    for (i = 0; i &lt; level; i++) &#123;
+        x-&gt;level[i].forward = update[i]-&gt;level[i].forward;
+        update[i]-&gt;level[i].forward = x;
+
+        /* update span covered by update[i] as x is inserted here */
+        x-&gt;level[i].span = update[i]-&gt;level[i].span - (rank[0] - rank[i]);
+        update[i]-&gt;level[i].span = (rank[0] - rank[i]) + 1;
+    &#125;
+
+    /* increment span for untouched levels */
+    for (i = level; i &lt; zsl-&gt;level; i++) &#123;
+        update[i]-&gt;level[i].span++;
+    &#125;
+
+    x-&gt;backward = (update[0] == zsl-&gt;header) ? NULL : update[0];
+    if (x-&gt;level[0].forward)
+        x-&gt;level[0].forward-&gt;backward = x;
+    else
+        zsl-&gt;tail = x;
+    zsl-&gt;length++;
+    return x;
+&#125;
+</code></pre>
+<p>这里面比较复杂的点在于 span 的操作，其实去掉 span 就是很简单的链表操作，为了便于理解，这里把 backward 的操作和 span 的操作都删掉：</p>
+<pre><code>zskiplistNode *zslInsert(zskiplist *zsl, double score, sds ele) &#123;
+    zskiplistNode *update[ZSKIPLIST_MAXLEVEL], *x;
+    int i, level;
+
+    serverAssert(!isnan(score));
+    x = zsl-&gt;header;
+    for (i = zsl-&gt;level-1; i &gt;= 0; i--) &#123;
+        while (x-&gt;level[i].forward &amp;&amp;
+                (x-&gt;level[i].forward-&gt;score &lt; score ||
+                    (x-&gt;level[i].forward-&gt;score == score &amp;&amp;
+                    sdscmp(x-&gt;level[i].forward-&gt;ele,ele) &lt; 0)))
+        &#123;
+            x = x-&gt;level[i].forward;
+        &#125;
+        update[i] = x;
+    &#125;
+
+    level = zslRandomLevel();
+    if (level &gt; zsl-&gt;level) &#123;
+        for (i = zsl-&gt;level; i &lt; level; i++) &#123;
+            update[i] = zsl-&gt;header;
+        &#125;
+        zsl-&gt;level = level;
+    &#125;
+    x = zslCreateNode(level,score,ele);
+    for (i = 0; i &lt; level; i++) &#123;
+        x-&gt;level[i].forward = update[i]-&gt;level[i].forward;
+        update[i]-&gt;level[i].forward = x;
+    &#125;
+
+    zsl-&gt;length++;
+    return x;
+&#125;
+</code></pre>
 <ol>
-<li>PyCharm Pro</li>
-<li>VMware Workstation</li>
-<li>科学上网</li>
+<li>声明用到的变量</li>
 </ol>
-<h1 id="配置"><a class="anchor" href="#配置">#</a> 配置</h1>
-<h2 id="主题"><a class="anchor" href="#主题">#</a> 主题</h2>
-<p>File-&gt;Settings..-&gt;Plugins，安装 Material Theme UI，接着按照自己喜欢的来配就行</p>
-<h2 id="配置ssh-interpreter"><a class="anchor" href="#配置ssh-interpreter">#</a> 配置 SSH Interpreter</h2>
-<p>安装好 PyCharm Pro 之后，创建一个项目，创建好之后找到 File-&gt;Settings..-&gt;Project: ctf-&gt;Project Interpreter 配置 python 解释器</p>
-<p><img data-src="https://cdn.nlark.com/yuque/0/2020/png/2658344/1602153037485-394af4f2-19fa-4fc5-bf3d-39ae5070cc1e.png" alt="" /></p>
-<p>选择 Add..-&gt;SSH Interpreter</p>
-<p><img data-src="https://cdn.nlark.com/yuque/0/2020/png/2658344/1602153038413-b7c8f816-bc23-4b7d-8bd8-b942a9a3bc7a.png" alt="" /></p>
-<p>将虚拟机的 ip 地址和用户名填写到相应的地方，然后 NEXT。</p>
-<p>填写密码</p>
-<p><img data-src="https://cdn.nlark.com/yuque/0/2020/png/2658344/1602153037359-53ad4c7a-e476-4f78-a933-0c20d1a5599a.png" alt="" /></p>
-<p>设置解释器路径和文件同步位置，然后 FINISH</p>
-<p><img data-src="https://cdn.nlark.com/yuque/0/2020/png/2658344/1602153037610-0c30b0ee-f187-4e09-b062-efe90dbd551b.png" alt="" /></p>
-<p>FINISH 之后 PyCharm 会先进行一次同步，同步 python 库，并且把一些配置文件什么的给传过去，时间略长。</p>
-<p>PyCharm 的同步还有版本对比功能</p>
-<p><img data-src="https://cdn.nlark.com/yuque/0/2020/png/2658344/1602153039519-485d68c3-bdd4-4077-b6e2-803a96d51c72.png" alt="" /></p>
-<p>不得不说比预想中还要好用。</p>
-<h2 id="配置hexo"><a class="anchor" href="#配置hexo">#</a> 配置 hexo</h2>
-<p>File-&gt;Settings..-&gt;Tools-&gt;Terminal 中可以设置 PyCharm 的终端</p>
-<p>将 Start directory 设置为 hexo 根目录</p>
-<p>shell path 可以直接填写终端名称，例如 powershell.exe</p>
-<p>Tab name，标签名称，随便修改。</p>
-<p><img data-src="https://cdn.nlark.com/yuque/0/2020/png/2658344/1602153037444-308883fb-4fa7-4e19-b28f-8dc1e5bc9836.png" alt="" /></p>
-<p>这样就可以随时进行 hexo 的相关操作了。</p>
-<h2 id="配置ssh-terminal"><a class="anchor" href="#配置ssh-terminal">#</a> 配置 SSH Terminal</h2>
-<p>File-&gt;Settings..-&gt;Tools-&gt;SSH Terminal</p>
-<p><img data-src="https://cdn.nlark.com/yuque/0/2020/png/2658344/1602153037542-9d00c3ac-9446-4e4a-87fe-aabca5182ef0.png" alt="" /></p>
-<p>Deloyment server 中选择 root@xxx.xxx.xxx.xxx:22</p>
-<p>这样每次打开就不需要再选一次了。</p>
-<h1 id="faq"><a class="anchor" href="#faq">#</a> FAQ</h1>
-<h2 id="pycharm中进行调试后console中输出"><a class="anchor" href="#pycharm中进行调试后console中输出">#</a> PyCharm 中进行调试后，console 中输出□=</h2>
-<p>应该是 PyCharm 的问题，有两种解决办法：</p>
-<ol>
-<li>Run-&gt;Edit Configurations..-&gt;Templates-&gt;Python-&gt;Enviroment variables 中添加环境变量</li>
-</ol>
-<p>PWNLIB_NOTERM=True</p>
+<pre><code>    zskiplistNode *update[ZSKIPLIST_MAXLEVEL], *x;
+    int i, level;
+</code></pre>
 <ol start="2">
-<li>修改 <code>/usr/local/lib/python2.7/dist-packages/pwnlib/args.py</code>  最后一行，注释掉 <code>term.init()</code></li>
+<li>计算插入点的位置</li>
 </ol>
-<h1 id="总结"><a class="anchor" href="#总结">#</a> 总结</h1>
-<p>pro 版本还是好用，配置好之后，直接在一个窗口中进行所有操作，不需要几个窗口之间来回切了，方便了不少。</p>
+<pre><code>    for (i = zsl-&gt;level-1; i &gt;= 0; i--) &#123;
+        while (x-&gt;level[i].forward &amp;&amp;
+                (x-&gt;level[i].forward-&gt;score &lt; score ||
+                    (x-&gt;level[i].forward-&gt;score == score &amp;&amp;
+                    sdscmp(x-&gt;level[i].forward-&gt;ele,ele) &lt; 0)))
+        &#123;
+            x = x-&gt;level[i].forward;
+        &#125;
+        update[i] = x;
+    &#125;
+</code></pre>
+<p>外层循环控制层级，从高到低；内层循环控制链表遍历，从左往右。</p>
 
       <div class="tags">
-          <a href="/tags/%E9%9A%8F%E7%AC%94%E8%AE%B0%E5%BD%95/" rel="tag"><i class="ic i-tag"></i> 随笔记录</a>
+          <a href="/tags/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/" rel="tag"><i class="ic i-tag"></i> 源码分析</a>
+          <a href="/tags/Redis/" rel="tag"><i class="ic i-tag"></i> Redis</a>
       </div>
   </div>
 
@@ -239,7 +357,7 @@ a1oyss's blog = a1oyss</title>
   </li>
   <li class="link">
     <strong>本文链接：</strong>
-    <a href="https://a1oyss.github.io/2020/10/58699.html" title="Pycharm+VMware搭建Linux下开发环境">https://a1oyss.github.io/2020/10/58699.html</a>
+    <a href="https://a1oyss.github.io/2024/10/2040406187.html" title="Redis源码学习-Skiplist">https://a1oyss.github.io/2024/10/2040406187.html</a>
   </li>
   <li class="license">
     <strong>版权声明： </strong>本站所有文章除特别声明外，均采用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC9kZWVkLnpo"><i class="ic i-creative-commons"><em>(CC)</em></i>BY-NC-SA</span> 许可协议。转载请注明出处！
@@ -256,14 +374,22 @@ a1oyss's blog = a1oyss</title>
 
 <div class="post-nav">
     <div class="item left">
+      
+
+  <a href="/2024/10/108095223.html" itemprop="url" rel="prev" data-background-image="https:&#x2F;&#x2F;s2.loli.net&#x2F;2024&#x2F;10&#x2F;13&#x2F;5HIfmpctuZF3iGQ.png" title="Redis源码学习-Dict">
+  <span class="type">上一篇</span>
+  <span class="category"><i class="ic i-flag"></i> </span>
+  <h3>Redis源码学习-Dict</h3>
+  </a>
+
     </div>
     <div class="item right">
       
 
-  <a href="/2020/10/7981.html" itemprop="url" rel="next" data-background-image="https:&#x2F;&#x2F;s2.loli.net&#x2F;2024&#x2F;10&#x2F;13&#x2F;J5qtFM1iUxWlS9u.png" title="ISCC一日游">
+  <a href="/2024/10/813972997.html" itemprop="url" rel="next" data-background-image="https:&#x2F;&#x2F;s2.loli.net&#x2F;2024&#x2F;10&#x2F;13&#x2F;3X85QsPvfcOj2hM.png" title="Redis源码学习-intset">
   <span class="type">下一篇</span>
-  <span class="category"><i class="ic i-flag"></i> 网络安全</span>
-  <h3>ISCC一日游</h3>
+  <span class="category"><i class="ic i-flag"></i> </span>
+  <h3>Redis源码学习-intset</h3>
   </a>
 
     </div>
@@ -282,12 +408,9 @@ a1oyss's blog = a1oyss</title>
   <div class="panels">
     <div class="inner">
       <div class="contents panel pjax" data-title="文章目录">
-          <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text"> 前言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%87%86%E5%A4%87%E5%B7%A5%E4%BD%9C"><span class="toc-number">2.</span> <span class="toc-text"> 准备工作</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE"><span class="toc-number">3.</span> <span class="toc-text"> 配置</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%BB%E9%A2%98"><span class="toc-number">3.1.</span> <span class="toc-text"> 主题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%85%8D%E7%BD%AEssh-interpreter"><span class="toc-number">3.2.</span> <span class="toc-text"> 配置 SSH Interpreter</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%85%8D%E7%BD%AEhexo"><span class="toc-number">3.3.</span> <span class="toc-text"> 配置 hexo</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%85%8D%E7%BD%AEssh-terminal"><span class="toc-number">3.4.</span> <span class="toc-text"> 配置 SSH Terminal</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#faq"><span class="toc-number">4.</span> <span class="toc-text"> FAQ</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#pycharm%E4%B8%AD%E8%BF%9B%E8%A1%8C%E8%B0%83%E8%AF%95%E5%90%8Econsole%E4%B8%AD%E8%BE%93%E5%87%BA"><span class="toc-number">4.1.</span> <span class="toc-text"> PyCharm 中进行调试后，console 中输出□&#x3D;</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">5.</span> <span class="toc-text"> 总结</span></a></li></ol>
+          <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#redis%E4%B8%AD%E7%9A%84skiplist%E7%BB%93%E6%9E%84"><span class="toc-number">1.</span> <span class="toc-text"> redis 中的 skiplist 结构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#skiplist%E6%8F%92%E5%85%A5%E6%95%B0%E6%8D%AE"><span class="toc-number">2.</span> <span class="toc-text"> skiplist 插入数据</span></a></li></ol>
       </div>
       <div class="related panel pjax" data-title="系列文章">
-        <ul>
-          <li class="active"><a href="/2020/10/58699.html" rel="bookmark" title="Pycharm+VMware搭建Linux下开发环境">Pycharm+VMware搭建Linux下开发环境</a></li><li><a href="/2020/10/33250.html" rel="bookmark" title="Python校园网登录">Python校园网登录</a></li><li><a href="/2021/03/8759.html" rel="bookmark" title="Hexo图片显示失败">Hexo图片显示失败</a></li><li><a href="/2021/05/36347.html" rel="bookmark" title="运行CMD提示[已退出进程，代码为 1]解决方案">运行CMD提示[已退出进程，代码为 1]解决方案</a></li><li><a href="/2022/05/11560.html" rel="bookmark" title="Terminal安装+美化">Terminal安装+美化</a></li>
-        </ul>
       </div>
       <div class="overview panel" data-title="站点概览">
         <div class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -348,10 +471,12 @@ a1oyss's blog = a1oyss</title>
 
   <ul id="quick">
     <li class="prev pjax">
+        <a href="/2024/10/108095223.html" rel="prev" title="上一篇"><i class="ic i-chevron-left"></i></a>
     </li>
     <li class="up"><i class="ic i-arrow-up"></i></li>
     <li class="down"><i class="ic i-arrow-down"></i></li>
     <li class="next pjax">
+        <a href="/2024/10/813972997.html" rel="next" title="下一篇"><i class="ic i-chevron-right"></i></a>
     </li>
     <li class="percent"></li>
   </ul>
@@ -373,10 +498,39 @@ a1oyss's blog = a1oyss</title>
   <li class="item">
     
 <div class="breadcrumb">
+<a href="/categories/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/" title="分类于 后端开发">后端开发</a>
+</div>
+
+    <span><a href="/2022/11/5457.html" title="HttpServletRequest的几种获取方式">HttpServletRequest的几种获取方式</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/" title="分类于 后端开发">后端开发</a>
+</div>
+
+    <span><a href="/2022/12/20899.html" title="一次由于服务器时间异常引起的服务报错问题排查">一次由于服务器时间异常引起的服务报错问题排查</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2024/10/108095223.html" title="Redis源码学习-Dict">Redis源码学习-Dict</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
 <a href="/categories/%E6%9D%82%E8%AE%B0/" title="分类于 杂记">杂记</a>
 </div>
 
-    <span><a href="/2021/05/36347.html" title="运行CMD提示[已退出进程，代码为 1]解决方案">运行CMD提示[已退出进程，代码为 1]解决方案</a></span>
+    <span><a href="/2021/03/8759.html" title="Hexo图片显示失败">Hexo图片显示失败</a></span>
   </li>
 
       
@@ -386,7 +540,7 @@ a1oyss's blog = a1oyss</title>
 <a href="/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/" title="分类于 网络安全">网络安全</a>
 </div>
 
-    <span><a href="/2020/12/21012.html" title="Pwnable题解">Pwnable题解</a></span>
+    <span><a href="/2020/11/38798.html" title="首届Bilibili安全挑战赛">首届Bilibili安全挑战赛</a></span>
   </li>
 
       
@@ -403,19 +557,19 @@ a1oyss's blog = a1oyss</title>
   <li class="item">
     
 <div class="breadcrumb">
+<a href="/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/" title="分类于 网络安全">网络安全</a>
 </div>
 
-    <span><a href="/2024/10/813972997.html" title="Redis源码学习-intset">Redis源码学习-intset</a></span>
+    <span><a href="/2022/09/13394.html" title="CTFd+CTFd-Whale部署实践">CTFd+CTFd-Whale部署实践</a></span>
   </li>
 
       
   <li class="item">
     
 <div class="breadcrumb">
-<a href="/categories/%E6%9D%82%E8%AE%B0/" title="分类于 杂记">杂记</a>
 </div>
 
-    <span><a href="/2022/05/11560.html" title="Terminal安装+美化">Terminal安装+美化</a></span>
+    <span><a href="/2024/10/813972997.html" title="Redis源码学习-intset">Redis源码学习-intset</a></span>
   </li>
 
       
@@ -435,37 +589,7 @@ a1oyss's blog = a1oyss</title>
 <a href="/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/" title="分类于 网络安全">网络安全</a>
 </div>
 
-    <span><a href="/2022/09/13394.html" title="CTFd+CTFd-Whale部署实践">CTFd+CTFd-Whale部署实践</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/" title="分类于 网络安全">网络安全</a>
-</div>
-
-    <span><a href="/2020/10/7981.html" title="ISCC一日游">ISCC一日游</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/" title="分类于 后端开发">后端开发</a>
-</div>
-
-    <span><a href="/2022/11/5457.html" title="HttpServletRequest的几种获取方式">HttpServletRequest的几种获取方式</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/" title="分类于 后端开发">后端开发</a>
-</div>
-
-    <span><a href="/2022/11/61375.html" title="详解设计模式系列-单例模式">详解设计模式系列-单例模式</a></span>
+    <span><a href="/2020/12/21012.html" title="Pwnable题解">Pwnable题解</a></span>
   </li>
 
   </ul>
@@ -508,7 +632,7 @@ a1oyss's blog = a1oyss</title>
   </div>
 <script data-config type="text/javascript">
   var LOCAL = {
-    path: '2020/10/58699.html',
+    path: '2024/10/2040406187.html',
     favicon: {
       show: "a1oyss's blog",
       hide: "a1oyss's blog"

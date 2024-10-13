@@ -88,12 +88,12 @@
       </div>
       <div id="imgs" class="pjax">
         <ul>
-          <li class="item" data-background-image="https://s2.loli.net/2024/10/13/DLBIpjvV6EhecJb.png"></li>
-          <li class="item" data-background-image="https://s2.loli.net/2024/10/13/Z5XKkwlpEWrNihC.png"></li>
+          <li class="item" data-background-image="https://s2.loli.net/2024/10/13/PyzRCs6iEVNBw1S.png"></li>
           <li class="item" data-background-image="https://s2.loli.net/2024/10/13/2pFyjbAMUauws6i.png"></li>
-          <li class="item" data-background-image="https://s2.loli.net/2024/10/13/yDZ2p3LT5hzEVkS.png"></li>
-          <li class="item" data-background-image="https://s2.loli.net/2024/10/13/J5qtFM1iUxWlS9u.png"></li>
-          <li class="item" data-background-image="https://s2.loli.net/2024/10/13/sVn5mvFbj1T3HO2.png"></li>
+          <li class="item" data-background-image="https://s2.loli.net/2024/10/13/afoWh3p7szBujPK.png"></li>
+          <li class="item" data-background-image="https://s2.loli.net/2024/10/13/Z5XKkwlpEWrNihC.png"></li>
+          <li class="item" data-background-image="https://s2.loli.net/2024/10/13/hsH7BXrkDLlfjyW.png"></li>
+          <li class="item" data-background-image="https://s2.loli.net/2024/10/13/aY56HT3qxpjlwsZ.png"></li>
         </ul>
       </div>
     </header>
@@ -117,6 +117,218 @@
   <div class="index wrap">
     <h2 class="divider">文章列表</h2>
     <div class="segments posts">
+        
+<article class="item">
+  <div class="cover">
+    <a href="/2024/10/3609413537.html" itemprop="url" title="Redis源码学习-SDS"><img data-src="https://s2.loli.net/2024/10/13/KCm8QTiHwvGo3aI.png"></a>
+  </div>
+  <div class="info">
+    
+<div class="meta">
+  <span class="item" title="创建时间：2024-10-13 20:27:00">
+    <span class="icon">
+      <i class="ic i-calendar"></i>
+    </span>
+    <time itemprop="dateCreated datePublished" datetime="2024-10-13T20:27:00+08:00">2024-10-13</time>
+  </span>
+  <span class="item" title="本文字数">
+    <span class="icon">
+      <i class="ic i-pen"></i>
+    </span>
+    <span>2</span>
+    <span class="text">字</span>
+  </span>
+  <span class="item" title="阅读时长">
+    <span class="icon">
+      <i class="ic i-clock"></i>
+    </span>
+    <span>1 分钟</span>
+  </span>
+</div>
+
+    <h3><a href="/2024/10/3609413537.html" itemprop="url" title="Redis源码学习-SDS">Redis源码学习-SDS</a></h3>
+    <div class="excerpt">
+        待续
+    </div>
+    <a href="/2024/10/3609413537.html" itemprop="url" title="Redis源码学习-SDS" class="btn">more...</a>
+  </div>
+</article>
+
+        
+<article class="item">
+  <div class="cover">
+    <a href="/2024/10/813972997.html" itemprop="url" title="Redis源码学习-intset"><img data-src="https://s2.loli.net/2024/10/13/uyhMVC8iFk7L3oq.png"></a>
+  </div>
+  <div class="info">
+    
+<div class="meta">
+  <span class="item" title="创建时间：2024-10-13 20:27:00">
+    <span class="icon">
+      <i class="ic i-calendar"></i>
+    </span>
+    <time itemprop="dateCreated datePublished" datetime="2024-10-13T20:27:00+08:00">2024-10-13</time>
+  </span>
+  <span class="item" title="本文字数">
+    <span class="icon">
+      <i class="ic i-pen"></i>
+    </span>
+    <span>4.4k</span>
+    <span class="text">字</span>
+  </span>
+  <span class="item" title="阅读时长">
+    <span class="icon">
+      <i class="ic i-clock"></i>
+    </span>
+    <span>4 分钟</span>
+  </span>
+</div>
+
+    <h3><a href="/2024/10/813972997.html" itemprop="url" title="Redis源码学习-intset">Redis源码学习-intset</a></h3>
+    <div class="excerpt">
+        顾名思义，整数集合，Set 的底层数据结构实现之一，另外一种实现是 hashtable。
+实际上 intset 是一个有序数组，通过二分查找快速判断一个元素是否属于这个集合，但是为了保证有序性，插入的时候也会先二分查找找到对应的插入位置，将插入位置之后的元素统一向后移动一个位置，redis 使用了该结构来降低内存使用率，时间换空间。
+# intset 的结构
+typedef struct intset &amp;#123;
+uint32_t encoding;
+uint32_t length;
+int8_t contents[];
+&amp;#125;...
+    </div>
+    <a href="/2024/10/813972997.html" itemprop="url" title="Redis源码学习-intset" class="btn">more...</a>
+  </div>
+</article>
+
+        
+<article class="item">
+  <div class="cover">
+    <a href="/2024/10/2040406187.html" itemprop="url" title="Redis源码学习-Skiplist"><img data-src="https://s2.loli.net/2024/10/13/3X85QsPvfcOj2hM.png"></a>
+  </div>
+  <div class="info">
+    
+<div class="meta">
+  <span class="item" title="创建时间：2024-10-13 20:26:00">
+    <span class="icon">
+      <i class="ic i-calendar"></i>
+    </span>
+    <time itemprop="dateCreated datePublished" datetime="2024-10-13T20:26:00+08:00">2024-10-13</time>
+  </span>
+  <span class="item" title="本文字数">
+    <span class="icon">
+      <i class="ic i-pen"></i>
+    </span>
+    <span>3.8k</span>
+    <span class="text">字</span>
+  </span>
+  <span class="item" title="阅读时长">
+    <span class="icon">
+      <i class="ic i-clock"></i>
+    </span>
+    <span>3 分钟</span>
+  </span>
+</div>
+
+    <h3><a href="/2024/10/2040406187.html" itemprop="url" title="Redis源码学习-Skiplist">Redis源码学习-Skiplist</a></h3>
+    <div class="excerpt">
+        跳跃表（skiplist）是一种随机化的数据， 由 William Pugh 在论文《Skip lists: a probabilistic alternative to balanced trees》中提出， 跳跃表以有序的方式在层次化的链表中保存元素， 效率和平衡树媲美 —— 查找、删除、添加等操作都可以在对数期望时间下完成， 并且比起平衡树来说， 跳跃表的实现要简单直观得多。
+
+# redis 中的 skiplist 结构
+/* ZSETs use a specialized version of Skiplists */
+typedef struct zskiplistNode...
+    </div>
+    <a href="/2024/10/2040406187.html" itemprop="url" title="Redis源码学习-Skiplist" class="btn">more...</a>
+  </div>
+</article>
+
+        
+<article class="item">
+  <div class="cover">
+    <a href="/2024/10/108095223.html" itemprop="url" title="Redis源码学习-Dict"><img data-src="https://s2.loli.net/2024/10/13/hsH7BXrkDLlfjyW.png"></a>
+  </div>
+  <div class="info">
+    
+<div class="meta">
+  <span class="item" title="创建时间：2024-10-13 20:25:00">
+    <span class="icon">
+      <i class="ic i-calendar"></i>
+    </span>
+    <time itemprop="dateCreated datePublished" datetime="2024-10-13T20:25:00+08:00">2024-10-13</time>
+  </span>
+  <span class="item" title="本文字数">
+    <span class="icon">
+      <i class="ic i-pen"></i>
+    </span>
+    <span>3.5k</span>
+    <span class="text">字</span>
+  </span>
+  <span class="item" title="阅读时长">
+    <span class="icon">
+      <i class="ic i-clock"></i>
+    </span>
+    <span>3 分钟</span>
+  </span>
+</div>
+
+    <h3><a href="/2024/10/108095223.html" itemprop="url" title="Redis源码学习-Dict">Redis源码学习-Dict</a></h3>
+    <div class="excerpt">
+        文章以 redis 5.0 版本的源码作为基础，高版本可能有所不同
+
+redis 中的 dict 其实与 java 中的 map 实现大差不差，都是基于哈希表实现，使用拉链法解决哈希冲突的问题，在达到装载因子预订值时自动扩展内存（重哈希）。
+# dict 的结构
+dict 总体结构图：
+
+typedef struct dict &amp;#123;
+dictType *type;
+void *privdata;
+dictht ht[2];
+long rehashidx; /* rehashing not in progress if rehashidx == -1 */
+unsigned...
+    </div>
+    <a href="/2024/10/108095223.html" itemprop="url" title="Redis源码学习-Dict" class="btn">more...</a>
+  </div>
+</article>
+
+        
+<article class="item">
+  <div class="cover">
+    <a href="/2024/10/3391040452.html" itemprop="url" title="Redis源码学习-Ziplist"><img data-src="https://s2.loli.net/2024/10/13/afoWh3p7szBujPK.png"></a>
+  </div>
+  <div class="info">
+    
+<div class="meta">
+  <span class="item" title="创建时间：2024-10-13 20:21:00">
+    <span class="icon">
+      <i class="ic i-calendar"></i>
+    </span>
+    <time itemprop="dateCreated datePublished" datetime="2024-10-13T20:21:00+08:00">2024-10-13</time>
+  </span>
+  <span class="item" title="本文字数">
+    <span class="icon">
+      <i class="ic i-pen"></i>
+    </span>
+    <span>3k</span>
+    <span class="text">字</span>
+  </span>
+  <span class="item" title="阅读时长">
+    <span class="icon">
+      <i class="ic i-clock"></i>
+    </span>
+    <span>3 分钟</span>
+  </span>
+</div>
+
+    <h3><a href="/2024/10/3391040452.html" itemprop="url" title="Redis源码学习-Ziplist">Redis源码学习-Ziplist</a></h3>
+    <div class="excerpt">
+        # 描述：
+redis 官方描述 (ziplist.c):
+ziplist 是一种特殊编码的双链表，设计上非常节省内存。它既能存储字符串，也能存储整数值，其中整数被编码为实际整数，而不是一系列字符。它允许以 O (1) 的时间在列表的两边进行推送和弹出操作。不过，由于每次操作都需要重新分配 ziplist 使用的内存，因此实际复杂度与 ziplist 使用的内存量有关。
+# Ziplist 的结构
+ziplist 的一般布局如下：
+&amp;lt;zlbytes&amp;gt; &amp;lt;zltail&amp;gt; &amp;lt;zllen&amp;gt;...
+    </div>
+    <a href="/2024/10/3391040452.html" itemprop="url" title="Redis源码学习-Ziplist" class="btn">more...</a>
+  </div>
+</article>
+
         
 <article class="item">
   <div class="cover">
@@ -218,7 +430,7 @@ TGC，TGT，ST 之类的概念就不说了，网上一搜一大堆，简单来�
         
 <article class="item">
   <div class="cover">
-    <a href="/2022/11/5457.html" itemprop="url" title="HttpServletRequest的几种获取方式"><img data-src="https://s2.loli.net/2024/10/13/uyhMVC8iFk7L3oq.png"></a>
+    <a href="/2022/11/5457.html" itemprop="url" title="HttpServletRequest的几种获取方式"><img data-src="https://s2.loli.net/2024/10/13/5HIfmpctuZF3iGQ.png"></a>
   </div>
   <div class="info">
     
@@ -348,267 +560,6 @@ public class LazySingleton &amp;#123; private static SingletonObject singletonOb
   </div>
 </article>
 
-        
-<article class="item">
-  <div class="cover">
-    <a href="/2022/09/13394.html" itemprop="url" title="CTFd+CTFd-Whale部署实践"><img data-src="https://s2.loli.net/2024/10/13/DLBIpjvV6EhecJb.png"></a>
-  </div>
-  <div class="info">
-    
-<div class="meta">
-  <span class="item" title="创建时间：2022-09-04 21:42:19">
-    <span class="icon">
-      <i class="ic i-calendar"></i>
-    </span>
-    <time itemprop="dateCreated datePublished" datetime="2022-09-04T21:42:19+08:00">2022-09-04</time>
-  </span>
-  <span class="item" title="本文字数">
-    <span class="icon">
-      <i class="ic i-pen"></i>
-    </span>
-    <span>6.1k</span>
-    <span class="text">字</span>
-  </span>
-  <span class="item" title="阅读时长">
-    <span class="icon">
-      <i class="ic i-clock"></i>
-    </span>
-    <span>6 分钟</span>
-  </span>
-</div>
-
-    <h3><a href="/2022/09/13394.html" itemprop="url" title="CTFd+CTFd-Whale部署实践">CTFd+CTFd-Whale部署实践</a></h3>
-    <div class="excerpt">
-        #CTF
-# 引言
-放暑假了，想着搭建一个 ctf 靶场训练下新生，但遇到的问题比我想象中的多得多。。。写个 blog 记录一下。
-# 参考文章
-
-ctfd 使用 ctfd-whale 动态靶机插件搭建靶场指南
-
-手把手教你如何建立一个支持 ctf 动态独立靶机的靶场（ctfd+ctfd-whale）
-
-CTFd-Whale 推荐部署实践
-
-三篇文章所使用的方法基本上差不多，但是部署的 ctfd 版本和插件版本不尽相同，第一篇文章中使用的是 frankli0324 师傅修改后的 ctfd-whale，但是部署上之后测试发现，renew...
-    </div>
-    <div class="meta footer">
-      <span>
-        <a href="/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/" itemprop="url" title="网络安全"><i class="ic i-flag"></i>网络安全</a>
-      </span>
-    </div>
-    <a href="/2022/09/13394.html" itemprop="url" title="CTFd+CTFd-Whale部署实践" class="btn">more...</a>
-  </div>
-</article>
-
-        
-<article class="item">
-  <div class="cover">
-    <a href="/2022/05/11560.html" itemprop="url" title="Terminal安装+美化"><img data-src="https://s2.loli.net/2024/10/13/PyzRCs6iEVNBw1S.png"></a>
-  </div>
-  <div class="info">
-    
-<div class="meta">
-  <span class="item" title="创建时间：2022-05-25 15:48:26">
-    <span class="icon">
-      <i class="ic i-calendar"></i>
-    </span>
-    <time itemprop="dateCreated datePublished" datetime="2022-05-25T15:48:26+08:00">2022-05-25</time>
-  </span>
-  <span class="item" title="本文字数">
-    <span class="icon">
-      <i class="ic i-pen"></i>
-    </span>
-    <span>4.5k</span>
-    <span class="text">字</span>
-  </span>
-  <span class="item" title="阅读时长">
-    <span class="icon">
-      <i class="ic i-clock"></i>
-    </span>
-    <span>4 分钟</span>
-  </span>
-</div>
-
-    <h3><a href="/2022/05/11560.html" itemprop="url" title="Terminal安装+美化">Terminal安装+美化</a></h3>
-    <div class="excerpt">
-        #Terminal
-# 前言
-Powershell 这体验着实是不行，乱码，颜色无法显示。是时候该换 Windows Terminal 了
-# 安装
-# Github 安装
-下载页面 Github，下载下来安装就可以了，值得注意的是，如果从 GitHub 安装，终端将不会自动更新为新版本。
-# Microsoft Store 安装（推荐）
-直接在开始菜单中打开 Microsoft Store，搜索 Windows Terminal，安装即可
-# 美化
-虽然刚安装好的 Terminal 看起来还可以，不过还是不够美观，继续优化
-# Powerline
-Powerline...
-    </div>
-    <div class="meta footer">
-      <span>
-        <a href="/categories/%E6%9D%82%E8%AE%B0/" itemprop="url" title="杂记"><i class="ic i-flag"></i>杂记</a>
-      </span>
-    </div>
-    <a href="/2022/05/11560.html" itemprop="url" title="Terminal安装+美化" class="btn">more...</a>
-  </div>
-</article>
-
-        
-<article class="item">
-  <div class="cover">
-    <a href="/2021/05/36347.html" itemprop="url" title="运行CMD提示[已退出进程，代码为 1]解决方案"><img data-src="https://s2.loli.net/2024/10/13/uyhMVC8iFk7L3oq.png"></a>
-  </div>
-  <div class="info">
-    
-<div class="meta">
-  <span class="item" title="创建时间：2021-05-27 10:25:33">
-    <span class="icon">
-      <i class="ic i-calendar"></i>
-    </span>
-    <time itemprop="dateCreated datePublished" datetime="2021-05-27T10:25:33+08:00">2021-05-27</time>
-  </span>
-  <span class="item" title="本文字数">
-    <span class="icon">
-      <i class="ic i-pen"></i>
-    </span>
-    <span>547</span>
-    <span class="text">字</span>
-  </span>
-  <span class="item" title="阅读时长">
-    <span class="icon">
-      <i class="ic i-clock"></i>
-    </span>
-    <span>1 分钟</span>
-  </span>
-</div>
-
-    <h3><a href="/2021/05/36347.html" itemprop="url" title="运行CMD提示[已退出进程，代码为 1]解决方案">运行CMD提示[已退出进程，代码为 1]解决方案</a></h3>
-    <div class="excerpt">
-        今天准备使用 npm 时遇到了这个问题，npm install 没有反应，npm 也没反应，但是 nvm 确确实实是有安装好 nodejs 的。
-然后一步步找，突然看到 windows 下的 npm 命令是调用 npm.cmd
-
-接着就试着直接运行，发现一个黑框一闪而过。
-然后再尝试打开 cmd，也是一个黑框一闪而过，感觉问题应该就是出在这。
-使用 windows terminal 打开 cmd，结果就出现了
-
-网上搜索到的注册表，gpedit，全都没有效果，后来直接去 stackoverflow...
-    </div>
-    <div class="meta footer">
-      <span>
-        <a href="/categories/%E6%9D%82%E8%AE%B0/" itemprop="url" title="杂记"><i class="ic i-flag"></i>杂记</a>
-      </span>
-    </div>
-    <a href="/2021/05/36347.html" itemprop="url" title="运行CMD提示[已退出进程，代码为 1]解决方案" class="btn">more...</a>
-  </div>
-</article>
-
-        
-<article class="item">
-  <div class="cover">
-    <a href="/2021/03/8759.html" itemprop="url" title="Hexo图片显示失败"><img data-src="https://s2.loli.net/2024/10/13/uyhMVC8iFk7L3oq.png"></a>
-  </div>
-  <div class="info">
-    
-<div class="meta">
-  <span class="item" title="创建时间：2021-03-28 00:09:09">
-    <span class="icon">
-      <i class="ic i-calendar"></i>
-    </span>
-    <time itemprop="dateCreated datePublished" datetime="2021-03-28T00:09:09+08:00">2021-03-28</time>
-  </span>
-  <span class="item" title="本文字数">
-    <span class="icon">
-      <i class="ic i-pen"></i>
-    </span>
-    <span>3k</span>
-    <span class="text">字</span>
-  </span>
-  <span class="item" title="阅读时长">
-    <span class="icon">
-      <i class="ic i-clock"></i>
-    </span>
-    <span>3 分钟</span>
-  </span>
-</div>
-
-    <h3><a href="/2021/03/8759.html" itemprop="url" title="Hexo图片显示失败">Hexo图片显示失败</a></h3>
-    <div class="excerpt">
-        #Hexo
-# Part 1
-今天提交文章的时候，上去博客看了一眼，发现图片全都显示不出来，
-看了下图片 url，全都是
-file://image/123.jpg
-这种形式的。
-因为我使用的 typora 来写 markdown，自动插入图片默认的是本地路径，去设置里更改为使用相对路径即可
-# part 2
-原本以为大功告成，结果发现还是显示错误，去网上查了下，有些插件没有装，_config.yml 里的选项也没有开。。。
-安装 hexo-asset-image
-npm install https://github.com/CodeFalling/hexo-asset-image...
-    </div>
-    <div class="meta footer">
-      <span>
-        <a href="/categories/%E6%9D%82%E8%AE%B0/" itemprop="url" title="杂记"><i class="ic i-flag"></i>杂记</a>
-      </span>
-    </div>
-    <a href="/2021/03/8759.html" itemprop="url" title="Hexo图片显示失败" class="btn">more...</a>
-  </div>
-</article>
-
-        
-<article class="item">
-  <div class="cover">
-    <a href="/2020/12/21012.html" itemprop="url" title="Pwnable题解"><img data-src="https://s2.loli.net/2024/10/13/aY56HT3qxpjlwsZ.png"></a>
-  </div>
-  <div class="info">
-    
-<div class="meta">
-  <span class="item" title="创建时间：2020-12-23 11:11:41">
-    <span class="icon">
-      <i class="ic i-calendar"></i>
-    </span>
-    <time itemprop="dateCreated datePublished" datetime="2020-12-23T11:11:41+08:00">2020-12-23</time>
-  </span>
-  <span class="item" title="本文字数">
-    <span class="icon">
-      <i class="ic i-pen"></i>
-    </span>
-    <span>35k</span>
-    <span class="text">字</span>
-  </span>
-  <span class="item" title="阅读时长">
-    <span class="icon">
-      <i class="ic i-clock"></i>
-    </span>
-    <span>32 分钟</span>
-  </span>
-</div>
-
-    <h3><a href="/2020/12/21012.html" itemprop="url" title="Pwnable题解">Pwnable题解</a></h3>
-    <div class="excerpt">
-        #CTF #PWN
-# Toddler&#39;s Bottle
-# fd
-# 题目描述
-Mommy! what is a file descriptor in Linux?
-
-try to play the wargame your self but if you are ABSOLUTE beginner, follow this tutorial link:
-https://youtu.be/971eZhMHQQw
-
-ssh fd@pwnable.kr -p2222 (pw:guest)
-# 题目解析
-先了解下 fd 是什么东西
-fd (file...
-    </div>
-    <div class="meta footer">
-      <span>
-        <a href="/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/" itemprop="url" title="网络安全"><i class="ic i-flag"></i>网络安全</a>
-      </span>
-    </div>
-    <a href="/2020/12/21012.html" itemprop="url" title="Pwnable题解" class="btn">more...</a>
-  </div>
-</article>
-
     </div>
 
   </div>
@@ -644,7 +595,7 @@ fd (file...
 <nav class="state">
     <div class="item posts">
       <a href="/archives/">
-        <span class="count">15</span>
+        <span class="count">20</span>
         <span class="name">文章</span>
       </a>
     </div>
@@ -656,7 +607,7 @@ fd (file...
     </div>
     <div class="item tags">
       <a href="/tags/">
-        <span class="count">17</span>
+        <span class="count">18</span>
         <span class="name">标签</span>
       </a>
     </div>
@@ -717,70 +668,48 @@ fd (file...
   <li class="item">
     
 <div class="breadcrumb">
-<a href="/categories/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/" title="分类于 后端开发">后端开发</a>
-</div>
-
-    <span><a href="/2022/11/13493.html" title="SSM框架整合过程以及加载原理的思考">SSM框架整合过程以及加载原理的思考</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/%E6%9D%82%E8%AE%B0/" title="分类于 杂记">杂记</a>
-</div>
-
-    <span><a href="/2020/10/33250.html" title="Python校园网登录">Python校园网登录</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/" title="分类于 网络安全">网络安全</a>
-</div>
-
-    <span><a href="/2020/12/5062.html" title="VScode+XDebug远程调试ThinkPHP RCE">VScode+XDebug远程调试ThinkPHP RCE</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/%E6%9D%82%E8%AE%B0/" title="分类于 杂记">杂记</a>
-</div>
-
-    <span><a href="/2021/03/8759.html" title="Hexo图片显示失败">Hexo图片显示失败</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/" title="分类于 网络安全">网络安全</a>
-</div>
-
-    <span><a href="/2022/09/13394.html" title="CTFd+CTFd-Whale部署实践">CTFd+CTFd-Whale部署实践</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/" title="分类于 网络安全">网络安全</a>
-</div>
-
-    <span><a href="/2020/12/21012.html" title="Pwnable题解">Pwnable题解</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
 <a href="/categories/%E6%9D%82%E8%AE%B0/" title="分类于 杂记">杂记</a>
 </div>
 
     <span><a href="/2021/05/36347.html" title="运行CMD提示[已退出进程，代码为 1]解决方案">运行CMD提示[已退出进程，代码为 1]解决方案</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E6%9D%82%E8%AE%B0/" title="分类于 杂记">杂记</a>
+</div>
+
+    <span><a href="/2020/10/58699.html" title="Pycharm+VMware搭建Linux下开发环境">Pycharm+VMware搭建Linux下开发环境</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2024/10/3391040452.html" title="Redis源码学习-Ziplist">Redis源码学习-Ziplist</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/" title="分类于 后端开发">后端开发</a>
+</div>
+
+    <span><a href="/2022/11/61375.html" title="详解设计模式系列-单例模式">详解设计模式系列-单例模式</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2024/10/813972997.html" title="Redis源码学习-intset">Redis源码学习-intset</a></span>
   </li>
 
       
@@ -800,7 +729,16 @@ fd (file...
 <a href="/categories/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/" title="分类于 后端开发">后端开发</a>
 </div>
 
-    <span><a href="/2022/12/20899.html" title="一次由于服务器时间异常引起的服务报错问题排查">一次由于服务器时间异常引起的服务报错问题排查</a></span>
+    <span><a href="/2022/11/5457.html" title="HttpServletRequest的几种获取方式">HttpServletRequest的几种获取方式</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2024/10/108095223.html" title="Redis源码学习-Dict">Redis源码学习-Dict</a></span>
   </li>
 
       
@@ -811,6 +749,16 @@ fd (file...
 </div>
 
     <span><a href="/2022/11/10656.html" title="Vue+SpringBoot+Cas 前后端分离方式对接CAS">Vue+SpringBoot+Cas 前后端分离方式对接CAS</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/" title="分类于 网络安全">网络安全</a>
+</div>
+
+    <span><a href="/2020/10/7981.html" title="ISCC一日游">ISCC一日游</a></span>
   </li>
 
   </ul>
@@ -835,13 +783,13 @@ fd (file...
     <span class="post-meta-item-icon">
       <i class="ic i-chart-area"></i>
     </span>
-    <span title="站点总字数">93k 字</span>
+    <span title="站点总字数">108k 字</span>
 
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="ic i-coffee"></i>
     </span>
-    <span title="站点阅读时长">1:25</span>
+    <span title="站点阅读时长">1:38</span>
   </div>
   <div class="powered-by">
     基于 <span class="exturl" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> & Theme.<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2FtZWhpbWUvaGV4by10aGVtZS1zaG9rYQ==">Shoka</span>

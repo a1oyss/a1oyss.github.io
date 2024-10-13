@@ -8,13 +8,688 @@
     <author>
       <name>a1oyss</name>
     </author>
-    <updated>2022-12-19T13:45:26.000Z</updated>
+    <updated>2024-10-13T12:27:00.000Z</updated>
     <category term="Java" />
     <category term="Spring Boot" />
     <category term="Vue" />
     <category term="Redis" />
     <category term="MySQL" />
     <category term="Kafka" />
+    <entry>
+        <id>https://a1oyss.github.io/2024/10/3609413537.html</id>
+        <title>Redis源码学习-SDS</title>
+        <link rel="alternate" href="https://a1oyss.github.io/2024/10/3609413537.html"/>
+        <content type="html">&lt;p&gt;待续&lt;/p&gt;
+</content>
+        <category term="源码分析" scheme="https://a1oyss.github.io/tags/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/" />
+        <category term="Redis" scheme="https://a1oyss.github.io/tags/Redis/" />
+        <updated>2024-10-13T12:27:00.000Z</updated>
+    </entry>
+    <entry>
+        <id>https://a1oyss.github.io/2024/10/813972997.html</id>
+        <title>Redis源码学习-intset</title>
+        <link rel="alternate" href="https://a1oyss.github.io/2024/10/813972997.html"/>
+        <content type="html">&lt;p&gt;顾名思义，整数集合，Set 的底层数据结构实现之一，另外一种实现是 hashtable。&lt;/p&gt;
+&lt;p&gt;实际上 intset 是一个有序数组，通过二分查找快速判断一个元素是否属于这个集合，但是为了保证有序性，插入的时候也会先二分查找找到对应的插入位置，将插入位置之后的元素统一向后移动一个位置，redis 使用了该结构来降低内存使用率，时间换空间。&lt;/p&gt;
+&lt;h2 id=&#34;intset的结构&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#intset的结构&#34;&gt;#&lt;/a&gt; intset 的结构&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;typedef struct intset &amp;#123;
+    uint32_t encoding;
+    uint32_t length;
+    int8_t contents[];
+&amp;#125; intset;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;encoding：数据编码，表示 intset 中的每个数据元素用几个字节存储，有三种可能的取值:&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;INTSET_ENC_INT16：16 位整数，表示每个元素用 2 个字节存储&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;INTSET_ENC_INT32：32 位整数，表示每个元素用 4 个字节存储&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;INTSET_ENC_INT64：64 位整数，表示每个元素用 8 个字节存储&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;length：表示 intset 中的元素数量&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;contents：柔性数组，存储具体的数据，长度 = encoding * length&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;随着数据的增加，encoding 可能会改变：&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;https://cdn.nlark.com/yuque/0/2024/png/2658344/1726023017324-4d05f718-1d43-4b52-8b92-217b9b550661.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;如上图，新创建的 intset 只有 encoding 和 length，encoding 默认值是 INTSET_ENC_INT16，添加 13 和 5 之后，length 变成 02。但是继续添加 32768，10，100000 时，encoding 就从 INTSET_ENC_INT16 变为了 INTSET_ENC_INT32，这是因为 INTSET_ENC_INT16 的最大长度为 - 215~215-1，32768 超出了返回，所以升级到 INTSET_ENC_INT32。&lt;/p&gt;
+&lt;h2 id=&#34;intset的查找与新增&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#intset的查找与新增&#34;&gt;#&lt;/a&gt; intset 的查找与新增&lt;/h2&gt;
+&lt;h3 id=&#34;查找元素&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#查找元素&#34;&gt;#&lt;/a&gt; 查找元素&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;/* Determine whether a value belongs to this set */
+uint8_t intsetFind(intset *is, int64_t value) &amp;#123;
+    uint8_t valenc = _intsetValueEncoding(value);
+    return valenc &amp;lt;= intrev32ifbe(is-&amp;gt;encoding) &amp;amp;&amp;amp; intsetSearch(is,value,NULL);
+&amp;#125;
+
+/* Search for the position of &amp;quot;value&amp;quot;. Return 1 when the value was found and
+ * sets &amp;quot;pos&amp;quot; to the position of the value within the intset. Return 0 when
+ * the value is not present in the intset and sets &amp;quot;pos&amp;quot; to the position
+ * where &amp;quot;value&amp;quot; can be inserted. */
+static uint8_t intsetSearch(intset *is, int64_t value, uint32_t *pos) &amp;#123;
+    int min = 0, max = intrev32ifbe(is-&amp;gt;length)-1, mid = -1;
+    int64_t cur = -1;
+
+    /* The value can never be found when the set is empty */
+    if (intrev32ifbe(is-&amp;gt;length) == 0) &amp;#123;
+        if (pos) *pos = 0;
+        return 0;
+    &amp;#125; else &amp;#123;
+        /* Check for the case where we know we cannot find the value,
+         * but do know the insert position. */
+        if (value &amp;gt; _intsetGet(is,max)) &amp;#123;
+            if (pos) *pos = intrev32ifbe(is-&amp;gt;length);
+            return 0;
+        &amp;#125; else if (value &amp;lt; _intsetGet(is,0)) &amp;#123;
+            if (pos) *pos = 0;
+            return 0;
+        &amp;#125;
+    &amp;#125;
+
+    while(max &amp;gt;= min) &amp;#123;
+        mid = ((unsigned int)min + (unsigned int)max) &amp;gt;&amp;gt; 1;
+        cur = _intsetGet(is,mid);
+        if (value &amp;gt; cur) &amp;#123;
+            min = mid+1;
+        &amp;#125; else if (value &amp;lt; cur) &amp;#123;
+            max = mid-1;
+        &amp;#125; else &amp;#123;
+            break;
+        &amp;#125;
+    &amp;#125;
+
+    if (value == cur) &amp;#123;
+        if (pos) *pos = mid;
+        return 1;
+    &amp;#125; else &amp;#123;
+        if (pos) *pos = min;
+        return 0;
+    &amp;#125;
+&amp;#125;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;intsetFind 在指定的 intset 中查找 value，找到返回 1，否则返回 0。&lt;/p&gt;
+&lt;p&gt;首先使用_intsetValueEncoding 判断 value 的 encoding，如果要搜索的 value 的 encoding 小于当前的 encoding，那元素肯定不存在。&lt;/p&gt;
+&lt;p&gt;encoding 符合当前 intset，则调用 intsetSearch，该方法是二分查找算法的实现，查到元素时，返回元素位置，&lt;strong&gt;没查到元素时，会将 pos 设置为 min，这是为了之后的插入做准备。&lt;/strong&gt;&lt;/p&gt;
+&lt;h3 id=&#34;插入元素&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#插入元素&#34;&gt;#&lt;/a&gt; 插入元素&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;/* Insert an integer in the intset */
+intset *intsetAdd(intset *is, int64_t value, uint8_t *success) &amp;#123;
+    uint8_t valenc = _intsetValueEncoding(value);
+    uint32_t pos;
+    if (success) *success = 1;
+
+    /* Upgrade encoding if necessary. If we need to upgrade, we know that
+     * this value should be either appended (if &amp;gt; 0) or prepended (if &amp;lt; 0),
+     * because it lies outside the range of existing values. */
+    if (valenc &amp;gt; intrev32ifbe(is-&amp;gt;encoding)) &amp;#123;
+        /* This always succeeds, so we don&#39;t need to curry *success. */
+        return intsetUpgradeAndAdd(is,value);
+    &amp;#125; else &amp;#123;
+        /* Abort if the value is already present in the set.
+         * This call will populate &amp;quot;pos&amp;quot; with the right position to insert
+         * the value when it cannot be found. */
+        if (intsetSearch(is,value,&amp;amp;pos)) &amp;#123;
+            if (success) *success = 0;
+            return is;
+        &amp;#125;
+
+        is = intsetResize(is,intrev32ifbe(is-&amp;gt;length)+1);
+        if (pos &amp;lt; intrev32ifbe(is-&amp;gt;length)) intsetMoveTail(is,pos,pos+1);
+    &amp;#125;
+
+    _intsetSet(is,pos,value);
+    is-&amp;gt;length = intrev32ifbe(intrev32ifbe(is-&amp;gt;length)+1);
+    return is;
+&amp;#125;
+
+
+/* Upgrades the intset to a larger encoding and inserts the given integer. */
+static intset *intsetUpgradeAndAdd(intset *is, int64_t value) &amp;#123;
+    uint8_t curenc = intrev32ifbe(is-&amp;gt;encoding);
+    uint8_t newenc = _intsetValueEncoding(value);
+    int length = intrev32ifbe(is-&amp;gt;length);
+    int prepend = value &amp;lt; 0 ? 1 : 0;
+
+    /* First set new encoding and resize */
+    is-&amp;gt;encoding = intrev32ifbe(newenc);
+    is = intsetResize(is,intrev32ifbe(is-&amp;gt;length)+1);
+
+    /* Upgrade back-to-front so we don&#39;t overwrite values.
+     * Note that the &amp;quot;prepend&amp;quot; variable is used to make sure we have an empty
+     * space at either the beginning or the end of the intset. */
+    while(length--)
+        _intsetSet(is,length+prepend,_intsetGetEncoded(is,length,curenc));
+
+    /* Set the value at the beginning or the end. */
+    if (prepend)
+        _intsetSet(is,0,value);
+    else
+        _intsetSet(is,intrev32ifbe(is-&amp;gt;length),value);
+    is-&amp;gt;length = intrev32ifbe(intrev32ifbe(is-&amp;gt;length)+1);
+    return is;
+&amp;#125;
+
+/* Resize the intset */
+static intset *intsetResize(intset *is, uint32_t len) &amp;#123;
+    uint64_t size = (uint64_t)len*intrev32ifbe(is-&amp;gt;encoding);
+    assert(size &amp;lt;= SIZE_MAX - sizeof(intset));
+    is = zrealloc(is,sizeof(intset)+size);
+    return is;
+&amp;#125;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;依旧是先判断插入的 value 的 encoding，如果大于当前 intset 的 encoding，则调用 intsetUpgradeAndAdd 对 encoding 进行升级。&lt;/p&gt;
+&lt;p&gt;如果不需要扩容，就调用 intsetSearch 查找是否已经存在，如果能查到，就直接返回，不添加 value。&lt;/p&gt;
+&lt;p&gt;如果没查到，调用 intsetResize 扩容，同时调用 intsetMoveTail 将待插入位置后面的元素统一向后移动 1 个位置。&lt;/p&gt;
+&lt;p&gt;显然插入元素的时间复杂度为 O (n)。&lt;/p&gt;
+</content>
+        <category term="源码分析" scheme="https://a1oyss.github.io/tags/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/" />
+        <category term="Redis" scheme="https://a1oyss.github.io/tags/Redis/" />
+        <updated>2024-10-13T12:27:00.000Z</updated>
+    </entry>
+    <entry>
+        <id>https://a1oyss.github.io/2024/10/2040406187.html</id>
+        <title>Redis源码学习-Skiplist</title>
+        <link rel="alternate" href="https://a1oyss.github.io/2024/10/2040406187.html"/>
+        <content type="html">&lt;p&gt;跳跃表（&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cDovL2VuLndpa2lwZWRpYS5vcmcvd2lraS9Ta2lwX2xpc3Q=&#34;&gt;skiplist&lt;/span&gt;）是一种随机化的数据， 由 William Pugh 在论文&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cDovL3d3dy5jbC5jYW0uYWMudWsvdGVhY2hpbmcvMDUwNi9BbGdvcml0aG1zL3NraXBsaXN0cy5wZGY=&#34;&gt;《Skip lists: a probabilistic alternative to balanced trees》&lt;/span&gt;中提出， 跳跃表以有序的方式在层次化的链表中保存元素， 效率和平衡树媲美 —— 查找、删除、添加等操作都可以在对数期望时间下完成， 并且比起平衡树来说， 跳跃表的实现要简单直观得多。&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;https://cdn.nlark.com/yuque/0/2024/webp/2658344/1725587087082-6d876ae8-eccf-4cee-945c-a535e8c4b545.webp&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;h2 id=&#34;redis中的skiplist结构&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#redis中的skiplist结构&#34;&gt;#&lt;/a&gt; redis 中的 skiplist 结构&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;/* ZSETs use a specialized version of Skiplists */
+typedef struct zskiplistNode &amp;#123;
+    sds ele;
+    double score;
+    struct zskiplistNode *backward;
+    struct zskiplistLevel &amp;#123;
+        struct zskiplistNode *forward;
+        unsigned long span;
+    &amp;#125; level[];
+&amp;#125; zskiplistNode;
+
+typedef struct zskiplist &amp;#123;
+    struct zskiplistNode *header, *tail;
+    unsigned long length;
+    int level;
+&amp;#125; zskiplist;
+
+typedef struct zset &amp;#123;
+    dict *dict;
+    zskiplist *zsl;
+&amp;#125; zset;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;NOTE&lt;/strong&gt;: 可以看到 zset 不止有 skiplist，还包含了一个 dict 结构，这是为了 ZSCORE 等命令可以以 o (1) 的时间复杂度返回指定的成员。&lt;/p&gt;
+&lt;p&gt;zskiplistNode：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;ele：保存数据&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;score：权重值&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;backward：指向链表前一个节点的指针，不在 level 数组中，只有第一层会用到。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;level&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;forward：指向链表后一个节点的指针&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;span：保存当前节点跨越了多少个节点&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;zskiplist：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;head，tail：头指针和尾指针&lt;/li&gt;
+&lt;li&gt;length：链表长度&lt;/li&gt;
+&lt;li&gt;level：总层数&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;skiplist插入数据&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#skiplist插入数据&#34;&gt;#&lt;/a&gt; skiplist 插入数据&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;/* Insert a new node in the skiplist. Assumes the element does not already
+ * exist (up to the caller to enforce that). The skiplist takes ownership
+ * of the passed SDS string &#39;ele&#39;. */
+zskiplistNode *zslInsert(zskiplist *zsl, double score, sds ele) &amp;#123;
+    zskiplistNode *update[ZSKIPLIST_MAXLEVEL], *x;
+    unsigned int rank[ZSKIPLIST_MAXLEVEL];
+    int i, level;
+
+    serverAssert(!isnan(score));
+    x = zsl-&amp;gt;header;
+    for (i = zsl-&amp;gt;level-1; i &amp;gt;= 0; i--) &amp;#123;
+        /* store rank that is crossed to reach the insert position */
+        rank[i] = i == (zsl-&amp;gt;level-1) ? 0 : rank[i+1];
+        while (x-&amp;gt;level[i].forward &amp;amp;&amp;amp;
+                (x-&amp;gt;level[i].forward-&amp;gt;score &amp;lt; score ||
+                    (x-&amp;gt;level[i].forward-&amp;gt;score == score &amp;amp;&amp;amp;
+                    sdscmp(x-&amp;gt;level[i].forward-&amp;gt;ele,ele) &amp;lt; 0)))
+        &amp;#123;
+            rank[i] += x-&amp;gt;level[i].span;
+            x = x-&amp;gt;level[i].forward;
+        &amp;#125;
+        update[i] = x;
+    &amp;#125;
+    /* we assume the element is not already inside, since we allow duplicated
+     * scores, reinserting the same element should never happen since the
+     * caller of zslInsert() should test in the hash table if the element is
+     * already inside or not. */
+    level = zslRandomLevel();
+    if (level &amp;gt; zsl-&amp;gt;level) &amp;#123;
+        for (i = zsl-&amp;gt;level; i &amp;lt; level; i++) &amp;#123;
+            rank[i] = 0;
+            update[i] = zsl-&amp;gt;header;
+            update[i]-&amp;gt;level[i].span = zsl-&amp;gt;length;
+        &amp;#125;
+        zsl-&amp;gt;level = level;
+    &amp;#125;
+    x = zslCreateNode(level,score,ele);
+    for (i = 0; i &amp;lt; level; i++) &amp;#123;
+        x-&amp;gt;level[i].forward = update[i]-&amp;gt;level[i].forward;
+        update[i]-&amp;gt;level[i].forward = x;
+
+        /* update span covered by update[i] as x is inserted here */
+        x-&amp;gt;level[i].span = update[i]-&amp;gt;level[i].span - (rank[0] - rank[i]);
+        update[i]-&amp;gt;level[i].span = (rank[0] - rank[i]) + 1;
+    &amp;#125;
+
+    /* increment span for untouched levels */
+    for (i = level; i &amp;lt; zsl-&amp;gt;level; i++) &amp;#123;
+        update[i]-&amp;gt;level[i].span++;
+    &amp;#125;
+
+    x-&amp;gt;backward = (update[0] == zsl-&amp;gt;header) ? NULL : update[0];
+    if (x-&amp;gt;level[0].forward)
+        x-&amp;gt;level[0].forward-&amp;gt;backward = x;
+    else
+        zsl-&amp;gt;tail = x;
+    zsl-&amp;gt;length++;
+    return x;
+&amp;#125;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;这里面比较复杂的点在于 span 的操作，其实去掉 span 就是很简单的链表操作，为了便于理解，这里把 backward 的操作和 span 的操作都删掉：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;zskiplistNode *zslInsert(zskiplist *zsl, double score, sds ele) &amp;#123;
+    zskiplistNode *update[ZSKIPLIST_MAXLEVEL], *x;
+    int i, level;
+
+    serverAssert(!isnan(score));
+    x = zsl-&amp;gt;header;
+    for (i = zsl-&amp;gt;level-1; i &amp;gt;= 0; i--) &amp;#123;
+        while (x-&amp;gt;level[i].forward &amp;amp;&amp;amp;
+                (x-&amp;gt;level[i].forward-&amp;gt;score &amp;lt; score ||
+                    (x-&amp;gt;level[i].forward-&amp;gt;score == score &amp;amp;&amp;amp;
+                    sdscmp(x-&amp;gt;level[i].forward-&amp;gt;ele,ele) &amp;lt; 0)))
+        &amp;#123;
+            x = x-&amp;gt;level[i].forward;
+        &amp;#125;
+        update[i] = x;
+    &amp;#125;
+
+    level = zslRandomLevel();
+    if (level &amp;gt; zsl-&amp;gt;level) &amp;#123;
+        for (i = zsl-&amp;gt;level; i &amp;lt; level; i++) &amp;#123;
+            update[i] = zsl-&amp;gt;header;
+        &amp;#125;
+        zsl-&amp;gt;level = level;
+    &amp;#125;
+    x = zslCreateNode(level,score,ele);
+    for (i = 0; i &amp;lt; level; i++) &amp;#123;
+        x-&amp;gt;level[i].forward = update[i]-&amp;gt;level[i].forward;
+        update[i]-&amp;gt;level[i].forward = x;
+    &amp;#125;
+
+    zsl-&amp;gt;length++;
+    return x;
+&amp;#125;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;ol&gt;
+&lt;li&gt;声明用到的变量&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre&gt;&lt;code&gt;    zskiplistNode *update[ZSKIPLIST_MAXLEVEL], *x;
+    int i, level;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;ol start=&#34;2&#34;&gt;
+&lt;li&gt;计算插入点的位置&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre&gt;&lt;code&gt;    for (i = zsl-&amp;gt;level-1; i &amp;gt;= 0; i--) &amp;#123;
+        while (x-&amp;gt;level[i].forward &amp;amp;&amp;amp;
+                (x-&amp;gt;level[i].forward-&amp;gt;score &amp;lt; score ||
+                    (x-&amp;gt;level[i].forward-&amp;gt;score == score &amp;amp;&amp;amp;
+                    sdscmp(x-&amp;gt;level[i].forward-&amp;gt;ele,ele) &amp;lt; 0)))
+        &amp;#123;
+            x = x-&amp;gt;level[i].forward;
+        &amp;#125;
+        update[i] = x;
+    &amp;#125;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;外层循环控制层级，从高到低；内层循环控制链表遍历，从左往右。&lt;/p&gt;
+</content>
+        <category term="源码分析" scheme="https://a1oyss.github.io/tags/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/" />
+        <category term="Redis" scheme="https://a1oyss.github.io/tags/Redis/" />
+        <updated>2024-10-13T12:26:00.000Z</updated>
+    </entry>
+    <entry>
+        <id>https://a1oyss.github.io/2024/10/108095223.html</id>
+        <title>Redis源码学习-Dict</title>
+        <link rel="alternate" href="https://a1oyss.github.io/2024/10/108095223.html"/>
+        <content type="html">&lt;blockquote&gt;
+&lt;p&gt;文章以 redis 5.0 版本的源码作为基础，高版本可能有所不同&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;redis 中的 dict 其实与 java 中的 map 实现大差不差，都是基于哈希表实现，使用拉链法解决哈希冲突的问题，在达到装载因子预订值时自动扩展内存（重哈希）。&lt;/p&gt;
+&lt;h2 id=&#34;dict的结构&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#dict的结构&#34;&gt;#&lt;/a&gt; dict 的结构&lt;/h2&gt;
+&lt;p&gt;dict 总体结构图：&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;https://cdn.nlark.com/yuque/0/2024/png/2658344/1725503005537-eb2957c3-d09e-4452-b8e6-4b8ee313f742.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;typedef struct dict &amp;#123;
+    dictType *type;
+    void *privdata;
+    dictht ht[2];
+    long rehashidx; /* rehashing not in progress if rehashidx == -1 */
+    unsigned long iterators; /* number of iterators currently running */
+&amp;#125; dict;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;dictType *type&lt;/code&gt; ：定义了一些内部会使用到的方法，例如 hash 函数，key 比较函数，其实就类似于 java 的接口。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;void *privdata&lt;/code&gt; ：保存了需要传给特定键值对函数的可选参数&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;dictht ht[2]&lt;/code&gt; ：hash 表，之所以有两个 hash 表，主要是用来进行 rehash。在没有 rehash 的时候，ht [1] 大小为 0；在 rehash 的时候，为 ht [1] 分配空间，将 ht [0] 中的 entry 迁移至 ht [1]。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;long rehashidx&lt;/code&gt; ：记录 rehash 过程中 ht [0] 进行到了哪一个 bucket，没有 rehash 的情况下固定为 - 1&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;unsigned long iterators&lt;/code&gt; ：外界当前迭代该 Dict 迭代器的个数&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;dicttype&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#dicttype&#34;&gt;#&lt;/a&gt; dictType&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;typedef struct dictType &amp;#123;
+    uint64_t (*hashFunction)(const void *key);
+    void *(*keyDup)(void *privdata, const void *key);
+    void *(*valDup)(void *privdata, const void *obj);
+    int (*keyCompare)(void *privdata, const void *key1, const void *key2);
+    void (*keyDestructor)(void *privdata, void *key);
+    void (*valDestructor)(void *privdata, void *obj);
+&amp;#125; dictType;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;hashFunction&lt;/code&gt; ：hash 函数&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;keyDup&lt;/code&gt; ：key 拷贝函数&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;valDup&lt;/code&gt; ：val 拷贝函数&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;keyCompare&lt;/code&gt; ：key 比较函数&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;keyDestructor&lt;/code&gt; ：销毁 key&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;valDestructor&lt;/code&gt; ：销毁 value&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;dictht&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#dictht&#34;&gt;#&lt;/a&gt; dictht&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;typedef struct dictht &amp;#123;
+    dictEntry **table;
+    unsigned long size;
+    unsigned long sizemask;
+    unsigned long used;
+&amp;#125; dictht;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;dictEntry **table&lt;/code&gt; ：hash 表，存放一个数组的地址，数组存放着哈希表节点 dictEntry 的地址&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;unsigned long size&lt;/code&gt; ：hash 表的大小&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;unsigned long sizemask&lt;/code&gt; ：用于将 hash 值映射到 table 的位置索引，总是等于（size-1）&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;unsigned long used&lt;/code&gt; ：记录 entry 的数量&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;dictentry&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#dictentry&#34;&gt;#&lt;/a&gt; dictEntry&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;typedef struct dictEntry &amp;#123;
+    void *key;
+    union &amp;#123;
+        void *val;
+        uint64_t u64;
+        int64_t s64;
+        double d;
+    &amp;#125; v;
+    struct dictEntry *next;
+&amp;#125; dictEntry;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;entry 的结构就比较简单了，相当于一个链表。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;void *key&lt;/code&gt; ：key&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;union &amp;#123;&amp;#125; v&lt;/code&gt; ：保存 value，可以看到不只有一个 &lt;code&gt;void *val&lt;/code&gt; ，这是为了在不同情况下用不同的类型来保存数据，更好的利用内存&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;struct dictEntry *next&lt;/code&gt; ：next 指针&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;dict的创建过程&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#dict的创建过程&#34;&gt;#&lt;/a&gt; dict 的创建过程&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;/* Create a new hash table */
+dict *dictCreate(dictType *type,
+        void *privDataPtr)
+&amp;#123;
+    dict *d = zmalloc(sizeof(*d));
+
+    _dictInit(d,type,privDataPtr);
+    return d;
+&amp;#125;
+
+/* Initialize the hash table */
+int _dictInit(dict *d, dictType *type,
+        void *privDataPtr)
+&amp;#123;
+    _dictReset(&amp;amp;d-&amp;gt;ht[0]);
+    _dictReset(&amp;amp;d-&amp;gt;ht[1]);
+    d-&amp;gt;type = type;
+    d-&amp;gt;privdata = privDataPtr;
+    d-&amp;gt;rehashidx = -1;
+    d-&amp;gt;iterators = 0;
+    return DICT_OK;
+&amp;#125;
+
+/* Reset a hash table already initialized with ht_init().
+ * NOTE: This function should only be called by ht_destroy(). */
+static void _dictReset(dictht *ht)
+&amp;#123;
+    ht-&amp;gt;table = NULL;
+    ht-&amp;gt;size = 0;
+    ht-&amp;gt;sizemask = 0;
+    ht-&amp;gt;used = 0;
+&amp;#125;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;主要就是进行分配内存，然后设置初始化值。&lt;/p&gt;
+&lt;h2 id=&#34;dict的rehash&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#dict的rehash&#34;&gt;#&lt;/a&gt; dict 的 rehash&lt;/h2&gt;
+&lt;p&gt;和 Java 的 HashMap 一样，随着数量的增加，也会产生问题：随着数据越来越多，冲突的次数也就越来越多，单链表的长度就会过长，此时的查询效率就变得很差。&lt;/p&gt;
+&lt;p&gt;Java 中的解决方式为：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;链表长度过长时，先检查总桶数是否大于 64，如果小于，先扩容，如果大于，转成红黑树&lt;/li&gt;
+&lt;li&gt;当使用的桶数 &amp;gt;= 总桶数 * 负载因子时，进行扩容&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;其中负载因子在 Java 中固定设置为了 0.75&lt;/p&gt;
+&lt;p&gt;redis 虽然也使用了负载因子，但是稍有不同。redis 中的负载因子计算方式为 dictht.used/dictht.size，即使用的 entry 数量 /hashTable 长度。&lt;/p&gt;
+&lt;p&gt;判断是否需要扩容的代码：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;/* Expand the hash table if needed */
+static int _dictExpandIfNeeded(dict *d)
+&amp;#123;
+    /* Incremental rehashing already in progress. Return. */
+    if (dictIsRehashing(d)) return DICT_OK;
+
+    /* If the hash table is empty expand it to the initial size. */
+    if (d-&amp;gt;ht[0].size == 0) return dictExpand(d, DICT_HT_INITIAL_SIZE);
+
+    /* If we reached the 1:1 ratio, and we are allowed to resize the hash
+     * table (global setting) or we should avoid it but the ratio between
+     * elements/buckets is over the &amp;quot;safe&amp;quot; threshold, we resize doubling
+     * the number of buckets. */
+    if (d-&amp;gt;ht[0].used &amp;gt;= d-&amp;gt;ht[0].size &amp;amp;&amp;amp;
+        (dict_can_resize ||
+         d-&amp;gt;ht[0].used/d-&amp;gt;ht[0].size &amp;gt; dict_force_resize_ratio))
+    &amp;#123;
+        return dictExpand(d, d-&amp;gt;ht[0].used*2);
+    &amp;#125;
+    return DICT_OK;
+&amp;#125;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;ol&gt;
+&lt;li&gt;如果 ht [0] 所指向的 HashTable 大小为 0 则扩容&lt;/li&gt;
+&lt;li&gt;HashTable 负载因子大于等于 1，即 ht.used&amp;gt;=ht.size&lt;/li&gt;
+&lt;li&gt;HashTable 负载因子大于 5，即 ht.used/ht.size&amp;gt;dict_force_resize_ratio，这里的 dict_force_resize_ratio 是固定值 5&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;参考&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#参考&#34;&gt;#&lt;/a&gt; 参考&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly9heGxncmVwLmdpdGh1Yi5pby90ZWNoL3JlZGlzLWRpY3QuaHRtbA==&#34;&gt;redis-dict (axlgrep.github.io)&lt;/span&gt;&lt;/li&gt;
+&lt;li&gt;&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly9yZWRpc2Jvb2sucmVhZHRoZWRvY3MuaW8vZW4vbGF0ZXN0L2ludGVybmFsLWRhdGFzdHJ1Y3QvZGljdC5odG1s&#34;&gt;字典 — Redis 设计与实现 (redisbook.readthedocs.io)&lt;/span&gt;&lt;/li&gt;
+&lt;li&gt;&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cDovL3poYW5ndGllbGVpLmNvbS9wb3N0cy9ibG9nLXJlZGlzLWRpY3QuaHRtbA==&#34;&gt;Redis 内部数据结构详解 (1)——dict - 铁蕾的个人博客 (zhangtielei.com)&lt;/span&gt;&lt;/li&gt;
+&lt;li&gt;&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly9naXRodWIuY29tL3JlZGlzL3JlZGlzL2Jsb2IvNS4wL3NyYy9kaWN0Lmg=&#34;&gt;redis/src/dict.h at 5.0 · redis/redis (github.com)&lt;/span&gt;&lt;/li&gt;
+&lt;/ol&gt;
+</content>
+        <category term="源码分析" scheme="https://a1oyss.github.io/tags/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/" />
+        <category term="Redis" scheme="https://a1oyss.github.io/tags/Redis/" />
+        <updated>2024-10-13T12:25:00.000Z</updated>
+    </entry>
+    <entry>
+        <id>https://a1oyss.github.io/2024/10/3391040452.html</id>
+        <title>Redis源码学习-Ziplist</title>
+        <link rel="alternate" href="https://a1oyss.github.io/2024/10/3391040452.html"/>
+        <content type="html">&lt;h2 id=&#34;描述&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#描述&#34;&gt;#&lt;/a&gt; 描述：&lt;/h2&gt;
+&lt;p&gt;redis 官方描述 (&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly9naXRodWIuY29tL3JlZGlzL3JlZGlzL2Jsb2IvM2ZjZGRmYjYxZjkwM2Q3MTEyZGExODZjYmE4YjFjOTNhOTlkYzg3Zi9zcmMvemlwbGlzdC5jI0wx&#34;&gt;ziplist.c&lt;/span&gt;):&lt;/p&gt;
+&lt;p&gt;ziplist 是一种特殊编码的双链表，设计上非常节省内存。它既能存储字符串，也能存储整数值，其中整数被编码为实际整数，而不是一系列字符。它允许以 O (1) 的时间在列表的两边进行推送和弹出操作。不过，由于每次操作都需要重新分配 ziplist 使用的内存，因此实际复杂度与 ziplist 使用的内存量有关。&lt;/p&gt;
+&lt;h2 id=&#34;ziplist的结构&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#ziplist的结构&#34;&gt;#&lt;/a&gt; Ziplist 的结构&lt;/h2&gt;
+&lt;p&gt;ziplist 的一般布局如下：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;&amp;lt;zlbytes&amp;gt; &amp;lt;zltail&amp;gt; &amp;lt;zllen&amp;gt; &amp;lt;entry&amp;gt; &amp;lt;entry&amp;gt; ... &amp;lt;entry&amp;gt; &amp;lt;zlend&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;|&amp;lt;---- ziplist header ----&amp;gt;|&amp;lt;----------- entries -------------&amp;gt;|&amp;lt;-end-&amp;gt;|
+  4 bytes  4 bytes  2 bytes    ?        ?        ?        ?      1 byte
++---------+--------+-------+--------+--------+--------+--------+-------+
+| zlbytes | zltail | zllen | entry1 | entry2 |  ...   | entryN | zlend |
++---------+--------+-------+--------+--------+--------+--------+-------+
+                           ^                          ^        ^
+                           |                          |        |
+                 ZIPLIST_ENTRY_HEAD                   |   ZIPLIST_ENTRY_END
+                                                      |
+                                             ZIPLIST_ENTRY_TAIL
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;NOTE: 没有特别说明的情况，所有的字段存储为小端序&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;&lt;/th&gt;
+&lt;th&gt;&lt;/th&gt;
+&lt;th&gt;&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;字段&lt;/td&gt;
+&lt;td&gt;类型&lt;/td&gt;
+&lt;td&gt;描述&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;zlbytes&lt;/td&gt;
+&lt;td&gt;uint32_t&lt;/td&gt;
+&lt;td&gt;无符号整数，用于保存 ziplist 占用的字节数，包括 zlbytes 字段本身的 4 个字节。存储该值是为了调整整个结构的大小，而无需先遍历结构。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;zltail&lt;/td&gt;
+&lt;td&gt;uint32_t&lt;/td&gt;
+&lt;td&gt;最后一个 entry 再 ziplist 中的偏移量。这样就可以在列表的尾端进行 pop 操作，而不需要完全遍历列表。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;zllen&lt;/td&gt;
+&lt;td&gt;uint16_t&lt;/td&gt;
+&lt;td&gt;记录 entry 的数量，当 zllen 小于 2&lt;sup&gt;16-1 时，zllen 的值就是 entry 的数量，当 zllen 等于 2&lt;/sup&gt;16-1 时，需要便利 entry 才能得到真实的数量。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;zlend&lt;/td&gt;
+&lt;td&gt;uint8_t&lt;/td&gt;
+&lt;td&gt;代表 ziplist 的结束，固定是 255 (1111 1111)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h2 id=&#34;ziplist-entry的结构&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#ziplist-entry的结构&#34;&gt;#&lt;/a&gt; Ziplist Entry 的结构&lt;/h2&gt;
+&lt;p&gt;ziplist 中的每个 entry 都以元数据为前缀，其中包含两条信息：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;prevlen：代表前一个 entry 的长度，用于从后向前遍历 entry&lt;/li&gt;
+&lt;li&gt;encoding：代表 entry 的类型，整数或者字符串，如果是字符串，还代表了字符串的长度&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;所以大致上 entry 的结构为：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;&amp;lt;prevlen&amp;gt; &amp;lt;encoding&amp;gt; &amp;lt;entry-data&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;有时会省略掉后面的 entry-data 部分，例如存储小整数的时候。&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;&amp;lt;prevlen&amp;gt; &amp;lt;encoding&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;prevlen&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#prevlen&#34;&gt;#&lt;/a&gt; prevlen&lt;/h3&gt;
+&lt;p&gt;其中，prevlen 的表示方式为：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;如果前一个 entry 的长度小于 254，则占用一个字节（8 位无符号整数）表示长度。&lt;/li&gt;
+&lt;li&gt;如果大于等于 254，prevlen 会占用 5 个字节，并将第一个字节设置为 254（0xFE）作为标记，剩余的 4 个字节标识长度。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;所以实际上 entry 的结构为：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;前一个 entry 的长度小于 254 时：&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre&gt;&lt;code&gt;&amp;lt;prevlen from 0 to 253&amp;gt; &amp;lt;encoding&amp;gt; &amp;lt;entry-data&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;ul&gt;
+&lt;li&gt;前一个 entry 的长度大于等于 254 时&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre&gt;&lt;code&gt;0xFE &amp;lt;4 bytes unsigned little endian prevlen&amp;gt; &amp;lt;encoding&amp;gt; &amp;lt;entry-data&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;encoding&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#encoding&#34;&gt;#&lt;/a&gt; encoding&lt;/h3&gt;
+&lt;p&gt;encoding 决定了保存的数据类型以及数据长度，根据前两位的不同可以表示为：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;00 、 01 和 10 表示 content 部分保存着字符数组。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;|00pppppp|：占用 1 个字节，长度小于等于 63（2^6-1）字节的字符串&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;|01pppppp|qqqqqqqq|：占用 2 个字节，长度小于等于 16383（2^14-1）字节的字符串&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;|10000000|qqqqqqqq|rrrrrrrr|ssssssss|tttttttt|：占用 5 个字节，其中第 1 个字节只用到了前两位，后 6 位没有用到，剩余 4 个字节代表长度，最大可表示 4,294,967,296（2^32-1）字节的字符串&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;11 表示 content 部分保存着整数。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;|11000000|：占用 1 个字节，代表 int16_t 类型的整数，entry-data 存储 2 个字节的数据&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;|11010000|：占用 1 个字节，代表 int32_t 类型的整数，entry-data 存储 4 个字节的数据&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;|11100000|：占用 1 个字节，代表 int64_t 类型的整数，entry-data 存储 8 个字节的数据&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;|11110000|：占用 1 个字节，代表 24 位有符号类型的整数，entry-data 存储 3 个字节的数据&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;|11111110|：占用 1 个字节，代表 8 位有符号类型的整数，entry-data 存储 3 个字节的数据&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;|1111xxxx|：xxxx 范围再 0001 到 1101 之间，存储 4 位无符号整数 0-12，此时存储的是真实的数据而不是长度，后面也不再需要 entry-data。实际上 0001 和 1101 分别是 1 和 13，但是由于前面已经使用了 0000，所以 xxxx 的值减一才是实际表示的值。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;|11111111|：ziplist 的结束标志&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;ziplist实际范例&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#ziplist实际范例&#34;&gt;#&lt;/a&gt; Ziplist 实际范例&lt;/h2&gt;
+&lt;p&gt;下面是一个包含两个元素：&amp;quot;2&amp;quot;，&amp;quot;5&amp;quot; 的 ziplist：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;[0f 00 00 00] [0c 00 00 00] [02 00] [00 f3] [02 f6] [ff]
+      |             |          |       |       |     |
+   zlbytes        zltail     zllen    &amp;quot;2&amp;quot;     &amp;quot;5&amp;quot;   end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;ul&gt;
+&lt;li&gt;[0f 00 00 00] 头四个字节为 zlbytes，说明该 ziplist 总共 15 个字节长度&lt;/li&gt;
+&lt;li&gt;[0c 00 00 00] 接下来四个字节 zltail，说明 12 个字节处为 ziplist entry 的结尾&lt;/li&gt;
+&lt;li&gt;[02 00] 说明 ziplist 有 2 个 entry&lt;/li&gt;
+&lt;li&gt;[00 f3] 为 entry，第一个字节 00 表示前一个 entry 的长度，这里没有前一个 entry，所以是 00。f3 转为 2 进制为 1111 0011，说明这是一个整数，满足 | 1111xxxx | 的情况，实际保存的值为 0011 - 1 = 0010（2）。&lt;/li&gt;
+&lt;li&gt;[02 f6] 也是 entry，第一个字节代表前一个 entry 的长度，这里前一个 entry 的长度为 2 个字节，所以是 02，f6 就不过多赘述，类似上面的分析。&lt;/li&gt;
+&lt;li&gt;[ff] 代表 ziplist 的结束&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;接下来看一个字符串的：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;[02] [0b] [48 65 6c 6c 6f 20 57 6f 72 6c 64]
+&lt;/code&gt;&lt;/pre&gt;
+&lt;ul&gt;
+&lt;li&gt;第一个字节 [02]，表示前一个 entry 的长度&lt;/li&gt;
+&lt;li&gt;[0b] 转为 2 进制：0000 1011，符合 | 00pppppp | 的情况，1011 为字符串的长度，后面的 [48 65 6c 6c 6f 20 57 6f 72 6c 64] 就是字符串数据&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;参考&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#参考&#34;&gt;#&lt;/a&gt; 参考&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cDovL3poYW5ndGllbGVpLmNvbS9wb3N0cy9ibG9nLXJlZGlzLXppcGxpc3QuaHRtbA==&#34;&gt;Redis 内部数据结构详解 (4)——ziplist - 铁蕾的个人博客 (zhangtielei.com)&lt;/span&gt;&lt;/li&gt;
+&lt;li&gt;&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly9naXRodWIuY29tL3JlZGlzL3JlZGlzL2Jsb2IvNS4wL3NyYy96aXBsaXN0Lmg=&#34;&gt;redis/src/ziplist.h at 5.0 · redis/redis (github.com)&lt;/span&gt;&lt;/li&gt;
+&lt;/ol&gt;
+</content>
+        <category term="源码分析" scheme="https://a1oyss.github.io/tags/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/" />
+        <category term="Redis" scheme="https://a1oyss.github.io/tags/Redis/" />
+        <updated>2024-10-13T12:21:00.000Z</updated>
+    </entry>
     <entry>
         <id>https://a1oyss.github.io/2022/12/20899.html</id>
         <title>一次由于服务器时间异常引起的服务报错问题排查</title>

@@ -1,0 +1,646 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#FFF">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+
+<link rel="icon" type="image/ico" sizes="32x32" href="/images/favicon.ico">
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+<link rel="alternate" type="application/rss+xml" title="a1oyss" href="https://a1oyss.github.io/rss.xml" />
+<link rel="alternate" type="application/atom+xml" title="a1oyss" href="https://a1oyss.github.io/atom.xml" />
+<link rel="alternate" type="application/json" title="a1oyss" href="https://a1oyss.github.io/feed.json" />
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Mulish:300,300italic,400,400italic,700,700italic%7CFredericka%20the%20Great:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20JP:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20SC:300,300italic,400,400italic,700,700italic%7CInconsolata:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="/css/app.css?v=0.2.5">
+
+  
+  <meta name="keywords" content="源码分析,Redis" />
+
+
+<link rel="canonical" href="https://a1oyss.github.io/2024/10/3391040452.html">
+
+
+
+  <title>
+Redis源码学习-Ziplist |
+a1oyss's blog = a1oyss</title>
+<meta name="generator" content="Hexo 6.3.0"></head>
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div id="loading">
+    <div class="cat">
+      <div class="body"></div>
+      <div class="head">
+        <div class="face"></div>
+      </div>
+      <div class="foot">
+        <div class="tummy-end"></div>
+        <div class="bottom"></div>
+        <div class="legs left"></div>
+        <div class="legs right"></div>
+      </div>
+      <div class="paw">
+        <div class="hands left"></div>
+        <div class="hands right"></div>
+      </div>
+    </div>
+  </div>
+  <div id="container">
+    <header id="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="inner">
+        <div id="brand">
+          <div class="pjax">
+          
+  <h1 itemprop="name headline">Redis源码学习-Ziplist
+  </h1>
+  
+<div class="meta">
+  <span class="item" title="创建时间：2024-10-13 20:21:00">
+    <span class="icon">
+      <i class="ic i-calendar"></i>
+    </span>
+    <span class="text">发表于</span>
+    <time itemprop="dateCreated datePublished" datetime="2024-10-13T20:21:00+08:00">2024-10-13</time>
+  </span>
+  <span class="item" title="本文字数">
+    <span class="icon">
+      <i class="ic i-pen"></i>
+    </span>
+    <span class="text">本文字数</span>
+    <span>3k</span>
+    <span class="text">字</span>
+  </span>
+  <span class="item" title="阅读时长">
+    <span class="icon">
+      <i class="ic i-clock"></i>
+    </span>
+    <span class="text">阅读时长</span>
+    <span>3 分钟</span>
+  </span>
+</div>
+
+
+          </div>
+        </div>
+        <nav id="nav">
+  <div class="inner">
+    <div class="toggle">
+      <div class="lines" aria-label="切换导航栏">
+        <span class="line"></span>
+        <span class="line"></span>
+        <span class="line"></span>
+      </div>
+    </div>
+    <ul class="menu">
+      <li class="item title"><a href="/" rel="start">a1oyss's blog</a></li>
+    </ul>
+    <ul class="right">
+      <li class="item theme">
+        <i class="ic i-sun"></i>
+      </li>
+      <li class="item search">
+        <i class="ic i-search"></i>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+      </div>
+      <div id="imgs" class="pjax">
+        <ul>
+          <li class="item" data-background-image="https://s2.loli.net/2024/10/13/PyzRCs6iEVNBw1S.png"></li>
+          <li class="item" data-background-image="https://s2.loli.net/2024/10/13/aY56HT3qxpjlwsZ.png"></li>
+          <li class="item" data-background-image="https://s2.loli.net/2024/10/13/3X85QsPvfcOj2hM.png"></li>
+          <li class="item" data-background-image="https://s2.loli.net/2024/10/13/LKZwqYM7JzN24he.jpg"></li>
+          <li class="item" data-background-image="https://s2.loli.net/2024/10/13/hsH7BXrkDLlfjyW.png"></li>
+          <li class="item" data-background-image="https://s2.loli.net/2024/10/13/uyhMVC8iFk7L3oq.png"></li>
+        </ul>
+      </div>
+    </header>
+    <div id="waves">
+      <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+        <defs>
+          <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+        </defs>
+        <g class="parallax">
+          <use xlink:href="#gentle-wave" x="48" y="0" />
+          <use xlink:href="#gentle-wave" x="48" y="3" />
+          <use xlink:href="#gentle-wave" x="48" y="5" />
+          <use xlink:href="#gentle-wave" x="48" y="7" />
+        </g>
+      </svg>
+    </div>
+    <main>
+      <div class="inner">
+        <div id="main" class="pjax">
+          
+  <div class="article wrap">
+    
+<div class="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList">
+<i class="ic i-home"></i>
+<span><a href="/">首页</a></span>
+</div>
+
+    <article itemscope itemtype="http://schema.org/Article" class="post block" lang="zh-CN">
+  <link itemprop="mainEntityOfPage" href="https://a1oyss.github.io/2024/10/3391040452.html">
+
+  <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="image" content="/images/avatar.jpg">
+    <meta itemprop="name" content="a1oyss">
+    <meta itemprop="description" content=", 随便写点什么">
+  </span>
+
+  <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="a1oyss">
+  </span>
+
+  <div class="body md" itemprop="articleBody">
+    
+
+    <h2 id="描述"><a class="anchor" href="#描述">#</a> 描述：</h2>
+<p>redis 官方描述 (<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL3JlZGlzL3JlZGlzL2Jsb2IvM2ZjZGRmYjYxZjkwM2Q3MTEyZGExODZjYmE4YjFjOTNhOTlkYzg3Zi9zcmMvemlwbGlzdC5jI0wx">ziplist.c</span>):</p>
+<p>ziplist 是一种特殊编码的双链表，设计上非常节省内存。它既能存储字符串，也能存储整数值，其中整数被编码为实际整数，而不是一系列字符。它允许以 O (1) 的时间在列表的两边进行推送和弹出操作。不过，由于每次操作都需要重新分配 ziplist 使用的内存，因此实际复杂度与 ziplist 使用的内存量有关。</p>
+<h2 id="ziplist的结构"><a class="anchor" href="#ziplist的结构">#</a> Ziplist 的结构</h2>
+<p>ziplist 的一般布局如下：</p>
+<pre><code>&lt;zlbytes&gt; &lt;zltail&gt; &lt;zllen&gt; &lt;entry&gt; &lt;entry&gt; ... &lt;entry&gt; &lt;zlend&gt;
+</code></pre>
+<pre><code>|&lt;---- ziplist header ----&gt;|&lt;----------- entries -------------&gt;|&lt;-end-&gt;|
+  4 bytes  4 bytes  2 bytes    ?        ?        ?        ?      1 byte
++---------+--------+-------+--------+--------+--------+--------+-------+
+| zlbytes | zltail | zllen | entry1 | entry2 |  ...   | entryN | zlend |
++---------+--------+-------+--------+--------+--------+--------+-------+
+                           ^                          ^        ^
+                           |                          |        |
+                 ZIPLIST_ENTRY_HEAD                   |   ZIPLIST_ENTRY_END
+                                                      |
+                                             ZIPLIST_ENTRY_TAIL
+</code></pre>
+<p>NOTE: 没有特别说明的情况，所有的字段存储为小端序</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>字段</td>
+<td>类型</td>
+<td>描述</td>
+</tr>
+<tr>
+<td>zlbytes</td>
+<td>uint32_t</td>
+<td>无符号整数，用于保存 ziplist 占用的字节数，包括 zlbytes 字段本身的 4 个字节。存储该值是为了调整整个结构的大小，而无需先遍历结构。</td>
+</tr>
+<tr>
+<td>zltail</td>
+<td>uint32_t</td>
+<td>最后一个 entry 再 ziplist 中的偏移量。这样就可以在列表的尾端进行 pop 操作，而不需要完全遍历列表。</td>
+</tr>
+<tr>
+<td>zllen</td>
+<td>uint16_t</td>
+<td>记录 entry 的数量，当 zllen 小于 2<sup>16-1 时，zllen 的值就是 entry 的数量，当 zllen 等于 2</sup>16-1 时，需要便利 entry 才能得到真实的数量。</td>
+</tr>
+<tr>
+<td>zlend</td>
+<td>uint8_t</td>
+<td>代表 ziplist 的结束，固定是 255 (1111 1111)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="ziplist-entry的结构"><a class="anchor" href="#ziplist-entry的结构">#</a> Ziplist Entry 的结构</h2>
+<p>ziplist 中的每个 entry 都以元数据为前缀，其中包含两条信息：</p>
+<ul>
+<li>prevlen：代表前一个 entry 的长度，用于从后向前遍历 entry</li>
+<li>encoding：代表 entry 的类型，整数或者字符串，如果是字符串，还代表了字符串的长度</li>
+</ul>
+<p>所以大致上 entry 的结构为：</p>
+<pre><code>&lt;prevlen&gt; &lt;encoding&gt; &lt;entry-data&gt;
+</code></pre>
+<p>有时会省略掉后面的 entry-data 部分，例如存储小整数的时候。</p>
+<pre><code>&lt;prevlen&gt; &lt;encoding&gt;
+</code></pre>
+<h3 id="prevlen"><a class="anchor" href="#prevlen">#</a> prevlen</h3>
+<p>其中，prevlen 的表示方式为：</p>
+<ul>
+<li>如果前一个 entry 的长度小于 254，则占用一个字节（8 位无符号整数）表示长度。</li>
+<li>如果大于等于 254，prevlen 会占用 5 个字节，并将第一个字节设置为 254（0xFE）作为标记，剩余的 4 个字节标识长度。</li>
+</ul>
+<p>所以实际上 entry 的结构为：</p>
+<ul>
+<li>前一个 entry 的长度小于 254 时：</li>
+</ul>
+<pre><code>&lt;prevlen from 0 to 253&gt; &lt;encoding&gt; &lt;entry-data&gt;
+</code></pre>
+<ul>
+<li>前一个 entry 的长度大于等于 254 时</li>
+</ul>
+<pre><code>0xFE &lt;4 bytes unsigned little endian prevlen&gt; &lt;encoding&gt; &lt;entry-data&gt;
+</code></pre>
+<h3 id="encoding"><a class="anchor" href="#encoding">#</a> encoding</h3>
+<p>encoding 决定了保存的数据类型以及数据长度，根据前两位的不同可以表示为：</p>
+<ul>
+<li>
+<p>00 、 01 和 10 表示 content 部分保存着字符数组。</p>
+</li>
+<li>
+<p>|00pppppp|：占用 1 个字节，长度小于等于 63（2^6-1）字节的字符串</p>
+</li>
+<li>
+<p>|01pppppp|qqqqqqqq|：占用 2 个字节，长度小于等于 16383（2^14-1）字节的字符串</p>
+</li>
+<li>
+<p>|10000000|qqqqqqqq|rrrrrrrr|ssssssss|tttttttt|：占用 5 个字节，其中第 1 个字节只用到了前两位，后 6 位没有用到，剩余 4 个字节代表长度，最大可表示 4,294,967,296（2^32-1）字节的字符串</p>
+</li>
+<li>
+<p>11 表示 content 部分保存着整数。</p>
+</li>
+<li>
+<p>|11000000|：占用 1 个字节，代表 int16_t 类型的整数，entry-data 存储 2 个字节的数据</p>
+</li>
+<li>
+<p>|11010000|：占用 1 个字节，代表 int32_t 类型的整数，entry-data 存储 4 个字节的数据</p>
+</li>
+<li>
+<p>|11100000|：占用 1 个字节，代表 int64_t 类型的整数，entry-data 存储 8 个字节的数据</p>
+</li>
+<li>
+<p>|11110000|：占用 1 个字节，代表 24 位有符号类型的整数，entry-data 存储 3 个字节的数据</p>
+</li>
+<li>
+<p>|11111110|：占用 1 个字节，代表 8 位有符号类型的整数，entry-data 存储 3 个字节的数据</p>
+</li>
+<li>
+<p>|1111xxxx|：xxxx 范围再 0001 到 1101 之间，存储 4 位无符号整数 0-12，此时存储的是真实的数据而不是长度，后面也不再需要 entry-data。实际上 0001 和 1101 分别是 1 和 13，但是由于前面已经使用了 0000，所以 xxxx 的值减一才是实际表示的值。</p>
+</li>
+<li>
+<p>|11111111|：ziplist 的结束标志</p>
+</li>
+</ul>
+<h2 id="ziplist实际范例"><a class="anchor" href="#ziplist实际范例">#</a> Ziplist 实际范例</h2>
+<p>下面是一个包含两个元素：&quot;2&quot;，&quot;5&quot; 的 ziplist：</p>
+<pre><code>[0f 00 00 00] [0c 00 00 00] [02 00] [00 f3] [02 f6] [ff]
+      |             |          |       |       |     |
+   zlbytes        zltail     zllen    &quot;2&quot;     &quot;5&quot;   end
+</code></pre>
+<ul>
+<li>[0f 00 00 00] 头四个字节为 zlbytes，说明该 ziplist 总共 15 个字节长度</li>
+<li>[0c 00 00 00] 接下来四个字节 zltail，说明 12 个字节处为 ziplist entry 的结尾</li>
+<li>[02 00] 说明 ziplist 有 2 个 entry</li>
+<li>[00 f3] 为 entry，第一个字节 00 表示前一个 entry 的长度，这里没有前一个 entry，所以是 00。f3 转为 2 进制为 1111 0011，说明这是一个整数，满足 | 1111xxxx | 的情况，实际保存的值为 0011 - 1 = 0010（2）。</li>
+<li>[02 f6] 也是 entry，第一个字节代表前一个 entry 的长度，这里前一个 entry 的长度为 2 个字节，所以是 02，f6 就不过多赘述，类似上面的分析。</li>
+<li>[ff] 代表 ziplist 的结束</li>
+</ul>
+<p>接下来看一个字符串的：</p>
+<pre><code>[02] [0b] [48 65 6c 6c 6f 20 57 6f 72 6c 64]
+</code></pre>
+<ul>
+<li>第一个字节 [02]，表示前一个 entry 的长度</li>
+<li>[0b] 转为 2 进制：0000 1011，符合 | 00pppppp | 的情况，1011 为字符串的长度，后面的 [48 65 6c 6c 6f 20 57 6f 72 6c 64] 就是字符串数据</li>
+</ul>
+<h2 id="参考"><a class="anchor" href="#参考">#</a> 参考</h2>
+<ol>
+<li><span class="exturl" data-url="aHR0cDovL3poYW5ndGllbGVpLmNvbS9wb3N0cy9ibG9nLXJlZGlzLXppcGxpc3QuaHRtbA==">Redis 内部数据结构详解 (4)——ziplist - 铁蕾的个人博客 (zhangtielei.com)</span></li>
+<li><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL3JlZGlzL3JlZGlzL2Jsb2IvNS4wL3NyYy96aXBsaXN0Lmg=">redis/src/ziplist.h at 5.0 · redis/redis (github.com)</span></li>
+</ol>
+
+      <div class="tags">
+          <a href="/tags/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/" rel="tag"><i class="ic i-tag"></i> 源码分析</a>
+          <a href="/tags/Redis/" rel="tag"><i class="ic i-tag"></i> Redis</a>
+      </div>
+  </div>
+
+   <footer>
+
+    <div class="meta">
+</div>
+
+      
+
+<div id="copyright">
+<ul>
+  <li class="author">
+    <strong>本文作者： </strong>a1oyss <i class="ic i-at"><em>@</em></i>a1oyss
+  </li>
+  <li class="link">
+    <strong>本文链接：</strong>
+    <a href="https://a1oyss.github.io/2024/10/3391040452.html" title="Redis源码学习-Ziplist">https://a1oyss.github.io/2024/10/3391040452.html</a>
+  </li>
+  <li class="license">
+    <strong>版权声明： </strong>本站所有文章除特别声明外，均采用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC9kZWVkLnpo"><i class="ic i-creative-commons"><em>(CC)</em></i>BY-NC-SA</span> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+  </footer>
+
+</article>
+
+  </div>
+  
+
+<div class="post-nav">
+    <div class="item left">
+      
+
+  <a href="/2022/12/20899.html" itemprop="url" rel="prev" data-background-image="https:&#x2F;&#x2F;s2.loli.net&#x2F;2024&#x2F;10&#x2F;13&#x2F;vLpF87XnI9Kml2B.png" title="一次由于服务器时间异常引起的服务报错问题排查">
+  <span class="type">上一篇</span>
+  <span class="category"><i class="ic i-flag"></i> 后端开发</span>
+  <h3>一次由于服务器时间异常引起的服务报错问题排查</h3>
+  </a>
+
+    </div>
+    <div class="item right">
+      
+
+  <a href="/2024/10/108095223.html" itemprop="url" rel="next" data-background-image="https:&#x2F;&#x2F;s2.loli.net&#x2F;2024&#x2F;10&#x2F;13&#x2F;yDZ2p3LT5hzEVkS.png" title="Redis源码学习-Dict">
+  <span class="type">下一篇</span>
+  <span class="category"><i class="ic i-flag"></i> </span>
+  <h3>Redis源码学习-Dict</h3>
+  </a>
+
+    </div>
+</div>
+
+  
+  <div class="wrap" id="comments"></div>
+
+
+        </div>
+        <div id="sidebar">
+          
+
+<div class="inner">
+
+  <div class="panels">
+    <div class="inner">
+      <div class="contents panel pjax" data-title="文章目录">
+          <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8F%8F%E8%BF%B0"><span class="toc-number">1.</span> <span class="toc-text"> 描述：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ziplist%E7%9A%84%E7%BB%93%E6%9E%84"><span class="toc-number">2.</span> <span class="toc-text"> Ziplist 的结构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ziplist-entry%E7%9A%84%E7%BB%93%E6%9E%84"><span class="toc-number">3.</span> <span class="toc-text"> Ziplist Entry 的结构</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#prevlen"><span class="toc-number">3.1.</span> <span class="toc-text"> prevlen</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#encoding"><span class="toc-number">3.2.</span> <span class="toc-text"> encoding</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ziplist%E5%AE%9E%E9%99%85%E8%8C%83%E4%BE%8B"><span class="toc-number">4.</span> <span class="toc-text"> Ziplist 实际范例</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83"><span class="toc-number">5.</span> <span class="toc-text"> 参考</span></a></li></ol>
+      </div>
+      <div class="related panel pjax" data-title="系列文章">
+      </div>
+      <div class="overview panel" data-title="站点概览">
+        <div class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <img class="image" itemprop="image" alt="a1oyss"
+      data-src="/images/avatar.jpg">
+  <p class="name" itemprop="name">a1oyss</p>
+  <div class="description" itemprop="description">随便写点什么</div>
+</div>
+
+<nav class="state">
+    <div class="item posts">
+      <a href="/archives/">
+        <span class="count">20</span>
+        <span class="name">文章</span>
+      </a>
+    </div>
+    <div class="item categories">
+      <a href="/categories/">
+        <span class="count">3</span>
+        <span class="name">分类</span>
+      </a>
+    </div>
+    <div class="item tags">
+      <a href="/tags/">
+        <span class="count">18</span>
+        <span class="name">标签</span>
+      </a>
+    </div>
+</nav>
+
+<div class="social">
+      <span class="exturl item github" data-url="aHR0cHM6Ly9naXRodWIuY29tL2Exb3lzcw==" title="https:&#x2F;&#x2F;github.com&#x2F;a1oyss"><i class="ic i-github"></i></span>
+</div>
+
+<ul class="menu">
+  
+    
+  <li class="item">
+    <a href="/" rel="section"><i class="ic i-home"></i>首页</a>
+  </li>
+
+    
+  <li class="item">
+    <a href="/archives/" rel="section"><i class="ic i-list-alt"></i>归档</a>
+  </li>
+
+    
+  <li class="item">
+    <a href="/tags/" rel="section"><i class="ic i-tags"></i>标签</a>
+  </li>
+
+
+</ul>
+
+      </div>
+    </div>
+  </div>
+
+  <ul id="quick">
+    <li class="prev pjax">
+        <a href="/2022/12/20899.html" rel="prev" title="上一篇"><i class="ic i-chevron-left"></i></a>
+    </li>
+    <li class="up"><i class="ic i-arrow-up"></i></li>
+    <li class="down"><i class="ic i-arrow-down"></i></li>
+    <li class="next pjax">
+        <a href="/2024/10/108095223.html" rel="next" title="下一篇"><i class="ic i-chevron-right"></i></a>
+    </li>
+    <li class="percent"></li>
+  </ul>
+</div>
+
+
+        </div>
+        <div class="dimmer"></div>
+      </div>
+    </main>
+    <footer id="footer">
+      <div class="inner">
+        <div class="widgets">
+          
+<div class="rpost pjax">
+  <h2>随机文章</h2>
+  <ul>
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2024/10/2040406187.html" title="Redis源码学习-Skiplist">Redis源码学习-Skiplist</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E6%9D%82%E8%AE%B0/" title="分类于 杂记">杂记</a>
+</div>
+
+    <span><a href="/2020/10/33250.html" title="Python校园网登录">Python校园网登录</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2024/10/3609413537.html" title="Redis源码学习-SDS">Redis源码学习-SDS</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E6%9D%82%E8%AE%B0/" title="分类于 杂记">杂记</a>
+</div>
+
+    <span><a href="/2021/05/36347.html" title="运行CMD提示[已退出进程，代码为 1]解决方案">运行CMD提示[已退出进程，代码为 1]解决方案</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/" title="分类于 后端开发">后端开发</a>
+</div>
+
+    <span><a href="/2022/11/61375.html" title="详解设计模式系列-单例模式">详解设计模式系列-单例模式</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2024/10/3391040452.html" title="Redis源码学习-Ziplist">Redis源码学习-Ziplist</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2024/10/813972997.html" title="Redis源码学习-intset">Redis源码学习-intset</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/" title="分类于 后端开发">后端开发</a>
+</div>
+
+    <span><a href="/2022/11/5457.html" title="HttpServletRequest的几种获取方式">HttpServletRequest的几种获取方式</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E6%9D%82%E8%AE%B0/" title="分类于 杂记">杂记</a>
+</div>
+
+    <span><a href="/2021/03/8759.html" title="Hexo图片显示失败">Hexo图片显示失败</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/" title="分类于 后端开发">后端开发</a>
+</div>
+
+    <span><a href="/2022/12/20899.html" title="一次由于服务器时间异常引起的服务报错问题排查">一次由于服务器时间异常引起的服务报错问题排查</a></span>
+  </li>
+
+  </ul>
+</div>
+<div>
+  <h2>最新评论</h2>
+  <ul class="leancloud-recent-comment"></ul>
+</div>
+
+        </div>
+        <div class="status">
+  <div class="copyright">
+    
+    &copy; 2023 – 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="ic i-a1oyss"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">a1oyss @ a1oyss's blog</span>
+  </div>
+  <div class="count">
+    <span class="post-meta-item-icon">
+      <i class="ic i-chart-area"></i>
+    </span>
+    <span title="站点总字数">108k 字</span>
+
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="ic i-coffee"></i>
+    </span>
+    <span title="站点阅读时长">1:38</span>
+  </div>
+  <div class="powered-by">
+    基于 <span class="exturl" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> & Theme.<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2FtZWhpbWUvaGV4by10aGVtZS1zaG9rYQ==">Shoka</span>
+  </div>
+</div>
+
+      </div>
+    </footer>
+  </div>
+<script data-config type="text/javascript">
+  var LOCAL = {
+    path: '2024/10/3391040452.html',
+    favicon: {
+      show: "a1oyss's blog",
+      hide: "a1oyss's blog"
+    },
+    search : {
+      placeholder: "文章搜索",
+      empty: "关于 「 ${query} 」，什么也没搜到",
+      stats: "${time} ms 内找到 ${hits} 条结果"
+    },
+    valine: true,fancybox: true,
+    copyright: '复制成功，转载请遵守 <i class="ic i-creative-commons"></i>BY-NC-SA 协议。',
+    ignores : [
+      function(uri) {
+        return uri.includes('#');
+      },
+      function(uri) {
+        return new RegExp(LOCAL.path+"$").test(uri);
+      }
+    ]
+  };
+</script>
+
+<script src="https://cdn.polyfill.io/v2/polyfill.js"></script>
+
+<script src="//cdn.jsdelivr.net/combine/npm/pace-js@1.0.2/pace.min.js,npm/pjax@0.2.8/pjax.min.js,npm/whatwg-fetch@3.4.0/dist/fetch.umd.min.js,npm/animejs@3.2.0/lib/anime.min.js,npm/algoliasearch@4/dist/algoliasearch-lite.umd.js,npm/instantsearch.js@4/dist/instantsearch.production.min.js,npm/lozad@1/dist/lozad.min.js,npm/quicklink@2/dist/quicklink.umd.js"></script>
+
+<script src="/js/app.js?v=0.2.5"></script>
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,656 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#FFF">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+
+<link rel="icon" type="image/ico" sizes="32x32" href="/images/favicon.ico">
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+<link rel="alternate" type="application/rss+xml" title="a1oyss" href="https://a1oyss.github.io/rss.xml" />
+<link rel="alternate" type="application/atom+xml" title="a1oyss" href="https://a1oyss.github.io/atom.xml" />
+<link rel="alternate" type="application/json" title="a1oyss" href="https://a1oyss.github.io/feed.json" />
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Mulish:300,300italic,400,400italic,700,700italic%7CFredericka%20the%20Great:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20JP:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20SC:300,300italic,400,400italic,700,700italic%7CInconsolata:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="/css/app.css?v=0.2.5">
+
+  
+  <meta name="keywords" content="源码分析,Redis" />
+
+
+<link rel="canonical" href="https://a1oyss.github.io/2024/10/813972997.html">
+
+
+
+  <title>
+Redis源码学习-intset |
+a1oyss's blog = a1oyss</title>
+<meta name="generator" content="Hexo 6.3.0"></head>
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div id="loading">
+    <div class="cat">
+      <div class="body"></div>
+      <div class="head">
+        <div class="face"></div>
+      </div>
+      <div class="foot">
+        <div class="tummy-end"></div>
+        <div class="bottom"></div>
+        <div class="legs left"></div>
+        <div class="legs right"></div>
+      </div>
+      <div class="paw">
+        <div class="hands left"></div>
+        <div class="hands right"></div>
+      </div>
+    </div>
+  </div>
+  <div id="container">
+    <header id="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="inner">
+        <div id="brand">
+          <div class="pjax">
+          
+  <h1 itemprop="name headline">Redis源码学习-intset
+  </h1>
+  
+<div class="meta">
+  <span class="item" title="创建时间：2024-10-13 20:27:00">
+    <span class="icon">
+      <i class="ic i-calendar"></i>
+    </span>
+    <span class="text">发表于</span>
+    <time itemprop="dateCreated datePublished" datetime="2024-10-13T20:27:00+08:00">2024-10-13</time>
+  </span>
+  <span class="item" title="本文字数">
+    <span class="icon">
+      <i class="ic i-pen"></i>
+    </span>
+    <span class="text">本文字数</span>
+    <span>4.4k</span>
+    <span class="text">字</span>
+  </span>
+  <span class="item" title="阅读时长">
+    <span class="icon">
+      <i class="ic i-clock"></i>
+    </span>
+    <span class="text">阅读时长</span>
+    <span>4 分钟</span>
+  </span>
+</div>
+
+
+          </div>
+        </div>
+        <nav id="nav">
+  <div class="inner">
+    <div class="toggle">
+      <div class="lines" aria-label="切换导航栏">
+        <span class="line"></span>
+        <span class="line"></span>
+        <span class="line"></span>
+      </div>
+    </div>
+    <ul class="menu">
+      <li class="item title"><a href="/" rel="start">a1oyss's blog</a></li>
+    </ul>
+    <ul class="right">
+      <li class="item theme">
+        <i class="ic i-sun"></i>
+      </li>
+      <li class="item search">
+        <i class="ic i-search"></i>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+      </div>
+      <div id="imgs" class="pjax">
+        <ul>
+          <li class="item" data-background-image="https://s2.loli.net/2024/10/13/afoWh3p7szBujPK.png"></li>
+          <li class="item" data-background-image="https://s2.loli.net/2024/10/13/aY56HT3qxpjlwsZ.png"></li>
+          <li class="item" data-background-image="https://s2.loli.net/2024/10/13/uyhMVC8iFk7L3oq.png"></li>
+          <li class="item" data-background-image="https://s2.loli.net/2024/10/13/PyzRCs6iEVNBw1S.png"></li>
+          <li class="item" data-background-image="https://s2.loli.net/2024/10/13/LKZwqYM7JzN24he.jpg"></li>
+          <li class="item" data-background-image="https://s2.loli.net/2024/10/13/2pFyjbAMUauws6i.png"></li>
+        </ul>
+      </div>
+    </header>
+    <div id="waves">
+      <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+        <defs>
+          <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+        </defs>
+        <g class="parallax">
+          <use xlink:href="#gentle-wave" x="48" y="0" />
+          <use xlink:href="#gentle-wave" x="48" y="3" />
+          <use xlink:href="#gentle-wave" x="48" y="5" />
+          <use xlink:href="#gentle-wave" x="48" y="7" />
+        </g>
+      </svg>
+    </div>
+    <main>
+      <div class="inner">
+        <div id="main" class="pjax">
+          
+  <div class="article wrap">
+    
+<div class="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList">
+<i class="ic i-home"></i>
+<span><a href="/">首页</a></span>
+</div>
+
+    <article itemscope itemtype="http://schema.org/Article" class="post block" lang="zh-CN">
+  <link itemprop="mainEntityOfPage" href="https://a1oyss.github.io/2024/10/813972997.html">
+
+  <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="image" content="/images/avatar.jpg">
+    <meta itemprop="name" content="a1oyss">
+    <meta itemprop="description" content=", 随便写点什么">
+  </span>
+
+  <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="a1oyss">
+  </span>
+
+  <div class="body md" itemprop="articleBody">
+    
+
+    <p>顾名思义，整数集合，Set 的底层数据结构实现之一，另外一种实现是 hashtable。</p>
+<p>实际上 intset 是一个有序数组，通过二分查找快速判断一个元素是否属于这个集合，但是为了保证有序性，插入的时候也会先二分查找找到对应的插入位置，将插入位置之后的元素统一向后移动一个位置，redis 使用了该结构来降低内存使用率，时间换空间。</p>
+<h2 id="intset的结构"><a class="anchor" href="#intset的结构">#</a> intset 的结构</h2>
+<pre><code>typedef struct intset &#123;
+    uint32_t encoding;
+    uint32_t length;
+    int8_t contents[];
+&#125; intset;
+</code></pre>
+<ul>
+<li>
+<p>encoding：数据编码，表示 intset 中的每个数据元素用几个字节存储，有三种可能的取值:</p>
+</li>
+<li>
+<p>INTSET_ENC_INT16：16 位整数，表示每个元素用 2 个字节存储</p>
+</li>
+<li>
+<p>INTSET_ENC_INT32：32 位整数，表示每个元素用 4 个字节存储</p>
+</li>
+<li>
+<p>INTSET_ENC_INT64：64 位整数，表示每个元素用 8 个字节存储</p>
+</li>
+<li>
+<p>length：表示 intset 中的元素数量</p>
+</li>
+<li>
+<p>contents：柔性数组，存储具体的数据，长度 = encoding * length</p>
+</li>
+</ul>
+<p>随着数据的增加，encoding 可能会改变：</p>
+<p><img data-src="https://cdn.nlark.com/yuque/0/2024/png/2658344/1726023017324-4d05f718-1d43-4b52-8b92-217b9b550661.png" alt="" /></p>
+<p>如上图，新创建的 intset 只有 encoding 和 length，encoding 默认值是 INTSET_ENC_INT16，添加 13 和 5 之后，length 变成 02。但是继续添加 32768，10，100000 时，encoding 就从 INTSET_ENC_INT16 变为了 INTSET_ENC_INT32，这是因为 INTSET_ENC_INT16 的最大长度为 - 215~215-1，32768 超出了返回，所以升级到 INTSET_ENC_INT32。</p>
+<h2 id="intset的查找与新增"><a class="anchor" href="#intset的查找与新增">#</a> intset 的查找与新增</h2>
+<h3 id="查找元素"><a class="anchor" href="#查找元素">#</a> 查找元素</h3>
+<pre><code>/* Determine whether a value belongs to this set */
+uint8_t intsetFind(intset *is, int64_t value) &#123;
+    uint8_t valenc = _intsetValueEncoding(value);
+    return valenc &lt;= intrev32ifbe(is-&gt;encoding) &amp;&amp; intsetSearch(is,value,NULL);
+&#125;
+
+/* Search for the position of &quot;value&quot;. Return 1 when the value was found and
+ * sets &quot;pos&quot; to the position of the value within the intset. Return 0 when
+ * the value is not present in the intset and sets &quot;pos&quot; to the position
+ * where &quot;value&quot; can be inserted. */
+static uint8_t intsetSearch(intset *is, int64_t value, uint32_t *pos) &#123;
+    int min = 0, max = intrev32ifbe(is-&gt;length)-1, mid = -1;
+    int64_t cur = -1;
+
+    /* The value can never be found when the set is empty */
+    if (intrev32ifbe(is-&gt;length) == 0) &#123;
+        if (pos) *pos = 0;
+        return 0;
+    &#125; else &#123;
+        /* Check for the case where we know we cannot find the value,
+         * but do know the insert position. */
+        if (value &gt; _intsetGet(is,max)) &#123;
+            if (pos) *pos = intrev32ifbe(is-&gt;length);
+            return 0;
+        &#125; else if (value &lt; _intsetGet(is,0)) &#123;
+            if (pos) *pos = 0;
+            return 0;
+        &#125;
+    &#125;
+
+    while(max &gt;= min) &#123;
+        mid = ((unsigned int)min + (unsigned int)max) &gt;&gt; 1;
+        cur = _intsetGet(is,mid);
+        if (value &gt; cur) &#123;
+            min = mid+1;
+        &#125; else if (value &lt; cur) &#123;
+            max = mid-1;
+        &#125; else &#123;
+            break;
+        &#125;
+    &#125;
+
+    if (value == cur) &#123;
+        if (pos) *pos = mid;
+        return 1;
+    &#125; else &#123;
+        if (pos) *pos = min;
+        return 0;
+    &#125;
+&#125;
+</code></pre>
+<p>intsetFind 在指定的 intset 中查找 value，找到返回 1，否则返回 0。</p>
+<p>首先使用_intsetValueEncoding 判断 value 的 encoding，如果要搜索的 value 的 encoding 小于当前的 encoding，那元素肯定不存在。</p>
+<p>encoding 符合当前 intset，则调用 intsetSearch，该方法是二分查找算法的实现，查到元素时，返回元素位置，<strong>没查到元素时，会将 pos 设置为 min，这是为了之后的插入做准备。</strong></p>
+<h3 id="插入元素"><a class="anchor" href="#插入元素">#</a> 插入元素</h3>
+<pre><code>/* Insert an integer in the intset */
+intset *intsetAdd(intset *is, int64_t value, uint8_t *success) &#123;
+    uint8_t valenc = _intsetValueEncoding(value);
+    uint32_t pos;
+    if (success) *success = 1;
+
+    /* Upgrade encoding if necessary. If we need to upgrade, we know that
+     * this value should be either appended (if &gt; 0) or prepended (if &lt; 0),
+     * because it lies outside the range of existing values. */
+    if (valenc &gt; intrev32ifbe(is-&gt;encoding)) &#123;
+        /* This always succeeds, so we don't need to curry *success. */
+        return intsetUpgradeAndAdd(is,value);
+    &#125; else &#123;
+        /* Abort if the value is already present in the set.
+         * This call will populate &quot;pos&quot; with the right position to insert
+         * the value when it cannot be found. */
+        if (intsetSearch(is,value,&amp;pos)) &#123;
+            if (success) *success = 0;
+            return is;
+        &#125;
+
+        is = intsetResize(is,intrev32ifbe(is-&gt;length)+1);
+        if (pos &lt; intrev32ifbe(is-&gt;length)) intsetMoveTail(is,pos,pos+1);
+    &#125;
+
+    _intsetSet(is,pos,value);
+    is-&gt;length = intrev32ifbe(intrev32ifbe(is-&gt;length)+1);
+    return is;
+&#125;
+
+
+/* Upgrades the intset to a larger encoding and inserts the given integer. */
+static intset *intsetUpgradeAndAdd(intset *is, int64_t value) &#123;
+    uint8_t curenc = intrev32ifbe(is-&gt;encoding);
+    uint8_t newenc = _intsetValueEncoding(value);
+    int length = intrev32ifbe(is-&gt;length);
+    int prepend = value &lt; 0 ? 1 : 0;
+
+    /* First set new encoding and resize */
+    is-&gt;encoding = intrev32ifbe(newenc);
+    is = intsetResize(is,intrev32ifbe(is-&gt;length)+1);
+
+    /* Upgrade back-to-front so we don't overwrite values.
+     * Note that the &quot;prepend&quot; variable is used to make sure we have an empty
+     * space at either the beginning or the end of the intset. */
+    while(length--)
+        _intsetSet(is,length+prepend,_intsetGetEncoded(is,length,curenc));
+
+    /* Set the value at the beginning or the end. */
+    if (prepend)
+        _intsetSet(is,0,value);
+    else
+        _intsetSet(is,intrev32ifbe(is-&gt;length),value);
+    is-&gt;length = intrev32ifbe(intrev32ifbe(is-&gt;length)+1);
+    return is;
+&#125;
+
+/* Resize the intset */
+static intset *intsetResize(intset *is, uint32_t len) &#123;
+    uint64_t size = (uint64_t)len*intrev32ifbe(is-&gt;encoding);
+    assert(size &lt;= SIZE_MAX - sizeof(intset));
+    is = zrealloc(is,sizeof(intset)+size);
+    return is;
+&#125;
+</code></pre>
+<p>依旧是先判断插入的 value 的 encoding，如果大于当前 intset 的 encoding，则调用 intsetUpgradeAndAdd 对 encoding 进行升级。</p>
+<p>如果不需要扩容，就调用 intsetSearch 查找是否已经存在，如果能查到，就直接返回，不添加 value。</p>
+<p>如果没查到，调用 intsetResize 扩容，同时调用 intsetMoveTail 将待插入位置后面的元素统一向后移动 1 个位置。</p>
+<p>显然插入元素的时间复杂度为 O (n)。</p>
+
+      <div class="tags">
+          <a href="/tags/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/" rel="tag"><i class="ic i-tag"></i> 源码分析</a>
+          <a href="/tags/Redis/" rel="tag"><i class="ic i-tag"></i> Redis</a>
+      </div>
+  </div>
+
+   <footer>
+
+    <div class="meta">
+</div>
+
+      
+
+<div id="copyright">
+<ul>
+  <li class="author">
+    <strong>本文作者： </strong>a1oyss <i class="ic i-at"><em>@</em></i>a1oyss
+  </li>
+  <li class="link">
+    <strong>本文链接：</strong>
+    <a href="https://a1oyss.github.io/2024/10/813972997.html" title="Redis源码学习-intset">https://a1oyss.github.io/2024/10/813972997.html</a>
+  </li>
+  <li class="license">
+    <strong>版权声明： </strong>本站所有文章除特别声明外，均采用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC9kZWVkLnpo"><i class="ic i-creative-commons"><em>(CC)</em></i>BY-NC-SA</span> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+  </footer>
+
+</article>
+
+  </div>
+  
+
+<div class="post-nav">
+    <div class="item left">
+      
+
+  <a href="/2024/10/2040406187.html" itemprop="url" rel="prev" data-background-image="https:&#x2F;&#x2F;s2.loli.net&#x2F;2024&#x2F;10&#x2F;13&#x2F;sVn5mvFbj1T3HO2.png" title="Redis源码学习-Skiplist">
+  <span class="type">上一篇</span>
+  <span class="category"><i class="ic i-flag"></i> </span>
+  <h3>Redis源码学习-Skiplist</h3>
+  </a>
+
+    </div>
+    <div class="item right">
+      
+
+  <a href="/2024/10/3609413537.html" itemprop="url" rel="next" data-background-image="https:&#x2F;&#x2F;s2.loli.net&#x2F;2024&#x2F;10&#x2F;13&#x2F;hsH7BXrkDLlfjyW.png" title="Redis源码学习-SDS">
+  <span class="type">下一篇</span>
+  <span class="category"><i class="ic i-flag"></i> </span>
+  <h3>Redis源码学习-SDS</h3>
+  </a>
+
+    </div>
+</div>
+
+  
+  <div class="wrap" id="comments"></div>
+
+
+        </div>
+        <div id="sidebar">
+          
+
+<div class="inner">
+
+  <div class="panels">
+    <div class="inner">
+      <div class="contents panel pjax" data-title="文章目录">
+          <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#intset%E7%9A%84%E7%BB%93%E6%9E%84"><span class="toc-number">1.</span> <span class="toc-text"> intset 的结构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#intset%E7%9A%84%E6%9F%A5%E6%89%BE%E4%B8%8E%E6%96%B0%E5%A2%9E"><span class="toc-number">2.</span> <span class="toc-text"> intset 的查找与新增</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9F%A5%E6%89%BE%E5%85%83%E7%B4%A0"><span class="toc-number">2.1.</span> <span class="toc-text"> 查找元素</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8F%92%E5%85%A5%E5%85%83%E7%B4%A0"><span class="toc-number">2.2.</span> <span class="toc-text"> 插入元素</span></a></li></ol></li></ol>
+      </div>
+      <div class="related panel pjax" data-title="系列文章">
+      </div>
+      <div class="overview panel" data-title="站点概览">
+        <div class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <img class="image" itemprop="image" alt="a1oyss"
+      data-src="/images/avatar.jpg">
+  <p class="name" itemprop="name">a1oyss</p>
+  <div class="description" itemprop="description">随便写点什么</div>
+</div>
+
+<nav class="state">
+    <div class="item posts">
+      <a href="/archives/">
+        <span class="count">20</span>
+        <span class="name">文章</span>
+      </a>
+    </div>
+    <div class="item categories">
+      <a href="/categories/">
+        <span class="count">3</span>
+        <span class="name">分类</span>
+      </a>
+    </div>
+    <div class="item tags">
+      <a href="/tags/">
+        <span class="count">18</span>
+        <span class="name">标签</span>
+      </a>
+    </div>
+</nav>
+
+<div class="social">
+      <span class="exturl item github" data-url="aHR0cHM6Ly9naXRodWIuY29tL2Exb3lzcw==" title="https:&#x2F;&#x2F;github.com&#x2F;a1oyss"><i class="ic i-github"></i></span>
+</div>
+
+<ul class="menu">
+  
+    
+  <li class="item">
+    <a href="/" rel="section"><i class="ic i-home"></i>首页</a>
+  </li>
+
+    
+  <li class="item">
+    <a href="/archives/" rel="section"><i class="ic i-list-alt"></i>归档</a>
+  </li>
+
+    
+  <li class="item">
+    <a href="/tags/" rel="section"><i class="ic i-tags"></i>标签</a>
+  </li>
+
+
+</ul>
+
+      </div>
+    </div>
+  </div>
+
+  <ul id="quick">
+    <li class="prev pjax">
+        <a href="/2024/10/2040406187.html" rel="prev" title="上一篇"><i class="ic i-chevron-left"></i></a>
+    </li>
+    <li class="up"><i class="ic i-arrow-up"></i></li>
+    <li class="down"><i class="ic i-arrow-down"></i></li>
+    <li class="next pjax">
+        <a href="/2024/10/3609413537.html" rel="next" title="下一篇"><i class="ic i-chevron-right"></i></a>
+    </li>
+    <li class="percent"></li>
+  </ul>
+</div>
+
+
+        </div>
+        <div class="dimmer"></div>
+      </div>
+    </main>
+    <footer id="footer">
+      <div class="inner">
+        <div class="widgets">
+          
+<div class="rpost pjax">
+  <h2>随机文章</h2>
+  <ul>
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E6%9D%82%E8%AE%B0/" title="分类于 杂记">杂记</a>
+</div>
+
+    <span><a href="/2020/10/58699.html" title="Pycharm+VMware搭建Linux下开发环境">Pycharm+VMware搭建Linux下开发环境</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/" title="分类于 后端开发">后端开发</a>
+</div>
+
+    <span><a href="/2022/11/5457.html" title="HttpServletRequest的几种获取方式">HttpServletRequest的几种获取方式</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2024/10/2040406187.html" title="Redis源码学习-Skiplist">Redis源码学习-Skiplist</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/" title="分类于 网络安全">网络安全</a>
+</div>
+
+    <span><a href="/2020/12/5062.html" title="VScode+XDebug远程调试ThinkPHP RCE">VScode+XDebug远程调试ThinkPHP RCE</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/" title="分类于 网络安全">网络安全</a>
+</div>
+
+    <span><a href="/2020/12/21012.html" title="Pwnable题解">Pwnable题解</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/" title="分类于 网络安全">网络安全</a>
+</div>
+
+    <span><a href="/2020/11/38798.html" title="首届Bilibili安全挑战赛">首届Bilibili安全挑战赛</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/" title="分类于 后端开发">后端开发</a>
+</div>
+
+    <span><a href="/2022/11/13493.html" title="SSM框架整合过程以及加载原理的思考">SSM框架整合过程以及加载原理的思考</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/" title="分类于 网络安全">网络安全</a>
+</div>
+
+    <span><a href="/2022/09/13394.html" title="CTFd+CTFd-Whale部署实践">CTFd+CTFd-Whale部署实践</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/" title="分类于 后端开发">后端开发</a>
+</div>
+
+    <span><a href="/2022/12/20899.html" title="一次由于服务器时间异常引起的服务报错问题排查">一次由于服务器时间异常引起的服务报错问题排查</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2024/10/3609413537.html" title="Redis源码学习-SDS">Redis源码学习-SDS</a></span>
+  </li>
+
+  </ul>
+</div>
+<div>
+  <h2>最新评论</h2>
+  <ul class="leancloud-recent-comment"></ul>
+</div>
+
+        </div>
+        <div class="status">
+  <div class="copyright">
+    
+    &copy; 2023 – 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="ic i-a1oyss"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">a1oyss @ a1oyss's blog</span>
+  </div>
+  <div class="count">
+    <span class="post-meta-item-icon">
+      <i class="ic i-chart-area"></i>
+    </span>
+    <span title="站点总字数">108k 字</span>
+
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="ic i-coffee"></i>
+    </span>
+    <span title="站点阅读时长">1:38</span>
+  </div>
+  <div class="powered-by">
+    基于 <span class="exturl" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> & Theme.<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2FtZWhpbWUvaGV4by10aGVtZS1zaG9rYQ==">Shoka</span>
+  </div>
+</div>
+
+      </div>
+    </footer>
+  </div>
+<script data-config type="text/javascript">
+  var LOCAL = {
+    path: '2024/10/813972997.html',
+    favicon: {
+      show: "a1oyss's blog",
+      hide: "a1oyss's blog"
+    },
+    search : {
+      placeholder: "文章搜索",
+      empty: "关于 「 ${query} 」，什么也没搜到",
+      stats: "${time} ms 内找到 ${hits} 条结果"
+    },
+    valine: true,fancybox: true,
+    copyright: '复制成功，转载请遵守 <i class="ic i-creative-commons"></i>BY-NC-SA 协议。',
+    ignores : [
+      function(uri) {
+        return uri.includes('#');
+      },
+      function(uri) {
+        return new RegExp(LOCAL.path+"$").test(uri);
+      }
+    ]
+  };
+</script>
+
+<script src="https://cdn.polyfill.io/v2/polyfill.js"></script>
+
+<script src="//cdn.jsdelivr.net/combine/npm/pace-js@1.0.2/pace.min.js,npm/pjax@0.2.8/pjax.min.js,npm/whatwg-fetch@3.4.0/dist/fetch.umd.min.js,npm/animejs@3.2.0/lib/anime.min.js,npm/algoliasearch@4/dist/algoliasearch-lite.umd.js,npm/instantsearch.js@4/dist/instantsearch.production.min.js,npm/lozad@1/dist/lozad.min.js,npm/quicklink@2/dist/quicklink.umd.js"></script>
+
+<script src="/js/app.js?v=0.2.5"></script>
+
+
+
+
+</body>
+</html>
