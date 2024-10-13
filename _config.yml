@@ -9,11 +9,17 @@ timezone: ''
 
 # URL
 url: https://a1oyss.github.io
-permalink: :title/
+permalink: :year/:month/:abbrlink.html
 permalink_defaults:
 pretty_urls:
   trailing_index: true
   trailing_html: true
+## abbrlink config
+abbrlink:
+  alg: crc32      #support crc16(default) and crc32 进制
+  rep: dec        #support dec(default) and hex  算法
+  drafts: false   #(true)Process draft,(false)Do not process draft. false(default) 
+ 
 
 # Directory
 source_dir: source
