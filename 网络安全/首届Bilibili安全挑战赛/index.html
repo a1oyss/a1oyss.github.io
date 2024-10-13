@@ -1,0 +1,585 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#FFF">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+
+<link rel="icon" type="image/ico" sizes="32x32" href="/images/favicon.ico">
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+<link rel="alternate" type="application/rss+xml" title="a1oyss" href="https://a1oyss.github.io/rss.xml" />
+<link rel="alternate" type="application/atom+xml" title="a1oyss" href="https://a1oyss.github.io/atom.xml" />
+<link rel="alternate" type="application/json" title="a1oyss" href="https://a1oyss.github.io/feed.json" />
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Mulish:300,300italic,400,400italic,700,700italic%7CFredericka%20the%20Great:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20JP:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20SC:300,300italic,400,400italic,700,700italic%7CInconsolata:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="/css/app.css?v=0.2.5">
+
+  
+  <meta name="keywords" content="CTF,网络安全" />
+
+
+<link rel="canonical" href="https://a1oyss.github.io/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/%E9%A6%96%E5%B1%8ABilibili%E5%AE%89%E5%85%A8%E6%8C%91%E6%88%98%E8%B5%9B/">
+
+
+
+  <title>
+首届Bilibili安全挑战赛 - 网络安全 |
+a1oyss's blog = a1oyss</title>
+<meta name="generator" content="Hexo 6.3.0"></head>
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div id="loading">
+    <div class="cat">
+      <div class="body"></div>
+      <div class="head">
+        <div class="face"></div>
+      </div>
+      <div class="foot">
+        <div class="tummy-end"></div>
+        <div class="bottom"></div>
+        <div class="legs left"></div>
+        <div class="legs right"></div>
+      </div>
+      <div class="paw">
+        <div class="hands left"></div>
+        <div class="hands right"></div>
+      </div>
+    </div>
+  </div>
+  <div id="container">
+    <header id="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="inner">
+        <div id="brand">
+          <div class="pjax">
+          
+  <h1 itemprop="name headline">首届Bilibili安全挑战赛
+  </h1>
+  
+<div class="meta">
+  <span class="item" title="创建时间：2020-11-16 18:43:10">
+    <span class="icon">
+      <i class="ic i-calendar"></i>
+    </span>
+    <span class="text">发表于</span>
+    <time itemprop="dateCreated datePublished" datetime="2020-11-16T18:43:10+08:00">2020-11-16</time>
+  </span>
+  <span class="item" title="本文字数">
+    <span class="icon">
+      <i class="ic i-pen"></i>
+    </span>
+    <span class="text">本文字数</span>
+    <span>1.8k</span>
+    <span class="text">字</span>
+  </span>
+  <span class="item" title="阅读时长">
+    <span class="icon">
+      <i class="ic i-clock"></i>
+    </span>
+    <span class="text">阅读时长</span>
+    <span>2 分钟</span>
+  </span>
+</div>
+
+
+          </div>
+        </div>
+        <nav id="nav">
+  <div class="inner">
+    <div class="toggle">
+      <div class="lines" aria-label="切换导航栏">
+        <span class="line"></span>
+        <span class="line"></span>
+        <span class="line"></span>
+      </div>
+    </div>
+    <ul class="menu">
+      <li class="item title"><a href="/" rel="start">a1oyss's blog</a></li>
+    </ul>
+    <ul class="right">
+      <li class="item theme">
+        <i class="ic i-sun"></i>
+      </li>
+      <li class="item search">
+        <i class="ic i-search"></i>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+      </div>
+      <div id="imgs" class="pjax">
+        <ul>
+          <li class="item" data-background-image="https://s2.loli.net/2024/10/13/2pFyjbAMUauws6i.png"></li>
+          <li class="item" data-background-image="https://s2.loli.net/2024/10/13/KCm8QTiHwvGo3aI.png"></li>
+          <li class="item" data-background-image="https://s2.loli.net/2024/10/13/uyhMVC8iFk7L3oq.png"></li>
+          <li class="item" data-background-image="https://s2.loli.net/2024/10/13/5HIfmpctuZF3iGQ.png"></li>
+          <li class="item" data-background-image="https://s2.loli.net/2024/10/13/Z5XKkwlpEWrNihC.png"></li>
+          <li class="item" data-background-image="https://s2.loli.net/2024/10/13/J5qtFM1iUxWlS9u.png"></li>
+        </ul>
+      </div>
+    </header>
+    <div id="waves">
+      <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+        <defs>
+          <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+        </defs>
+        <g class="parallax">
+          <use xlink:href="#gentle-wave" x="48" y="0" />
+          <use xlink:href="#gentle-wave" x="48" y="3" />
+          <use xlink:href="#gentle-wave" x="48" y="5" />
+          <use xlink:href="#gentle-wave" x="48" y="7" />
+        </g>
+      </svg>
+    </div>
+    <main>
+      <div class="inner">
+        <div id="main" class="pjax">
+          
+  <div class="article wrap">
+    
+<div class="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList">
+<i class="ic i-home"></i>
+<span><a href="/">首页</a></span><i class="ic i-angle-right"></i>
+<span  class="current" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/" itemprop="item" rel="index" title="分类于 网络安全"><span itemprop="name">网络安全</span></a>
+<meta itemprop="position" content="1" /></span>
+</div>
+
+    <article itemscope itemtype="http://schema.org/Article" class="post block" lang="zh-CN">
+  <link itemprop="mainEntityOfPage" href="https://a1oyss.github.io/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/%E9%A6%96%E5%B1%8ABilibili%E5%AE%89%E5%85%A8%E6%8C%91%E6%88%98%E8%B5%9B/">
+
+  <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="image" content="/images/avatar.jpg">
+    <meta itemprop="name" content="a1oyss">
+    <meta itemprop="description" content=", 随便写点什么">
+  </span>
+
+  <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="a1oyss">
+  </span>
+
+  <div class="body md" itemprop="articleBody">
+    
+
+    <p>#CTF<br />
+ 这波啊，这波是全国上下共享一个靶机</p>
+<h1 id="页面的背后是什么"><a class="anchor" href="#页面的背后是什么">#</a> 页面的背后是什么？</h1>
+<h4 id="题目地址-http4511320136indexhtml"><a class="anchor" href="#题目地址-http4511320136indexhtml">#</a> 题目地址： <span class="exturl" data-url="aHR0cDovLzQ1LjExMy4yMDEuMzYvaW5kZXguaHRtbA==">http://45.113.201.36/index.html</span></h4>
+<p>是叔叔我啊！<br />
+<span id="more"></span><br />
+ 直接查看源码，看到</p>
+<p>$.ajax({<br />
+url: &quot;api/admin&quot;,<br />
+type: &quot;get&quot;,<br />
+success:function (data) {<br />
+<a target="_blank" rel="noopener" href="//console.log">//console.log</a>(data);<br />
+if (data.code == 200){<br />
+// 如果有值：前端跳转<br />
+ var input = document.getElementById (&quot;flag1&quot;);<br />
+input.value = String(data.data);<br />
+} else {<br />
+// 如果没值<br />
+ $('#flag1').html (&quot;接口异常，请稍后再试～&quot;);<br />
+}<br />
+}<br />
+})</p>
+<p>请求 api/admin，得到 flag</p>
+<h1 id="真正的秘密只有特殊的设备才能看到"><a class="anchor" href="#真正的秘密只有特殊的设备才能看到">#</a> 真正的秘密只有特殊的设备才能看到</h1>
+<p>$.ajax({<br />
+url: &quot;api/ctf/2&quot;,<br />
+type: &quot;get&quot;,<br />
+success:function (data) {<br />
+<a target="_blank" rel="noopener" href="//console.log">//console.log</a>(data);<br />
+if (data.code == 200){<br />
+// 如果有值：前端跳转<br />
+ $('#flag2').html (&quot;flag2:&quot; + data.data);<br />
+} else {<br />
+// 如果没值<br />
+ $('#flag2').html (&quot;需要使用 bilibili Security Browser 浏览器访问～&quot;);<br />
+}<br />
+}<br />
+})</p>
+<p>根据提示，伪造 UserAgent:  <code>bilibili Security Browser</code></p>
+<h1 id="密码是啥"><a class="anchor" href="#密码是啥">#</a> 密码是啥？</h1>
+<p>是陈睿叔叔的生日</p>
+<p>很简单，弱口令</p>
+<p>用户名 admin，密码 bilibili</p>
+<h1 id="对不起权限不足~"><a class="anchor" href="#对不起权限不足~">#</a> 对不起，权限不足～</h1>
+<p>依旧靠猜，提示超级管理员才能看到，抓包，发现 cookie 里面有个 role</p>
+<p>Cookie: role=7b7bc2512ee1fedcd76bdc68926d4f7b; session=eyJ1aWQiOiI4NjY0MzIxIn0.X5QmyQ.nJVuwtiLPHwl0tdBr-QoXYew0jE</p>
+<p>把 role 拿去 md5 解密，得到 user，接下来就是猜管理员的名字了。</p>
+<p>superadmin，admin，su，root，superuser 全都不对，最后看到别人的提示，Windows 超级管理员，这才知道是 Administrator。傻不傻啊</p>
+<h1 id="结束亦是开始"><a class="anchor" href="#结束亦是开始">#</a> 结束亦是开始</h1>
+<p>根据提示，把 single 改为 end，得到 你想要的不在这儿～，然后，就没有然后了</p>
+<p>根据群里大佬的思路，扫目录，发现 test.php 下有东西，一堆 jsfuck 代码</p>
+<p>放进浏览器执行，得到：</p>
+<p>var str1 = &quot;\u7a0b\u5e8f\u5458\u6700\u591a\u7684\u5730\u65b9&quot;;<br />
+var str2 = &quot;bilibili1024havefun&quot;;<br />
+console.log()</p>
+<p>解码 str1， <code>&quot;程序员最多的地方&quot;</code> ，那就是 github 了。</p>
+<p>进 GitHub 搜索第二个字符串 <code>bilibili1024havefun</code> ，找到一个 end.php 的源码</p>
+<p>&lt;?php</p>
+<p>//filename end.php</p>
+<p>$bilibili = &quot;bilibili1024havefun&quot;;</p>
+<p><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>s</mi><mi>t</mi><mi>r</mi><mo>=</mo><mi>i</mi><mi>n</mi><mi>t</mi><mi>v</mi><mi>a</mi><mi>l</mi><mo stretchy="false">(</mo></mrow><annotation encoding="application/x-tex">str = intval(</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.61508em;vertical-align:0em;"></span><span class="mord mathnormal">s</span><span class="mord mathnormal">t</span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">i</span><span class="mord mathnormal">n</span><span class="mord mathnormal">t</span><span class="mord mathnormal" style="margin-right:0.03588em;">v</span><span class="mord mathnormal">a</span><span class="mord mathnormal" style="margin-right:0.01968em;">l</span><span class="mopen">(</span></span></span></span>_GET['id']);<br />
+$reg = preg_match('/\d/is', $_GET['id']);</p>
+<p>if(!is_numeric($_GET['id']) and $reg !== 1 and $str === 1){<br />
+<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>c</mi><mi>o</mi><mi>n</mi><mi>t</mi><mi>e</mi><mi>n</mi><mi>t</mi><mo>=</mo><mi>f</mi><mi>i</mi><mi>l</mi><msub><mi>e</mi><mi>g</mi></msub><mi>e</mi><msub><mi>t</mi><mi>c</mi></msub><mi>o</mi><mi>n</mi><mi>t</mi><mi>e</mi><mi>n</mi><mi>t</mi><mi>s</mi><mo stretchy="false">(</mo></mrow><annotation encoding="application/x-tex">content = file_get_contents(</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.61508em;vertical-align:0em;"></span><span class="mord mathnormal">c</span><span class="mord mathnormal">o</span><span class="mord mathnormal">n</span><span class="mord mathnormal">t</span><span class="mord mathnormal">e</span><span class="mord mathnormal">n</span><span class="mord mathnormal">t</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1.036108em;vertical-align:-0.286108em;"></span><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="mord mathnormal">i</span><span class="mord mathnormal" style="margin-right:0.01968em;">l</span><span class="mord"><span class="mord mathnormal">e</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.15139200000000003em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.03588em;">g</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span><span class="mord mathnormal">e</span><span class="mord"><span class="mord mathnormal">t</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">c</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord mathnormal">o</span><span class="mord mathnormal">n</span><span class="mord mathnormal">t</span><span class="mord mathnormal">e</span><span class="mord mathnormal">n</span><span class="mord mathnormal">t</span><span class="mord mathnormal">s</span><span class="mopen">(</span></span></span></span>_GET['url']);</p>
+<pre><code>//文件路径猜解
+if (false)&#123;
+	echo &quot;还差一点点啦～&quot;;
+&#125;else&#123;
+	echo $flag;
+&#125;
+</code></pre>
+<p>}else{<br />
+echo &quot;你想要的不在这儿～&quot;;<br />
+}<br />
+?&gt;</p>
+<p>好家伙，真就硬猜呗</p>
+<p>根据源码绕过 + 猜路径，构造 url</p>
+<p><span class="exturl" data-url="aHR0cDovLzEyMC45Mi4xNTEuMTg5L2Jsb2cvZW5kLnBocD9pZCU1QiU1RD0xJmFtcDt1cmw9L2FwaS9jdGYvNi9mbGFnLnR4dA==">http://120.92.151.189/blog/end.php?id[]=1&amp;url=/api/ctf/6/flag.txt</span></p>
+<p>然而得到的却是第十题的答案</p>
+<p>七八九十待续。。。</p>
+
+      <div class="tags">
+          <a href="/tags/CTF/" rel="tag"><i class="ic i-tag"></i> CTF</a>
+          <a href="/tags/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/" rel="tag"><i class="ic i-tag"></i> 网络安全</a>
+      </div>
+  </div>
+
+   <footer>
+
+    <div class="meta">
+</div>
+
+      
+
+<div id="copyright">
+<ul>
+  <li class="author">
+    <strong>本文作者： </strong>a1oyss <i class="ic i-at"><em>@</em></i>a1oyss
+  </li>
+  <li class="link">
+    <strong>本文链接：</strong>
+    <a href="https://a1oyss.github.io/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/%E9%A6%96%E5%B1%8ABilibili%E5%AE%89%E5%85%A8%E6%8C%91%E6%88%98%E8%B5%9B/" title="首届Bilibili安全挑战赛">https://a1oyss.github.io/网络安全/首届Bilibili安全挑战赛/</a>
+  </li>
+  <li class="license">
+    <strong>版权声明： </strong>本站所有文章除特别声明外，均采用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC9kZWVkLnpo"><i class="ic i-creative-commons"><em>(CC)</em></i>BY-NC-SA</span> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+  </footer>
+
+</article>
+
+  </div>
+  
+
+<div class="post-nav">
+    <div class="item left">
+      
+
+  <a href="/%E6%9D%82%E8%AE%B0/Python%E6%A0%A1%E5%9B%AD%E7%BD%91%E7%99%BB%E5%BD%95/" itemprop="url" rel="prev" data-background-image="https:&#x2F;&#x2F;s2.loli.net&#x2F;2024&#x2F;10&#x2F;13&#x2F;Z5XKkwlpEWrNihC.png" title="Python校园网登录">
+  <span class="type">上一篇</span>
+  <span class="category"><i class="ic i-flag"></i> 杂记</span>
+  <h3>Python校园网登录</h3>
+  </a>
+
+    </div>
+    <div class="item right">
+      
+
+  <a href="/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/VScode+XDebug%E8%BF%9C%E7%A8%8B%E8%B0%83%E8%AF%95ThinkPHP%20RCE/" itemprop="url" rel="next" data-background-image="https:&#x2F;&#x2F;s2.loli.net&#x2F;2024&#x2F;10&#x2F;13&#x2F;3X85QsPvfcOj2hM.png" title="VScode+XDebug远程调试ThinkPHP RCE">
+  <span class="type">下一篇</span>
+  <span class="category"><i class="ic i-flag"></i> 网络安全</span>
+  <h3>VScode+XDebug远程调试ThinkPHP RCE</h3>
+  </a>
+
+    </div>
+</div>
+
+  
+  <div class="wrap" id="comments"></div>
+
+
+        </div>
+        <div id="sidebar">
+          
+
+<div class="inner">
+
+  <div class="panels">
+    <div class="inner">
+      <div class="contents panel pjax" data-title="文章目录">
+          <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%A1%B5%E9%9D%A2%E7%9A%84%E8%83%8C%E5%90%8E%E6%98%AF%E4%BB%80%E4%B9%88"><span class="toc-number">1.</span> <span class="toc-text"> 页面的背后是什么？</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%A2%98%E7%9B%AE%E5%9C%B0%E5%9D%80-http4511320136indexhtml"><span class="toc-number">1.0.0.1.</span> <span class="toc-text"> 题目地址： http:&#x2F;&#x2F;45.113.201.36&#x2F;index.html</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%9C%9F%E6%AD%A3%E7%9A%84%E7%A7%98%E5%AF%86%E5%8F%AA%E6%9C%89%E7%89%B9%E6%AE%8A%E7%9A%84%E8%AE%BE%E5%A4%87%E6%89%8D%E8%83%BD%E7%9C%8B%E5%88%B0"><span class="toc-number">2.</span> <span class="toc-text"> 真正的秘密只有特殊的设备才能看到</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%AF%86%E7%A0%81%E6%98%AF%E5%95%A5"><span class="toc-number">3.</span> <span class="toc-text"> 密码是啥？</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%AF%B9%E4%B8%8D%E8%B5%B7%E6%9D%83%E9%99%90%E4%B8%8D%E8%B6%B3~"><span class="toc-number">4.</span> <span class="toc-text"> 对不起，权限不足～</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%BB%93%E6%9D%9F%E4%BA%A6%E6%98%AF%E5%BC%80%E5%A7%8B"><span class="toc-number">5.</span> <span class="toc-text"> 结束亦是开始</span></a></li></ol>
+      </div>
+      <div class="related panel pjax" data-title="系列文章">
+        <ul>
+          <li><a href="/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/ISCC%E4%B8%80%E6%97%A5%E6%B8%B8/" rel="bookmark" title="ISCC一日游">ISCC一日游</a></li><li class="active"><a href="/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/%E9%A6%96%E5%B1%8ABilibili%E5%AE%89%E5%85%A8%E6%8C%91%E6%88%98%E8%B5%9B/" rel="bookmark" title="首届Bilibili安全挑战赛">首届Bilibili安全挑战赛</a></li><li><a href="/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/VScode+XDebug%E8%BF%9C%E7%A8%8B%E8%B0%83%E8%AF%95ThinkPHP%20RCE/" rel="bookmark" title="VScode+XDebug远程调试ThinkPHP RCE">VScode+XDebug远程调试ThinkPHP RCE</a></li><li><a href="/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/Pwnable%E9%A2%98%E8%A7%A3/" rel="bookmark" title="Pwnable题解">Pwnable题解</a></li><li><a href="/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/CTFd+CTFd-Whale%E9%83%A8%E7%BD%B2%E5%AE%9E%E8%B7%B5/" rel="bookmark" title="CTFd+CTFd-Whale部署实践">CTFd+CTFd-Whale部署实践</a></li>
+        </ul>
+      </div>
+      <div class="overview panel" data-title="站点概览">
+        <div class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <img class="image" itemprop="image" alt="a1oyss"
+      data-src="/images/avatar.jpg">
+  <p class="name" itemprop="name">a1oyss</p>
+  <div class="description" itemprop="description">随便写点什么</div>
+</div>
+
+<nav class="state">
+    <div class="item posts">
+      <a href="/archives/">
+        <span class="count">15</span>
+        <span class="name">文章</span>
+      </a>
+    </div>
+    <div class="item categories">
+      <a href="/categories/">
+        <span class="count">3</span>
+        <span class="name">分类</span>
+      </a>
+    </div>
+    <div class="item tags">
+      <a href="/tags/">
+        <span class="count">17</span>
+        <span class="name">标签</span>
+      </a>
+    </div>
+</nav>
+
+<div class="social">
+      <span class="exturl item github" data-url="aHR0cHM6Ly9naXRodWIuY29tL2Exb3lzcw==" title="https:&#x2F;&#x2F;github.com&#x2F;a1oyss"><i class="ic i-github"></i></span>
+</div>
+
+<ul class="menu">
+  
+    
+  <li class="item">
+    <a href="/" rel="section"><i class="ic i-home"></i>首页</a>
+  </li>
+
+    
+  <li class="item">
+    <a href="/archives/" rel="section"><i class="ic i-list-alt"></i>归档</a>
+  </li>
+
+    
+  <li class="item">
+    <a href="/tags/" rel="section"><i class="ic i-tags"></i>标签</a>
+  </li>
+
+
+</ul>
+
+      </div>
+    </div>
+  </div>
+
+  <ul id="quick">
+    <li class="prev pjax">
+        <a href="/%E6%9D%82%E8%AE%B0/Python%E6%A0%A1%E5%9B%AD%E7%BD%91%E7%99%BB%E5%BD%95/" rel="prev" title="上一篇"><i class="ic i-chevron-left"></i></a>
+    </li>
+    <li class="up"><i class="ic i-arrow-up"></i></li>
+    <li class="down"><i class="ic i-arrow-down"></i></li>
+    <li class="next pjax">
+        <a href="/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/VScode+XDebug%E8%BF%9C%E7%A8%8B%E8%B0%83%E8%AF%95ThinkPHP%20RCE/" rel="next" title="下一篇"><i class="ic i-chevron-right"></i></a>
+    </li>
+    <li class="percent"></li>
+  </ul>
+</div>
+
+
+        </div>
+        <div class="dimmer"></div>
+      </div>
+    </main>
+    <footer id="footer">
+      <div class="inner">
+        <div class="widgets">
+          
+<div class="rpost pjax">
+  <h2>随机文章</h2>
+  <ul>
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E6%9D%82%E8%AE%B0/" title="分类于 杂记">杂记</a>
+</div>
+
+    <span><a href="/%E6%9D%82%E8%AE%B0/Terminal%E5%AE%89%E8%A3%85+%E7%BE%8E%E5%8C%96/" title="Terminal安装+美化">Terminal安装+美化</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E6%9D%82%E8%AE%B0/" title="分类于 杂记">杂记</a>
+</div>
+
+    <span><a href="/%E6%9D%82%E8%AE%B0/Python%E6%A0%A1%E5%9B%AD%E7%BD%91%E7%99%BB%E5%BD%95/" title="Python校园网登录">Python校园网登录</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E6%9D%82%E8%AE%B0/" title="分类于 杂记">杂记</a>
+</div>
+
+    <span><a href="/%E6%9D%82%E8%AE%B0/%E8%BF%90%E8%A1%8CCMD%E6%8F%90%E7%A4%BA%5B%E5%B7%B2%E9%80%80%E5%87%BA%E8%BF%9B%E7%A8%8B%EF%BC%8C%E4%BB%A3%E7%A0%81%E4%B8%BA%201%5D%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/" title="运行CMD提示[已退出进程，代码为 1]解决方案">运行CMD提示[已退出进程，代码为 1]解决方案</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/" title="分类于 后端开发">后端开发</a>
+</div>
+
+    <span><a href="/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/SSM%E6%A1%86%E6%9E%B6%E6%95%B4%E5%90%88%E8%BF%87%E7%A8%8B%E4%BB%A5%E5%8F%8A%E5%8A%A0%E8%BD%BD%E5%8E%9F%E7%90%86%E7%9A%84%E6%80%9D%E8%80%83/" title="SSM框架整合过程以及加载原理的思考">SSM框架整合过程以及加载原理的思考</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/" title="分类于 后端开发">后端开发</a>
+</div>
+
+    <span><a href="/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/%E4%B8%80%E6%AC%A1%E7%94%B1%E4%BA%8E%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%97%B6%E9%97%B4%E5%BC%82%E5%B8%B8%E5%BC%95%E8%B5%B7%E7%9A%84%E6%9C%8D%E5%8A%A1%E6%8A%A5%E9%94%99%E9%97%AE%E9%A2%98%E6%8E%92%E6%9F%A5/" title="一次由于服务器时间异常引起的服务报错问题排查">一次由于服务器时间异常引起的服务报错问题排查</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E6%9D%82%E8%AE%B0/" title="分类于 杂记">杂记</a>
+</div>
+
+    <span><a href="/%E6%9D%82%E8%AE%B0/Hexo%E5%9B%BE%E7%89%87%E6%98%BE%E7%A4%BA%E5%A4%B1%E8%B4%A5/" title="Hexo图片显示失败">Hexo图片显示失败</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E6%9D%82%E8%AE%B0/" title="分类于 杂记">杂记</a>
+</div>
+
+    <span><a href="/%E6%9D%82%E8%AE%B0/Pycharm+VMware%E6%90%AD%E5%BB%BALinux%E4%B8%8B%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/" title="Pycharm+VMware搭建Linux下开发环境">Pycharm+VMware搭建Linux下开发环境</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/" title="分类于 网络安全">网络安全</a>
+</div>
+
+    <span><a href="/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/VScode+XDebug%E8%BF%9C%E7%A8%8B%E8%B0%83%E8%AF%95ThinkPHP%20RCE/" title="VScode+XDebug远程调试ThinkPHP RCE">VScode+XDebug远程调试ThinkPHP RCE</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/" title="分类于 网络安全">网络安全</a>
+</div>
+
+    <span><a href="/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/Pwnable%E9%A2%98%E8%A7%A3/" title="Pwnable题解">Pwnable题解</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/" title="分类于 后端开发">后端开发</a>
+</div>
+
+    <span><a href="/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/HttpServletRequest%E7%9A%84%E5%87%A0%E7%A7%8D%E8%8E%B7%E5%8F%96%E6%96%B9%E5%BC%8F/" title="HttpServletRequest的几种获取方式">HttpServletRequest的几种获取方式</a></span>
+  </li>
+
+  </ul>
+</div>
+<div>
+  <h2>最新评论</h2>
+  <ul class="leancloud-recent-comment"></ul>
+</div>
+
+        </div>
+        <div class="status">
+  <div class="copyright">
+    
+    &copy; 2023 – 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="ic i-a1oyss"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">a1oyss @ a1oyss's blog</span>
+  </div>
+  <div class="count">
+    <span class="post-meta-item-icon">
+      <i class="ic i-chart-area"></i>
+    </span>
+    <span title="站点总字数">93k 字</span>
+
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="ic i-coffee"></i>
+    </span>
+    <span title="站点阅读时长">1:25</span>
+  </div>
+  <div class="powered-by">
+    基于 <span class="exturl" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> & Theme.<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2FtZWhpbWUvaGV4by10aGVtZS1zaG9rYQ==">Shoka</span>
+  </div>
+</div>
+
+      </div>
+    </footer>
+  </div>
+<script data-config type="text/javascript">
+  var LOCAL = {
+    path: '网络安全/首届Bilibili安全挑战赛/',
+    favicon: {
+      show: "a1oyss's blog",
+      hide: "a1oyss's blog"
+    },
+    search : {
+      placeholder: "文章搜索",
+      empty: "关于 「 ${query} 」，什么也没搜到",
+      stats: "${time} ms 内找到 ${hits} 条结果"
+    },
+    valine: true,fancybox: true,
+    copyright: '复制成功，转载请遵守 <i class="ic i-creative-commons"></i>BY-NC-SA 协议。',
+    ignores : [
+      function(uri) {
+        return uri.includes('#');
+      },
+      function(uri) {
+        return new RegExp(LOCAL.path+"$").test(uri);
+      }
+    ]
+  };
+</script>
+
+<script src="https://cdn.polyfill.io/v2/polyfill.js"></script>
+
+<script src="//cdn.jsdelivr.net/combine/npm/pace-js@1.0.2/pace.min.js,npm/pjax@0.2.8/pjax.min.js,npm/whatwg-fetch@3.4.0/dist/fetch.umd.min.js,npm/animejs@3.2.0/lib/anime.min.js,npm/algoliasearch@4/dist/algoliasearch-lite.umd.js,npm/instantsearch.js@4/dist/instantsearch.production.min.js,npm/lozad@1/dist/lozad.min.js,npm/quicklink@2/dist/quicklink.umd.js"></script>
+
+<script src="/js/app.js?v=0.2.5"></script>
+
+
+
+
+</body>
+</html>
