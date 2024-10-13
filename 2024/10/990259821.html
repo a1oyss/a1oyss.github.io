@@ -24,15 +24,15 @@
 <link rel="stylesheet" href="/css/app.css?v=0.2.5">
 
   
+  <meta name="keywords" content="MySQL" />
 
-<link rel="canonical" href="https://a1oyss.github.io/archives/2022/11/">
+
+<link rel="canonical" href="https://a1oyss.github.io/2024/10/990259821.html">
 
 
 
   <title>
-2022 年 / 11 月 -
-
-归档 |
+MySQL 组合索引(多列索引) |
 a1oyss's blog = a1oyss</title>
 <meta name="generator" content="Hexo 6.3.0"></head>
 <body itemscope itemtype="http://schema.org/WebPage">
@@ -60,9 +60,34 @@ a1oyss's blog = a1oyss</title>
         <div id="brand">
           <div class="pjax">
           
-  <h1 itemprop="name headline">
-      发表于 "2022年11月" 的文章
+  <h1 itemprop="name headline">MySQL 组合索引(多列索引)
   </h1>
+  
+<div class="meta">
+  <span class="item" title="创建时间：2024-10-13 20:38:00">
+    <span class="icon">
+      <i class="ic i-calendar"></i>
+    </span>
+    <span class="text">发表于</span>
+    <time itemprop="dateCreated datePublished" datetime="2024-10-13T20:38:00+08:00">2024-10-13</time>
+  </span>
+  <span class="item" title="本文字数">
+    <span class="icon">
+      <i class="ic i-pen"></i>
+    </span>
+    <span class="text">本文字数</span>
+    <span>1.4k</span>
+    <span class="text">字</span>
+  </span>
+  <span class="item" title="阅读时长">
+    <span class="icon">
+      <i class="ic i-clock"></i>
+    </span>
+    <span class="text">阅读时长</span>
+    <span>1 分钟</span>
+  </span>
+</div>
+
 
           </div>
         </div>
@@ -92,12 +117,12 @@ a1oyss's blog = a1oyss</title>
       </div>
       <div id="imgs" class="pjax">
         <ul>
-          <li class="item" data-background-image="https://s2.loli.net/2024/10/13/5HIfmpctuZF3iGQ.png"></li>
-          <li class="item" data-background-image="https://s2.loli.net/2024/10/13/sVn5mvFbj1T3HO2.png"></li>
-          <li class="item" data-background-image="https://s2.loli.net/2024/10/13/3X85QsPvfcOj2hM.png"></li>
-          <li class="item" data-background-image="https://s2.loli.net/2024/10/13/yDZ2p3LT5hzEVkS.png"></li>
           <li class="item" data-background-image="https://s2.loli.net/2024/10/13/Z5XKkwlpEWrNihC.png"></li>
-          <li class="item" data-background-image="https://s2.loli.net/2024/10/13/PyzRCs6iEVNBw1S.png"></li>
+          <li class="item" data-background-image="https://s2.loli.net/2024/10/13/yDZ2p3LT5hzEVkS.png"></li>
+          <li class="item" data-background-image="https://s2.loli.net/2024/10/13/KCm8QTiHwvGo3aI.png"></li>
+          <li class="item" data-background-image="https://s2.loli.net/2024/10/13/LKZwqYM7JzN24he.jpg"></li>
+          <li class="item" data-background-image="https://s2.loli.net/2024/10/13/afoWh3p7szBujPK.png"></li>
+          <li class="item" data-background-image="https://s2.loli.net/2024/10/13/3X85QsPvfcOj2hM.png"></li>
         </ul>
       </div>
     </header>
@@ -118,93 +143,152 @@ a1oyss's blog = a1oyss</title>
       <div class="inner">
         <div id="main" class="pjax">
           
-  <div class="collapse wrap">
-    <h2 class="item header">
-          <a href="/archives">全部</a> <small>/</small> <a href="/archives/2022">2022 年</a> <small>/</small> 11 月<small>归档</small>
-        
-    </h2>
+  <div class="article wrap">
+    
+<div class="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList">
+<i class="ic i-home"></i>
+<span><a href="/">首页</a></span>
+</div>
 
-        <article class="item normal" itemscope itemtype="http://schema.org/Article">
-          <div class="meta">
-            <time itemprop="dateCreated"
-                  datetime="2022-11-29T00:40:49+08:00"
-                  content="2022-11-29">
-              11-29
-            </time>
-                <span><a href="/categories/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/">后端开发</a></span>
-          </div>
+    <article itemscope itemtype="http://schema.org/Article" class="post block" lang="zh-CN">
+  <link itemprop="mainEntityOfPage" href="https://a1oyss.github.io/2024/10/990259821.html">
 
-          <div class="title">
-              <a href="/2022/11/10656.html" itemprop="url">
-                <span itemprop="name">Vue+SpringBoot+Cas 前后端分离方式对接CAS</span>
-              </a>
-          </div>
-        </article>
+  <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="image" content="/images/avatar.jpg">
+    <meta itemprop="name" content="a1oyss">
+    <meta itemprop="description" content=", 随便写点什么">
+  </span>
 
-        <article class="item normal" itemscope itemtype="http://schema.org/Article">
-          <div class="meta">
-            <time itemprop="dateCreated"
-                  datetime="2022-11-28T20:07:22+08:00"
-                  content="2022-11-28">
-              11-28
-            </time>
-                <span><a href="/categories/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/">后端开发</a></span>
-          </div>
+  <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="a1oyss">
+  </span>
 
-          <div class="title">
-              <a href="/2022/11/5457.html" itemprop="url">
-                <span itemprop="name">HttpServletRequest的几种获取方式</span>
-              </a>
-          </div>
-        </article>
+  <div class="body md" itemprop="articleBody">
+    
 
-        <article class="item normal" itemscope itemtype="http://schema.org/Article">
-          <div class="meta">
-            <time itemprop="dateCreated"
-                  datetime="2022-11-28T20:02:18+08:00"
-                  content="2022-11-28">
-              11-28
-            </time>
-                <span><a href="/categories/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/">后端开发</a></span>
-          </div>
+    <p>假设有以下表结构：</p>
+<pre><code>CREATE TABLE test (
+  id         INT NOT NULL,
+  last_name  CHAR(30) NOT NULL,
+  first_name CHAR(30) NOT NULL,
+  PRIMARY KEY (id),
+  INDEX name (last_name,first_name)
+);
+</code></pre>
+<p>索引 name 是 last_name 列和 first_name 列组合的索引，该索引既可以用于查询 last_name 和 first_name 的组合条件，也可以用于单独查询 last_name。</p>
+<pre><code>SELECT * FROM test WHERE last_name='Jones';
 
-          <div class="title">
-              <a href="/2022/11/13493.html" itemprop="url">
-                <span itemprop="name">SSM框架整合过程以及加载原理的思考</span>
-              </a>
-          </div>
-        </article>
+SELECT * FROM test
+  WHERE last_name='Jones' AND first_name='John';
 
-        <article class="item normal" itemscope itemtype="http://schema.org/Article">
-          <div class="meta">
-            <time itemprop="dateCreated"
-                  datetime="2022-11-25T11:34:36+08:00"
-                  content="2022-11-25">
-              11-25
-            </time>
-                <span><a href="/categories/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/">后端开发</a></span>
-          </div>
+SELECT * FROM test
+  WHERE last_name='Jones'
+  AND (first_name='John' OR first_name='Jon');
 
-          <div class="title">
-              <a href="/2022/11/61375.html" itemprop="url">
-                <span itemprop="name">详解设计模式系列-单例模式</span>
-              </a>
-          </div>
-        </article>
+SELECT * FROM test
+  WHERE last_name='Jones'
+  AND first_name &gt;='M' AND first_name &lt; 'N';
+</code></pre>
+<p>这就是索引的最左前缀原则，如果表具有多列索引，例如 (col1, col2, col3)，那么 (col1) 、 (col1, col2) 和 (col1, col2, col3) 的查询都可以用到该索引。相反的，(col2, col3) 或 (col3) 则不会用到，例如：</p>
+<pre><code>SELECT * FROM test WHERE first_name='John';
+
+SELECT * FROM test
+  WHERE last_name='Jones' OR first_name='John';
+</code></pre>
+<p>第一条很好理解，first_name 显然不在最左边，但是第二条就比较奇怪了，last_name 明明是符合最左前缀原则的，但是官方文档写的是不适用于 name 索引。</p>
+<p>这里直接使用 mysql 官方提供的测试数据库 employees，因为官方的示例中数据库字段只有 first_name 和 last_name，但是 employees 数据库里远不止这些字段，所以我这里模拟下实际情况，只查这两个字段：</p>
+<pre><code>EXPLAIN SELECT
+  first_name,last_name
+FROM
+  employees 
+WHERE
+  last_name = 'Cairo' or first_name = 'Wanqing'
+</code></pre>
+<p><img data-src="https://cdn.nlark.com/yuque/0/2024/png/2658344/1720604700404-cd851516-d16f-49bd-bca9-df5232c12dfe.png" alt="" /></p>
+<p>可以看到，这里的 type 是 index，说明 mysql 扫描了整个索引树，并且走了索引，这么看来 mysql 文档好像是错的？也不一定，看第二个示例：</p>
+<pre><code>SELECT
+  *
+FROM
+  employees 
+WHERE
+  last_name = 'Cairo' or first_name = 'Wanqing'
+</code></pre>
+<p><img data-src="https://cdn.nlark.com/yuque/0/2024/png/2658344/1720607394224-a3ed980b-23d2-4eee-9af1-d82d32bfd2e2.png" alt="" /></p>
+<p>在这种情况，explain 的 type 直接是 ALL，并且也没有用索引。</p>
+<p>出现这种情况的原因如下：</p>
+<ol>
+<li>在第一种情况是，只查询了 last_name 和 first_name，而这两列都包含在索引当中，所以优化过后直接扫描索引更快</li>
+<li>在第二种情况中，first_name 显然是不能走索引的，且要查询的是所有字段，其次可能又因为 first_name 的选择性不高，mysql 优化器就优化为全表扫描了。</li>
+</ol>
+<h2 id="参考"><a class="anchor" href="#参考">#</a> 参考</h2>
+<ol>
+<li><span class="exturl" data-url="aHR0cHM6Ly9kZXYubXlzcWwuY29tL2RvYy9yZWZtYW4vNS43L2VuL211bHRpcGxlLWNvbHVtbi1pbmRleGVzLmh0bWw=">MySQL 5.7 Reference Manual - 8.3.5 Multiple-Column Indexes</span></li>
+<li><span class="exturl" data-url="aHR0cHM6Ly9qdWVqaW4uY24vcG9zdC82ODc2MDQ2NzkyMDU2NjM1NDA1">掘金 - 最左前缀原则</span></li>
+</ol>
+
+      <div class="tags">
+          <a href="/tags/MySQL/" rel="tag"><i class="ic i-tag"></i> MySQL</a>
+      </div>
   </div>
 
+   <footer>
+
+    <div class="meta">
+</div>
+
+      
+
+<div id="copyright">
+<ul>
+  <li class="author">
+    <strong>本文作者： </strong>a1oyss <i class="ic i-at"><em>@</em></i>a1oyss
+  </li>
+  <li class="link">
+    <strong>本文链接：</strong>
+    <a href="https://a1oyss.github.io/2024/10/990259821.html" title="MySQL 组合索引(多列索引)">https://a1oyss.github.io/2024/10/990259821.html</a>
+  </li>
+  <li class="license">
+    <strong>版权声明： </strong>本站所有文章除特别声明外，均采用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC9kZWVkLnpo"><i class="ic i-creative-commons"><em>(CC)</em></i>BY-NC-SA</span> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+  </footer>
+
+</article>
+
+  </div>
   
 
+<div class="post-nav">
+    <div class="item left">
+      
+
+  <a href="/2024/10/3690861929.html" itemprop="url" rel="prev" data-background-image="https:&#x2F;&#x2F;s2.loli.net&#x2F;2024&#x2F;10&#x2F;13&#x2F;2pFyjbAMUauws6i.png" title="MySQL Explain输出格式探索">
+  <span class="type">上一篇</span>
+  <span class="category"><i class="ic i-flag"></i> </span>
+  <h3>MySQL Explain输出格式探索</h3>
+  </a>
+
+    </div>
+    <div class="item right">
+    </div>
+</div>
+
+  
+  <div class="wrap" id="comments"></div>
 
 
         </div>
         <div id="sidebar">
           
+
 <div class="inner">
 
   <div class="panels">
     <div class="inner">
       <div class="contents panel pjax" data-title="文章目录">
+          <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83"><span class="toc-number">1.</span> <span class="toc-text"> 参考</span></a></li></ol>
       </div>
       <div class="related panel pjax" data-title="系列文章">
       </div>
@@ -276,6 +360,7 @@ a1oyss's blog = a1oyss</title>
   </ul>
 </div>
 
+
         </div>
         <div class="dimmer"></div>
       </div>
@@ -296,7 +381,57 @@ a1oyss's blog = a1oyss</title>
 <a href="/categories/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/Redis/" title="分类于 Redis">Redis</a>
 </div>
 
-    <span><a href="/2024/10/108095223.html" title="Redis源码学习-Dict">Redis源码学习-Dict</a></span>
+    <span><a href="/2024/10/3391040452.html" title="Redis源码学习-Ziplist">Redis源码学习-Ziplist</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E6%9D%82%E8%AE%B0/" title="分类于 杂记">杂记</a>
+</div>
+
+    <span><a href="/2020/10/33250.html" title="Python校园网登录">Python校园网登录</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/" title="分类于 网络安全">网络安全</a>
+</div>
+
+    <span><a href="/2020/12/21012.html" title="Pwnable题解">Pwnable题解</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/" title="分类于 网络安全">网络安全</a>
+</div>
+
+    <span><a href="/2022/09/13394.html" title="CTFd+CTFd-Whale部署实践">CTFd+CTFd-Whale部署实践</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/" title="分类于 后端开发">后端开发</a>
+</div>
+
+    <span><a href="/2022/11/61375.html" title="详解设计模式系列-单例模式">详解设计模式系列-单例模式</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E6%9D%82%E8%AE%B0/" title="分类于 杂记">杂记</a>
+</div>
+
+    <span><a href="/2022/05/11560.html" title="Terminal安装+美化">Terminal安装+美化</a></span>
   </li>
 
       
@@ -315,19 +450,10 @@ a1oyss's blog = a1oyss</title>
   <li class="item">
     
 <div class="breadcrumb">
-<a href="/categories/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/" title="分类于 后端开发">后端开发</a>
+<a href="/categories/%E6%9D%82%E8%AE%B0/" title="分类于 杂记">杂记</a>
 </div>
 
-    <span><a href="/2022/11/13493.html" title="SSM框架整合过程以及加载原理的思考">SSM框架整合过程以及加载原理的思考</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-</div>
-
-    <span><a href="/2024/10/990259821.html" title="MySQL 组合索引(多列索引)">MySQL 组合索引(多列索引)</a></span>
+    <span><a href="/2020/10/58699.html" title="Pycharm+VMware搭建Linux下开发环境">Pycharm+VMware搭建Linux下开发环境</a></span>
   </li>
 
       
@@ -344,51 +470,9 @@ a1oyss's blog = a1oyss</title>
   <li class="item">
     
 <div class="breadcrumb">
-<a href="/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/" title="分类于 网络安全">网络安全</a>
 </div>
 
-    <span><a href="/2022/09/13394.html" title="CTFd+CTFd-Whale部署实践">CTFd+CTFd-Whale部署实践</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/" title="分类于 后端开发">后端开发</a>
-<i class="ic i-angle-right"></i>
-<a href="/categories/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/Redis/" title="分类于 Redis">Redis</a>
-</div>
-
-    <span><a href="/2024/10/3391040452.html" title="Redis源码学习-Ziplist">Redis源码学习-Ziplist</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/" title="分类于 后端开发">后端开发</a>
-</div>
-
-    <span><a href="/2022/11/5457.html" title="HttpServletRequest的几种获取方式">HttpServletRequest的几种获取方式</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/" title="分类于 后端开发">后端开发</a>
-</div>
-
-    <span><a href="/2022/12/20899.html" title="一次由于服务器时间异常引起的服务报错问题排查">一次由于服务器时间异常引起的服务报错问题排查</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-</div>
-
-    <span><a href="/2024/10/3690861929.html" title="MySQL Explain输出格式探索">MySQL Explain输出格式探索</a></span>
+    <span><a href="/2024/10/990259821.html" title="MySQL 组合索引(多列索引)">MySQL 组合索引(多列索引)</a></span>
   </li>
 
   </ul>
@@ -431,7 +515,7 @@ a1oyss's blog = a1oyss</title>
   </div>
 <script data-config type="text/javascript">
   var LOCAL = {
-    path: 'archives/2022/11/',
+    path: '2024/10/990259821.html',
     favicon: {
       show: "a1oyss's blog",
       hide: "a1oyss's blog"

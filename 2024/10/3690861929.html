@@ -24,15 +24,15 @@
 <link rel="stylesheet" href="/css/app.css?v=0.2.5">
 
   
-  <meta name="keywords" content="随笔记录" />
+  <meta name="keywords" content="MySQL" />
 
 
-<link rel="canonical" href="https://a1oyss.github.io/2021/05/36347.html">
+<link rel="canonical" href="https://a1oyss.github.io/2024/10/3690861929.html">
 
 
 
   <title>
-运行CMD提示[已退出进程，代码为 1]解决方案 - 杂记 |
+MySQL Explain输出格式探索 |
 a1oyss's blog = a1oyss</title>
 <meta name="generator" content="Hexo 6.3.0"></head>
 <body itemscope itemtype="http://schema.org/WebPage">
@@ -60,23 +60,23 @@ a1oyss's blog = a1oyss</title>
         <div id="brand">
           <div class="pjax">
           
-  <h1 itemprop="name headline">运行CMD提示[已退出进程，代码为 1]解决方案
+  <h1 itemprop="name headline">MySQL Explain输出格式探索
   </h1>
   
 <div class="meta">
-  <span class="item" title="创建时间：2021-05-27 10:25:33">
+  <span class="item" title="创建时间：2024-10-13 20:33:00">
     <span class="icon">
       <i class="ic i-calendar"></i>
     </span>
     <span class="text">发表于</span>
-    <time itemprop="dateCreated datePublished" datetime="2021-05-27T10:25:33+08:00">2021-05-27</time>
+    <time itemprop="dateCreated datePublished" datetime="2024-10-13T20:33:00+08:00">2024-10-13</time>
   </span>
   <span class="item" title="本文字数">
     <span class="icon">
       <i class="ic i-pen"></i>
     </span>
     <span class="text">本文字数</span>
-    <span>547</span>
+    <span>1.6k</span>
     <span class="text">字</span>
   </span>
   <span class="item" title="阅读时长">
@@ -117,12 +117,12 @@ a1oyss's blog = a1oyss</title>
       </div>
       <div id="imgs" class="pjax">
         <ul>
-          <li class="item" data-background-image="https://s2.loli.net/2024/10/13/PyzRCs6iEVNBw1S.png"></li>
-          <li class="item" data-background-image="https://s2.loli.net/2024/10/13/Z5XKkwlpEWrNihC.png"></li>
+          <li class="item" data-background-image="https://s2.loli.net/2024/10/13/sVn5mvFbj1T3HO2.png"></li>
           <li class="item" data-background-image="https://s2.loli.net/2024/10/13/DLBIpjvV6EhecJb.png"></li>
-          <li class="item" data-background-image="https://s2.loli.net/2024/10/13/uyhMVC8iFk7L3oq.png"></li>
           <li class="item" data-background-image="https://s2.loli.net/2024/10/13/J5qtFM1iUxWlS9u.png"></li>
-          <li class="item" data-background-image="https://s2.loli.net/2024/10/13/hsH7BXrkDLlfjyW.png"></li>
+          <li class="item" data-background-image="https://s2.loli.net/2024/10/13/3X85QsPvfcOj2hM.png"></li>
+          <li class="item" data-background-image="https://s2.loli.net/2024/10/13/afoWh3p7szBujPK.png"></li>
+          <li class="item" data-background-image="https://s2.loli.net/2024/10/13/aY56HT3qxpjlwsZ.png"></li>
         </ul>
       </div>
     </header>
@@ -147,13 +147,11 @@ a1oyss's blog = a1oyss</title>
     
 <div class="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList">
 <i class="ic i-home"></i>
-<span><a href="/">首页</a></span><i class="ic i-angle-right"></i>
-<span  class="current" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/categories/%E6%9D%82%E8%AE%B0/" itemprop="item" rel="index" title="分类于 杂记"><span itemprop="name">杂记</span></a>
-<meta itemprop="position" content="1" /></span>
+<span><a href="/">首页</a></span>
 </div>
 
     <article itemscope itemtype="http://schema.org/Article" class="post block" lang="zh-CN">
-  <link itemprop="mainEntityOfPage" href="https://a1oyss.github.io/2021/05/36347.html">
+  <link itemprop="mainEntityOfPage" href="https://a1oyss.github.io/2024/10/3690861929.html">
 
   <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="image" content="/images/avatar.jpg">
@@ -168,31 +166,136 @@ a1oyss's blog = a1oyss</title>
   <div class="body md" itemprop="articleBody">
     
 
-    <p>今天准备使用 npm 时遇到了这个问题，npm install 没有反应，npm 也没反应，但是 nvm 确确实实是有安装好 nodejs 的。</p>
-<p>然后一步步找，突然看到 windows 下的 npm 命令是调用 npm.cmd</p>
-<p><img data-src="https://cdn.nlark.com/yuque/0/2021/png/2658344/1622081898067-f4afff9f-cbdd-4099-8f5a-52377ffc6fd1.png#align=left&amp;display=inline&amp;height=100&amp;margin=%5Bobject%20Object%5D&amp;name=image.png&amp;originHeight=200&amp;originWidth=559&amp;size=17226&amp;status=done&amp;style=none&amp;width=279.5" alt="image.png" /></p>
-<p>接着就试着直接运行，发现一个黑框一闪而过。</p>
-<p>然后再尝试打开 cmd，也是一个黑框一闪而过，感觉问题应该就是出在这。</p>
-<p>使用 windows terminal 打开 cmd，结果就出现了</p>
-<p><img data-src="https://cdn.nlark.com/yuque/0/2021/png/2658344/1622082027615-7a316adb-8f69-4aa8-9f7c-21c68a935138.png#align=left&amp;display=inline&amp;height=108&amp;margin=%5Bobject%20Object%5D&amp;name=image.png&amp;originHeight=216&amp;originWidth=754&amp;size=13853&amp;status=done&amp;style=none&amp;width=377" alt="image.png" /></p>
-<p>网上搜索到的注册表，gpedit，全都没有效果，后来直接去 stackoverflow 搜，找到了一个看起来很像的帖子：<span class="exturl" data-url="aHR0cHM6Ly9zdGFja292ZXJmbG93LmNvbS9xdWVzdGlvbnMvNjYzMzUzMDAvY21kLWNyYXNoZXMtd2l0aC1leGl0LWNvZGUtMS1hZnRlci11bmluc3RhbGxpbmctYW5hY29uZGEv">https://stackoverflow.com/questions/66335300/cmd-crashes-with-exit-code-1-after-uninstalling-anaconda/</span></p>
-<p>看到后面有个 anaconda，突然想起来之前我好像也装过一次，帖子描述也和我一样：</p>
-<p>直接打开 cmd 无效，但是从 powershell 中打开 cmd /d 就可以正常进入。</p>
-<p>下面给出了一条解决方法：</p>
-<pre><code>
-C:\Windows\System32\reg.exe DELETE &quot;HKCU\Software\Microsoft\Command Processor&quot; /v AutoRun /f
-
-</code></pre>
-<p>使用其他终端运行命令后，问题解决。</p>
+    <p>EXPLAIN 语句提供有关 MySQL 如何执行语句的信息，适用于 SELECT 、 DELETE 、 INSERT 、 REPLACE 和 UPDATE 语句。</p>
+<p>执行后返回以下信息：</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Column</strong> <strong>柱子</strong></td>
+<td><strong>JSON Name</strong> <strong>JSON 名称</strong></td>
+<td><strong>Meaning</strong> <strong>意义</strong></td>
+</tr>
+<tr>
+<td><span class="exturl" data-url="aHR0cHM6Ly9kZXYubXlzcWwuY29tL2RvYy9yZWZtYW4vNS43L2VuL2V4cGxhaW4tb3V0cHV0Lmh0bWwjZXhwbGFpbl9pZA==">id</span></td>
+<td>select_id</td>
+<td>The SELECT identifier SELECT 标识符</td>
+</tr>
+<tr>
+<td><span class="exturl" data-url="aHR0cHM6Ly9kZXYubXlzcWwuY29tL2RvYy9yZWZtYW4vNS43L2VuL2V4cGxhaW4tb3V0cHV0Lmh0bWwjZXhwbGFpbl9zZWxlY3RfdHlwZQ==">select_type</span></td>
+<td>None 没有任何</td>
+<td>The SELECT type SELECT 类型</td>
+</tr>
+<tr>
+<td><span class="exturl" data-url="aHR0cHM6Ly9kZXYubXlzcWwuY29tL2RvYy9yZWZtYW4vNS43L2VuL2V4cGxhaW4tb3V0cHV0Lmh0bWwjZXhwbGFpbl90YWJsZQ==">table</span></td>
+<td>table_name</td>
+<td>The table for the output row  &lt;br&gt; 输出行的表</td>
+</tr>
+<tr>
+<td><span class="exturl" data-url="aHR0cHM6Ly9kZXYubXlzcWwuY29tL2RvYy9yZWZtYW4vNS43L2VuL2V4cGxhaW4tb3V0cHV0Lmh0bWwjZXhwbGFpbl9wYXJ0aXRpb25z">partitions</span></td>
+<td>partitions</td>
+<td>The matching partitions 匹配的分区</td>
+</tr>
+<tr>
+<td><span class="exturl" data-url="aHR0cHM6Ly9kZXYubXlzcWwuY29tL2RvYy9yZWZtYW4vNS43L2VuL2V4cGxhaW4tb3V0cHV0Lmh0bWwjZXhwbGFpbl90eXBl">type</span></td>
+<td>access_type</td>
+<td>The join type 连接类型</td>
+</tr>
+<tr>
+<td><span class="exturl" data-url="aHR0cHM6Ly9kZXYubXlzcWwuY29tL2RvYy9yZWZtYW4vNS43L2VuL2V4cGxhaW4tb3V0cHV0Lmh0bWwjZXhwbGFpbl9wb3NzaWJsZV9rZXlz">possible_keys</span></td>
+<td>possible_keys</td>
+<td>The possible indexes to choose  &lt;br&gt; 可以选择的索引</td>
+</tr>
+<tr>
+<td><span class="exturl" data-url="aHR0cHM6Ly9kZXYubXlzcWwuY29tL2RvYy9yZWZtYW4vNS43L2VuL2V4cGxhaW4tb3V0cHV0Lmh0bWwjZXhwbGFpbl9rZXk=">key</span></td>
+<td>key</td>
+<td>The index actually chosen  &lt;br&gt; 实际选择的索引</td>
+</tr>
+<tr>
+<td><span class="exturl" data-url="aHR0cHM6Ly9kZXYubXlzcWwuY29tL2RvYy9yZWZtYW4vNS43L2VuL2V4cGxhaW4tb3V0cHV0Lmh0bWwjZXhwbGFpbl9rZXlfbGVu">key_len</span></td>
+<td>key_length</td>
+<td>The length of the chosen key  &lt;br&gt; 所选密钥的长度</td>
+</tr>
+<tr>
+<td><span class="exturl" data-url="aHR0cHM6Ly9kZXYubXlzcWwuY29tL2RvYy9yZWZtYW4vNS43L2VuL2V4cGxhaW4tb3V0cHV0Lmh0bWwjZXhwbGFpbl9yZWY=">ref</span></td>
+<td>ref</td>
+<td>The columns compared to the index  &lt;br&gt; 列与索引的比较</td>
+</tr>
+<tr>
+<td><span class="exturl" data-url="aHR0cHM6Ly9kZXYubXlzcWwuY29tL2RvYy9yZWZtYW4vNS43L2VuL2V4cGxhaW4tb3V0cHV0Lmh0bWwjZXhwbGFpbl9yb3dz">rows</span></td>
+<td>rows</td>
+<td>Estimate of rows to be examined  &lt;br&gt; 估计要检查的行数</td>
+</tr>
+<tr>
+<td><span class="exturl" data-url="aHR0cHM6Ly9kZXYubXlzcWwuY29tL2RvYy9yZWZtYW4vNS43L2VuL2V4cGxhaW4tb3V0cHV0Lmh0bWwjZXhwbGFpbl9maWx0ZXJlZA==">filtered</span></td>
+<td>filtered</td>
+<td>Percentage of rows filtered by table condition  &lt;br&gt; 按表条件过滤的行的百分比</td>
+</tr>
+<tr>
+<td><span class="exturl" data-url="aHR0cHM6Ly9kZXYubXlzcWwuY29tL2RvYy9yZWZtYW4vNS43L2VuL2V4cGxhaW4tb3V0cHV0Lmh0bWwjZXhwbGFpbl9leHRyYQ==">Extra</span></td>
+<td>None 没有任何</td>
+<td>Additional information 附加信息</td>
+</tr>
+</tbody>
+</table>
+<p>更详细的解释建议查看 MySQL 官方文档，此处只做简单记录</p>
+<ol>
+<li>type</li>
+</ol>
+<p>大致可以理解为扫描方式，从最好到最差为：</p>
+<ul>
+<li>system 该表只有一行（= 系统表）。这是 const 连接类型的特殊情况。</li>
+<li>const 使用主键或者唯一索引查询时，会使用 const</li>
+<li>eq_ref 一般出现在多表联查，且连接的字段是主键索引或者唯一索引</li>
+<li>ref 使用非主键索引或非唯一索引查询</li>
+<li>fulltext 使用 fulltext 索引查询</li>
+<li>index_merge 使用了索引合并优化，参考<span class="exturl" data-url="aHR0cHM6Ly9kZXYubXlzcWwuY29tL2RvYy9yZWZtYW4vNS43L2VuL2luZGV4LW1lcmdlLW9wdGltaXphdGlvbi5odG1s">索引合并优化</span></li>
+<li>range 使用索引范围查询</li>
+<li>index 与 all 相同，只是扫描了索引树</li>
+<li>ALL 全表扫描</li>
+</ul>
+<ol start="2">
+<li>possible_keys 使用的索引</li>
+<li>key 实际使用的索引</li>
+<li>rows 用来表示在 SQL 执行过程中会被扫描的行数，该数值越大，意味着需要扫描的行数，相应的耗时更长。但是对于 InnoDB 表，此数字是估计值，可能并不总是准确的</li>
+<li>extra EXPLAIN 输出的 Extra 列包含有关 MySQL 如何解析查询的附加信息。例如:</li>
+</ol>
+<ul>
+<li>Using where: where 条件查询</li>
+<li>Using index: 仅使用索引树中的信息从表中检索列信息，而无需执行额外的查找来读取实际行，就是常说的覆盖索引。</li>
+<li>Using index condition: 查询利用到了索引下推</li>
+<li>Using filesort: 如果排序的字段需要进行额外的查询按顺序排序</li>
+<li>Using temporary: 创建了临时表，一般在 group by 语句或者 order by 语句中出现</li>
+<li>参考<span class="exturl" data-url="aHR0cHM6Ly9kZXYubXlzcWwuY29tL2RvYy9yZWZtYW4vNS43L2VuL2V4cGxhaW4tb3V0cHV0Lmh0bWwjZXhwbGFpbi1leHRyYS1pbmZvcm1hdGlvbg=="> EXPLAIN Extra Information</span></li>
+</ul>
+<h2 id="总结"><a class="anchor" href="#总结">#</a> 总结</h2>
+<p>一般情况下只需要看 type 列，查看扫描方式即可，例如 ALL 效率最差，那就应该根据查询字段或者业务添加索引，优化查询效率。有时候也会查看 extra 列的信息，例如 Using filesort，如果数据量特别大的情况，出现了该信息可能会导致查询较慢，可以结合业务为排序的字段与查询的字段添加组合索引，利用覆盖索引优化 Using filesort</p>
+<h2 id="参考"><a class="anchor" href="#参考">#</a> 参考</h2>
+<ol>
+<li><span class="exturl" data-url="aHR0cHM6Ly9kZXYubXlzcWwuY29tL2RvYy9yZWZtYW4vNS43L2VuL2V4cGxhaW4tb3V0cHV0Lmh0bWw=">MySQL 5.7 Reference Manual - 8.8.2 EXPLAIN Output Format</span></li>
+</ol>
 
       <div class="tags">
-          <a href="/tags/%E9%9A%8F%E7%AC%94%E8%AE%B0%E5%BD%95/" rel="tag"><i class="ic i-tag"></i> 随笔记录</a>
+          <a href="/tags/MySQL/" rel="tag"><i class="ic i-tag"></i> MySQL</a>
       </div>
   </div>
 
    <footer>
 
     <div class="meta">
+  <span class="item">
+    <span class="icon">
+      <i class="ic i-calendar-check"></i>
+    </span>
+    <span class="text">更新于</span>
+    <time title="修改时间：2024-10-13 20:39:00" itemprop="dateModified" datetime="2024-10-13T20:39:00+08:00">2024-10-13</time>
+  </span>
 </div>
 
       
@@ -204,7 +307,7 @@ C:\Windows\System32\reg.exe DELETE &quot;HKCU\Software\Microsoft\Command Process
   </li>
   <li class="link">
     <strong>本文链接：</strong>
-    <a href="https://a1oyss.github.io/2021/05/36347.html" title="运行CMD提示[已退出进程，代码为 1]解决方案">https://a1oyss.github.io/2021/05/36347.html</a>
+    <a href="https://a1oyss.github.io/2024/10/3690861929.html" title="MySQL Explain输出格式探索">https://a1oyss.github.io/2024/10/3690861929.html</a>
   </li>
   <li class="license">
     <strong>版权声明： </strong>本站所有文章除特别声明外，均采用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC9kZWVkLnpo"><i class="ic i-creative-commons"><em>(CC)</em></i>BY-NC-SA</span> 许可协议。转载请注明出处！
@@ -223,20 +326,20 @@ C:\Windows\System32\reg.exe DELETE &quot;HKCU\Software\Microsoft\Command Process
     <div class="item left">
       
 
-  <a href="/2021/03/8759.html" itemprop="url" rel="prev" data-background-image="https:&#x2F;&#x2F;s2.loli.net&#x2F;2024&#x2F;10&#x2F;13&#x2F;Z5XKkwlpEWrNihC.png" title="Hexo图片显示失败">
+  <a href="/2024/10/3609413537.html" itemprop="url" rel="prev" data-background-image="https:&#x2F;&#x2F;s2.loli.net&#x2F;2024&#x2F;10&#x2F;13&#x2F;2pFyjbAMUauws6i.png" title="Redis源码学习-SDS">
   <span class="type">上一篇</span>
-  <span class="category"><i class="ic i-flag"></i> 杂记</span>
-  <h3>Hexo图片显示失败</h3>
+  <span class="category"><i class="ic i-flag"></i> Redis</span>
+  <h3>Redis源码学习-SDS</h3>
   </a>
 
     </div>
     <div class="item right">
       
 
-  <a href="/2022/05/11560.html" itemprop="url" rel="next" data-background-image="https:&#x2F;&#x2F;s2.loli.net&#x2F;2024&#x2F;10&#x2F;13&#x2F;uyhMVC8iFk7L3oq.png" title="Terminal安装+美化">
+  <a href="/2024/10/990259821.html" itemprop="url" rel="next" data-background-image="https:&#x2F;&#x2F;s2.loli.net&#x2F;2024&#x2F;10&#x2F;13&#x2F;hsH7BXrkDLlfjyW.png" title="MySQL 组合索引(多列索引)">
   <span class="type">下一篇</span>
-  <span class="category"><i class="ic i-flag"></i> 杂记</span>
-  <h3>Terminal安装+美化</h3>
+  <span class="category"><i class="ic i-flag"></i> </span>
+  <h3>MySQL 组合索引(多列索引)</h3>
   </a>
 
     </div>
@@ -255,11 +358,9 @@ C:\Windows\System32\reg.exe DELETE &quot;HKCU\Software\Microsoft\Command Process
   <div class="panels">
     <div class="inner">
       <div class="contents panel pjax" data-title="文章目录">
+          <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">1.</span> <span class="toc-text"> 总结</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83"><span class="toc-number">2.</span> <span class="toc-text"> 参考</span></a></li></ol>
       </div>
       <div class="related panel pjax" data-title="系列文章">
-        <ul>
-          <li><a href="/2020/10/58699.html" rel="bookmark" title="Pycharm+VMware搭建Linux下开发环境">Pycharm+VMware搭建Linux下开发环境</a></li><li><a href="/2020/10/33250.html" rel="bookmark" title="Python校园网登录">Python校园网登录</a></li><li><a href="/2021/03/8759.html" rel="bookmark" title="Hexo图片显示失败">Hexo图片显示失败</a></li><li class="active"><a href="/2021/05/36347.html" rel="bookmark" title="运行CMD提示[已退出进程，代码为 1]解决方案">运行CMD提示[已退出进程，代码为 1]解决方案</a></li><li><a href="/2022/05/11560.html" rel="bookmark" title="Terminal安装+美化">Terminal安装+美化</a></li>
-        </ul>
       </div>
       <div class="overview panel" data-title="站点概览">
         <div class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -320,12 +421,12 @@ C:\Windows\System32\reg.exe DELETE &quot;HKCU\Software\Microsoft\Command Process
 
   <ul id="quick">
     <li class="prev pjax">
-        <a href="/2021/03/8759.html" rel="prev" title="上一篇"><i class="ic i-chevron-left"></i></a>
+        <a href="/2024/10/3609413537.html" rel="prev" title="上一篇"><i class="ic i-chevron-left"></i></a>
     </li>
     <li class="up"><i class="ic i-arrow-up"></i></li>
     <li class="down"><i class="ic i-arrow-down"></i></li>
     <li class="next pjax">
-        <a href="/2022/05/11560.html" rel="next" title="下一篇"><i class="ic i-chevron-right"></i></a>
+        <a href="/2024/10/990259821.html" rel="next" title="下一篇"><i class="ic i-chevron-right"></i></a>
     </li>
     <li class="percent"></li>
   </ul>
@@ -350,7 +451,7 @@ C:\Windows\System32\reg.exe DELETE &quot;HKCU\Software\Microsoft\Command Process
 <a href="/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/" title="分类于 网络安全">网络安全</a>
 </div>
 
-    <span><a href="/2022/09/13394.html" title="CTFd+CTFd-Whale部署实践">CTFd+CTFd-Whale部署实践</a></span>
+    <span><a href="/2020/12/5062.html" title="VScode+XDebug远程调试ThinkPHP RCE">VScode+XDebug远程调试ThinkPHP RCE</a></span>
   </li>
 
       
@@ -370,11 +471,41 @@ C:\Windows\System32\reg.exe DELETE &quot;HKCU\Software\Microsoft\Command Process
     
 <div class="breadcrumb">
 <a href="/categories/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/" title="分类于 后端开发">后端开发</a>
+</div>
+
+    <span><a href="/2022/11/5457.html" title="HttpServletRequest的几种获取方式">HttpServletRequest的几种获取方式</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/" title="分类于 后端开发">后端开发</a>
 <i class="ic i-angle-right"></i>
 <a href="/categories/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/Redis/" title="分类于 Redis">Redis</a>
 </div>
 
-    <span><a href="/2024/10/3609413537.html" title="Redis源码学习-SDS">Redis源码学习-SDS</a></span>
+    <span><a href="/2024/10/3391040452.html" title="Redis源码学习-Ziplist">Redis源码学习-Ziplist</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/" title="分类于 网络安全">网络安全</a>
+</div>
+
+    <span><a href="/2020/12/21012.html" title="Pwnable题解">Pwnable题解</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/" title="分类于 后端开发">后端开发</a>
+</div>
+
+    <span><a href="/2022/12/20899.html" title="一次由于服务器时间异常引起的服务报错问题排查">一次由于服务器时间异常引起的服务报错问题排查</a></span>
   </li>
 
       
@@ -384,7 +515,7 @@ C:\Windows\System32\reg.exe DELETE &quot;HKCU\Software\Microsoft\Command Process
 <a href="/categories/%E6%9D%82%E8%AE%B0/" title="分类于 杂记">杂记</a>
 </div>
 
-    <span><a href="/2020/10/58699.html" title="Pycharm+VMware搭建Linux下开发环境">Pycharm+VMware搭建Linux下开发环境</a></span>
+    <span><a href="/2022/05/11560.html" title="Terminal安装+美化">Terminal安装+美化</a></span>
   </li>
 
       
@@ -403,19 +534,10 @@ C:\Windows\System32\reg.exe DELETE &quot;HKCU\Software\Microsoft\Command Process
   <li class="item">
     
 <div class="breadcrumb">
-<a href="/categories/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/" title="分类于 后端开发">后端开发</a>
+<a href="/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/" title="分类于 网络安全">网络安全</a>
 </div>
 
-    <span><a href="/2022/11/10656.html" title="Vue+SpringBoot+Cas 前后端分离方式对接CAS">Vue+SpringBoot+Cas 前后端分离方式对接CAS</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-</div>
-
-    <span><a href="/2024/10/990259821.html" title="MySQL 组合索引(多列索引)">MySQL 组合索引(多列索引)</a></span>
+    <span><a href="/2022/09/13394.html" title="CTFd+CTFd-Whale部署实践">CTFd+CTFd-Whale部署实践</a></span>
   </li>
 
       
@@ -426,28 +548,6 @@ C:\Windows\System32\reg.exe DELETE &quot;HKCU\Software\Microsoft\Command Process
 </div>
 
     <span><a href="/2020/10/7981.html" title="ISCC一日游">ISCC一日游</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/" title="分类于 后端开发">后端开发</a>
-<i class="ic i-angle-right"></i>
-<a href="/categories/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/Redis/" title="分类于 Redis">Redis</a>
-</div>
-
-    <span><a href="/2024/10/2040406187.html" title="Redis源码学习-Skiplist">Redis源码学习-Skiplist</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/" title="分类于 网络安全">网络安全</a>
-</div>
-
-    <span><a href="/2020/12/5062.html" title="VScode+XDebug远程调试ThinkPHP RCE">VScode+XDebug远程调试ThinkPHP RCE</a></span>
   </li>
 
   </ul>
@@ -490,7 +590,7 @@ C:\Windows\System32\reg.exe DELETE &quot;HKCU\Software\Microsoft\Command Process
   </div>
 <script data-config type="text/javascript">
   var LOCAL = {
-    path: '2021/05/36347.html',
+    path: '2024/10/3690861929.html',
     favicon: {
       show: "a1oyss's blog",
       hide: "a1oyss's blog"

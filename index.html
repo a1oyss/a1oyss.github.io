@@ -88,12 +88,12 @@
       </div>
       <div id="imgs" class="pjax">
         <ul>
-          <li class="item" data-background-image="https://s2.loli.net/2024/10/13/PyzRCs6iEVNBw1S.png"></li>
-          <li class="item" data-background-image="https://s2.loli.net/2024/10/13/2pFyjbAMUauws6i.png"></li>
-          <li class="item" data-background-image="https://s2.loli.net/2024/10/13/afoWh3p7szBujPK.png"></li>
-          <li class="item" data-background-image="https://s2.loli.net/2024/10/13/Z5XKkwlpEWrNihC.png"></li>
-          <li class="item" data-background-image="https://s2.loli.net/2024/10/13/hsH7BXrkDLlfjyW.png"></li>
+          <li class="item" data-background-image="https://s2.loli.net/2024/10/13/5HIfmpctuZF3iGQ.png"></li>
           <li class="item" data-background-image="https://s2.loli.net/2024/10/13/aY56HT3qxpjlwsZ.png"></li>
+          <li class="item" data-background-image="https://s2.loli.net/2024/10/13/uyhMVC8iFk7L3oq.png"></li>
+          <li class="item" data-background-image="https://s2.loli.net/2024/10/13/afoWh3p7szBujPK.png"></li>
+          <li class="item" data-background-image="https://s2.loli.net/2024/10/13/2pFyjbAMUauws6i.png"></li>
+          <li class="item" data-background-image="https://s2.loli.net/2024/10/13/yDZ2p3LT5hzEVkS.png"></li>
         </ul>
       </div>
     </header>
@@ -117,6 +117,107 @@
   <div class="index wrap">
     <h2 class="divider">文章列表</h2>
     <div class="segments posts">
+        
+<article class="item">
+  <div class="cover">
+    <a href="/2024/10/990259821.html" itemprop="url" title="MySQL 组合索引(多列索引)"><img data-src="https://s2.loli.net/2024/10/13/KCm8QTiHwvGo3aI.png"></a>
+  </div>
+  <div class="info">
+    
+<div class="meta">
+  <span class="item" title="创建时间：2024-10-13 20:38:00">
+    <span class="icon">
+      <i class="ic i-calendar"></i>
+    </span>
+    <time itemprop="dateCreated datePublished" datetime="2024-10-13T20:38:00+08:00">2024-10-13</time>
+  </span>
+  <span class="item" title="本文字数">
+    <span class="icon">
+      <i class="ic i-pen"></i>
+    </span>
+    <span>1.4k</span>
+    <span class="text">字</span>
+  </span>
+  <span class="item" title="阅读时长">
+    <span class="icon">
+      <i class="ic i-clock"></i>
+    </span>
+    <span>1 分钟</span>
+  </span>
+</div>
+
+    <h3><a href="/2024/10/990259821.html" itemprop="url" title="MySQL 组合索引(多列索引)">MySQL 组合索引(多列索引)</a></h3>
+    <div class="excerpt">
+        假设有以下表结构：
+CREATE TABLE test (
+id INT NOT NULL,
+last_name CHAR(30) NOT NULL,
+first_name CHAR(30) NOT NULL,
+PRIMARY KEY (id),
+INDEX name (last_name,first_name)
+);
+
+索引 name 是 last_name 列和 first_name 列组合的索引，该索引既可以用于查询 last_name 和 first_name 的组合条件，也可以用于单独查询 last_name。
+SELECT * FROM test WHERE...
+    </div>
+    <a href="/2024/10/990259821.html" itemprop="url" title="MySQL 组合索引(多列索引)" class="btn">more...</a>
+  </div>
+</article>
+
+        
+<article class="item">
+  <div class="cover">
+    <a href="/2024/10/3690861929.html" itemprop="url" title="MySQL Explain输出格式探索"><img data-src="https://s2.loli.net/2024/10/13/3X85QsPvfcOj2hM.png"></a>
+  </div>
+  <div class="info">
+    
+<div class="meta">
+  <span class="item" title="创建时间：2024-10-13 20:33:00">
+    <span class="icon">
+      <i class="ic i-calendar"></i>
+    </span>
+    <time itemprop="dateCreated datePublished" datetime="2024-10-13T20:33:00+08:00">2024-10-13</time>
+  </span>
+  <span class="item" title="本文字数">
+    <span class="icon">
+      <i class="ic i-pen"></i>
+    </span>
+    <span>1.6k</span>
+    <span class="text">字</span>
+  </span>
+  <span class="item" title="阅读时长">
+    <span class="icon">
+      <i class="ic i-clock"></i>
+    </span>
+    <span>1 分钟</span>
+  </span>
+</div>
+
+    <h3><a href="/2024/10/3690861929.html" itemprop="url" title="MySQL Explain输出格式探索">MySQL Explain输出格式探索</a></h3>
+    <div class="excerpt">
+        EXPLAIN 语句提供有关 MySQL 如何执行语句的信息，适用于 SELECT 、 DELETE 、 INSERT 、 REPLACE 和 UPDATE 语句。
+执行后返回以下信息：
+
+Column 柱子
+JSON Name JSON 名称
+Meaning 意义
+
+id
+select_id
+The SELECT identifier SELECT 标识符
+
+select_type
+None 没有任何
+The SELECT type SELECT 类型
+
+table
+table_name
+The table for the output row &amp;lt;br&amp;gt;...
+    </div>
+    <a href="/2024/10/3690861929.html" itemprop="url" title="MySQL Explain输出格式探索" class="btn">more...</a>
+  </div>
+</article>
+
         
 <article class="item">
   <div class="cover">
@@ -150,6 +251,11 @@
     <div class="excerpt">
         待续
     </div>
+    <div class="meta footer">
+      <span>
+        <a href="/categories/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/Redis/" itemprop="url" title="Redis"><i class="ic i-flag"></i>Redis</a>
+      </span>
+    </div>
     <a href="/2024/10/3609413537.html" itemprop="url" title="Redis源码学习-SDS" class="btn">more...</a>
   </div>
 </article>
@@ -157,7 +263,7 @@
         
 <article class="item">
   <div class="cover">
-    <a href="/2024/10/813972997.html" itemprop="url" title="Redis源码学习-intset"><img data-src="https://s2.loli.net/2024/10/13/uyhMVC8iFk7L3oq.png"></a>
+    <a href="/2024/10/813972997.html" itemprop="url" title="Redis源码学习-intset"><img data-src="https://s2.loli.net/2024/10/13/yDZ2p3LT5hzEVkS.png"></a>
   </div>
   <div class="info">
     
@@ -194,6 +300,11 @@ uint32_t length;
 int8_t contents[];
 &amp;#125;...
     </div>
+    <div class="meta footer">
+      <span>
+        <a href="/categories/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/Redis/" itemprop="url" title="Redis"><i class="ic i-flag"></i>Redis</a>
+      </span>
+    </div>
     <a href="/2024/10/813972997.html" itemprop="url" title="Redis源码学习-intset" class="btn">more...</a>
   </div>
 </article>
@@ -201,7 +312,7 @@ int8_t contents[];
         
 <article class="item">
   <div class="cover">
-    <a href="/2024/10/2040406187.html" itemprop="url" title="Redis源码学习-Skiplist"><img data-src="https://s2.loli.net/2024/10/13/3X85QsPvfcOj2hM.png"></a>
+    <a href="/2024/10/2040406187.html" itemprop="url" title="Redis源码学习-Skiplist"><img data-src="https://s2.loli.net/2024/10/13/sVn5mvFbj1T3HO2.png"></a>
   </div>
   <div class="info">
     
@@ -235,6 +346,11 @@ int8_t contents[];
 /* ZSETs use a specialized version of Skiplists */
 typedef struct zskiplistNode...
     </div>
+    <div class="meta footer">
+      <span>
+        <a href="/categories/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/Redis/" itemprop="url" title="Redis"><i class="ic i-flag"></i>Redis</a>
+      </span>
+    </div>
     <a href="/2024/10/2040406187.html" itemprop="url" title="Redis源码学习-Skiplist" class="btn">more...</a>
   </div>
 </article>
@@ -242,7 +358,7 @@ typedef struct zskiplistNode...
         
 <article class="item">
   <div class="cover">
-    <a href="/2024/10/108095223.html" itemprop="url" title="Redis源码学习-Dict"><img data-src="https://s2.loli.net/2024/10/13/hsH7BXrkDLlfjyW.png"></a>
+    <a href="/2024/10/108095223.html" itemprop="url" title="Redis源码学习-Dict"><img data-src="https://s2.loli.net/2024/10/13/LKZwqYM7JzN24he.jpg"></a>
   </div>
   <div class="info">
     
@@ -283,6 +399,11 @@ dictht ht[2];
 long rehashidx; /* rehashing not in progress if rehashidx == -1 */
 unsigned...
     </div>
+    <div class="meta footer">
+      <span>
+        <a href="/categories/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/Redis/" itemprop="url" title="Redis"><i class="ic i-flag"></i>Redis</a>
+      </span>
+    </div>
     <a href="/2024/10/108095223.html" itemprop="url" title="Redis源码学习-Dict" class="btn">more...</a>
   </div>
 </article>
@@ -290,7 +411,7 @@ unsigned...
         
 <article class="item">
   <div class="cover">
-    <a href="/2024/10/3391040452.html" itemprop="url" title="Redis源码学习-Ziplist"><img data-src="https://s2.loli.net/2024/10/13/afoWh3p7szBujPK.png"></a>
+    <a href="/2024/10/3391040452.html" itemprop="url" title="Redis源码学习-Ziplist"><img data-src="https://s2.loli.net/2024/10/13/KCm8QTiHwvGo3aI.png"></a>
   </div>
   <div class="info">
     
@@ -324,6 +445,11 @@ ziplist 是一种特殊编码的双链表，设计上非常节省内存。它既
 # Ziplist 的结构
 ziplist 的一般布局如下：
 &amp;lt;zlbytes&amp;gt; &amp;lt;zltail&amp;gt; &amp;lt;zllen&amp;gt;...
+    </div>
+    <div class="meta footer">
+      <span>
+        <a href="/categories/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/Redis/" itemprop="url" title="Redis"><i class="ic i-flag"></i>Redis</a>
+      </span>
     </div>
     <a href="/2024/10/3391040452.html" itemprop="url" title="Redis源码学习-Ziplist" class="btn">more...</a>
   </div>
@@ -430,7 +556,7 @@ TGC，TGT，ST 之类的概念就不说了，网上一搜一大堆，简单来�
         
 <article class="item">
   <div class="cover">
-    <a href="/2022/11/5457.html" itemprop="url" title="HttpServletRequest的几种获取方式"><img data-src="https://s2.loli.net/2024/10/13/5HIfmpctuZF3iGQ.png"></a>
+    <a href="/2022/11/5457.html" itemprop="url" title="HttpServletRequest的几种获取方式"><img data-src="https://s2.loli.net/2024/10/13/J5qtFM1iUxWlS9u.png"></a>
   </div>
   <div class="info">
     
@@ -470,96 +596,6 @@ public static PageDomain getPageDomain()&amp;#123; PageDomain pageDomain = new P
   </div>
 </article>
 
-        
-<article class="item">
-  <div class="cover">
-    <a href="/2022/11/13493.html" itemprop="url" title="SSM框架整合过程以及加载原理的思考"><img data-src="https://s2.loli.net/2024/10/13/afoWh3p7szBujPK.png"></a>
-  </div>
-  <div class="info">
-    
-<div class="meta">
-  <span class="item" title="创建时间：2022-11-28 20:02:18">
-    <span class="icon">
-      <i class="ic i-calendar"></i>
-    </span>
-    <time itemprop="dateCreated datePublished" datetime="2022-11-28T20:02:18+08:00">2022-11-28</time>
-  </span>
-  <span class="item" title="本文字数">
-    <span class="icon">
-      <i class="ic i-pen"></i>
-    </span>
-    <span>10k</span>
-    <span class="text">字</span>
-  </span>
-  <span class="item" title="阅读时长">
-    <span class="icon">
-      <i class="ic i-clock"></i>
-    </span>
-    <span>9 分钟</span>
-  </span>
-</div>
-
-    <h3><a href="/2022/11/13493.html" itemprop="url" title="SSM框架整合过程以及加载原理的思考">SSM框架整合过程以及加载原理的思考</a></h3>
-    <div class="excerpt">
-        #Spring #SpringMVC #Mybatis #源码
-# 添加 Sring+SpringMVC 相关依赖
-因为使用的 maven，web 容器使用的 tomcat，所以先在 pom.xml 中加上：
-&amp;lt;packaging&gt;war&amp;lt;/packaging&gt;这样项目就会自动将依赖放进 WEB-INF 下面的 lib 中，否则会出现一系列 NoClassFound 等错误。
-添加 spring-webmvc 依赖：
-&amp;lt;dependency&gt;...
-    </div>
-    <div class="meta footer">
-      <span>
-        <a href="/categories/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/" itemprop="url" title="后端开发"><i class="ic i-flag"></i>后端开发</a>
-      </span>
-    </div>
-    <a href="/2022/11/13493.html" itemprop="url" title="SSM框架整合过程以及加载原理的思考" class="btn">more...</a>
-  </div>
-</article>
-
-        
-<article class="item">
-  <div class="cover">
-    <a href="/2022/11/61375.html" itemprop="url" title="详解设计模式系列-单例模式"><img data-src="https://s2.loli.net/2024/10/13/fIwNTFPirngUYQ1.png"></a>
-  </div>
-  <div class="info">
-    
-<div class="meta">
-  <span class="item" title="创建时间：2022-11-25 11:34:36">
-    <span class="icon">
-      <i class="ic i-calendar"></i>
-    </span>
-    <time itemprop="dateCreated datePublished" datetime="2022-11-25T11:34:36+08:00">2022-11-25</time>
-  </span>
-  <span class="item" title="本文字数">
-    <span class="icon">
-      <i class="ic i-pen"></i>
-    </span>
-    <span>1.4k</span>
-    <span class="text">字</span>
-  </span>
-  <span class="item" title="阅读时长">
-    <span class="icon">
-      <i class="ic i-clock"></i>
-    </span>
-    <span>1 分钟</span>
-  </span>
-</div>
-
-    <h3><a href="/2022/11/61375.html" itemprop="url" title="详解设计模式系列-单例模式">详解设计模式系列-单例模式</a></h3>
-    <div class="excerpt">
-        # 懒汉式
-public class LazySingleton &amp;#123; private static SingletonObject singletonObject; public static SingletonObject getInstance() &amp;#123; if (singletonObject == null) &amp;#123; return new SingletonObject(); &amp;#125; return singletonObject;...
-    </div>
-    <div class="meta footer">
-      <span>
-        <a href="/categories/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/" itemprop="url" title="后端开发"><i class="ic i-flag"></i>后端开发</a>
-      </span>
-    </div>
-    <a href="/2022/11/61375.html" itemprop="url" title="详解设计模式系列-单例模式" class="btn">more...</a>
-  </div>
-</article>
-
     </div>
 
   </div>
@@ -567,7 +603,7 @@ public class LazySingleton &amp;#123; private static SingletonObject singletonOb
   
   <nav class="pagination">
     <div class="inner">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/"><i class="ic i-angle-right" aria-label="下一页"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/"><i class="ic i-angle-right" aria-label="下一页"></i></a>
     </div>
   </nav>
 
@@ -595,19 +631,19 @@ public class LazySingleton &amp;#123; private static SingletonObject singletonOb
 <nav class="state">
     <div class="item posts">
       <a href="/archives/">
-        <span class="count">20</span>
+        <span class="count">22</span>
         <span class="name">文章</span>
       </a>
     </div>
     <div class="item categories">
       <a href="/categories/">
-        <span class="count">3</span>
+        <span class="count">4</span>
         <span class="name">分类</span>
       </a>
     </div>
     <div class="item tags">
       <a href="/tags/">
-        <span class="count">18</span>
+        <span class="count">19</span>
         <span class="name">标签</span>
       </a>
     </div>
@@ -671,26 +707,17 @@ public class LazySingleton &amp;#123; private static SingletonObject singletonOb
 <a href="/categories/%E6%9D%82%E8%AE%B0/" title="分类于 杂记">杂记</a>
 </div>
 
-    <span><a href="/2021/05/36347.html" title="运行CMD提示[已退出进程，代码为 1]解决方案">运行CMD提示[已退出进程，代码为 1]解决方案</a></span>
+    <span><a href="/2021/03/8759.html" title="Hexo图片显示失败">Hexo图片显示失败</a></span>
   </li>
 
       
   <li class="item">
     
 <div class="breadcrumb">
-<a href="/categories/%E6%9D%82%E8%AE%B0/" title="分类于 杂记">杂记</a>
+<a href="/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/" title="分类于 网络安全">网络安全</a>
 </div>
 
-    <span><a href="/2020/10/58699.html" title="Pycharm+VMware搭建Linux下开发环境">Pycharm+VMware搭建Linux下开发环境</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-</div>
-
-    <span><a href="/2024/10/3391040452.html" title="Redis源码学习-Ziplist">Redis源码学习-Ziplist</a></span>
+    <span><a href="/2022/09/13394.html" title="CTFd+CTFd-Whale部署实践">CTFd+CTFd-Whale部署实践</a></span>
   </li>
 
       
@@ -707,9 +734,20 @@ public class LazySingleton &amp;#123; private static SingletonObject singletonOb
   <li class="item">
     
 <div class="breadcrumb">
+<a href="/categories/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/" title="分类于 后端开发">后端开发</a>
 </div>
 
-    <span><a href="/2024/10/813972997.html" title="Redis源码学习-intset">Redis源码学习-intset</a></span>
+    <span><a href="/2022/12/20899.html" title="一次由于服务器时间异常引起的服务报错问题排查">一次由于服务器时间异常引起的服务报错问题排查</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/" title="分类于 后端开发">后端开发</a>
+</div>
+
+    <span><a href="/2022/11/13493.html" title="SSM框架整合过程以及加载原理的思考">SSM框架整合过程以及加载原理的思考</a></span>
   </li>
 
       
@@ -727,15 +765,20 @@ public class LazySingleton &amp;#123; private static SingletonObject singletonOb
     
 <div class="breadcrumb">
 <a href="/categories/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/" title="分类于 后端开发">后端开发</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/Redis/" title="分类于 Redis">Redis</a>
 </div>
 
-    <span><a href="/2022/11/5457.html" title="HttpServletRequest的几种获取方式">HttpServletRequest的几种获取方式</a></span>
+    <span><a href="/2024/10/3391040452.html" title="Redis源码学习-Ziplist">Redis源码学习-Ziplist</a></span>
   </li>
 
       
   <li class="item">
     
 <div class="breadcrumb">
+<a href="/categories/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/" title="分类于 后端开发">后端开发</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/Redis/" title="分类于 Redis">Redis</a>
 </div>
 
     <span><a href="/2024/10/108095223.html" title="Redis源码学习-Dict">Redis源码学习-Dict</a></span>
@@ -748,17 +791,17 @@ public class LazySingleton &amp;#123; private static SingletonObject singletonOb
 <a href="/categories/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/" title="分类于 后端开发">后端开发</a>
 </div>
 
-    <span><a href="/2022/11/10656.html" title="Vue+SpringBoot+Cas 前后端分离方式对接CAS">Vue+SpringBoot+Cas 前后端分离方式对接CAS</a></span>
+    <span><a href="/2022/11/5457.html" title="HttpServletRequest的几种获取方式">HttpServletRequest的几种获取方式</a></span>
   </li>
 
       
   <li class="item">
     
 <div class="breadcrumb">
-<a href="/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/" title="分类于 网络安全">网络安全</a>
+<a href="/categories/%E6%9D%82%E8%AE%B0/" title="分类于 杂记">杂记</a>
 </div>
 
-    <span><a href="/2020/10/7981.html" title="ISCC一日游">ISCC一日游</a></span>
+    <span><a href="/2020/10/33250.html" title="Python校园网登录">Python校园网登录</a></span>
   </li>
 
   </ul>
@@ -783,13 +826,13 @@ public class LazySingleton &amp;#123; private static SingletonObject singletonOb
     <span class="post-meta-item-icon">
       <i class="ic i-chart-area"></i>
     </span>
-    <span title="站点总字数">108k 字</span>
+    <span title="站点总字数">111k 字</span>
 
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="ic i-coffee"></i>
     </span>
-    <span title="站点阅读时长">1:38</span>
+    <span title="站点阅读时长">1:41</span>
   </div>
   <div class="powered-by">
     基于 <span class="exturl" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> & Theme.<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2FtZWhpbWUvaGV4by10aGVtZS1zaG9rYQ==">Shoka</span>
